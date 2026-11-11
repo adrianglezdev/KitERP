@@ -46,6 +46,8 @@ export default defineModule({
       label: sql<string>`${pryFases.nombre}`,
       search: [pryFases.nombre],
       filterCols: { proyectoId: pryFases.proyectoId },
+      // las fases no llevan empresa: se limita a los proyectos de la empresa de la sesión
+      where: (ctx) => sql`EXISTS (SELECT 1 FROM pry_proyectos p WHERE p.id = ${pryFases.proyectoId} AND p.empresa_id = ${ctx.empresaId})`,
       order: pryFases.orden,
     },
     pry_partidas: {
@@ -54,6 +56,7 @@ export default defineModule({
       label: sql<string>`${pryPartidas.nombre}`,
       search: [pryPartidas.nombre],
       filterCols: { proyectoId: pryPartidas.proyectoId },
+      where: (ctx) => sql`EXISTS (SELECT 1 FROM pry_proyectos p WHERE p.id = ${pryPartidas.proyectoId} AND p.empresa_id = ${ctx.empresaId})`,
       order: pryPartidas.orden,
     },
   },
