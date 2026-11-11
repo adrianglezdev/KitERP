@@ -21,5 +21,5 @@ import cnt from './cnt';
 import gas from './gas';
 import bi from './bi';
 
-/** Todos los módulos con lógica de servidor. El orden no importa: los eventos se resuelven por suscripción. */
-export const moduleDefs: ModuleDef[] = [fic, hor, aus, nom, alt, por, crm, opo, pre, ped, fac, stk, cpr, pry, sat, act, dtc, tes, cnt, gas, bi];
+/** Todos los módulos con lógica de servidor. El orden solo afecta a la carga de datos de ejemplo (stock antes que ventas); los eventos se resuelven por suscripción. */
+export const moduleDefs: ModuleDef[] = [fic, hor, aus, nom, alt, por, stk, crm, opo, pre, ped, fac, cpr, pry, sat, act, dtc, tes, cnt, gas, bi];

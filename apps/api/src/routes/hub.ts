@@ -184,6 +184,15 @@ export async function hubRoutes(app: FastifyInstance) {
     return widgets;
   });
 
+  app.get('/aprobaciones-contador', async (req) => {
+    let n = 0;
+    for (const def of moduleDefs) {
+      if (!def.approvals || !req.ctx.modules.has(def.code)) continue;
+      n += (await safe(def.approvals(db, req.ctx), [])).length;
+    }
+    return { n };
+  });
+
   /* Bandeja de aprobaciones */
   app.get('/aprobaciones', async (req) => {
     const ctx = req.ctx;

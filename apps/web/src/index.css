@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Paleta KiteERP
+ *  violeta  #7D2CDD  acción principal, Comercial
+ *  morado   #5E2A78  marca, barra lateral, Plataforma
+ *  verde    #35AE29  éxito, Operaciones
+ *  marrón   #B28574  Finanzas, acentos cálidos
+ *  amarillo #F1DE07  Personas, avisos destacados
+ * Los neutros llevan un ligero tinte violeta para que todo pertenezca a la misma familia.
+ */
+:root {
+  --bg: 247 245 250;
+  --surface: 255 255 255;
+  --sunken: 241 237 246;
+  --line: 230 224 238;
+  --fg: 36 22 50;
+  --muted: 110 98 126;
+  --primary: 125 44 221;
+  --primary-fg: 255 255 255;
+  --primary-soft: 239 228 251;
+  --deep: 94 42 120;
+  --deep-fg: 255 255 255;
+  --ok: 38 140 30;
+  --ok-soft: 225 244 222;
+  --warn: 176 120 0;
+  --warn-soft: 253 246 204;
+  --bad: 205 45 70;
+  --bad-soft: 252 230 234;
+  --info: 52 102 214;
+  --info-soft: 228 237 252;
+  --sun: 241 222 7;
+  --sun-soft: 253 249 204;
+  --earth: 178 133 116;
+  --earth-soft: 243 234 230;
+  --leaf: 53 174 41;
+  --leaf-soft: 225 244 222;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: 20 14 27;
+  --surface: 30 22 40;
+  --sunken: 25 18 34;
+  --line: 52 41 66;
+  --fg: 238 232 246;
+  --muted: 164 151 182;
+  --primary: 160 101 240;
+  --primary-fg: 20 10 32;
+  --primary-soft: 52 33 80;
+  --deep: 54 28 72;
+  --deep-fg: 245 240 252;
+  --ok: 108 205 96;
+  --ok-soft: 30 52 30;
+  --warn: 236 200 70;
+  --warn-soft: 58 50 18;
+  --bad: 245 110 130;
+  --bad-soft: 66 26 36;
+  --info: 120 160 245;
+  --info-soft: 28 40 70;
+  --sun: 241 222 7;
+  --sun-soft: 58 54 14;
+  --earth: 205 165 150;
+  --earth-soft: 56 42 38;
+  --leaf: 108 205 96;
+  --leaf-soft: 30 52 30;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-size: 14px;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::selection {
+    background: rgb(var(--primary) / 0.22);
+  }
+}
+
+@layer components {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--line)) transparent;
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-line bg-surface px-3 py-2 text-[14px] text-fg placeholder:text-muted/70 transition
+      focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:bg-sunken disabled:text-muted;
+  }
+  .label {
+    @apply mb-1 block text-[12.5px] font-medium text-muted;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
