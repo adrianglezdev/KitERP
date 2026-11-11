@@ -1,59 +1,46 @@
 # Cómo continuar el desarrollo
 
-Notas tomadas al pausar el trabajo el **11/11/2026**. Léelas junto con [ARQUITECTURA.md](ARQUITECTURA.md) (convenciones) y [FUNCIONES.md](FUNCIONES.md) (qué debe hacer cada módulo).
+Notas actualizadas el **11/11/2026**. Léelas junto con [ARQUITECTURA.md](ARQUITECTURA.md) (convenciones) y [FUNCIONES.md](FUNCIONES.md) (qué debe hacer cada módulo).
 
 ## 1. Estado
 
-### Terminado y guardado en git (rama `main`, solo en local)
+Los **25 módulos** tienen servidor y pantallas, y todo está en la rama `main` de GitHub.
 
-- **Núcleo**: base de datos, sesiones y 2FA, permisos con alcance, módulos activables, adjuntos, comentarios, tareas, avisos, tablón, encuestas, canal de denuncias, firma electrónica, plantillas, importación, API y webhooks, búsqueda global, bandeja de aprobaciones, auditoría.
-- **Motor de documentos comerciales** (`apps/api/src/services/documentos.ts`): presupuesto → pedido → albarán → factura, rectificativas, compras, Verifactu, Facturae, PDF, enlace público para el cliente, facturas recurrentes.
-- **Web base**: diseño con la paleta, menú por pilares, móvil, componentes comunes y pantallas del núcleo y de Configuración.
-- **Comercial**: CRM, OPO, PRE, PED y FAC (servidor y web).
-- Pruebas: `apps/api/test/core.test.ts` (6, pasaban). `apps/api/test/comercial.test.ts` está escrito pero **no se ha llegado a ejecutar con éxito**: la carga de datos fallaba dentro de módulos a medias.
+- **Núcleo**: base de datos, sesiones y 2FA, permisos con alcance, módulos activables, adjuntos, comentarios, tareas, avisos, tablón, encuestas, canal de denuncias, firma electrónica, plantillas, importación, API y webhooks, búsqueda global, bandeja de aprobaciones y auditoría.
+- **Motor de documentos**: presupuesto → pedido → albarán → factura, rectificativas, compras, Verifactu, Facturae, PDF, enlace público y facturas recurrentes.
+- **Comercial**: CRM, oportunidades, presupuestos, pedidos y facturación.
+- **Operaciones**: stock, compras, proyectos y activos.
+- **Personas**: ficha laboral, control horario (con quiosco), ausencias, nóminas, altas, bajas, selección y evaluación, y portal del empleado.
+- **Servicio técnico**: SAT (con portal del cliente y QR de equipos) y documentación técnica con versiones aprobadas.
+- **Finanzas**: tesorería (SEPA, Norma 43, conciliación, previsión), contabilidad (PGC, libros, modelos), gastos y BI (panel de dirección e informes con envío programado).
+- **Base de datos**: migraciones `0000_nucleo.sql` y `0001_modulos.sql`, más los disparadores de `apps/api/src/db/sql/post`.
+- **Pruebas**: 32 en `apps/api/test` (núcleo, comercial, técnico y personas/finanzas). Todas pasan sobre una base creada con las migraciones.
+- **Revisado en el navegador**: todas las listas y fichas cargan con el administrador. Flujo de gasto completo en móvil como empleado y aprobación por su responsable. Límites entre departamentos (comercial no ve SAT ni contabilidad).
 
-Nada se ha subido todavía a GitHub (`https://github.com/adrianglezdev/KitERP.git`, repositorio vacío).
+## 2. Arrancar
 
-### A medias (sin guardar en git)
-
-Se construían en paralelo y se pararon antes de terminar. Mientras estén incompletos, **la API no arranca entera y `pnpm db:reset` falla**.
-
-| Grupo | Módulos | Servidor | Web |
-|---|---|---|---|
-| Personas | fic, hor, aus, nom, alt, por | Avanzado (esquemas, rutas, cálculo de horas, datos de ejemplo) | Solo la página de fichar (`hor/pages/Fichar.tsx`) |
-| Operaciones | stk, cpr, pry, act | stk y cpr avanzados; pry y act con rutas y servicio | stk casi completo; cpr, pry y act sin pantallas |
-| Servicio técnico | sat, dtc | sat avanzado (incluye portal público); dtc con rutas y servicio | sat: tickets, mis órdenes, detalle y parte; dtc sin pantallas |
-| Finanzas | tes, cnt, gas, bi | tes y cnt avanzados (SEPA, Norma 43, PGC, libros, modelos); gas y bi parciales | Sin pantallas |
-
-Hay además un `apps/api/test/tecnico.test.ts` a medias.
-
-## 2. Primeros pasos al retomar
-
-1. Arranca Docker Desktop (se para a veces solo) y la base de datos: `docker compose up -d db`.
-2. Comprueba qué falla al cargar los módulos:
+1. Docker Desktop y la base de datos: `docker compose up -d db`. Docker Desktop se para a veces solo: vuelve a abrirlo.
+2. `pnpm db:reset` (borra y carga datos de ejemplo) y `pnpm dev`. La web queda en http://localhost:5173. Las cuentas de demostración están en el README.
+3. Pruebas en una base aparte:
    ```bash
    cd apps/api
-   npx tsx -e "import('./src/modules/registry').then(()=>console.log('ok'))"
-   npx tsc -p . --noEmit
-   cd ../web && npx tsc -p . --noEmit
+   DATABASE_URL=postgres://kite:kite_dev_password@localhost:5433/kite_prueba npx tsx src/db/reset.ts
+   DATABASE_URL=postgres://kite:kite_dev_password@localhost:5433/kite_prueba npx vitest run
    ```
-3. Termina los módulos uno a uno, por este orden (cada uno desbloquea al siguiente): **stk → cpr → fic/hor/aus → sat → tes → cnt → gas → nom → pry → act → dtc → alt → por → bi**. Para probar un módulo aislado se puede crear una base de datos propia:
-   ```bash
-   DATABASE_URL=postgres://kite:kite_dev_password@localhost:5433/kite_prueba npx tsx src/db/push-reset.ts
-   DATABASE_URL=postgres://kite:kite_dev_password@localhost:5433/kite_prueba npx vitest run test/<archivo>.test.ts
-   ```
-4. Cuando todo cargue: `pnpm db:generate` (crea la migración `apps/api/drizzle/0001_*.sql` con todas las tablas de los módulos), `pnpm db:reset`, `pnpm test`.
-5. Revisa en el navegador (`pnpm dev`, web en http://localhost:5173) con varias cuentas de demostración (ver README), en escritorio y en móvil.
-6. `git add -A`, commit y `git push -u origin main`.
+4. Si cambias tablas, `pnpm db:generate` crea la siguiente migración. No edites las ya publicadas.
 
-## 3. Problemas conocidos
+## 3. Pendiente y mejoras posibles
 
-- **Tablero de oportunidades** (`GET /api/opo/tablero`): en una prueba no devolvió datos. No se pudo investigar porque la API no arrancaba. Revisar primero.
-- La carga de datos de ejemplo de un módulo a medias falló con `ReferenceError: cColegio is not defined`. Buscar `cColegio` en `apps/api/src/modules`.
-- Las aprobaciones de la bandeja envían `{ motivo }` al rechazar: los endpoints de rechazo de cada módulo deben aceptarlo.
+Nada bloquea el uso, pero queda por hacer o por comprobar en real:
+
+- **Probado solo en local**: el fichero SEPA con un banco real, el envío de Verifactu a la AEAT en producción (falta el certificado), los correos (configura SMTP en `.env`) y las copias de seguridad programadas en el servidor.
+- **Proyectos**: desde la web se ve y se devuelve el material consumido, pero falta el formulario para **añadir** material a un proyecto. La API `POST /api/pry/proyectos/:id/material` ya existe.
+- **Gastos**: la lectura automática del ticket funciona con PDF. Las fotos se rellenan a mano; habría que añadir OCR.
+- **Pruebas en navegador**: se han revisado a mano. Convendría automatizarlas (Playwright) para los flujos principales y los roles.
+- **Accesibilidad**: las etiquetas de los formularios ya se enlazan solas con su campo. Falta una revisión completa con lector de pantalla.
 - El código del módulo de contabilidad es **`cnt`**, no `con`: Windows no admite carpetas llamadas `con`, `aux` o `nul`.
 
-## 4. Qué debe hacer cada módulo pendiente
+## 4. Qué hace cada módulo (referencia)
 
 Requisitos resumidos (lo completo está en FUNCIONES.md). Reglas comunes:
 
