@@ -1,0 +1,22 @@
+{
+  "name": "kite-erp",
+  "private": true,
+  "version": "0.1.0",
+  "description": "KiteERP · ERP modular para empresas medianas",
+  "packageManager": "pnpm@11.3.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @kite/api --filter @kite/web dev",
+    "dev:api": "pnpm --filter @kite/api dev",
+    "dev:web": "pnpm --filter @kite/web dev",
+    "build": "pnpm --filter @kite/web build && pnpm --filter @kite/api build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @kite/api test",
+    "db:up": "docker compose up -d db",
+    "db:generate": "pnpm --filter @kite/api db:generate",
+    "db:migrate": "pnpm --filter @kite/api db:migrate",
+    "db:seed": "pnpm --filter @kite/api db:seed",
+    "db:reset": "pnpm --filter @kite/api db:reset",
+    "backup": "bash scripts/backup.sh"
+  }
+}

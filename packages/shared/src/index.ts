@@ -1,0 +1,36 @@
+export * from './modules';
+export * from './permissions';
+export * from './resource';
+export * from './validators';
+export * from './calc';
+export * from './events';
+export * from './api-types';
+export * from './core/enums';
+export * from './core/resources';
+export * from './format';
+
+// Recursos de cada módulo (espacios de nombres para evitar colisiones)
+export * as ficShared from './modules/fic';
+export * as horShared from './modules/hor';
+export * as ausShared from './modules/aus';
+export * as nomShared from './modules/nom';
+export * as altShared from './modules/alt';
+export * as porShared from './modules/por';
+export * as crmShared from './modules/crm';
+export * as opoShared from './modules/opo';
+export * as preShared from './modules/pre';
+export * as pedShared from './modules/ped';
+export * as facShared from './modules/fac';
+export * as stkShared from './modules/stk';
+export * as cprShared from './modules/cpr';
+export * as pryShared from './modules/pry';
+export * as satShared from './modules/sat';
+export * as actShared from './modules/act';
+export * as dtcShared from './modules/dtc';
+export * as tesShared from './modules/tes';
+export * as cntShared from './modules/cnt';
+export * as gasShared from './modules/gas';
+export * as biShared from './modules/bi';
+export * as msgShared from './modules/msg';
+export * as docShared from './modules/doc';
+export * as apiShared from './modules/api';
