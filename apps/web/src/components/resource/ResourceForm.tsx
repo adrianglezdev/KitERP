@@ -26,10 +26,14 @@ export interface ResourceFormProps {
   /** Contenido que depende de los valores (avisos de duplicados, cálculos…). */
   renderExtra?: (values: Record<string, any>) => ReactNode;
   submitLabel?: string;
+  /** Guardado propio (rutas que no siguen el patrón POST/PATCH del recurso). */
+  onSubmitData?: (data: Record<string, unknown>) => Promise<any>;
+  /** Mostrar y enviar solo estos campos. */
+  only?: string[];
 }
 
 /** Formulario generado a partir de la definición del recurso (secciones, validación y referencias). */
-export function ResourceForm({ def, endpoint, record, initial, hide = [], onSaved, onCancel, extra, renderExtra, submitLabel }: ResourceFormProps) {
+export function ResourceForm({ def, endpoint, record, initial, hide = [], onSaved, onCancel, extra, renderExtra, submitLabel, onSubmitData, only }: ResourceFormProps) {
   const qc = useQueryClient();
   const { can } = useSession();
   const editing = !!record?.id;
@@ -53,6 +57,7 @@ export function ResourceForm({ def, endpoint, record, initial, hide = [], onSave
   const visible = (k: string) => {
     const f = def.fields[k];
     if (!f || f.hidden || f.readOnly || hide.includes(k)) return false;
+    if (only && !only.includes(k)) return false;
     if (f.sensitive && !can(f.sensitive)) return false;
     return true;
   };
@@ -74,7 +79,7 @@ export function ResourceForm({ def, endpoint, record, initial, hide = [], onSave
     }
     setSaving(true);
     try {
-      const row = editing ? await api.patch(`${endpoint}/${record!.id}`, r.data) : await api.post(endpoint, r.data);
+      const row = onSubmitData ? await onSubmitData(r.data) : editing ? await api.patch(`${endpoint}/${record!.id}`, r.data) : await api.post(endpoint, r.data);
       toast.success(editing ? 'Cambios guardados' : `${def.label} creado`);
       invalidatePrefix(qc, endpoint);
       onSaved?.(row);
