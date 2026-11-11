@@ -135,7 +135,8 @@ export function verifyFileSignature(archivoId: string, exp: string, sig: string)
 
 /* ── Construcción del contexto de la petición ── */
 
-async function buildCtx(opts: {
+/** También lo usan las tareas programadas que actúan en nombre de un usuario (con sus permisos, nunca más). */
+export async function buildCtx(opts: {
   usuarioId: string;
   empresaId: string;
   ip: string | null;
