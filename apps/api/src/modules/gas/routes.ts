@@ -122,6 +122,17 @@ export async function gasRoutes(app: FastifyInstance) {
     };
   });
 
+  /** Contador del menú: gastos de mi equipo esperando mi aprobación. */
+  app.get('/gastos/contador-aprobar', async (req) => {
+    const ctx = req.ctx;
+    const s = ctx.perms.get('gas.aprobar');
+    if (!s) return { n: 0 };
+    const conds: (SQL | undefined)[] = [eq(gasGastos.empresaId, ctx.empresaId), eq(gasGastos.estado, 'enviado'), await scopeCondition(ctx, s, gasGastos.personaId)];
+    if (!ctx.isAdmin && ctx.personaId) conds.push(ne(gasGastos.personaId, ctx.personaId));
+    const [r] = await db.select({ n: sql<number>`count(*)::int` }).from(gasGastos).where(and(...conds));
+    return { n: r?.n ?? 0 };
+  });
+
   app.get('/gastos/:id', async (req) => {
     const ctx = req.ctx;
     const g = await db.transaction((tx) => cargarGasto(tx, ctx, (req.params as { id: string }).id));
