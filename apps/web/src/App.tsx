@@ -38,13 +38,28 @@ function Guard({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-/** Comprueba que el módulo esté activo antes de mostrar sus pantallas. */
+/**
+ * Comprueba que el módulo esté activo y que la persona tenga el permiso de la entrada de menú que
+ * corresponde a la dirección (la más específica). El servidor vuelve a comprobarlo en cada petición:
+ * esto solo evita enseñar pantallas vacías a quien llega escribiendo la dirección a mano.
+ */
 function ModuleGate({ code, children }: { code: string; children: ReactNode }) {
-  const { has } = useSession();
+  const { has, can } = useSession();
+  const loc = useLocation();
   if (!has(code))
     return (
       <EmptyState icon={ShieldOff} title="Este módulo no está activo">
         Un administrador puede activarlo en Configuración → Módulos.
+      </EmptyState>
+    );
+  const mod = moduleWebs.find((m) => m.code === code);
+  const item = (mod?.nav ?? [])
+    .filter((n) => loc.pathname === n.to || loc.pathname.startsWith(n.to + '/'))
+    .sort((a, b) => b.to.length - a.to.length)[0];
+  if (item?.perm && !can(item.perm))
+    return (
+      <EmptyState icon={ShieldOff} title="No tienes acceso a esta pantalla">
+        Si crees que deberías verla, pide a un administrador que revise tu rol.
       </EmptyState>
     );
   return <>{children}</>;

@@ -1,12 +1,24 @@
-import { forwardRef, useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
+import { forwardRef, useId, useLayoutEffect, useRef, useState, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
 import { Search, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function Field({ label, error, help, children, className, htmlFor, required }: { label?: ReactNode; error?: string; help?: ReactNode; children: ReactNode; className?: string; htmlFor?: string; required?: boolean }) {
+  // si no se indica a qué control pertenece la etiqueta, se enlaza con el primero que haya dentro
+  // (así la etiqueta se lee en los lectores de pantalla y al pulsarla se enfoca el campo)
+  const auto = useId();
+  const box = useRef<HTMLDivElement>(null);
+  const [forId, setForId] = useState(htmlFor);
+  useLayoutEffect(() => {
+    if (htmlFor || !label) return;
+    const el = box.current?.querySelector<HTMLElement>('input:not([type=hidden]), select, textarea');
+    if (!el) return;
+    if (!el.id) el.id = auto;
+    setForId(el.id);
+  });
   return (
-    <div className={cn('min-w-0', className)}>
+    <div ref={box} className={cn('min-w-0', className)}>
       {label && (
-        <label className="label" htmlFor={htmlFor}>
+        <label className="label" htmlFor={forId}>
           {label}
           {required && <span className="text-bad"> *</span>}
         </label>

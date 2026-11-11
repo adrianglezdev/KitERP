@@ -28,6 +28,7 @@ import { Avatar, Kbd, Menu, Sheet } from '@/components/ui';
 import { moduleWebs } from '@/modules/registry';
 import { buildNav, quickActions, type NavGroup } from './nav';
 import { Logo } from './Logo';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 function useTheme() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'));
@@ -314,7 +315,9 @@ export function AppShell() {
 
         <main id="main" className="scroll-thin min-h-0 flex-1 overflow-y-auto">
           <div className="mx-auto w-full max-w-[1400px] px-4 pb-24 pt-5 md:px-6 md:pb-10 lg:px-8">
-            <Outlet />
+            <ErrorBoundary resetKey={loc.pathname}>
+              <Outlet />
+            </ErrorBoundary>
           </div>
         </main>
 

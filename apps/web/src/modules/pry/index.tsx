@@ -7,7 +7,7 @@ const ProyectosTercero = lazyComponent<{ id: string; record: any }>(() => import
 export default defineModule({
   code: 'pry',
   nav: [
-    { label: 'Proyectos', to: '/proyectos', icon: KanbanSquare, perm: 'pry.ver', end: true },
+    { label: 'Proyectos', to: '/proyectos', icon: KanbanSquare, perm: ['pry.ver', 'pry.imputar'], end: true },
     { label: 'Mis horas', to: '/mis-horas', icon: Clock, perm: 'pry.imputar' },
     { label: 'Coste por hora', to: '/proyectos/costes', icon: Euro, perm: 'pry.editar' },
   ],

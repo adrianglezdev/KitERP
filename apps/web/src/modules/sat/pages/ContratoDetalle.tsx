@@ -83,7 +83,7 @@ export default function ContratoDetalle() {
                 { label: 'Vigencia', value: `${fmtDate(c.inicio)}${c.fin ? ` – ${fmtDate(c.fin)}` : ' · sin fin'}` },
                 { label: 'Visitas', value: c.periodicidadMeses ? `Cada ${c.periodicidadMeses} meses` : optionLabel(PERIODICIDADES, c.periodicidad)?.label },
                 { label: 'Próxima visita', value: c.proximaVisita ? fmtDate(c.proximaVisita) : null },
-                { label: 'Técnico habitual', value: c.tecnico },
+                { label: 'Técnico habitual', value: c.tecnico?.nombre ?? null },
                 { label: 'Tiempo de respuesta', value: c.slaRespuestaHoras ? `${c.slaRespuestaHoras} h` : null },
                 { label: 'Cuota', value: c.cuota ? `${fmtMoney(c.cuota)} ${optionLabel(PERIODICIDADES, c.cuotaPeriodicidad)?.label?.toLowerCase() ?? ''}` : 'Sin cuota' },
               ]}
