@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Download, Plus, SlidersHorizontal } from 'lucide-react';
 import { type Paginated, type ResourceDef } from '@kite/shared';
 import { download, qs } from '@/lib/api';
@@ -29,13 +29,15 @@ export interface ResourceListProps {
   embedded?: boolean;
   pageSize?: number;
   emptyText?: string;
+  /** Avisos dentro del formulario según lo que se va escribiendo. */
+  formExtra?: (values: Record<string, any>, record: any | null) => ReactNode;
 }
 
 /**
  * Listado genérico: búsqueda, filtros, orden, paginación en servidor, exportación a Excel y alta/edición.
  * En móvil la tabla se convierte en lista de tarjetas.
  */
-export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, fixed, columns, initial, hideInForm, title, toolbar, embedded, pageSize = 25, emptyText }: ResourceListProps) {
+export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, fixed, columns, initial, hideInForm, title, toolbar, embedded, pageSize = 25, emptyText, formExtra }: ResourceListProps) {
   const nav = useNavigate();
   const { can } = useSession();
   const [q, setQ] = useState('');
@@ -45,7 +47,16 @@ export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, 
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [showFilters, setShowFilters] = useState(false);
   const [editing, setEditing] = useState<any | null>(null);
-  const [creating, setCreating] = useState(false);
+  const [sp, setSp] = useSearchParams();
+  const [creating, setCreatingRaw] = useState(() => sp.get('nuevo') === '1' && !embedded);
+  const setCreating = (v: boolean) => {
+    setCreatingRaw(v);
+    if (!v && sp.get('nuevo')) {
+      const n = new URLSearchParams(sp);
+      n.delete('nuevo');
+      setSp(n, { replace: true });
+    }
+  };
 
   const params = useMemo(() => {
     const p: Record<string, unknown> = { page, pageSize, q: dq, sort: sort?.field, dir: sort?.dir };
@@ -158,8 +169,8 @@ export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, 
           </Button>
         </div>
       </Sheet>
-      <ResourceFormDialog open={creating} onOpenChange={setCreating} def={def} endpoint={endpoint} initial={{ ...initial, ...fixed }} hide={[...(hideInForm ?? []), ...Object.keys(fixed ?? {})]} onSaved={(r) => detailPath && nav(`${detailPath}/${r.id}`)} />
-      <ResourceFormDialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)} def={def} endpoint={endpoint} record={editing ? { ...editing, _refs: data?.refs } : null} hide={[...(hideInForm ?? []), ...Object.keys(fixed ?? {})]} />
+      <ResourceFormDialog open={creating} onOpenChange={setCreating} def={def} endpoint={endpoint} initial={{ ...initial, ...fixed }} hide={[...(hideInForm ?? []), ...Object.keys(fixed ?? {})]} onSaved={(r) => detailPath && nav(`${detailPath}/${r.id}`)} renderExtra={formExtra ? (v) => formExtra(v, null) : undefined} />
+      <ResourceFormDialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)} def={def} endpoint={endpoint} record={editing ? { ...editing, _refs: data?.refs } : null} hide={[...(hideInForm ?? []), ...Object.keys(fixed ?? {})]} renderExtra={formExtra ? (v) => formExtra(v, editing) : undefined} />
     </>
   );
 }

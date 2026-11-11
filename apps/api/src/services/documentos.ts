@@ -210,6 +210,9 @@ export async function crearDocumento(tx: Tx, ctx: Ctx, input: DocumentoInput, op
   const t = await datosTercero(tx, ctx.empresaId, input.terceroId);
   const circuito = circuitoDe(input.tipo);
   if (circuito === 'compra' && !t.esProveedor) throw badRequest(`${t.nombre} no está marcado como proveedor`);
+  // En ventas, el cliente tiene que estar dentro de la cartera visible del usuario
+  if (!opts.sinPermisos && circuito === 'venta' && !(await canOnOwner(ctx, 'terceros.ver', t.comercialId)) && !can(ctx, 'terceros.ver', 'todo'))
+    throw forbidden('Ese cliente no está en tu cartera');
   // el responsable por defecto: el comercial del cliente, o quien lo crea
   let comercialId = input.comercialId ?? (circuito === 'venta' ? t.comercialId : null) ?? ctx.personaId;
   if (!opts.sinPermisos && ctx.perms.get(perm) === 'propio') comercialId = ctx.personaId;

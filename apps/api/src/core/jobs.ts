@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { db } from '../db/client';
 import { empresas, tareasProgramadas } from '../db/schema';
 import { systemCtx } from './context';
@@ -52,7 +52,11 @@ export function startJobs(defs: ModuleDef[], log: (msg: string) => void) {
           if (!(await claim(`${j.id}:${emp.id}`, clave))) continue;
           try {
             const res = await j.run(emp.id, systemCtx(emp.id, mods));
-            if (res) await db.update(tareasProgramadas).set({ resultado: String(res).slice(0, 500) }).where(eq(tareasProgramadas.clave, clave));
+            if (res)
+              await db
+                .update(tareasProgramadas)
+                .set({ resultado: String(res).slice(0, 500) })
+                .where(and(eq(tareasProgramadas.tarea, `${j.id}:${emp.id}`), eq(tareasProgramadas.clave, clave)));
           } catch (e: any) {
             log(`Tarea ${j.id} falló: ${e?.message ?? e}`);
           }

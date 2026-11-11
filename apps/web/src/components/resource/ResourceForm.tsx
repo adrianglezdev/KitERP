@@ -23,17 +23,21 @@ export interface ResourceFormProps {
   onCancel?: () => void;
   /** Contenido extra al final del formulario. */
   extra?: ReactNode;
+  /** Contenido que depende de los valores (avisos de duplicados, cálculos…). */
+  renderExtra?: (values: Record<string, any>) => ReactNode;
   submitLabel?: string;
 }
 
 /** Formulario generado a partir de la definición del recurso (secciones, validación y referencias). */
-export function ResourceForm({ def, endpoint, record, initial, hide = [], onSaved, onCancel, extra, submitLabel }: ResourceFormProps) {
+export function ResourceForm({ def, endpoint, record, initial, hide = [], onSaved, onCancel, extra, renderExtra, submitLabel }: ResourceFormProps) {
   const qc = useQueryClient();
   const { can } = useSession();
   const editing = !!record?.id;
   const start = useMemo(() => {
     const base = { ...defaultsOf(def), ...(initial ?? {}) };
     if (record) for (const k of Object.keys(def.fields)) if (record[k] !== undefined) base[k] = record[k];
+    // los selectores trabajan con texto (p. ej. el tipo de IVA 21 → "21")
+    for (const [k, f] of Object.entries(def.fields)) if (f.type === 'enum' && base[k] !== null && base[k] !== undefined && base[k] !== '') base[k] = String(base[k]);
     return base;
   }, [def, record, initial]);
   const [values, setValues] = useState<Record<string, any>>(start);
@@ -105,6 +109,7 @@ export function ResourceForm({ def, endpoint, record, initial, hide = [], onSave
         );
       })}
       {extra}
+      {renderExtra?.(values)}
       <div className="flex justify-end gap-2">
         {onCancel && (
           <Button variant="ghost" onClick={onCancel}>

@@ -17,7 +17,7 @@ export function lazyComponent<P extends object>(loader: () => Promise<{ default:
   return function LazyWrapped(props: P) {
     return (
       <Suspense fallback={<Spinner />}>
-        <C {...props} />
+        <C {...(props as any)} />
       </Suspense>
     );
   };

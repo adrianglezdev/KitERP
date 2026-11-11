@@ -11,7 +11,8 @@ export const sqlClient = postgres(config.databaseUrl, {
   prepare: true,
   onnotice: () => {},
   types: {
-    date: { to: 1082, from: [1082], serialize: (x: string) => x, parse: (x: string) => x },
+    // clave propia: no sustituye al tipo "date" de postgres.js, que serializa los Date de fecha y hora
+    fechaSinHora: { to: 1082, from: [1082], serialize: (x: string) => x, parse: (x: string) => x },
   },
 });
 

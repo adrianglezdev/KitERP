@@ -68,5 +68,5 @@ export function useSession() {
 }
 
 export function isPublicPath(p: string) {
-  return /^\/(p|firmar|canal|kiosco|portal-cliente)\//.test(p);
+  return /^\/(p|firmar|canal|publico)\//.test(p);
 }
