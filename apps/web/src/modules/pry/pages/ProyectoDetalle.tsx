@@ -10,6 +10,8 @@ import { Alert, Badge, Button, Card, CardHeader, DataTable, EnumBadge, IconButto
 import { ResourceFormDialog } from '@/components/resource';
 import { EntityTabsView } from '@/components/entity/EntityPage';
 import type { ResourceDef } from '@kite/shared';
+import { useSession } from '@/lib/session';
+import { MaterialDialog } from './MaterialDialog';
 
 const { PROYECTO_ESTADOS, TAREA_ESTADOS, PARTIDA_TIPOS, HITO_ESTADOS, FACTURACION_TIPOS, proyectoResource, tareaResource, faseResource, partidaResource, hitoResource } = pryShared;
 
@@ -243,9 +245,25 @@ function Material({ p }: { p: any }) {
   const { data, isLoading } = useApi<any[]>(`/pry/proyectos/${p.id}/material`);
   const devolver = useMut((cid: string) => api.post(`/pry/material/${cid}/devolver`, {}), { ok: 'Material devuelto al almacén', invalidate: ['/pry', '/stk'] });
   const total = (data ?? []).reduce((s, c) => s + c.importe, 0);
+  const { can } = useSession();
+  const [nuevo, setNuevo] = useState(false);
+  const abierto = !['terminado', 'cancelado'].includes(p.estado);
   return (
     <Card className="overflow-hidden">
-      <CardHeader title={`Material consumido · ${fmtMoney(total)}`} icon={Package} subtitle="Se descuenta del almacén o la furgoneta y suma al coste del proyecto." />
+      <CardHeader
+        title={`Material consumido · ${fmtMoney(total)}`}
+        icon={Package}
+        subtitle="Se descuenta del almacén o la furgoneta y suma al coste del proyecto."
+        actions={
+          can('pry.imputar') &&
+          abierto && (
+            <Button size="sm" icon={Plus} onClick={() => setNuevo(true)}>
+              Añadir material
+            </Button>
+          )
+        }
+      />
+      {nuevo && <MaterialDialog proyecto={p} onClose={() => setNuevo(false)} />}
       <DataTable
         dense
         loading={isLoading}
@@ -253,7 +271,7 @@ function Material({ p }: { p: any }) {
         empty="No se ha consumido material."
         columns={[
           { key: 'fecha', header: 'Fecha', cell: (c: any) => fmtDate(c.fecha), width: '100px' },
-          { key: 'art', header: 'Material', cell: (c: any) => <span className="line-clamp-1">{c.referencia ? `${c.referencia} · ` : ''}{c.descripcion}</span> },
+          { key: 'art', header: 'Material', cell: (c: any) => <span className="line-clamp-1">{c.referencia && !c.descripcion?.startsWith(c.referencia) ? `${c.referencia} · ` : ''}{c.descripcion}</span> },
           { key: 'alm', header: 'Desde', cell: (c: any) => c.almacen ?? '—', hideBelow: 'lg' },
           { key: 'cant', header: 'Cantidad', align: 'right', cell: (c: any) => Number(c.cantidad).toLocaleString('es-ES') },
           { key: 'imp', header: 'Coste', align: 'right', cell: (c: any) => fmtMoney(c.importe) },

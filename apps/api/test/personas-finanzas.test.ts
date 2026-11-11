@@ -127,6 +127,46 @@ describe('CNT · contabilidad', () => {
   });
 });
 
+describe('PRY · material del proyecto', () => {
+  it('el material del catálogo se descuenta del almacén y vuelve al devolverlo; el libre solo suma coste', async () => {
+    const pr = await admin.get('/api/pry/proyectos?estado=en_curso&pageSize=1');
+    const proyecto = pr.body.items[0];
+    expect(proyecto).toBeTruthy();
+    const alm = (await admin.get('/api/refs/almacenes?q=')).body[0].id as string;
+    const art = (await admin.get('/api/refs/articulos?q=')).body[0].id as string;
+    const disp = async () => (await admin.get(`/api/stk/disponible?articuloIds=${art}&almacenId=${alm}`)).body[art]?.disponible ?? 0;
+    const antes = await disp();
+
+    const r = await admin.post(`/api/pry/proyectos/${proyecto.id}/material`, {
+      fecha: hoy(),
+      almacenId: alm,
+      lineas: [
+        { articuloId: art, cantidad: 2 },
+        { descripcion: 'Tornillería de ferretería', cantidad: 1, costeUnitario: 7.5 },
+      ],
+    });
+    expect(r.status).toBe(201);
+    expect(r.body.consumos).toHaveLength(2);
+    expect(await disp()).toBeCloseTo(antes - 2, 3);
+
+    const lista = await admin.get(`/api/pry/proyectos/${proyecto.id}/material`);
+    const libre = lista.body.find((c: any) => c.descripcion === 'Tornillería de ferretería');
+    expect(libre.importe).toBeCloseTo(7.5, 2);
+
+    const linea = r.body.consumos.find((c: any) => c.articuloId === art);
+    expect((await admin.post(`/api/pry/material/${linea.id}/devolver`)).status).toBe(200);
+    expect(await disp()).toBeCloseTo(antes, 3);
+    // no se puede devolver dos veces
+    expect((await admin.post(`/api/pry/material/${linea.id}/devolver`)).status).toBe(409);
+  });
+
+  it('una línea sin artículo ni descripción se rechaza', async () => {
+    const pr = await admin.get('/api/pry/proyectos?estado=en_curso&pageSize=1');
+    const r = await admin.post(`/api/pry/proyectos/${pr.body.items[0].id}/material`, { lineas: [{ cantidad: 1 }] });
+    expect(r.status).toBe(400);
+  });
+});
+
 async function cookieDe(email: string) {
   const a = await getApp();
   const r = await a.inject({ method: 'POST', url: '/api/auth/login', payload: { email, password: PASSWORD } });

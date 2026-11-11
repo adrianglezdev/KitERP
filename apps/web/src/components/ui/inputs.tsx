@@ -6,19 +6,25 @@ export function Field({ label, error, help, children, className, htmlFor, requir
   // si no se indica a qué control pertenece la etiqueta, se enlaza con el primero que haya dentro
   // (así la etiqueta se lee en los lectores de pantalla y al pulsarla se enfoca el campo)
   const auto = useId();
+  const labelId = `${auto}-label`;
   const box = useRef<HTMLDivElement>(null);
   const [forId, setForId] = useState(htmlFor);
   useLayoutEffect(() => {
     if (htmlFor || !label) return;
-    const el = box.current?.querySelector<HTMLElement>('input:not([type=hidden]), select, textarea');
+    const el = box.current?.querySelector<HTMLElement>('input:not([type=hidden]), select, textarea, button[aria-haspopup]');
     if (!el) return;
     if (!el.id) el.id = auto;
+    if (el.tagName === 'BUTTON') {
+      // selector desplegable: se lee la etiqueta y el valor elegido ("Artículo, AC-SPLIT-35…")
+      if (!el.getAttribute('aria-labelledby')) el.setAttribute('aria-labelledby', `${labelId} ${el.id}`);
+      return;
+    }
     setForId(el.id);
   });
   return (
     <div ref={box} className={cn('min-w-0', className)}>
       {label && (
-        <label className="label" htmlFor={forId}>
+        <label className="label" id={labelId} htmlFor={forId}>
           {label}
           {required && <span className="text-bad"> *</span>}
         </label>

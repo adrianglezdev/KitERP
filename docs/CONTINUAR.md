@@ -14,7 +14,7 @@ Los **25 módulos** tienen servidor y pantallas, y todo está en la rama `main` 
 - **Servicio técnico**: SAT (con portal del cliente y QR de equipos) y documentación técnica con versiones aprobadas.
 - **Finanzas**: tesorería (SEPA, Norma 43, conciliación, previsión), contabilidad (PGC, libros, modelos), gastos y BI (panel de dirección e informes con envío programado).
 - **Base de datos**: migraciones `0000_nucleo.sql` y `0001_modulos.sql`, más los disparadores de `apps/api/src/db/sql/post`.
-- **Pruebas**: 32 en `apps/api/test` (núcleo, comercial, técnico y personas/finanzas). Todas pasan sobre una base creada con las migraciones.
+- **Pruebas**: 34 en `apps/api/test` (núcleo, comercial, técnico y personas/finanzas). Todas pasan sobre una base creada con las migraciones.
 - **Revisado en el navegador**: todas las listas y fichas cargan con el administrador. Flujo de gasto completo en móvil como empleado y aprobación por su responsable. Límites entre departamentos (comercial no ve SAT ni contabilidad).
 
 ## 2. Arrancar
@@ -34,7 +34,6 @@ Los **25 módulos** tienen servidor y pantallas, y todo está en la rama `main` 
 Nada bloquea el uso, pero queda por hacer o por comprobar en real:
 
 - **Probado solo en local**: el fichero SEPA con un banco real, el envío de Verifactu a la AEAT en producción (falta el certificado), los correos (configura SMTP en `.env`) y las copias de seguridad programadas en el servidor.
-- **Proyectos**: desde la web se ve y se devuelve el material consumido, pero falta el formulario para **añadir** material a un proyecto. La API `POST /api/pry/proyectos/:id/material` ya existe.
 - **Gastos**: la lectura automática del ticket funciona con PDF. Las fotos se rellenan a mano; habría que añadir OCR.
 - **Pruebas en navegador**: se han revisado a mano. Convendría automatizarlas (Playwright) para los flujos principales y los roles.
 - **Accesibilidad**: las etiquetas de los formularios ya se enlazan solas con su campo. Falta una revisión completa con lector de pantalla.
