@@ -18,7 +18,7 @@ La arquitectura y las convenciones están en [docs/ARQUITECTURA.md](docs/ARQUITE
 
 ```bash
 cp .env.example .env          # revisa SESSION_SECRET
-docker compose up -d db       # PostgreSQL 17 en el puerto 5433
+docker compose up -d db       # PostgreSQL 17 en el puerto DB_PORT de .env (5433 por defecto)
 pnpm install
 pnpm db:reset                 # crea las tablas y carga datos de ejemplo
 pnpm dev                      # API en http://localhost:4000 · web en http://localhost:5173

@@ -74,7 +74,7 @@ Al emitir una factura se asigna número correlativo, se copia la ficha fiscal de
 ## Desarrollo
 
 ```
-docker compose up -d db          # PostgreSQL en el puerto 5433
+docker compose up -d db          # PostgreSQL en el puerto DB_PORT de .env (5433 por defecto)
 pnpm install
 pnpm db:reset                    # migraciones + datos de ejemplo
 pnpm dev                         # API en :4000 y web en :5173

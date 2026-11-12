@@ -24,10 +24,11 @@ Los **25 módulos** tienen servidor y pantallas, y todo está en la rama `main` 
 3. Pruebas en una base aparte:
    ```bash
    cd apps/api
-   DATABASE_URL=postgres://kite:kite_dev_password@localhost:5433/kite_prueba npx tsx src/db/reset.ts
-   DATABASE_URL=postgres://kite:kite_dev_password@localhost:5433/kite_prueba npx vitest run
+   DATABASE_URL=postgres://kite:kite_dev_password@localhost:<DB_PORT>/kite_prueba npx tsx src/db/reset.ts
+   DATABASE_URL=postgres://kite:kite_dev_password@localhost:<DB_PORT>/kite_prueba npx vitest run
    ```
 4. Si cambias tablas, `pnpm db:generate` crea la siguiente migración. No edites las ya publicadas.
+5. Si el inicio de sesión da **Error 500** y la API dice `password authentication failed for user "kite"`, otro PostgreSQL ocupa el puerto de `DB_PORT`. Cambia el puerto en `.env` (en `DB_PORT` y en `DATABASE_URL`) y vuelve a ejecutar `docker compose up -d db`. Los datos se conservan. En el ordenador de desarrollo se usa el 5434, porque el 5433 lo ocupa otro proyecto.
 
 ## 3. Pendiente y mejoras posibles
 
