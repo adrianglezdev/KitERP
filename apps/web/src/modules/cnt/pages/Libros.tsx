@@ -179,11 +179,11 @@ function Balance({ anio }: { anio: string }) {
           {!data.cuadra && <Alert tone="red">El balance no cuadra: revisa {data.sinClasificar?.length ? `las cuentas sin clasificar (${data.sinClasificar.map((c: any) => c.cuenta ?? c).join(', ')})` : 'los asientos'}.</Alert>}
           <div className="grid gap-5 lg:grid-cols-2">
             <Card className="overflow-hidden">
-              <p className="border-b border-line px-4 py-2.5 font-display font-bold">Activo · {fmtMoney(data.totalActivo)}</p>
+              <p className="px-5 pb-2 pt-4 font-display font-bold">Activo · {fmtMoney(data.totalActivo)}</p>
               <Estado lineas={data.activo} />
             </Card>
             <Card className="overflow-hidden">
-              <p className="border-b border-line px-4 py-2.5 font-display font-bold">Patrimonio neto y pasivo · {fmtMoney(data.totalPasivo)}</p>
+              <p className="px-5 pb-2 pt-4 font-display font-bold">Patrimonio neto y pasivo · {fmtMoney(data.totalPasivo)}</p>
               <Estado lineas={data.pasivo} />
             </Card>
           </div>

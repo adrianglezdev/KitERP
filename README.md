@@ -3,7 +3,8 @@
 ERP web modular para empresas medianas: personas y control horario, clientes y ventas, stock y compras, servicio técnico, documentación técnica, tesorería y contabilidad. Funciona en el ordenador y en el móvil (se puede instalar como aplicación).
 
 - **Un solo sitio para toda la empresa**: todos los módulos comparten la misma base de datos, así que un presupuesto aceptado acaba en pedido, albarán, factura, vencimiento, cobro y asiento contable sin volver a teclear nada.
-- **Módulos que se activan y desactivan** por empresa sin perder datos.
+- **Módulos que se activan y desactivan** por empresa sin perder datos. Cada módulo se usa como una **aplicación** con su icono: se abren desde el lanzador (la cuadrícula de la cabecera) y cada persona elige sus favoritas.
+- **Cada empresa, su aspecto**: tema, colores, tipografías, formas, logo y nombre de la aplicación se configuran por empresa en Configuración → Apariencia, y se aplican también a sus PDF, correos y páginas públicas.
 - **Cada persona ve lo que necesita**: roles por departamento y permisos con alcance (lo suyo, su equipo, su departamento o toda la empresa). Por ejemplo, Comercial y Administración no ven los tickets del servicio técnico.
 - **Datos seguros**: PostgreSQL, transacciones, registro de auditoría inalterable, facturas emitidas y fichajes protegidos en la propia base de datos, Verifactu encadenado y copias de seguridad automatizables.
 
@@ -40,6 +41,8 @@ Todas usan la contraseña `Kite2026demo` (solo para la base de datos de ejemplo;
 | empleado@kite.test | Empleado | Fichar, vacaciones, nóminas y gastos propios |
 | sat@kite.test | Responsable técnico | Servicio técnico y documentación técnica |
 | tecnico@kite.test | Técnico | Sus órdenes de trabajo y su furgoneta |
+
+Los datos de ejemplo incluyen dos empresas: **Brisa Instalaciones** (todos los módulos, tema «Cometa») y **Costa Audiovisual** (solo los módulos comerciales, tema «Atardecer» y nombre de aplicación «Costa AV»). El administrador y dirección entran en las dos: se cambia con «Cambiar a…» en el menú de usuario y se ve cómo cambian el aspecto y las aplicaciones.
 
 ## Producción
 

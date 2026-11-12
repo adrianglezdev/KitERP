@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { fmtHours, fmtMoney, fmtNumber, moduleInfo, PILLARS, type DashboardWidget } from '@kite/shared';
-import { cn, TONES, type Tone } from '@/lib/utils';
+import { fmtHours, fmtMoney, fmtNumber, moduleInfo, type DashboardWidget, type Pillar } from '@kite/shared';
+import { SERIES_COLORS } from '@/lib/theme';
+import { cn, PILLAR_CLASSES, TONES, type Tone } from '@/lib/utils';
 import { Card } from '@/components/ui';
 
-export const SERIES_COLORS = ['#7D2CDD', '#35AE29', '#B28574', '#5E2A78', '#D4BE00', '#3466D6'];
+export { CHART, SERIES_COLORS } from '@/lib/theme';
 
 export function fmtValue(v: number | string, format?: string) {
   if (typeof v === 'string') return v;
@@ -28,7 +29,7 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
   const tooltip = (
     <Tooltip
       cursor={{ fill: 'rgb(var(--sunken))' }}
-      contentStyle={{ background: 'rgb(var(--surface))', border: '1px solid rgb(var(--line))', borderRadius: 10, fontSize: 12.5 }}
+      contentStyle={{ background: 'rgb(var(--surface))', border: 'none', borderRadius: 'calc(0.875rem * var(--radius, 1))', boxShadow: 'var(--shadow-pop)', fontSize: 12.5, fontWeight: 600, padding: '8px 12px' }}
       formatter={(v: number, n: string) => [fmtValue(v, format), series.find((s) => s.key === n)?.label ?? n]}
     />
   );
@@ -70,7 +71,7 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
           <YAxis tick={tick} axisLine={false} tickLine={false} width={52} tickFormatter={yfmt} />
           {tooltip}
           {series.map((s, i) => (
-            <Bar key={s.key} dataKey={s.key} fill={s.color ?? SERIES_COLORS[i]} radius={[4, 4, 0, 0]} maxBarSize={36} />
+            <Bar key={s.key} dataKey={s.key} fill={s.color ?? SERIES_COLORS[i]} radius={[8, 8, 3, 3]} maxBarSize={36} />
           ))}
         </BarChart>
       )}
@@ -78,30 +79,39 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
   );
 }
 
+// La cifra destacada de cada pilar va sobre un bloque de color (como en el panel de dirección)
+const DESTACADO: Record<Pillar, string> = {
+  personas: 'bg-primary text-primary-fg',
+  comercial: 'bg-primary text-primary-fg',
+  operaciones: 'bg-sun text-sun-fg',
+  finanzas: 'bg-deep text-deep-fg dark:bg-sunken dark:text-fg',
+  plataforma: 'bg-deep text-deep-fg dark:bg-sunken dark:text-fg',
+};
+
 /** Tarjeta de indicador del panel de inicio (stat, lista o gráfico), aportada por cualquier módulo. */
-export function WidgetCard({ w }: { w: DashboardWidget }) {
-  const info = moduleInfo(w.modulo);
-  const pillarColor = info ? PILLARS[info.pillar].color : '#7D2CDD';
+export function WidgetCard({ w, destacado }: { w: DashboardWidget; destacado?: boolean }) {
+  const pillar: Pillar = moduleInfo(w.modulo)?.pillar ?? 'plataforma';
   const d = w.data;
   const link = 'enlace' in d ? d.enlace : undefined;
+  const fill = destacado && d.kind === 'stat';
   return (
-    <Card className={cn('flex flex-col overflow-hidden', w.size === 'lg' && 'md:col-span-2', w.size === 'sm' ? '' : 'min-h-[180px]')}>
-      <div className="flex items-center gap-2 px-4 pt-3.5">
-        <span className="h-2 w-2 rotate-45 rounded-[2px]" style={{ background: pillarColor }} />
-        <h3 className="min-w-0 flex-1 truncate text-[13px] font-semibold text-muted">{w.titulo}</h3>
+    <Card className={cn('flex flex-col overflow-hidden', fill && DESTACADO[pillar], fill && '!shadow-none', w.size === 'lg' && d.kind === 'chart' && 'md:col-span-2', d.kind === 'stat' ? '' : 'min-h-[180px]')}>
+      <div className="flex items-center gap-2 px-5 pt-[18px]">
+        {!fill && <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pillar]!.dot)} />}
+        <h3 className={cn('min-w-0 flex-1 truncate font-sans text-[12.5px] font-bold tracking-normal', fill ? 'opacity-80' : 'text-fg/65')}>{w.titulo}</h3>
         {link && (
-          <Link to={link} className="rounded p-0.5 text-muted hover:text-primary" aria-label={`Abrir ${w.titulo}`}>
+          <Link to={link} className={cn('-mr-1 flex h-6 w-6 items-center justify-center rounded-pill transition', fill ? 'opacity-80 hover:opacity-100' : 'text-muted hover:bg-sunken hover:text-primary')} aria-label={`Abrir ${w.titulo}`}>
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         )}
       </div>
-      <div className="min-h-0 flex-1 px-4 pb-4 pt-2">
+      <div className="min-h-0 flex-1 px-5 pb-5 pt-2">
         {d.kind === 'stat' && (
           <div>
-            <p className="tabular font-display text-[28px] font-extrabold leading-tight">{fmtValue(d.value, d.format)}</p>
+            <p className="tabular font-display text-[30px] font-semibold leading-[1.1] tracking-[-0.03em]">{fmtValue(d.value, d.format)}</p>
             {(d.hint || d.delta !== undefined) && (
-              <p className="mt-0.5 text-[12.5px] text-muted">
-                {d.delta !== undefined && d.delta !== null && <span className={cn('mr-1 font-semibold', d.delta >= 0 ? 'text-ok' : 'text-bad')}>{d.delta >= 0 ? '▲' : '▼'} {fmtNumber(Math.abs(d.delta), 1)} %</span>}
+              <p className={cn('mt-1 text-[12.5px]', fill ? 'opacity-80' : 'text-muted')}>
+                {d.delta !== undefined && d.delta !== null && <span className={cn('mr-1 font-bold', fill ? '' : d.delta >= 0 ? 'text-ok' : 'text-bad')}>{d.delta >= 0 ? '▲' : '▼'} {fmtNumber(Math.abs(d.delta), 1)} %</span>}
                 {d.hint}
               </p>
             )}
@@ -109,25 +119,25 @@ export function WidgetCard({ w }: { w: DashboardWidget }) {
         )}
         {d.kind === 'list' &&
           (d.items.length ? (
-            <ul className="-mx-1 space-y-0.5">
+            <ul className="-mx-2 space-y-0.5">
               {d.items.map((it, i) => {
                 const inner = (
                   <>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px]">{it.titulo}</span>
+                      <span className="block truncate text-[13.5px] font-semibold">{it.titulo}</span>
                       {it.subtitulo && <span className="block truncate text-[12px] text-muted">{it.subtitulo}</span>}
                     </span>
-                    {it.valor && <span className={cn('shrink-0 rounded-full px-2 py-0.5 text-[12px] font-medium ring-1 ring-inset', TONES[(it.tone as Tone) ?? 'gray'])}>{it.valor}</span>}
+                    {it.valor && <span className={cn('tabular inline-flex h-6 shrink-0 items-center rounded-pill px-2.5 text-[11.5px] font-bold', TONES[(it.tone as Tone) ?? 'gray'])}>{it.valor}</span>}
                   </>
                 );
                 return (
                   <li key={i}>
                     {it.enlace ? (
-                      <Link to={it.enlace} className="flex items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-sunken">
+                      <Link to={it.enlace} className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-sunken/70">
                         {inner}
                       </Link>
                     ) : (
-                      <div className="flex items-center gap-2 px-1 py-1.5">{inner}</div>
+                      <div className="flex items-center gap-2 px-2 py-1.5">{inner}</div>
                     )}
                   </li>
                 );

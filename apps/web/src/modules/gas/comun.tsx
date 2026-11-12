@@ -229,7 +229,7 @@ export function GastoSheet({ id, onClose }: { id: string; onClose: () => void })
             {g.archivo &&
               (esImagen ? (
                 <a href={g.archivo.url} target="_blank" rel="noreferrer">
-                  <img src={g.archivo.url} alt="Ticket" className="max-h-72 w-full rounded-xl object-contain ring-1 ring-line" />
+                  <img src={g.archivo.url} alt="Ticket" className="max-h-72 w-full rounded-xl object-contain ring-1 ring-line-strong/70" />
                 </a>
               ) : (
                 <a href={g.archivo.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-xl bg-sunken px-3 py-2 text-[13.5px] text-primary">

@@ -17,6 +17,7 @@ import {
   tareas,
 } from '../db/schema';
 import { randomToken, sha256 } from '../core/auth';
+import { marcaPublica } from '../core/marca-publica';
 import { audit } from '../core/audit';
 import { canEditEntity, canViewEntity, entityGuard } from '../core/entities';
 import { badRequest, forbidden, notFound, parse } from '../core/errors';
@@ -244,7 +245,7 @@ export async function msgRoutes(app: FastifyInstance) {
     const { empresaId } = req.params as { empresaId: string };
     const [e] = await db.select({ nombre: empresas.nombre }).from(empresas).where(eq(empresas.id, empresaId));
     if (!e) throw notFound();
-    return { empresa: e.nombre };
+    return { empresa: e.nombre, marca: await marcaPublica(empresaId) };
   });
   app.post('/public/:empresaId/denuncias', { config: { public: true, rateLimit: { max: 5, timeWindow: '10 minutes' } } }, async (req) => {
     const { empresaId } = req.params as { empresaId: string };

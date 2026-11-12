@@ -2,9 +2,14 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
+import { APARIENCIA_DEFECTO } from '@kite/shared';
 import { ApiError } from './lib/api';
+import { applyBrand, cachedBrand } from './lib/theme';
 import { App } from './App';
 import './index.css';
+
+// La marca recordada (o la de serie) se aplica antes de pintar nada; la sesión la actualiza después
+applyBrand(cachedBrand() ?? { empresaId: null, nombre: null, logoUrl: null, apariencia: APARIENCIA_DEFECTO }, { persist: true });
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +25,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
-      <Toaster position="top-center" richColors closeButton toastOptions={{ style: { fontFamily: 'Inter, system-ui, sans-serif' } }} />
+      <Toaster position="top-center" richColors closeButton toastOptions={{ style: { fontFamily: 'var(--font-sans), system-ui, sans-serif', borderRadius: 'calc(1rem * var(--radius, 1))' } }} />
     </QueryClientProvider>
   </StrictMode>,
 );

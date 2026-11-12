@@ -56,9 +56,27 @@ En la web: `const { can, has } = useSession()`.
 
 ### Web (`apps/web/src/modules/<código>/`)
 
-- `index.tsx`: `export default defineModule({ code, nav, routes, portal, quickCreate, entityTabs })`. Las rutas son relativas (`'sat/ordenes'`) y se cargan bajo demanda con `page(() => import('./pages/X'))`. Las rutas públicas (sin sesión) empiezan por `/publico/`.
+- `index.tsx`: `export default defineModule({ code, nav, routes, portal, quickCreate, entityTabs })`. `nav` son los apartados de su aplicación en la barra lateral. Las rutas son relativas (`'sat/ordenes'`) y se cargan bajo demanda con `page(() => import('./pages/X'))`. Las rutas públicas (sin sesión) empiezan por `/publico/`.
 - Componentes comunes: `@/components/ui` (botones, tablas que se convierten en tarjetas en el móvil, diálogos, selectores con búsqueda, firma…), `@/components/resource` (listados y formularios automáticos), `@/components/entity` (adjuntos, comentarios, tareas, actividad), `@/components/docs` (documentos comerciales), `@/components/charts/Widget`.
 - `entityTabs` añade pestañas a las fichas de persona, tercero o artículo.
+
+## Aplicaciones y lanzador
+
+En la web cada módulo activo se presenta como una **aplicación** (`apps/web/src/layout/apps.ts`): tiene icono, color de su pilar y sus apartados, que son los de `nav` del módulo. Algunas juntan pantallas del núcleo con las de un módulo (Equipo = directorio + ficha; Clientes = terceros + CRM; Almacén = catálogo + stock) y Configuración es una aplicación más.
+
+- La barra lateral enseña solo los apartados de la aplicación abierta. Cuál es se deduce de la dirección (`locate`, gana el prefijo más largo); las pantallas sin apartado propio la indican con `useClaimApp` (un documento dice si es de Facturas, Presupuestos o Compras) y, si no, se mantiene la última.
+- El lanzador (`AppLauncher.tsx`) es la cuadrícula de la cabecera: favoritas arriba, editables con el lápiz (añadir, quitar y ordenar arrastrando), y el resto debajo. Las favoritas también están en la parte alta de la barra lateral. Se guardan por persona y empresa en `usuario_empresas.preferencias` (`PATCH /api/auth/preferencias`).
+- Para añadir una aplicación basta una entrada en `APPS`; un módulo nuevo aparece al declarar su `nav`.
+
+## Apariencia por empresa
+
+Cada empresa guarda su apariencia en `empresas.ajustes.apariencia` (tipo `Apariencia` de `packages/shared/src/apariencia.ts`, validado con `aparienciaSchema`): tema de partida, cinco colores con un papel fijo (principal, acento, información, alerta y estructura), tipografías de títulos y texto, esquinas, forma de los botones, estilo de las tarjetas, barra lateral, densidad, modo al abrir y nombre de la aplicación. Se edita en Configuración → Apariencia, con vista previa en claro y oscuro.
+
+- `apps/web/src/lib/theme.ts` convierte esa apariencia en variables CSS (claro y oscuro, tonos suaves, tintas legibles, sombras, radios, tipografías). **Ningún componente lleva colores fijos**: Tailwind (`tailwind.config.js`) solo da nombre a las variables (`bg-primary`, `text-ok`, `bg-side`, `rounded-pill`, `shadow-card`…). Para un color nuevo, añade la variable en `buildTokens` y su valor por defecto en `index.css`.
+- `rounded-pill` es la forma de botones, pestañas e insignias (píldora, redondeado o recto según el tema); el resto de radios se multiplican por `--radius`. `text-primary` usa la versión tinta del color principal para que siempre se lea.
+- La apariencia viaja en `/api/auth/me` y se aplica al entrar o al cambiar de empresa. Se guarda en `localStorage` para pintarla antes de cargar la aplicación (`index.html`) y para la pantalla de entrada, que además la pide a `GET /api/public/marca`.
+- Fuera de la aplicación también manda la empresa: los PDF de presupuestos y facturas y los correos usan `marcaDe(ajustes)` (`apps/api/src/core/marca.ts`), y las páginas públicas (portal del cliente, documentos, firmas, canal de denuncias, quiosco) reciben `marca` del servidor (`marcaPublica`).
+- Los temas de partida están en `TEMAS`. Añadir uno es añadir un objeto a esa lista.
 
 ## Documentos comerciales
 

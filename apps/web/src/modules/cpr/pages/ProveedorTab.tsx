@@ -25,7 +25,7 @@ export default function ProveedorTab({ id, record }: { id: string; record: any }
       />
       {data.articulos.length > 0 && (
         <div>
-          <p className="mb-2 text-[12.5px] font-semibold uppercase tracking-wide text-muted">Artículos que suministra</p>
+          <p className="mb-2 text-[12.5px] font-bold text-muted">Artículos que suministra</p>
           <Card className="overflow-hidden">
             <ul className="divide-y divide-line">
               {data.articulos.map((a: any) => (
@@ -43,7 +43,7 @@ export default function ProveedorTab({ id, record }: { id: string; record: any }
       )}
       {data.incidencias.length > 0 && (
         <div>
-          <p className="mb-2 text-[12.5px] font-semibold uppercase tracking-wide text-muted">Últimas incidencias</p>
+          <p className="mb-2 text-[12.5px] font-bold text-muted">Últimas incidencias</p>
           <ul className="space-y-1.5 text-[13px]">
             {data.incidencias.slice(0, 6).map((i: any) => (
               <li key={i.id} className="flex items-center gap-2">

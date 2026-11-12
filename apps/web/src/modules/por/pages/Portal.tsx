@@ -117,7 +117,7 @@ export default function Portal() {
             {r.turnos.map((t) => {
               const d = new Date(`${t.fecha}T12:00:00`);
               return (
-                <div key={t.fecha} className={cn('rounded-xl px-1 py-2 text-center ring-1 ring-line', (t.festivo || t.ausencia) && 'bg-sunken')} style={t.color && !t.festivo && !t.ausencia ? { boxShadow: `inset 0 3px 0 ${t.color}` } : undefined}>
+                <div key={t.fecha} className={cn('rounded-xl px-1 py-2 text-center ring-1 ring-line-strong/70', (t.festivo || t.ausencia) && 'bg-sunken')} style={t.color && !t.festivo && !t.ausencia ? { boxShadow: `inset 0 3px 0 ${t.color}` } : undefined}>
                   <p className="text-[11px] text-muted">{DIAS[d.getDay()]}</p>
                   <p className="text-[14px] font-bold">{d.getDate()}</p>
                   <p className="truncate text-[10.5px] text-muted" title={t.festivo ?? t.ausencia ?? t.horario ?? ''}>

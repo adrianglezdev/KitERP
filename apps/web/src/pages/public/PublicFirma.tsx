@@ -22,11 +22,11 @@ export default function PublicFirma() {
       </PublicLayout>
     );
   return (
-    <PublicLayout empresa={f.empresa}>
+    <PublicLayout empresa={f.empresa} marca={f.marca}>
       <div className="space-y-5">
         <div>
           <p className="text-[13px] text-muted">Documento para firmar</p>
-          <h1 className="text-[24px] font-extrabold">{f.titulo}</h1>
+          <h1 className="text-[24px] font-semibold">{f.titulo}</h1>
           <p className="text-[13.5px] text-muted">Firmante: {f.firmante}</p>
         </div>
         {f.estado === 'firmado' && (
@@ -41,7 +41,7 @@ export default function PublicFirma() {
         )}
         {f.estado === 'caducado' && <Alert tone="yellow">El plazo para firmar ha terminado. Pide un nuevo enlace.</Alert>}
         {f.url && (
-          <a href={f.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-xl border border-line bg-surface p-4 shadow-card hover:border-primary/40">
+          <a href={f.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl bg-surface p-4 shadow-card hover:bg-sunken/60">
             <FileText className="h-6 w-6 text-primary" />
             <span>
               <span className="block font-medium">Leer el documento completo</span>

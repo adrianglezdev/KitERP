@@ -59,7 +59,7 @@ export default function Informes() {
       <div className="grid gap-5 lg:grid-cols-[260px_1fr]">
         <div className="space-y-4">
           <Card className="overflow-hidden">
-            <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
+            <div className="flex items-center justify-between px-5 pb-2 pt-4">
               <p className="text-[13px] font-semibold">Guardados</p>
               <IconButton icon={Plus} label="Nuevo" size="sm" onClick={() => { setActual(null); setDef(vacia(def.dataset)); setRes(null); }} />
             </div>
@@ -160,7 +160,7 @@ function Resultado({ r }: { r: any }) {
   const rows = useMemo(() => r.filas.map((f: any, i: number) => ({ ...f, id: String(i) })), [r]);
   return (
     <Card className="overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5 text-[13px]">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 pb-2 pt-4 text-[13px]">
         <span>
           <b>{r.filas.length}</b> filas · {fmtDate(r.desde)} a {fmtDate(r.hasta)}
         </span>

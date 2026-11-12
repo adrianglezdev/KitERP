@@ -55,7 +55,7 @@ export default function Cambios() {
               </div>
               <table className="mt-3 w-full text-[13px]">
                 <thead>
-                  <tr className="text-left text-[11.5px] uppercase tracking-wide text-muted">
+                  <tr className="text-left text-[11.5px] font-bold text-muted">
                     <th className="py-1 font-medium">Dato</th>
                     <th className="py-1 font-medium">Antes</th>
                     <th className="py-1 font-medium">Ahora</th>

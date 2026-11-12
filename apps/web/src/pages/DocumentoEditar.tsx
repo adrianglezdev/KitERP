@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { ArrowDown, ArrowUp, Heading, History, Package, Plus, Save, Trash2, Type } from 'lucide-react';
 import { toast } from 'sonner';
-import { calcDocumento, fmtMoney, fmtNumber, IVA_TIPOS, todayISO, type DocTipo } from '@kite/shared';
+import { calcDocumento, DOC_MODULO, fmtMoney, fmtNumber, IVA_TIPOS, todayISO, type DocTipo } from '@kite/shared';
+import { useClaimApp } from '@/layout/app-context';
 import { api, ApiError, errorMessage } from '@/lib/api';
 import { useApi } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
@@ -41,6 +42,7 @@ export default function DocumentoEditar() {
   const { can, session, has } = useSession();
   const existing = useApi<any>(id ? `/documentos/${id}` : null);
   const tipo = (existing.data?.tipo ?? sp.get('tipo') ?? 'presupuesto') as DocTipo;
+  useClaimApp(DOC_MODULO[tipo]);
   const compra = esCompra(tipo);
   const [cab, setCab] = useState<Record<string, any>>({ fecha: todayISO(), descuentoGlobal: 0, terceroId: sp.get('terceroId') ?? null, proyectoId: sp.get('proyectoId') ?? null, origenTipo: sp.get('origenTipo'), origenId: sp.get('origenId') });
   const [lineas, setLineas] = useState<Linea[]>([nuevaLinea()]);
@@ -244,7 +246,7 @@ export default function DocumentoEditar() {
               <button
                 key={h.articuloId}
                 type="button"
-                className="rounded-full border border-line bg-surface px-2 py-0.5 hover:border-primary hover:text-primary"
+                className="rounded-full border border-line-strong/70 bg-surface px-2 py-0.5 hover:border-primary hover:text-primary"
                 onClick={async () => {
                   const l = nuevaLinea();
                   setLineas((ls) => [...ls.filter((x) => x.descripcion || x.articuloId), l]);
@@ -327,7 +329,7 @@ export default function DocumentoEditar() {
                 <span className="tabular">-{fmtMoney(calc.totalRetencion)}</span>
               </div>
             )}
-            <div className="flex items-center justify-between border-t border-line pt-2 font-display text-[20px] font-extrabold text-deep dark:text-fg">
+            <div className="flex items-center justify-between border-t border-line pt-2 font-display text-[20px] font-semibold text-deep dark:text-fg">
               <span>Total</span>
               <span className="tabular">{fmtMoney(calc.total)}</span>
             </div>

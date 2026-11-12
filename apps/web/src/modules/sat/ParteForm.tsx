@@ -139,7 +139,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
         {checklist.length > 0 && (
           <div>
             <p className="label mb-2">Checklist</p>
-            <ul className="divide-y divide-line overflow-hidden rounded-xl border border-line">
+            <ul className="divide-y divide-line overflow-hidden rounded-xl border border-line-strong/70">
               {checklist.map((i) => {
                 const hecho = !!parte.checklist[i.id]?.hecho;
                 return (
@@ -164,17 +164,17 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
         <div>
           <p className="label mb-2">Material utilizado</p>
           {parte.materiales.length > 0 && (
-            <ul className="mb-2 divide-y divide-line rounded-xl border border-line">
+            <ul className="mb-2 divide-y divide-line rounded-xl border border-line-strong/70">
               {parte.materiales.map((m, i) => (
                 <li key={`${m.articuloId}-${i}`} className="space-y-2 px-3 py-2.5">
                   <div className="flex items-start gap-2">
                     <span className="min-w-0 flex-1 text-[14px] font-medium">{m.label}</span>
-                    <button type="button" aria-label="Quitar" className="rounded-lg p-2 text-muted hover:text-bad" onClick={() => update((p) => ({ ...p, materiales: p.materiales.filter((_, j) => j !== i) }))}>
+                    <button type="button" aria-label="Quitar" className="rounded-pill p-2 text-muted hover:text-bad" onClick={() => update((p) => ({ ...p, materiales: p.materiales.filter((_, j) => j !== i) }))}>
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <div className="flex items-center rounded-xl border border-line">
+                    <div className="flex items-center rounded-xl border border-line-strong/70">
                       <button type="button" className="flex h-11 w-11 items-center justify-center text-fg active:bg-sunken" aria-label="Menos" onClick={() => setMat(i, m.cantidad - 1)}>
                         <Minus className="h-4 w-4" />
                       </button>
@@ -222,7 +222,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
             <NumberInput value={parte.horas} onChange={(v) => update((p) => ({ ...p, horas: v }))} decimals={2} min={0} suffix="h" className="h-11 text-[15px]" />
           </Field>
         </div>
-        <div className="space-y-3 rounded-xl border border-line p-3">
+        <div className="space-y-3 rounded-xl border border-line-strong/70 p-3">
           <Switch checked={parte.desplazamiento} onChange={(v) => update((p) => ({ ...p, desplazamiento: v }))} label="Cobrar desplazamiento" />
           <Switch
             checked={parte.facturable}
@@ -236,7 +236,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
           <p className="label">Firma del cliente</p>
           {parte.firma && !refirmar ? (
             <div className="space-y-2">
-              <img src={parte.firma} alt="Firma del cliente" className="h-32 w-full rounded-xl border border-line bg-white object-contain" />
+              <img src={parte.firma} alt="Firma del cliente" className="h-32 w-full rounded-xl border border-line-strong/70 bg-white object-contain" />
               <Button size="sm" variant="ghost" onClick={() => setRefirmar(true)}>
                 Volver a firmar
               </Button>

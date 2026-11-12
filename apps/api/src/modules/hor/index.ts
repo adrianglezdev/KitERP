@@ -14,6 +14,7 @@ import { activeModules, defineModule } from '../../core/modules';
 import { notify } from '../../core/notify';
 import { can, canOnOwner, guard } from '../../core/permissions';
 import { getEmpresa } from '../../core/settings';
+import { marcaPublica } from '../../core/marca-publica';
 import { ficTrabajadores } from '../fic/schema';
 import { condAlcance, exigirPersona, idsEnAlcance, nombrePersona, nombres, personaPorId, personasActivas } from '../fic/personas';
 import { horAnulaciones, horAsignaciones, horBolsa, horCorrecciones, horCuadrante, horFichajes, horFirmasMes, horKioscos, horPines, horTurnos } from './schema';
@@ -686,6 +687,7 @@ async function routes(app: FastifyInstance) {
     db.update(horKioscos).set({ ultimoUso: new Date() }).where(eq(horKioscos.id, k.id)).catch(() => {});
     return {
       empresa: emp?.nombre,
+      marca: await marcaPublica(k.empresaId),
       kiosco: k.nombre,
       centro: c?.nombre,
       servidor: new Date().toISOString(),

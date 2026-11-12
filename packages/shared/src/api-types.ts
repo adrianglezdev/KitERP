@@ -1,3 +1,4 @@
+import type { Apariencia, Preferencias } from './apariencia';
 import type { Scope } from './permissions';
 
 export interface Paginated<T> {
@@ -22,8 +23,9 @@ export interface SessionInfo {
     tieneEquipo: boolean;
     totp: boolean;
   };
-  empresa: { id: string; nombre: string; nif: string | null; logoUrl: string | null };
+  empresa: { id: string; nombre: string; nif: string | null; logoUrl: string | null; apariencia: Apariencia };
   empresas: { id: string; nombre: string }[];
+  preferencias: Preferencias;
   permisos: Record<string, Scope>;
   modulos: string[];
 }

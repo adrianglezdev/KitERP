@@ -8,7 +8,7 @@ import { useSession } from '@/lib/session';
 import { cn } from '@/lib/utils';
 import { Avatar, Button, Card, CardHeader, Dialog, Field, PageHeader, RefSelect, Segmented, Select, Spinner, Textarea } from '@/components/ui';
 import { ResourceFormDialog, ResourceList } from '@/components/resource';
-import { Chart } from '@/components/charts/Widget';
+import { CHART, Chart } from '@/components/charts/Widget';
 
 interface Etapa {
   id: string;
@@ -119,7 +119,7 @@ export default function Tablero() {
                         }}
                         onDragEnd={() => setDrag(null)}
                         onClick={() => nav(`/oportunidades/${o.id}`)}
-                        className={cn('cursor-pointer rounded-lg border border-line bg-surface p-3 shadow-card transition hover:border-primary/40', drag === o.id && 'opacity-50')}
+                        className={cn('cursor-pointer rounded-2xl bg-surface p-3 shadow-card transition hover:bg-sunken/60', drag === o.id && 'opacity-50')}
                       >
                         <p className="line-clamp-2 text-[13.5px] font-medium leading-snug">{o.titulo}</p>
                         <p className="mt-0.5 truncate text-[12px] text-muted">{o.tercero}</p>
@@ -142,7 +142,7 @@ export default function Tablero() {
                         {can('opo.editar') && (
                           <select
                             aria-label="Cambiar etapa"
-                            className="mt-2 w-full rounded-md border border-line bg-surface px-2 py-1 text-[12px] md:hidden"
+                            className="mt-2 w-full rounded-md border border-line-strong/70 bg-surface px-2 py-1 text-[12px] md:hidden"
                             value={o.etapaId}
                             onClick={(ev) => ev.stopPropagation()}
                             onChange={(ev) => pedirMover(o.id, ev.target.value)}
@@ -234,7 +234,7 @@ function Prevision() {
       <Card className="lg:col-span-2">
         <CardHeader title="Previsión por mes de cierre" subtitle="Importe total y ponderado por la probabilidad de cada oportunidad abierta" />
         <div className="p-4">
-          <Chart chart="bar" data={meses} xKey="mes" series={[{ key: 'total', label: 'Total', color: '#D9C9EE' }, { key: 'ponderado', label: 'Ponderado', color: '#7D2CDD' }]} format="money" height={260} />
+          <Chart chart="bar" data={meses} xKey="mes" series={[{ key: 'total', label: 'Total', color: CHART.soft }, { key: 'ponderado', label: 'Ponderado', color: CHART.primary }]} format="money" height={260} />
         </div>
       </Card>
       <Card>

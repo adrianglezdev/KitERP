@@ -47,12 +47,12 @@ export default function PersonaDetalle() {
           )}
           <div className="mt-3 flex flex-wrap gap-2">
             {p.email && (
-              <a href={`mailto:${p.email}`} className="inline-flex items-center gap-1.5 rounded-lg bg-sunken px-2.5 py-1 text-[12.5px] hover:text-primary">
+              <a href={`mailto:${p.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[12.5px] font-semibold transition hover:text-primary">
                 <Mail className="h-3.5 w-3.5" /> {p.email}
               </a>
             )}
             {p.telefono && (
-              <a href={`tel:${p.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-lg bg-sunken px-2.5 py-1 text-[12.5px] hover:text-primary">
+              <a href={`tel:${p.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[12.5px] font-semibold transition hover:text-primary">
                 <Phone className="h-3.5 w-3.5" /> {p.telefono}
               </a>
             )}

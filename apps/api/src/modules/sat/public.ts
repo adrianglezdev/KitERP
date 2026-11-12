@@ -7,6 +7,7 @@ import { audit } from '../../core/audit';
 import { systemCtx } from '../../core/context';
 import { badRequest, conflict, notFound, parse } from '../../core/errors';
 import { fileUrl } from '../../core/files';
+import { marcaPublica } from '../../core/marca-publica';
 import { activeModules } from '../../core/modules';
 import { notify } from '../../core/notify';
 import { satEquipos, satTickets } from './schema';
@@ -32,7 +33,7 @@ const nuevoTicketSchema = z.object({
 
 async function empresaInfo(empresaId: string) {
   const [e] = await db.select({ nombre: empresas.nombre, telefono: empresas.telefono, email: empresas.email, logo: empresas.logoArchivoId }).from(empresas).where(eq(empresas.id, empresaId));
-  return { nombre: e?.nombre ?? '', telefono: e?.telefono ?? null, email: e?.email ?? null, logoUrl: fileUrl(e?.logo, 86400) };
+  return { nombre: e?.nombre ?? '', telefono: e?.telefono ?? null, email: e?.email ?? null, logoUrl: fileUrl(e?.logo, 86400), marca: await marcaPublica(empresaId) };
 }
 
 async function ctxActivo(empresaId: string) {

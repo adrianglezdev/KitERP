@@ -4,6 +4,7 @@ import { config } from '../config';
 import { db, type DbOrTx } from '../db/client';
 import { emailsSalida } from '../db/schema';
 import { fileBuffer, getFile } from './files';
+import { BRAND, marcaDe } from './marca';
 
 export interface EmailInput {
   empresaId?: string | null;
@@ -24,16 +25,18 @@ export async function queueEmail(tx: DbOrTx, e: EmailInput) {
 
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
-export function emailLayout(opts: { empresa: string; titulo: string; cuerpo: string; boton?: { texto: string; url: string } }) {
-  return `<!doctype html><html lang="es"><body style="margin:0;background:#F6F4F9;font-family:Segoe UI,Arial,sans-serif;color:#2A1838">
+/** Plantilla de los correos. Con `ajustes` (los de la empresa) la cabecera y el botón llevan sus colores. */
+export function emailLayout(opts: { empresa: string; titulo: string; cuerpo: string; boton?: { texto: string; url: string }; ajustes?: unknown }) {
+  const m = opts.ajustes ? marcaDe(opts.ajustes) : BRAND;
+  return `<!doctype html><html lang="es"><body style="margin:0;background:#F2F3F8;font-family:Segoe UI,Arial,sans-serif;color:#1E2635">
 <table width="100%" cellpadding="0" cellspacing="0" style="padding:24px 12px"><tr><td align="center">
-<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #E6DFEE">
-<tr><td style="background:#5E2A78;padding:18px 24px;color:#fff;font-size:18px;font-weight:700">${esc(opts.empresa)}</td></tr>
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #E3E6EE">
+<tr><td style="background:${m.morado};padding:18px 24px;color:#fff;font-size:18px;font-weight:700">${esc(opts.empresa)}</td></tr>
 <tr><td style="padding:24px"><h1 style="font-size:20px;margin:0 0 12px">${esc(opts.titulo)}</h1>
 <div style="font-size:15px;line-height:1.6">${opts.cuerpo}</div>
-${opts.boton ? `<p style="margin:24px 0 8px"><a href="${opts.boton.url}" style="background:#7D2CDD;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;display:inline-block;font-weight:600">${esc(opts.boton.texto)}</a></p><p style="font-size:12px;color:#7A6B86">Si el botón no funciona, copia esta dirección: ${opts.boton.url}</p>` : ''}
+${opts.boton ? `<p style="margin:24px 0 8px"><a href="${opts.boton.url}" style="background:${m.violeta};color:#fff;text-decoration:none;padding:12px 22px;border-radius:999px;display:inline-block;font-weight:700">${esc(opts.boton.texto)}</a></p><p style="font-size:12px;color:#707A8E">Si el botón no funciona, copia esta dirección: ${opts.boton.url}</p>` : ''}
 </td></tr>
-<tr><td style="padding:14px 24px;background:#FAF8FC;font-size:12px;color:#7A6B86">Enviado con KiteERP</td></tr>
+<tr><td style="padding:14px 24px;background:#F7F8FB;font-size:12px;color:#707A8E">Enviado con KiteERP</td></tr>
 </table></td></tr></table></body></html>`;
 }
 

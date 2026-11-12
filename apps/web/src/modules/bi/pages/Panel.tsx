@@ -6,7 +6,7 @@ import { useApi } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
 import { cn } from '@/lib/utils';
 import { Card, CardHeader, EmptyState, Field, Input, PageHeader, Spinner, Stat } from '@/components/ui';
-import { Chart } from '@/components/charts/Widget';
+import { CHART, Chart } from '@/components/charts/Widget';
 import { RefSelect } from '@/components/form/RefSelect';
 
 /** Panel de dirección: ventas, márgenes, cobros, cartera y presupuestos. Cada bloque según tus permisos. */
@@ -66,7 +66,7 @@ export default function Panel() {
           {d.ventasMes && (
             <Card className="p-4">
               <CardHeader title={`Ventas por mes · ${d.anio} frente a ${d.anio - 1}`} className="!px-0 !pt-0" />
-              <Chart chart="bar" data={d.ventasMes} xKey="mes" series={[{ key: 'actual', label: String(d.anio), color: '#35AE29' }, { key: 'anterior', label: String(d.anio - 1), color: '#B28574' }]} format="money" height={260} />
+              <Chart chart="bar" data={d.ventasMes} xKey="mes" series={[{ key: 'actual', label: String(d.anio), color: CHART.primary }, { key: 'anterior', label: String(d.anio - 1), color: CHART.soft }]} format="money" height={260} />
             </Card>
           )}
           <div className="grid gap-5 lg:grid-cols-2">
@@ -76,7 +76,7 @@ export default function Panel() {
             {d.cobros && (
               <Card className="p-4">
                 <CardHeader title="Antigüedad de lo pendiente de cobro" className="!px-0 !pt-0" />
-                <Chart chart="bar" data={d.cobros.tramos} xKey="tramo" series={[{ key: 'importe', label: 'Pendiente', color: '#7D2CDD' }]} format="money" height={200} />
+                <Chart chart="bar" data={d.cobros.tramos} xKey="tramo" series={[{ key: 'importe', label: 'Pendiente', color: CHART.primary }]} format="money" height={200} />
                 {d.cobros.impagado > 0 && <p className="mt-2 text-[13px] text-bad">De ello, impagado: {fmtMoney(d.cobros.impagado)}</p>}
               </Card>
             )}

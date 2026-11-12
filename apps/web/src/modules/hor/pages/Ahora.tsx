@@ -57,7 +57,7 @@ export default function Ahora() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filas.map((f) => (
-            <Link key={f.personaId} to={`/personas/${f.personaId}?tab=hor-fichajes`} className="rounded-xl border border-line bg-surface p-4 shadow-card transition hover:border-primary/40">
+            <Link key={f.personaId} to={`/personas/${f.personaId}?tab=hor-fichajes`} className="rounded-2xl bg-surface p-4 shadow-card transition hover:bg-sunken/60">
               <div className="flex items-start gap-3">
                 <Avatar name={f.nombre} size={38} />
                 <div className="min-w-0 flex-1">

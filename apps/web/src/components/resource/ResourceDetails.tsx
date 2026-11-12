@@ -17,7 +17,7 @@ export function ResourceDetails({ def, record, exclude = [] }: { def: ResourceDe
         if (!fields.length) return null;
         return (
           <div key={i}>
-            {s.title && <h3 className="mb-3 text-[12.5px] font-semibold uppercase tracking-wide text-muted">{s.title}</h3>}
+            {s.title && <h3 className="mb-3 text-[12.5px] font-bold text-muted">{s.title}</h3>}
             <KeyValue
               items={fields.map((k) => {
                 const f = def.fields[k]!;

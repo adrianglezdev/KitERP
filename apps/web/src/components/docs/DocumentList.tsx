@@ -114,7 +114,7 @@ export function DocumentList({
   const canCreate = createTipo && can(permisoEditarDoc(createTipo));
   const body = (
     <Card className="overflow-hidden">
-      <div className="space-y-3 border-b border-line p-3">
+      <div className="space-y-3 px-4 pb-2 pt-4">
         <div className="flex flex-wrap items-center gap-2">
           <SearchInput value={q} onChange={(v) => { setQ(v); setPage(1); }} placeholder="Número, cliente, concepto…" className="min-w-[200px] flex-1" />
           {!fixed?.terceroId && (

@@ -90,7 +90,7 @@ export default function Movimientos() {
     <div className="space-y-5">
       <PageHeader title="Movimientos de stock" icon={History} back="/stock" subtitle="Cada entrada y salida queda registrada y no se puede modificar" />
       <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center gap-2 border-b border-line p-3">
+        <div className="flex flex-wrap items-center gap-2 px-4 pb-2 pt-4">
           <SearchInput value={q} onChange={(v) => { setQ(v); reset(); }} placeholder="Artículo, lote o documento…" className="min-w-[200px] flex-1" />
           <div className="w-full sm:w-52">
             <RefSelect target="almacenes" value={almacenId} onChange={(v) => { setAlmacenId(v); reset(); }} placeholder="Todos los almacenes" />

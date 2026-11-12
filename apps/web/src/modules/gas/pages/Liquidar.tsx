@@ -45,7 +45,7 @@ export default function Liquidar() {
               const todos = ids.every((id) => sel.has(id));
               return (
                 <Card key={pid} className="overflow-hidden">
-                  <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
+                  <div className="flex items-center justify-between px-5 pb-2 pt-4">
                     <Checkbox checked={todos} onChange={(v) => toggle(ids, v)} label={<b>{g.persona}</b>} />
                     <span className="font-semibold">{fmtMoney(g.items.reduce((s, x) => s + Number(x.total), 0))}</span>
                   </div>

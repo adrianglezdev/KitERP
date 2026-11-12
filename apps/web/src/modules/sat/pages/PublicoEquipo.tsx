@@ -16,7 +16,7 @@ export default function PublicoEquipo() {
   const [abrir, setAbrir] = useState(false);
   const empresa: EmpresaPublica | undefined = d?.empresa;
   return (
-    <PublicLayout empresa={empresa?.nombre} logoUrl={empresa?.logoUrl}>
+    <PublicLayout empresa={empresa?.nombre} logoUrl={empresa?.logoUrl} marca={empresa?.marca}>
       {isLoading ? (
         <Spinner />
       ) : error || !d ? (
@@ -25,7 +25,7 @@ export default function PublicoEquipo() {
         <div className="space-y-5">
           <div>
             {d.cliente && <p className="text-[13px] text-muted">{d.cliente}</p>}
-            <h1 className="mt-0.5 flex items-center gap-2 text-[22px] font-extrabold">
+            <h1 className="mt-0.5 flex items-center gap-2 text-[22px] font-semibold">
               <HardDrive className="h-6 w-6 shrink-0 text-primary" /> {d.equipo.nombre}
             </h1>
             <p className="mt-1 text-[13.5px] text-muted">{[d.equipo.marca, d.equipo.modelo, d.equipo.ubicacion].filter(Boolean).join(' · ')}</p>
@@ -55,7 +55,7 @@ export default function PublicoEquipo() {
           </Card>
           {d.abiertos.length > 0 && (
             <Card className="overflow-hidden">
-              <p className="border-b border-line px-4 py-2.5 text-[13px] font-semibold">Avisos abiertos de este equipo</p>
+              <p className="px-5 pb-2 pt-4 text-[13px] font-semibold">Avisos abiertos de este equipo</p>
               <ul className="divide-y divide-line">
                 {d.abiertos.map((t: any) => (
                   <li key={t.codigo} className="flex items-center gap-3 px-4 py-2.5">
@@ -80,7 +80,7 @@ export default function PublicoEquipo() {
           )}
           {d.manuales.length > 0 && (
             <Card className="overflow-hidden">
-              <p className="border-b border-line px-4 py-2.5 text-[13px] font-semibold">Manuales y documentación</p>
+              <p className="px-5 pb-2 pt-4 text-[13px] font-semibold">Manuales y documentación</p>
               <ul className="divide-y divide-line">
                 {d.manuales.map((m: any, i: number) => (
                   <li key={i}>

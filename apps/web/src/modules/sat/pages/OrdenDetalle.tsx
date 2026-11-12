@@ -153,12 +153,12 @@ export default function OrdenDetalle() {
       {/* Acciones principales, grandes para el móvil */}
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {telefono && (
-          <a href={telHref(telefono)} className="flex h-14 items-center justify-center gap-2 rounded-xl border border-line bg-surface text-[15px] font-semibold shadow-card active:bg-sunken">
+          <a href={telHref(telefono)} className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[15px] font-semibold shadow-card active:bg-sunken">
             <Phone className="h-5 w-5 text-primary" /> Llamar
           </a>
         )}
         {o.mapsUrl && (
-          <a href={o.mapsUrl} target="_blank" rel="noreferrer" className="flex h-14 items-center justify-center gap-2 rounded-xl border border-line bg-surface text-[15px] font-semibold shadow-card active:bg-sunken">
+          <a href={o.mapsUrl} target="_blank" rel="noreferrer" className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[15px] font-semibold shadow-card active:bg-sunken">
             <Navigation className="h-5 w-5 text-primary" /> Cómo llegar
           </a>
         )}
@@ -326,7 +326,7 @@ function ParteCerrado({ o }: { o: any }) {
         {o.materiales?.length > 0 && (
           <div>
             <p className="label mb-1">Material</p>
-            <ul className="divide-y divide-line rounded-lg border border-line">
+            <ul className="divide-y divide-line rounded-lg border border-line-strong/70">
               {o.materiales.map((m: any) => (
                 <li key={m.id} className="flex justify-between gap-3 px-3 py-2">
                   <span>
@@ -347,7 +347,7 @@ function ParteCerrado({ o }: { o: any }) {
             { label: 'Firmado por', value: o.firmaNombre },
           ]}
         />
-        {o.firmaUrl && <img src={o.firmaUrl} alt="Firma del cliente" className="h-28 rounded-lg border border-line bg-white object-contain p-2" />}
+        {o.firmaUrl && <img src={o.firmaUrl} alt="Firma del cliente" className="h-28 rounded-lg border border-line-strong/70 bg-white object-contain p-2" />}
       </div>
     </Card>
   );
@@ -412,7 +412,7 @@ function PresupuestoDialog({ open, onOpenChange, orden, onDone }: { open: boolea
       ) : (
         <div className="space-y-3">
           {lineas.map((l, i) => (
-            <div key={i} className="space-y-2 rounded-xl border border-line p-3">
+            <div key={i} className="space-y-2 rounded-xl border border-line-strong/70 p-3">
               <RefSelect target="articulos" value={l.articuloId} label={l.label} onChange={(id, opt) => set(i, { articuloId: id, label: opt?.label })} placeholder="Artículo del catálogo (opcional)" />
               <Input placeholder={l.articuloId ? 'Descripción (opcional)' : 'Descripción del trabajo o pieza'} value={l.descripcion} onChange={(e) => set(i, { descripcion: e.target.value })} />
               <div className="grid grid-cols-[1fr_1fr_auto] items-end gap-2">

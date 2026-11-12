@@ -34,7 +34,7 @@ export default function Emails() {
         />
       </Card>
       <Dialog open={!!ver} onOpenChange={(o) => !o && setVer(null)} title={detalle.data?.asunto ?? 'Email'} size="lg">
-        {detalle.data && <iframe title="Contenido del email" sandbox="" srcDoc={detalle.data.html} className="h-[60vh] w-full rounded-lg border border-line bg-white" />}
+        {detalle.data && <iframe title="Contenido del email" sandbox="" srcDoc={detalle.data.html} className="h-[60vh] w-full rounded-lg border border-line-strong/70 bg-white" />}
       </Dialog>
     </div>
   );

@@ -42,7 +42,7 @@ export default function Empresa() {
           {campo('sufijoSepa', 'Sufijo del acreedor SEPA')}
         </div>
         <div className="flex items-center gap-4 border-t border-line p-4">
-          {f.logoUrl && <img src={f.logoUrl} alt="Logo" className="h-14 max-w-[160px] rounded border border-line bg-white object-contain p-1" />}
+          {f.logoUrl && <img src={f.logoUrl} alt="Logo" className="h-14 max-w-[160px] rounded border border-line-strong/70 bg-white object-contain p-1" />}
           <div className="flex-1">
             <FileDrop compact multiple={false} accept="image/png,image/jpeg,image/svg+xml" label="Sube el logo (PNG o JPG)" onUploaded={(fs) => fs[0] && setF({ ...f, logoArchivoId: fs[0].id, logoUrl: fs[0].url })} />
           </div>

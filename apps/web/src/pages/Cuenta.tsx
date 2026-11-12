@@ -53,7 +53,7 @@ export default function Cuenta() {
           )}
           {qr && (
             <div className="flex flex-col gap-4 sm:flex-row">
-              <img src={qr.qr} alt="Código QR para la app de autenticación" className="h-44 w-44 rounded-lg border border-line bg-white p-2" />
+              <img src={qr.qr} alt="Código QR para la app de autenticación" className="h-44 w-44 rounded-lg border border-line-strong/70 bg-white p-2" />
               <div className="space-y-3">
                 <p>1. Escanea el código con tu app de autenticación (o escribe la clave <code className="rounded bg-sunken px-1">{qr.secreto}</code>).</p>
                 <p>2. Escribe el código de 6 cifras que muestra:</p>

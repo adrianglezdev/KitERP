@@ -23,7 +23,8 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { DOC_ESTADOS, ESTADO_PAGO, fmtDate, fmtDateTime, fmtMoney, fmtNumber, type DocTipo } from '@kite/shared';
+import { DOC_ESTADOS, DOC_MODULO, ESTADO_PAGO, fmtDate, fmtDateTime, fmtMoney, fmtNumber, type DocTipo } from '@kite/shared';
+import { useClaimApp } from '@/layout/app-context';
 import { api, download, errorMessage } from '@/lib/api';
 import { useApi, useMut } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
@@ -48,6 +49,7 @@ export default function DocumentoVista() {
   const confirm = useConfirm();
   const url = `/documentos/${id}`;
   const { data: d, isLoading, error } = useApi<any>(url);
+  useClaimApp(d ? DOC_MODULO[d.tipo as DocTipo] : null);
   const [enviar, setEnviar] = useState(false);
   const [entregar, setEntregar] = useState(false);
   const [convertir, setConvertir] = useState<string | null>(null);
@@ -232,7 +234,7 @@ export default function DocumentoVista() {
             <div className="scroll-thin overflow-x-auto">
               <table className="w-full text-[13.5px]">
                 <thead>
-                  <tr className="border-b border-line text-left text-[12px] uppercase tracking-wide text-muted">
+                  <tr className="border-b border-line text-left text-[12px] font-bold text-muted">
                     <th className="px-4 py-2 font-medium">Descripción</th>
                     <th className="px-3 py-2 text-right font-medium">Cant.</th>
                     <th className="hidden px-3 py-2 text-right font-medium sm:table-cell">Precio</th>
@@ -309,7 +311,7 @@ export default function DocumentoVista() {
                   <span className="tabular">-{fmtMoney(d.totalRetencion)}</span>
                 </div>
               )}
-              <div className="flex justify-between border-t border-line pt-2 font-display text-[22px] font-extrabold">
+              <div className="flex justify-between border-t border-line pt-2 font-display text-[22px] font-semibold">
                 <span>Total</span>
                 <span className="tabular">{fmtMoney(d.total)}</span>
               </div>

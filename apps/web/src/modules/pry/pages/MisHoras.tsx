@@ -47,7 +47,7 @@ export default function MisHoras() {
             </Field>
             <div className="flex flex-wrap items-center gap-2">
               {[0.5, 1, 2, 4, 8].map((h) => (
-                <button key={h} type="button" onClick={() => setF({ ...f, horas: h })} className={cn('rounded-lg px-2.5 py-1 text-[12.5px] ring-1 ring-line', f.horas === h && 'bg-primary text-white ring-primary')}>
+                <button key={h} type="button" onClick={() => setF({ ...f, horas: h })} className={cn('rounded-pill px-3 py-1 text-[12.5px] font-semibold ring-1 ring-line-strong/70', f.horas === h && 'bg-primary text-primary-fg ring-primary')}>
                   {h} h
                 </button>
               ))}
@@ -59,7 +59,7 @@ export default function MisHoras() {
           {dias.length > 0 && (
             <div className="flex gap-1.5 overflow-x-auto pb-1">
               {dias.map(([d, h]) => (
-                <div key={d} className="min-w-[52px] rounded-xl bg-surface px-2 py-1.5 text-center ring-1 ring-line">
+                <div key={d} className="min-w-[52px] rounded-xl bg-surface px-2 py-1.5 text-center ring-1 ring-line-strong/70">
                   <p className="text-[11px] text-muted">{fmtDate(d).slice(0, 5)}</p>
                   <p className="text-[13px] font-semibold">{h}</p>
                 </div>
@@ -71,7 +71,7 @@ export default function MisHoras() {
             <ul className="divide-y divide-line">
               {data.items.map((i: any) => (
                 <li key={i.id} className="flex items-center gap-3 px-4 py-2.5 text-[13.5px]">
-                  <span className="h-8 w-1 shrink-0 rounded-full" style={{ background: i.color ?? '#35AE29' }} />
+                  <span className="h-8 w-1 shrink-0 rounded-full" style={{ background: i.color ?? 'rgb(var(--leaf))' }} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-medium">
                       {i.codigo} · {i.proyecto}

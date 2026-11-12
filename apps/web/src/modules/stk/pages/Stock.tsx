@@ -83,7 +83,7 @@ export default function Stock() {
       </div>
 
       <Card className="overflow-hidden">
-        <div className="space-y-3 border-b border-line p-3">
+        <div className="space-y-3 px-4 pb-2 pt-4">
           <div className="flex flex-wrap items-center gap-2">
             <SearchInput value={q} onChange={(v) => { setQ(v); setPage(1); }} placeholder="Referencia, nombre, código de barras…" className="min-w-[220px] flex-1" />
             <div className="w-full sm:w-56">
@@ -183,7 +183,7 @@ export function AjusteDialog({ almacenId: inicial, articuloId, onClose }: { alma
         </div>
         <div className="space-y-2">
           {lineas.map((l) => (
-            <div key={l.key} className="grid grid-cols-[1fr_auto] gap-2 rounded-xl border border-line p-3 sm:grid-cols-[1fr_120px_130px_auto] sm:items-end">
+            <div key={l.key} className="grid grid-cols-[1fr_auto] gap-2 rounded-xl border border-line-strong/70 p-3 sm:grid-cols-[1fr_120px_130px_auto] sm:items-end">
               <Field label="Artículo" className="col-span-2 sm:col-span-1">
                 <RefSelect target="articulos" value={l.articuloId} onChange={(v) => set(l.key, { articuloId: v })} />
               </Field>

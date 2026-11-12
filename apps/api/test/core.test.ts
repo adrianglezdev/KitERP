@@ -109,3 +109,83 @@ describe('Circuito de venta', () => {
     expect((await admin.get(`/api/documentos/${f.id}`)).body.estado).toBe('rectificada');
   });
 });
+
+describe('Apariencia y aplicaciones por empresa', () => {
+  const OCEANO = {
+    tema: 'oceano',
+    colores: { primario: '#0e7c86', acento: '#FFC857', info: '#2F6FED', alerta: '#E5484D', estructura: '#12343B' },
+    fuenteTitulos: 'jakarta',
+    fuenteTexto: 'jakarta',
+    esquinas: 'suaves',
+    botones: 'redondeados',
+    tarjetas: 'sombra',
+    barra: 'oscura',
+    densidad: 'comoda',
+    modo: 'sistema',
+    nombreApp: 'Brisa',
+  };
+
+  it('la marca de la instalación se puede leer sin iniciar sesión', async () => {
+    const app = await getApp();
+    const r = await app.inject({ method: 'GET', url: '/api/public/marca' });
+    expect(r.statusCode).toBe(200);
+    const m = r.json();
+    expect(m.nombre).toBe('Brisa Instalaciones');
+    expect(m.apariencia.colores.primario).toMatch(/^#[0-9A-F]{6}$/);
+    // nada interno: solo nombre, logo y apariencia
+    expect(Object.keys(m).sort()).toEqual(['apariencia', 'id', 'logoUrl', 'nombre']);
+  });
+
+  it('cada empresa guarda su apariencia, validada, sin perder el resto de ajustes', async () => {
+    const admin = await as('admin@kite.test');
+    const antes = (await admin.get('/api/empresa')).body;
+    try {
+      const mal = await admin.patch('/api/empresa', { ajustes: { apariencia: { ...OCEANO, colores: { ...OCEANO.colores, primario: 'azul' } } } });
+      expect(mal.status).toBeGreaterThanOrEqual(400);
+      const ok = await admin.patch('/api/empresa', { ajustes: { apariencia: OCEANO } });
+      expect(ok.status).toBe(200);
+      const me = (await admin.get('/api/auth/me')).body;
+      expect(me.empresa.apariencia.colores.primario).toBe('#0E7C86');
+      expect(me.empresa.apariencia.nombreApp).toBe('Brisa');
+      const despues = (await admin.get('/api/empresa')).body;
+      expect(despues.ajustes.margenMinimoPresupuesto).toBe(antes.ajustes.margenMinimoPresupuesto);
+    } finally {
+      await admin.patch('/api/empresa', { ajustes: { apariencia: null } });
+    }
+    const me = (await admin.get('/api/auth/me')).body;
+    expect(me.empresa.apariencia.tema).toBe('cometa');
+  });
+
+  it('quien no gestiona la configuración no puede cambiar la apariencia', async () => {
+    const marta = await as('comercial@kite.test');
+    expect((await marta.patch('/api/empresa', { ajustes: { apariencia: OCEANO } })).status).toBe(403);
+  });
+
+  it('cada persona guarda sus aplicaciones favoritas', async () => {
+    const marta = await as('comercial@kite.test');
+    const javier = await as('comercial2@kite.test');
+    const r = await marta.patch('/api/auth/preferencias', { favoritos: ['fac', 'clientes', 'opo'] });
+    expect(r.status).toBe(200);
+    expect((await marta.get('/api/auth/me')).body.preferencias.favoritos).toEqual(['fac', 'clientes', 'opo']);
+    expect((await javier.get('/api/auth/me')).body.preferencias.favoritos).toBeUndefined();
+  });
+
+  it('al cambiar de empresa cambian la apariencia y los módulos', async () => {
+    const admin = await as('admin@kite.test');
+    const me = (await admin.get('/api/auth/me')).body;
+    expect(me.empresa.nombre).toBe('Brisa Instalaciones');
+    const otra = me.empresas.find((e: any) => e.id !== me.empresa.id);
+    expect(otra?.nombre).toBe('Costa Audiovisual');
+    try {
+      expect((await admin.post('/api/auth/empresa', { empresaId: otra.id })).status).toBe(200);
+      const alli = (await admin.get('/api/auth/me')).body;
+      expect(alli.empresa.apariencia.tema).toBe('atardecer');
+      expect(alli.empresa.apariencia.nombreApp).toBe('Costa AV');
+      expect(alli.modulos).toContain('fac');
+      expect(alli.modulos).not.toContain('sat');
+      expect(alli.preferencias.favoritos).toBeUndefined();
+    } finally {
+      await admin.post('/api/auth/empresa', { empresaId: me.empresa.id });
+    }
+  });
+});

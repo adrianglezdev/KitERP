@@ -27,7 +27,7 @@ export default function Actividades() {
                 {agenda.data.map((a) => (
                   <li key={a.id}>
                     <Link to={`/terceros/${a.terceroId}?tab=crm-actividad`} className="flex items-start gap-3 px-4 py-2.5 hover:bg-sunken">
-                      <span className={cn('mt-0.5 shrink-0 rounded-md px-1.5 py-0.5 text-[11.5px] font-semibold', a.proximaFecha < hoy ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>{fmtDate(a.proximaFecha).slice(0, 5)}</span>
+                      <span className={cn('mt-0.5 shrink-0 rounded-pill px-2 py-0.5 text-[11.5px] font-bold', a.proximaFecha < hoy ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>{fmtDate(a.proximaFecha).slice(0, 5)}</span>
                       <span className="min-w-0">
                         <span className="block truncate text-[13.5px] font-medium">{a.proximaAccion ?? a.asunto}</span>
                         <span className="block truncate text-[12px] text-muted">

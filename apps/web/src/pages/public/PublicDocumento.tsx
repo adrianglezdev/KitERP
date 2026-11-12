@@ -27,14 +27,14 @@ export default function PublicDocumento() {
     );
   const puedeResponder = d.tipo === 'presupuesto' && ['enviado', 'visto'].includes(d.estado);
   return (
-    <PublicLayout empresa={d.empresa.nombre} logoUrl={d.empresa.logoUrl}>
+    <PublicLayout empresa={d.empresa.nombre} logoUrl={d.empresa.logoUrl} marca={d.marca}>
       <div className="space-y-5">
         <div>
           <p className="text-[13px] text-muted">
             {d.tipoLabel} {d.codigo} · {fmtDate(d.fecha)}
             {d.fechaValidez && d.tipo === 'presupuesto' && ` · válido hasta el ${fmtDate(d.fechaValidez)}`}
           </p>
-          <h1 className="text-[24px] font-extrabold">{d.titulo ?? `${d.tipoLabel} para ${d.cliente}`}</h1>
+          <h1 className="text-[24px] font-semibold">{d.titulo ?? `${d.tipoLabel} para ${d.cliente}`}</h1>
         </div>
         {d.estado === 'aceptado' && <Alert tone="green" icon={CheckCircle2} title="Presupuesto aceptado">Aceptado por {d.aceptadoPor} el {fmtDate(d.aceptadoEn)}. Gracias: nos pondremos en contacto contigo.</Alert>}
         {d.estado === 'rechazado' && <Alert tone="gray" title="Presupuesto rechazado">Hemos recibido tu respuesta. Si cambias de idea, contacta con nosotros.</Alert>}
@@ -70,7 +70,7 @@ export default function PublicDocumento() {
               <span>IVA</span>
               <span className="tabular">{fmtMoney(d.totalIva)}</span>
             </div>
-            <div className="flex justify-between font-display text-[20px] font-extrabold">
+            <div className="flex justify-between font-display text-[20px] font-semibold">
               <span>Total</span>
               <span className="tabular">{fmtMoney(d.total)}</span>
             </div>
@@ -83,7 +83,7 @@ export default function PublicDocumento() {
           </div>
         )}
         <div className="flex flex-wrap gap-2">
-          <a href={`/api${d.pdf.replace(/^\/api/, '')}`} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center gap-2 rounded-lg border border-line bg-surface px-4 text-[14px] font-medium hover:bg-sunken">
+          <a href={`/api${d.pdf.replace(/^\/api/, '')}`} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center gap-2 rounded-lg border border-line-strong/70 bg-surface px-4 text-[14px] font-medium hover:bg-sunken">
             <Download className="h-4 w-4" /> Descargar PDF
           </a>
           {puedeResponder && !modo && (

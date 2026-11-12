@@ -61,7 +61,7 @@ export async function notify(tx: DbOrTx, ctx: Ctx, n: NotifyInput) {
   );
 
   if (n.email) {
-    const [emp] = await tx.select({ nombre: empresas.nombre }).from(empresas).where(eq(empresas.id, ctx.empresaId));
+    const [emp] = await tx.select({ nombre: empresas.nombre, ajustes: empresas.ajustes }).from(empresas).where(eq(empresas.id, ctx.empresaId));
     const dest = await tx.select({ email: usuarios.email }).from(usuarios).where(and(inArray(usuarios.id, list), eq(usuarios.activo, true)));
     for (const d of dest) {
       await queueEmail(tx, {
@@ -73,6 +73,7 @@ export async function notify(tx: DbOrTx, ctx: Ctx, n: NotifyInput) {
           titulo: n.titulo,
           cuerpo: n.cuerpo ? `<p>${n.cuerpo.replace(/</g, '&lt;')}</p>` : '',
           boton: n.enlace ? { texto: 'Abrir en KiteERP', url: config.appUrl + n.enlace } : undefined,
+          ajustes: emp?.ajustes,
         }),
       });
     }

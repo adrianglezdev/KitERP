@@ -16,7 +16,7 @@ export default function PublicoPortal() {
   const [nuevo, setNuevo] = useState(false);
   const empresa: EmpresaPublica | undefined = d?.empresa;
   return (
-    <PublicLayout empresa={empresa?.nombre} logoUrl={empresa?.logoUrl}>
+    <PublicLayout empresa={empresa?.nombre} logoUrl={empresa?.logoUrl} marca={empresa?.marca}>
       {isLoading ? (
         <Spinner />
       ) : error || !d ? (
@@ -26,7 +26,7 @@ export default function PublicoPortal() {
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-[13px] text-muted">Portal de asistencia</p>
-              <h1 className="text-[22px] font-extrabold">{d.cliente}</h1>
+              <h1 className="text-[22px] font-semibold">{d.cliente}</h1>
             </div>
             {!nuevo && (
               <Button variant="primary" icon={Plus} onClick={() => setNuevo(true)}>
@@ -36,7 +36,7 @@ export default function PublicoPortal() {
           </div>
           {nuevo && <NuevoAviso endpoint={`/sat/public/portal/${token}/tickets`} equipos={d.equipos} onCreado={(t) => nav(`/publico/sat/ticket/${t.token}`)} />}
           <Card className="overflow-hidden">
-            <p className="flex items-center gap-2 border-b border-line px-4 py-2.5 text-[13px] font-semibold">
+            <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-semibold">
               <LifeBuoy className="h-4 w-4 text-primary" /> Mis avisos
             </p>
             <ul className="divide-y divide-line">
@@ -58,7 +58,7 @@ export default function PublicoPortal() {
             </ul>
           </Card>
           <Card className="overflow-hidden">
-            <p className="flex items-center gap-2 border-b border-line px-4 py-2.5 text-[13px] font-semibold">
+            <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-semibold">
               <HardDrive className="h-4 w-4 text-primary" /> Mis equipos
             </p>
             <ul className="divide-y divide-line">

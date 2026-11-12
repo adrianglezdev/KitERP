@@ -41,8 +41,8 @@ export function Attachments({ entidad, id, canEdit = true, carpetas }: { entidad
       ) : (
         [...groups.entries()].map(([g, items]) => (
           <div key={g}>
-            <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-muted">{g}</p>
-            <ul className="divide-y divide-line rounded-xl border border-line">
+            <p className="mb-1.5 text-[12px] font-bold text-muted">{g}</p>
+            <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
               {items.map((a) => {
                 const vencido = a.caduca && a.caduca < new Date().toISOString().slice(0, 10);
                 return (
@@ -58,7 +58,7 @@ export function Attachments({ entidad, id, canEdit = true, carpetas }: { entidad
                         {a.caduca && <span className={cn('ml-1', vencido && 'font-medium text-bad')}>· caduca {fmtDate(a.caduca)}</span>}
                       </p>
                     </div>
-                    <a href={`${a.url}&descargar=1`} className="rounded-lg p-1.5 text-muted hover:bg-sunken hover:text-fg" aria-label="Descargar">
+                    <a href={`${a.url}&descargar=1`} className="rounded-pill p-1.5 text-muted hover:bg-sunken hover:text-fg" aria-label="Descargar">
                       <Download className="h-4 w-4" />
                     </a>
                     {canEdit && (
@@ -119,7 +119,7 @@ export function Comments({ entidad, id }: { entidad: string; id: string }) {
           ))}
         </ul>
       )}
-      <div className="space-y-2 rounded-xl border border-line p-3">
+      <div className="space-y-2 rounded-xl border border-line-strong/70 p-3">
         <Textarea value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escribe un comentario…" rows={2} className="border-0 p-0 focus:ring-0" onKeyDown={(e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && texto.trim()) send.mutate(undefined); }} />
         {mencionar && (
           <div className="space-y-1">

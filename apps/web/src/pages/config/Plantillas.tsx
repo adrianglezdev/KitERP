@@ -19,7 +19,7 @@ export default function Plantillas() {
     <div className="space-y-4">
       <Alert tone="violet">Las plantillas generan documentos con los datos ya rellenos (contratos, certificados, cartas). Se pueden enviar a firmar desde Firmas.</Alert>
       <Card className="overflow-hidden">
-        <div className="flex justify-end border-b border-line p-3">
+        <div className="flex justify-end px-4 pb-2 pt-4">
           <Button variant="primary" icon={Plus} onClick={() => setEdit({ entidad: 'persona', contenido: '' })}>
             Nueva plantilla
           </Button>

@@ -115,23 +115,24 @@ export function registerIcons(map: Record<string, LucideIcon>) {
 export type Tone = 'gray' | 'violet' | 'purple' | 'green' | 'yellow' | 'brown' | 'red' | 'blue' | 'orange';
 
 export const TONES: Record<Tone, string> = {
-  gray: 'bg-sunken text-muted ring-line',
-  violet: 'bg-primary-soft text-primary ring-primary/20',
-  purple: 'bg-deep/10 text-deep ring-deep/20 dark:text-fg',
-  green: 'bg-ok-soft text-ok ring-ok/20',
-  yellow: 'bg-sun-soft text-warn ring-warn/20',
-  brown: 'bg-earth-soft text-earth ring-earth/25 dark:text-fg',
-  red: 'bg-bad-soft text-bad ring-bad/20',
-  blue: 'bg-info-soft text-info ring-info/20',
-  orange: 'bg-warn-soft text-warn ring-warn/25',
+  gray: 'bg-sunken text-muted ring-transparent',
+  violet: 'bg-primary-soft text-primary ring-transparent',
+  purple: 'bg-deep/10 text-deep ring-transparent dark:text-fg',
+  green: 'bg-ok-soft text-ok ring-transparent',
+  yellow: 'bg-warn-soft text-warn ring-transparent',
+  brown: 'bg-earth-soft text-bad ring-transparent',
+  red: 'bg-bad-soft text-bad ring-transparent',
+  blue: 'bg-info-soft text-info ring-transparent',
+  orange: 'bg-bad-soft text-bad ring-transparent',
 };
 
-export const PILLAR_CLASSES: Record<string, { dot: string; soft: string; text: string }> = {
-  personas: { dot: 'bg-sun', soft: 'bg-sun-soft', text: 'text-warn' },
-  comercial: { dot: 'bg-primary', soft: 'bg-primary-soft', text: 'text-primary' },
-  operaciones: { dot: 'bg-leaf', soft: 'bg-leaf-soft', text: 'text-ok' },
-  finanzas: { dot: 'bg-earth', soft: 'bg-earth-soft', text: 'text-earth' },
-  plataforma: { dot: 'bg-deep', soft: 'bg-deep/10', text: 'text-deep dark:text-fg' },
+/** Clases de color de cada pilar. `solid` es la baldosa de color de las aplicaciones del lanzador. */
+export const PILLAR_CLASSES: Record<string, { dot: string; soft: string; text: string; solid: string }> = {
+  personas: { dot: 'bg-primary', soft: 'bg-primary-soft', text: 'text-primary', solid: 'bg-primary text-primary-fg' },
+  comercial: { dot: 'bg-earth', soft: 'bg-earth-soft', text: 'text-bad', solid: 'bg-earth text-earth-fg' },
+  operaciones: { dot: 'bg-leaf', soft: 'bg-leaf-soft', text: 'text-info', solid: 'bg-leaf text-leaf-fg' },
+  finanzas: { dot: 'bg-sun', soft: 'bg-sun-soft', text: 'text-ok', solid: 'bg-sun text-sun-fg' },
+  plataforma: { dot: 'bg-deep dark:bg-muted', soft: 'bg-deep/10 dark:bg-sunken', text: 'text-deep dark:text-fg', solid: 'bg-deep text-deep-fg dark:bg-line-strong dark:text-fg' },
 };
 
 export function fileSize(n: number) {

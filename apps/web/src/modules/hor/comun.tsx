@@ -317,7 +317,7 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
 
 export function MiniStat({ label, value, hint, tone }: { label: string; value: string; hint?: string; tone?: string }) {
   return (
-    <div className="rounded-xl border border-line bg-surface px-3 py-2.5">
+    <div className="rounded-xl border border-line-strong/70 bg-surface px-3 py-2.5">
       <p className="text-[11.5px] text-muted">{label}</p>
       <p className={cn('tabular font-display text-[18px] font-bold leading-tight', tone)}>{value}</p>
       {hint && <p className="tabular truncate text-[11.5px] text-muted">{hint}</p>}

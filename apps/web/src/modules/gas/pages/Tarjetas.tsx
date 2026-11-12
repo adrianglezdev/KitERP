@@ -26,7 +26,7 @@ function ListaExtractos({ onOpen }: { onOpen: (t: any) => void }) {
   return (
     <div className="mt-2 flex flex-wrap gap-2">
       {data?.items.map((t) => (
-        <button key={t.id} type="button" onClick={() => onOpen(t)} className="inline-flex items-center gap-2 rounded-xl bg-surface px-3 py-2 text-[13px] font-medium ring-1 ring-line hover:ring-primary">
+        <button key={t.id} type="button" onClick={() => onOpen(t)} className="inline-flex items-center gap-2 rounded-xl bg-surface px-3 py-2 text-[13px] font-medium ring-1 ring-line-strong/70 hover:ring-primary">
           <CreditCard className="h-4 w-4 text-primary" /> {t.nombre} ·· {t.ultimos4}
         </button>
       ))}

@@ -123,7 +123,7 @@ export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, 
 
   const body = (
     <>
-      <div className="flex flex-wrap items-center gap-2 border-b border-line p-3">
+      <div className="flex flex-wrap items-center gap-2 px-4 pb-2 pt-4">
         <SearchInput value={q} onChange={(v) => { setQ(v); setPage(1); }} placeholder={`Buscar en ${def.plural.toLowerCase()}…`} className="min-w-[200px] flex-1" />
         {filterKeys.length > 0 && (
           <>
@@ -160,7 +160,7 @@ export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, 
   return (
     <>
       {title && <div className="mb-3">{title}</div>}
-      {embedded ? <div className="overflow-hidden rounded-xl border border-line bg-surface">{body}</div> : <Card className="overflow-hidden">{body}</Card>}
+      {embedded ? <div className="overflow-hidden rounded-xl border border-line-strong/70 bg-surface">{body}</div> : <Card className="overflow-hidden">{body}</Card>}
       <Sheet open={showFilters} onOpenChange={setShowFilters} title="Filtros" side="bottom">
         <div className="space-y-3 p-5">
           {filterControls}

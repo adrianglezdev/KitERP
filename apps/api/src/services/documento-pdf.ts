@@ -4,7 +4,7 @@ import { fmtDate, fmtMoney, fmtNumber, formatIban } from '@kite/shared';
 import { db } from '../db/client';
 import { documentoImpuestos, empresas, facVerifactu, formasPago, terceros } from '../db/schema';
 import { fileBuffer, getFile } from '../core/files';
-import { BRAND, newPdf, pdfFooter, pdfHeader, pdfToBuffer } from '../core/pdf';
+import { marcaDe, newPdf, pdfFooter, pdfHeader, pdfToBuffer } from '../core/pdf';
 import { lineasDe, tipoLabel } from './documentos';
 import { documentos } from '../db/schema';
 
@@ -41,6 +41,8 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     }
   }
 
+  // Los documentos que recibe el cliente llevan los colores de la empresa
+  const B = marcaDe(emp!.ajustes);
   const titulo = TITULOS[d.tipo] ?? tipoLabel(d.tipo).toUpperCase();
   const doc = newPdf(`${titulo} ${d.codigo ?? ''}`);
   pdfHeader(
@@ -55,11 +57,12 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     },
     titulo,
     logo,
+    B,
   );
 
   // Datos del documento
   const y0 = 66;
-  doc.font('Helvetica').fontSize(9).fillColor(BRAND.tinta);
+  doc.font('Helvetica').fontSize(9).fillColor(B.tinta);
   const meta: [string, string][] = [
     ['Número', d.codigo ?? 'BORRADOR'],
     ['Fecha', fmtDate(d.fecha)],
@@ -70,23 +73,23 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
   if (d.version > 1) meta.push(['Versión', String(d.version)]);
   let my = y0;
   for (const [k, v] of meta) {
-    doc.fillColor(BRAND.gris).text(k, 380, my, { width: 70, align: 'right' });
-    doc.fillColor(BRAND.tinta).font('Helvetica-Bold').text(v, 455, my, { width: 92, align: 'right' });
+    doc.fillColor(B.gris).text(k, 380, my, { width: 70, align: 'right' });
+    doc.fillColor(B.tinta).font('Helvetica-Bold').text(v, 455, my, { width: 92, align: 'right' });
     doc.font('Helvetica');
     my += 13;
   }
 
   // Cliente / proveedor
   const boxY = 140;
-  doc.roundedRect(300, boxY, 247, 78, 6).fillColor('#F7F3FB').fill();
-  doc.fillColor(BRAND.violeta).font('Helvetica-Bold').fontSize(8).text(d.circuito === 'compra' ? 'PROVEEDOR' : 'CLIENTE', 312, boxY + 8);
-  doc.fillColor(BRAND.tinta).font('Helvetica-Bold').fontSize(10.5).text(t.razonSocial ?? t.nombre, 312, boxY + 20, { width: 225 });
-  doc.font('Helvetica').fontSize(8.5).fillColor(BRAND.tinta);
+  doc.roundedRect(300, boxY, 247, 78, 6).fillColor(B.suave).fill();
+  doc.fillColor(B.violeta).font('Helvetica-Bold').fontSize(8).text(d.circuito === 'compra' ? 'PROVEEDOR' : 'CLIENTE', 312, boxY + 8);
+  doc.fillColor(B.tinta).font('Helvetica-Bold').fontSize(10.5).text(t.razonSocial ?? t.nombre, 312, boxY + 20, { width: 225 });
+  doc.font('Helvetica').fontSize(8.5).fillColor(B.tinta);
   doc.text([t.nif ? `NIF ${t.nif}` : null, t.direccion, [t.codigoPostal, t.localidad, t.provincia].filter(Boolean).join(' ')].filter(Boolean).join('\n'), 312, doc.y + 2, { width: 225 });
   if (d.titulo) {
-    doc.fillColor(BRAND.tinta).font('Helvetica-Bold').fontSize(12).text(d.titulo, 48, boxY + 8, { width: 240 });
+    doc.fillColor(B.tinta).font('Helvetica-Bold').fontSize(12).text(d.titulo, 48, boxY + 8, { width: 240 });
   }
-  if (d.rectificaId && d.motivoRectificacion) doc.font('Helvetica').fontSize(8.5).fillColor(BRAND.gris).text(`Motivo: ${d.motivoRectificacion}`, 48, boxY + 40, { width: 240 });
+  if (d.rectificaId && d.motivoRectificacion) doc.font('Helvetica').fontSize(8.5).fillColor(B.gris).text(`Motivo: ${d.motivoRectificacion}`, 48, boxY + 40, { width: 240 });
 
   // Tabla de líneas
   const cols = [
@@ -100,7 +103,7 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
   ] as const;
   let y = 236;
   const header = () => {
-    doc.rect(48, y, 499, 18).fillColor(BRAND.morado).fill();
+    doc.rect(48, y, 499, 18).fillColor(B.morado).fill();
     doc.fillColor('#FFFFFF').font('Helvetica-Bold').fontSize(8);
     for (const c of cols) doc.text(c.t, c.x + 3, y + 5, { width: c.w - 6, align: c.a });
     y += 22;
@@ -117,17 +120,17 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
       doc.font('Helvetica').fontSize(8.5);
     }
     if (l.tipoLinea === 'capitulo') {
-      doc.fillColor(BRAND.violeta).font('Helvetica-Bold').text(desc, 51, y, { width: 490 });
+      doc.fillColor(B.violeta).font('Helvetica-Bold').text(desc, 51, y, { width: 490 });
       doc.font('Helvetica');
       y += h + 2;
       continue;
     }
     if (l.tipoLinea === 'texto') {
-      doc.fillColor(BRAND.gris).text(desc, cols[1].x + 3, y, { width: 360 });
+      doc.fillColor(B.gris).text(desc, cols[1].x + 3, y, { width: 360 });
       y += h + 2;
       continue;
     }
-    doc.fillColor(BRAND.tinta);
+    doc.fillColor(B.tinta);
     doc.text(l.referencia ?? '', cols[0].x + 3, y, { width: cols[0].w - 6 });
     doc.text(desc, cols[1].x + 3, y, { width: cols[1].w - 6 });
     doc.text(fmtNumber(l.cantidad, 3), cols[2].x + 3, y, { width: cols[2].w - 6, align: 'right' });
@@ -136,7 +139,7 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     doc.text(`${fmtNumber(l.ivaTipo)}%`, cols[5].x + 3, y, { width: cols[5].w - 6, align: 'right' });
     doc.text(fmtMoney(l.subtotal), cols[6].x + 3, y, { width: cols[6].w - 6, align: 'right' });
     y += h;
-    doc.moveTo(48, y).lineTo(547, y).lineWidth(0.4).strokeColor(BRAND.linea).stroke();
+    doc.moveTo(48, y).lineTo(547, y).lineWidth(0.4).strokeColor(B.linea).stroke();
     y += 4;
   }
 
@@ -148,7 +151,7 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
   y += 8;
   const tx = 360;
   const row = (k: string, v: string, bold = false) => {
-    doc.font(bold ? 'Helvetica-Bold' : 'Helvetica').fontSize(bold ? 11 : 9).fillColor(bold ? BRAND.morado : BRAND.tinta);
+    doc.font(bold ? 'Helvetica-Bold' : 'Helvetica').fontSize(bold ? 11 : 9).fillColor(bold ? B.morado : B.tinta);
     doc.text(k, tx, y, { width: 110, align: 'right' });
     doc.text(v, tx + 115, y, { width: 72, align: 'right' });
     y += bold ? 18 : 14;
@@ -163,7 +166,7 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     if (i.cuotaRecargo) row(`Rec. equiv. ${fmtNumber(i.recargoPct)}%`, fmtMoney(i.cuotaRecargo));
   }
   if (d.totalRetencion) row('Retención IRPF', `-${fmtMoney(d.totalRetencion)}`);
-  doc.moveTo(tx + 20, y).lineTo(547, y).lineWidth(1).strokeColor(BRAND.violeta).stroke();
+  doc.moveTo(tx + 20, y).lineTo(547, y).lineWidth(1).strokeColor(B.violeta).stroke();
   y += 6;
   row('TOTAL', fmtMoney(d.total, d.moneda), true);
 
@@ -173,7 +176,7 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     doc.addPage();
     fy = 60;
   }
-  doc.font('Helvetica').fontSize(8.5).fillColor(BRAND.tinta);
+  doc.font('Helvetica').fontSize(8.5).fillColor(B.tinta);
   const notas: string[] = [];
   if (fp) notas.push(`Forma de pago: ${fp.nombre}${fp.tipo === 'transferencia' && emp!.iban ? ` · IBAN ${formatIban(emp!.iban)}` : ''}${fp.tipo === 'domiciliacion' && t.iban ? ` · Cargo en ${formatIban(String(t.iban)).replace(/.(?=.{4})/g, (c) => (c === ' ' ? ' ' : '*'))}` : ''}`);
   if (d.regimenIva === 'intracomunitario') notas.push('Operación exenta de IVA: entrega intracomunitaria (art. 25 Ley 37/1992).');
@@ -189,9 +192,9 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     const qr = await QRCode.toBuffer(vf.urlQr, { margin: 0, width: 140, errorCorrectionLevel: 'M' });
     const qy = Math.min(Math.max(doc.y + 10, fy), 690);
     doc.image(qr, 48, qy, { width: 70 });
-    doc.font('Helvetica-Bold').fontSize(8).fillColor(BRAND.tinta).text('QR tributario:', 126, qy + 4);
+    doc.font('Helvetica-Bold').fontSize(8).fillColor(B.tinta).text('QR tributario:', 126, qy + 4);
     doc.font('Helvetica').fontSize(7.5).text('Factura verificable en la sede electrónica de la AEAT', 126, qy + 16, { width: 220 });
-    doc.font('Helvetica-Bold').fontSize(9).fillColor(BRAND.violeta).text('VERI*FACTU', 126, qy + 34);
+    doc.font('Helvetica-Bold').fontSize(9).fillColor(B.violeta).text('VERI*FACTU', 126, qy + 34);
   }
 
   // Firma de aceptación / entrega
@@ -199,7 +202,7 @@ export async function documentoPdf(id: string, opts: { mostrarCostes?: boolean }
     try {
       const png = Buffer.from(d.firmaImagen.split(',')[1]!, 'base64');
       const sy = Math.min(doc.y + 20, 700);
-      doc.font('Helvetica').fontSize(8).fillColor(BRAND.gris).text(`${d.tipo === 'presupuesto' ? 'Aceptado' : 'Recibido'} por ${d.aceptadoPor ?? ''} el ${fmtDate(d.aceptadoEn as unknown as string)}`, 360, sy);
+      doc.font('Helvetica').fontSize(8).fillColor(B.gris).text(`${d.tipo === 'presupuesto' ? 'Aceptado' : 'Recibido'} por ${d.aceptadoPor ?? ''} el ${fmtDate(d.aceptadoEn as unknown as string)}`, 360, sy);
       doc.image(png, 360, sy + 12, { fit: [180, 60] });
     } catch {
       /* firma ilegible */

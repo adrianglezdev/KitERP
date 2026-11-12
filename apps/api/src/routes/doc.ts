@@ -10,6 +10,7 @@ import { audit } from '../core/audit';
 import { canViewEntity } from '../core/entities';
 import { badRequest, forbidden, notFound, parse } from '../core/errors';
 import { fileBuffer, fileUrl, getFile, saveFile } from '../core/files';
+import { marcaPublica } from '../core/marca-publica';
 import { emailLayout, queueEmail } from '../core/mail';
 import { notify } from '../core/notify';
 import { appendSignaturePage, renderTextPdf } from '../core/pdf';
@@ -168,6 +169,7 @@ export async function docRoutes(app: FastifyInstance) {
     const caducada = f.expiraEn && new Date(f.expiraEn) < new Date() && f.estado === 'pendiente';
     return {
       empresa: e?.nombre,
+      marca: await marcaPublica(f.empresaId),
       titulo: f.titulo,
       firmante: f.firmanteNombre,
       estado: caducada ? 'caducado' : f.estado,

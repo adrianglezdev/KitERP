@@ -107,7 +107,7 @@ export default function Roles() {
                       {p.scoped && v && (
                         <div className="flex flex-wrap gap-1">
                           {SCOPES.map((s) => (
-                            <button key={s} type="button" onClick={() => setDraft({ ...draft, permisos: { ...draft.permisos, [p.key]: s } })} className={cn('rounded-md px-2 py-0.5 text-[11.5px] font-medium', v === s ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg')}>
+                            <button key={s} type="button" onClick={() => setDraft({ ...draft, permisos: { ...draft.permisos, [p.key]: s } })} className={cn('rounded-pill px-2.5 py-0.5 text-[11.5px] font-bold', v === s ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg')}>
                               {SCOPE_LABELS[s]}
                             </button>
                           ))}

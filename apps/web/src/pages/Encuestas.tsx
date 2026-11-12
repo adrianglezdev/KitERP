@@ -99,7 +99,7 @@ function Responder({ e, onClose }: { e: any; onClose: () => void }) {
             {p.tipo === 'escala' && (
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <button key={n} type="button" onClick={() => setR({ ...r, [p.id]: n })} className={cn('h-10 w-10 rounded-lg border text-[14px] font-semibold transition', r[p.id] === n ? 'border-primary bg-primary text-primary-fg' : 'border-line hover:border-primary/50')}>
+                  <button key={n} type="button" onClick={() => setR({ ...r, [p.id]: n })} className={cn('h-10 w-10 rounded-pill border text-[14px] font-bold transition', r[p.id] === n ? 'border-primary bg-primary text-primary-fg' : 'border-line hover:border-primary/50')}>
                     {n}
                   </button>
                 ))}
@@ -196,7 +196,7 @@ function NuevaEncuesta({ onClose }: { onClose: () => void }) {
         </div>
         <p className="label">Preguntas</p>
         {preguntas.map((p, i) => (
-          <div key={i} className="space-y-2 rounded-lg border border-line p-3">
+          <div key={i} className="space-y-2 rounded-lg border border-line-strong/70 p-3">
             <div className="flex gap-2">
               <Input value={p.texto} onChange={(e) => setPreguntas(preguntas.map((x, j) => (j === i ? { ...x, texto: e.target.value } : x)))} placeholder="Pregunta" />
               <Select className="w-36" value={p.tipo} onChange={(e) => setPreguntas(preguntas.map((x, j) => (j === i ? { ...x, tipo: e.target.value as 'escala' } : x)))} options={[{ value: 'escala', label: 'Escala 1–5' }, { value: 'opcion', label: 'Opciones' }, { value: 'texto', label: 'Texto libre' }]} />

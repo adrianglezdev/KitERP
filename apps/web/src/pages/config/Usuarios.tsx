@@ -18,7 +18,7 @@ export default function Usuarios() {
   return (
     <>
       <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center gap-2 border-b border-line p-3">
+        <div className="flex flex-wrap items-center gap-2 px-4 pb-2 pt-4">
           <SearchInput value={q} onChange={setQ} placeholder="Buscar por nombre o email" className="min-w-[200px] flex-1" />
           <Button variant="primary" icon={Plus} onClick={() => setEdit({})}>
             Nuevo usuario
@@ -130,7 +130,7 @@ function UsuarioDialog({ u, roles, onClose, onTemporal }: { u: any; roles: any[]
           {extra.map((x, i) => {
             const def = catalogo.data?.find((c) => c.key === x.permiso);
             return (
-              <div key={x.permiso} className="flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-[13px]">
+              <div key={x.permiso} className="flex items-center gap-2 rounded-lg border border-line-strong/70 px-3 py-2 text-[13px]">
                 <span className="min-w-0 flex-1 truncate">{def?.label ?? x.permiso}</span>
                 {def?.scoped && (
                   <Select className="w-44 py-1" value={x.alcance} onChange={(e) => setExtra(extra.map((y, j) => (j === i ? { ...y, alcance: e.target.value } : y)))} options={SCOPES.map((s) => ({ value: s, label: SCOPE_LABELS[s] }))} />

@@ -18,7 +18,7 @@ export function setUnauthorizedHandler(fn: () => void) {
 
 async function request<T>(method: string, url: string, body?: unknown, opts: { raw?: boolean } = {}): Promise<T> {
   const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
-  const res = await fetch(url.startsWith('/api') ? url : `/api${url}`, {
+  const res = await fetch(url.startsWith('/api/') ? url : `/api${url}`, {
     method,
     credentials: 'include',
     headers: body !== undefined && !isForm ? { 'content-type': 'application/json' } : undefined,

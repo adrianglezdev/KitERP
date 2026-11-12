@@ -89,7 +89,7 @@ export default function Planificacion() {
 
 function OrdenCard({ o, onClick }: { o: Orden; onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} className={cn('block w-full rounded-lg border border-line bg-surface p-2.5 text-left shadow-card hover:border-primary/40', o.prioridad === 'urgente' && 'border-l-4 border-l-bad')}>
+    <button type="button" onClick={onClick} className={cn('block w-full rounded-2xl bg-surface p-2.5 text-left shadow-card hover:bg-sunken/60', o.prioridad === 'urgente' && 'ring-2 ring-inset ring-earth/70')}>
       <div className="flex items-center justify-between gap-2">
         <span className="text-[12.5px] font-semibold">{o.planificadaInicio ? hora(o.planificadaInicio) : o.codigo}</span>
         <EnumBadge options={ORDEN_ESTADOS} value={o.estado} dot={false} />

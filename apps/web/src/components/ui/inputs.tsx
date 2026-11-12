@@ -56,7 +56,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSel
   ref,
 ) {
   return (
-    <select ref={ref} className={cn('field-input appearance-none bg-[length:16px] bg-[right_10px_center] bg-no-repeat pr-9', invalid && 'border-bad', className)} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236E627E' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }} {...rest}>
+    <select ref={ref} className={cn('field-input appearance-none bg-[length:16px] bg-[right_10px_center] bg-no-repeat pr-9', invalid && 'border-bad', className)} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23707A8E' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }} {...rest}>
       {placeholder !== undefined && <option value="">{placeholder}</option>}
       {options?.map((o) => (
         <option key={String(o.value)} value={o.value}>
@@ -99,7 +99,7 @@ export function Switch({ checked, onChange, label, disabled, description }: { ch
         aria-checked={checked}
         disabled={disabled}
         onClick={() => onChange(!checked)}
-        className={cn('relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition', checked ? 'bg-primary' : 'bg-line')}
+        className={cn('relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition', checked ? 'bg-primary' : 'bg-line-strong')}
       >
         <span className={cn('inline-block h-5 w-5 transform rounded-full bg-white shadow transition', checked ? 'translate-x-5' : 'translate-x-0.5')} />
       </button>
@@ -110,18 +110,18 @@ export function Switch({ checked, onChange, label, disabled, description }: { ch
 export function SearchInput({ value, onChange, placeholder = 'Buscar…', className, autoFocus }: { value: string; onChange: (v: string) => void; placeholder?: string; className?: string; autoFocus?: boolean }) {
   return (
     <div className={cn('relative', className)}>
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+      <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
       <input
         type="search"
         value={value}
         autoFocus={autoFocus}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="field-input pl-9 pr-8 [&::-webkit-search-cancel-button]:hidden"
+        className="field-input !rounded-pill pl-10 pr-9 [&::-webkit-search-cancel-button]:hidden"
         aria-label={placeholder}
       />
       {value && (
-        <button type="button" onClick={() => onChange('')} className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted hover:text-fg" aria-label="Borrar búsqueda">
+        <button type="button" onClick={() => onChange('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-pill p-1 text-muted hover:text-fg" aria-label="Borrar búsqueda">
           <X className="h-3.5 w-3.5" />
         </button>
       )}
@@ -132,7 +132,7 @@ export function SearchInput({ value, onChange, placeholder = 'Buscar…', classN
 /** Segmentos tipo pestaña compacta (filtros rápidos). */
 export function Segmented<T extends string>({ value, onChange, options, className }: { value: T; onChange: (v: T) => void; options: { value: T; label: ReactNode; count?: number }[]; className?: string }) {
   return (
-    <div className={cn('scroll-thin inline-flex max-w-full overflow-x-auto rounded-lg border border-line bg-sunken p-0.5', className)} role="tablist">
+    <div className={cn('scroll-thin inline-flex max-w-full gap-0.5 overflow-x-auto rounded-pill bg-sunken p-1', className)} role="tablist">
       {options.map((o) => (
         <button
           key={o.value}
@@ -140,10 +140,10 @@ export function Segmented<T extends string>({ value, onChange, options, classNam
           role="tab"
           aria-selected={value === o.value}
           onClick={() => onChange(o.value)}
-          className={cn('flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-[13px] font-medium transition', value === o.value ? 'bg-surface text-fg shadow-sm' : 'text-muted hover:text-fg')}
+          className={cn('flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[13px] font-semibold transition', value === o.value ? 'bg-fg text-bg' : 'text-fg/65 hover:text-fg')}
         >
           {o.label}
-          {o.count !== undefined && <span className={cn('rounded-full px-1.5 text-[11px]', value === o.value ? 'bg-primary-soft text-primary' : 'bg-line/60')}>{o.count}</span>}
+          {o.count !== undefined && <span className={cn('rounded-full px-1.5 text-[11px] font-bold', value === o.value ? 'bg-bg/20' : 'bg-line-strong/60')}>{o.count}</span>}
         </button>
       ))}
     </div>

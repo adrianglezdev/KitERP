@@ -94,7 +94,7 @@ export function VencimientoSheet({ id, onClose }: { id: string; onClose: () => v
             {!v.pagos.length ? (
               <p className="text-[13px] text-muted">Ninguno todavía.</p>
             ) : (
-              <ul className="divide-y divide-line rounded-xl ring-1 ring-line">
+              <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
                 {v.pagos.map((p: any) => (
                   <li key={p.id} className="flex items-center gap-2 px-3 py-2 text-[13px]">
                     <span className="min-w-0 flex-1">

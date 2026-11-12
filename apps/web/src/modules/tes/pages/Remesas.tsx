@@ -97,7 +97,7 @@ function NuevaRemesa({ onClose, onCreada }: { onClose: () => void; onCreada: (id
         ) : (
           <>
             <Checkbox checked={validos.length > 0 && validos.every((v) => sel.has(v.id))} onChange={(on) => setSel(on ? new Set(validos.map((v) => v.id)) : new Set())} label={`Todos (${validos.length})`} />
-            <ul className="max-h-[45vh] divide-y divide-line overflow-y-auto rounded-xl ring-1 ring-line">
+            <ul className="max-h-[45vh] divide-y divide-line overflow-y-auto rounded-xl ring-1 ring-line-strong/70">
               {cand.data.map((v) => (
                 <li key={v.id} className="flex items-center gap-3 px-3 py-2 text-[13.5px]">
                   <Checkbox checked={sel.has(v.id)} disabled={!!v.motivo} onChange={(on) => setSel((s) => { const n = new Set(s); on ? n.add(v.id) : n.delete(v.id); return n; })} />
@@ -157,7 +157,7 @@ function RemesaSheet({ id, onClose }: { id: string; onClose: () => void }) {
               </Button>
             )}
           </div>
-          <ul className="divide-y divide-line rounded-xl ring-1 ring-line">
+          <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
             {r.vencimientos.map((v: any) => (
               <li key={v.id} className="flex items-center gap-2 px-3 py-2 text-[13.5px]">
                 <span className="min-w-0 flex-1">

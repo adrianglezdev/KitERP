@@ -70,7 +70,7 @@ export default function Valoracion() {
           )}
         </div>
         <Card className="overflow-hidden">
-          <div className="flex flex-wrap gap-2 border-b border-line p-3">
+          <div className="flex flex-wrap gap-2 px-4 pb-2 pt-4">
             <SearchInput value={q} onChange={setQ} placeholder="Filtrar…" className="min-w-[200px] flex-1" />
             <div className="w-full sm:w-56">
               <RefSelect target="almacenes" value={almacenId} onChange={setAlmacenId} placeholder="Todos los almacenes" />

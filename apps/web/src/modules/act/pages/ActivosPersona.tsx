@@ -15,7 +15,7 @@ export default function ActivosPersona({ id }: { id: string }) {
         {!data.activos.length ? (
           <p className="text-[13px] text-muted">Nada.</p>
         ) : (
-          <ul className="divide-y divide-line rounded-xl ring-1 ring-line">
+          <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
             {data.activos.map((a: any) => (
               <li key={a.id}>
                 <Link to={`/activos/${a.id}`} className="flex items-center gap-3 px-3 py-2 hover:bg-sunken">
@@ -37,7 +37,7 @@ export default function ActivosPersona({ id }: { id: string }) {
       {data.historial.length > 0 && (
         <div>
           <p className="label mb-1">Historial</p>
-          <ul className="divide-y divide-line rounded-xl ring-1 ring-line text-[13px]">
+          <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70 text-[13px]">
             {data.historial.map((h: any) => (
               <li key={h.id} className="flex justify-between gap-3 px-3 py-2">
                 <span className="truncate">

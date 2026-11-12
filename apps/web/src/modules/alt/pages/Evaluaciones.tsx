@@ -121,7 +121,7 @@ function Editor({ e }: { e: any }) {
       />
       {e.estado === 'firmada' && <Alert tone="green">Firmada el {fmtDate(e.firmadaEn)}. Ya no se puede modificar.</Alert>}
       <Card className="overflow-hidden">
-        <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
+        <div className="flex items-center justify-between px-5 pb-2 pt-4">
           <p className="font-semibold">Objetivos y competencias</p>
           <p className="text-[13px]">
             Global <b className="font-display text-[18px]">{global ?? '—'}</b> / {PUNTUACION_MAX}
@@ -139,7 +139,7 @@ function Editor({ e }: { e: any }) {
               </div>
               <div className="flex flex-wrap items-center gap-1">
                 {Array.from({ length: PUNTUACION_MAX + 1 }, (_, n) => (
-                  <button key={n} type="button" disabled={!ed} onClick={() => upd(i, { puntuacion: n })} className={cn('h-8 w-8 rounded-lg text-[13px] font-semibold ring-1 ring-line', o.puntuacion === n ? 'bg-primary text-white ring-primary' : 'hover:bg-sunken')}>
+                  <button key={n} type="button" disabled={!ed} onClick={() => upd(i, { puntuacion: n })} className={cn('h-8 w-8 rounded-pill text-[13px] font-bold ring-1 ring-line-strong/70', o.puntuacion === n ? 'bg-primary text-primary-fg ring-primary' : 'hover:bg-sunken')}>
                     {n}
                   </button>
                 ))}

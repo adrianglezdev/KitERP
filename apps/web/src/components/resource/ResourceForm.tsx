@@ -98,7 +98,7 @@ export function ResourceForm({ def, endpoint, record, initial, hide = [], onSave
         if (!fields.length) return null;
         return (
           <fieldset key={i} className="space-y-3">
-            {s.title && <legend className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted">{s.title}</legend>}
+            {s.title && <legend className="mb-1 text-[13px] font-bold text-muted">{s.title}</legend>}
             <div className="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
               {fields.map((k) => {
                 const f = def.fields[k]!;

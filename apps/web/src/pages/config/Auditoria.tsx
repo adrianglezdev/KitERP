@@ -16,7 +16,7 @@ export default function Auditoria() {
     <div className="space-y-4">
       <Alert tone="violet" icon={History}>Cada creación, cambio, borrado, inicio de sesión sensible o firma queda registrado con quién, cuándo, desde qué IP y qué cambió. Este registro no se puede modificar ni borrar.</Alert>
       <Card className="overflow-hidden">
-        <div className="flex flex-wrap gap-2 border-b border-line p-3">
+        <div className="flex flex-wrap gap-2 px-4 pb-2 pt-4">
           <Input placeholder="Tipo de registro (p. ej. documento, tercero)" value={entidad} onChange={(e) => { setEntidad(e.target.value); setPage(1); }} className="max-w-xs" />
           <Input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} className="w-[150px]" aria-label="Desde" />
           <Input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} className="w-[150px]" aria-label="Hasta" />

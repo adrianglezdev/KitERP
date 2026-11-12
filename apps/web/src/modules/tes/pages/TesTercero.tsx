@@ -37,7 +37,7 @@ export default function TesTercero({ id }: { id: string }) {
       {data.pagos.length > 0 && (
         <div>
           <p className="label mb-1">Últimos cobros y pagos</p>
-          <ul className="divide-y divide-line rounded-xl ring-1 ring-line">
+          <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
             {data.pagos.slice(0, 15).map((p: any) => (
               <li key={p.id} className="flex items-center gap-2 px-3 py-2 text-[13px]">
                 <span className="min-w-0 flex-1 truncate">

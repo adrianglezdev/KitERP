@@ -4,8 +4,8 @@
   "description": "Gestión integral de la empresa",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F5FA",
-  "theme_color": "#5E2A78",
+  "background_color": "#F2F3F8",
+  "theme_color": "#38465C",
   "lang": "es",
   "icons": [
     {

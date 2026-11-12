@@ -182,7 +182,7 @@ function ProcesoSheet({ id, onClose }: { id: string; onClose: () => void }) {
           <p className="text-[13px] text-muted">
             {fmtDate(p.fecha)} · <EnumBadge options={PROCESO_ESTADOS} value={p.estado} />
           </p>
-          <ul className="divide-y divide-line rounded-xl ring-1 ring-line">
+          <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
             {p.tareas.map((t: any) => (
               <li key={t.id} className="flex items-center gap-3 px-3 py-2 text-[13.5px]">
                 <span className="min-w-0 flex-1">

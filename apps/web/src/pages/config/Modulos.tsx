@@ -25,7 +25,7 @@ export default function Modulos() {
       {porPilar.map(({ p, mods }) => (
         <section key={p}>
           <h2 className="mb-2 flex items-center gap-2 text-[15px] font-bold">
-            <span className={cn('h-2.5 w-2.5 rotate-45 rounded-[2px]', PILLAR_CLASSES[p]!.dot)} />
+            <span className={cn('h-2.5 w-2.5 rounded-full', PILLAR_CLASSES[p]!.dot)} />
             {PILLARS[p].label}
           </h2>
           <div className="grid gap-3 md:grid-cols-2">

@@ -1,5 +1,5 @@
 import { eq, sql } from 'drizzle-orm';
-import { DEFAULT_ROLES, OPTIONAL_MODULE_CODES } from '@kite/shared';
+import { DEFAULT_ROLES, OPTIONAL_MODULE_CODES, TEMAS } from '@kite/shared';
 import { db, sqlClient } from '../db/client';
 import {
   articulos,
@@ -44,12 +44,12 @@ const PERSONAS: { key: string; nombre: string; apellidos: string; puesto: string
 ];
 
 const DEPARTAMENTOS = [
-  { key: 'direccion', nombre: 'Dirección', color: '#5E2A78' },
-  { key: 'administracion', nombre: 'Administración', color: '#B28574' },
-  { key: 'comercial', nombre: 'Comercial', color: '#7D2CDD' },
-  { key: 'almacen', nombre: 'Almacén y logística', color: '#35AE29' },
-  { key: 'sat', nombre: 'Servicio técnico', color: '#2E8B57' },
-  { key: 'rrhh', nombre: 'Recursos humanos', color: '#D4BE00' },
+  { key: 'direccion', nombre: 'Dirección', color: '#38465C' },
+  { key: 'administracion', nombre: 'Administración', color: '#8C96AA' },
+  { key: 'comercial', nombre: 'Comercial', color: '#F14092' },
+  { key: 'almacen', nombre: 'Almacén y logística', color: '#2651D4' },
+  { key: 'sat', nombre: 'Servicio técnico', color: '#9ACD12' },
+  { key: 'rrhh', nombre: 'Recursos humanos', color: '#5559E6' },
 ];
 
 const CLIENTES = [
@@ -96,7 +96,9 @@ const ARTICULOS: { ref: string; nombre: string; tipo?: string; fam: string; pvp:
 export async function seed() {
   const [existe] = await db.select({ id: empresas.id }).from(empresas).limit(1);
   if (existe) {
-    console.log('La base de datos ya tiene datos: no se cargan los de ejemplo');
+    // Con datos ya cargados solo se añade, si falta, la segunda empresa de demostración
+    const creada = await seedSegundaEmpresa();
+    console.log(creada ? 'La base de datos ya tenía datos: se ha añadido la segunda empresa de demostración' : 'La base de datos ya tiene datos: no se cargan los de ejemplo');
     return;
   }
   const hash = await hashPassword(DEMO_PASSWORD);
@@ -283,7 +285,74 @@ export async function seed() {
       await def.seed(tx, s);
     }
   });
+  await seedSegundaEmpresa();
   console.log('Datos de ejemplo cargados. Usuario admin@kite.test');
+}
+
+/**
+ * Segunda empresa de demostración, mucho más pequeña: enseña que cada empresa tiene su propia
+ * apariencia (otro tema, otro nombre de aplicación) y sus propios módulos. Entran en ella el
+ * administrador y dirección, desde «Cambiar a…» en el menú de usuario.
+ * Va en una transacción aparte para que su fecha de alta sea posterior a la de la empresa principal.
+ */
+const MODULOS_SEGUNDA = ['crm', 'opo', 'pre', 'ped', 'fac', 'stk', 'cpr', 'pry', 'gas', 'bi'];
+
+const NIF_SEGUNDA = 'B46999990';
+
+async function seedSegundaEmpresa(): Promise<boolean> {
+  const [ya] = await db.select({ id: empresas.id }).from(empresas).where(eq(empresas.nif, NIF_SEGUNDA));
+  const usuariosDemo = await db.select({ id: usuarios.id }).from(usuarios).where(eq(usuarios.email, 'admin@kite.test'));
+  // Solo en instalaciones de demostración (las que tienen las cuentas de ejemplo)
+  if (ya || !usuariosDemo.length) return false;
+  const tema = TEMAS.find((t) => t.id === 'atardecer')!;
+  await db.transaction(async (tx) => {
+    const [emp] = await tx
+      .insert(empresas)
+      .values({
+        nombre: 'Costa Audiovisual',
+        razonSocial: 'Costa Audiovisual y Eventos S.L.',
+        nif: NIF_SEGUNDA,
+        direccion: 'Avenida del Puerto 210',
+        codigoPostal: '46024',
+        localidad: 'Valencia',
+        provincia: 'Valencia',
+        telefono: '963 555 010',
+        email: 'hola@costaav.test',
+        web: 'costaav.test',
+        ajustes: { apariencia: { ...tema.apariencia, nombreApp: 'Costa AV' } },
+      })
+      .returning();
+    const empresaId = emp!.id;
+    const [centro] = await tx.insert(centros).values({ empresaId, nombre: 'Oficina y almacén', direccion: 'Avenida del Puerto 210', codigoPostal: '46024', localidad: 'Valencia', provincia: 'Valencia', comunidad: 'Comunitat Valenciana' }).returning();
+    const [dep] = await tx.insert(departamentos).values({ empresaId, nombre: 'Dirección', color: tema.apariencia.colores.estructura }).returning();
+    await tx.insert(departamentos).values({ empresaId, nombre: 'Comercial', color: tema.apariencia.colores.primario });
+
+    const rolesMap: Record<string, string> = {};
+    for (const r of DEFAULT_ROLES) {
+      const [row] = await tx.insert(roles).values({ empresaId, clave: r.key, nombre: r.nombre, descripcion: r.descripcion, sistema: true }).returning();
+      rolesMap[r.key] = row!.id;
+      if (r.permisos !== '*' && Object.keys(r.permisos).length)
+        await tx.insert(rolPermisos).values(Object.entries(r.permisos).map(([permiso, alcance]) => ({ rolId: row!.id, permiso, alcance })));
+    }
+
+    let n = 1;
+    for (const p of PERSONAS.filter((x) => x.key === 'admin' || x.key === 'direccion')) {
+      const [u] = await tx.select({ id: usuarios.id }).from(usuarios).where(eq(usuarios.email, p.email));
+      if (!u) continue;
+      const [persona] = await tx
+        .insert(personas)
+        .values({ empresaId, nombre: p.nombre, apellidos: p.apellidos, email: p.email.replace('@kite.test', '@costaav.test'), puesto: p.puesto, departamentoId: dep!.id, centroId: centro!.id, codigoEmpleado: `C${String(n++).padStart(3, '0')}` })
+        .returning();
+      await tx.insert(usuarioEmpresas).values({ usuarioId: u.id, empresaId, personaId: persona!.id, rolId: rolesMap[p.rol] });
+    }
+
+    for (const code of OPTIONAL_MODULE_CODES) await tx.insert(modulosEmpresa).values({ empresaId, modulo: code, activo: MODULOS_SEGUNDA.includes(code) });
+    await tx.insert(formasPago).values([
+      { empresaId, nombre: 'Transferencia a 30 días', tipo: 'transferencia', plazos: [{ dias: 30, porcentaje: 100 }] },
+      { empresaId, nombre: 'Contado', tipo: 'contado', plazos: [{ dias: 0, porcentaje: 100 }] },
+    ]);
+  });
+  return true;
 }
 
 function hashCode(s: string) {

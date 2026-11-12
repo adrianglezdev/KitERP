@@ -18,7 +18,7 @@ export function SaldoCard({ s }: { s: SaldoResumen }) {
         <span className="h-3 w-3 rounded-full" style={{ background: s.color }} />
         <p className="text-[13px] font-semibold">{s.tipo}</p>
       </div>
-      <p className="tabular mt-1 font-display text-[28px] font-extrabold">
+      <p className="tabular mt-1 font-display text-[28px] font-semibold">
         {fmtNumber(s.disponibles, 1)} <span className="text-[14px] font-medium text-muted">días disponibles</span>
       </p>
       <ProgressBar value={s.disfrutados + s.pendientes} max={total || 1} tone="green" />

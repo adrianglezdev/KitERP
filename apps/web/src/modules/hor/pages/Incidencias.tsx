@@ -64,7 +64,7 @@ export default function Incidencias() {
         )}
       </Card>
       <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center gap-2 border-b border-line p-3">
+        <div className="flex flex-wrap items-center gap-2 px-4 pb-2 pt-4">
           <Input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} className="w-[150px]" aria-label="Desde" />
           <span className="text-muted">–</span>
           <Input type="date" value={hasta} max={hoy} onChange={(e) => setHasta(e.target.value)} className="w-[150px]" aria-label="Hasta" />

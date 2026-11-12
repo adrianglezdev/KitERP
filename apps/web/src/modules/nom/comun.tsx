@@ -33,7 +33,7 @@ export function ListaRecibos({ url, onAbierto }: { url: string; onAbierto?: () =
       {anios.map((a) => (
         <div key={a}>
           <p className="label mb-1">{a}</p>
-          <ul className="divide-y divide-line rounded-xl ring-1 ring-line">
+          <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
             {data
               .filter((r) => r.anio === a)
               .map((r) => (

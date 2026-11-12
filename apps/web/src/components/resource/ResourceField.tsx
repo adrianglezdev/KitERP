@@ -36,7 +36,7 @@ export function FieldControl({ name, def, value, onChange, error, refLabel }: { 
     case 'color':
       return (
         <div className="flex items-center gap-2">
-          <input type="color" value={value || '#7D2CDD'} onChange={(e) => onChange(e.target.value)} className="h-9 w-12 cursor-pointer rounded border border-line bg-surface" aria-label={def.label} />
+          <input type="color" value={value || '#5559E6'} onChange={(e) => onChange(e.target.value)} className="h-9 w-12 cursor-pointer rounded border border-line-strong/70 bg-surface" aria-label={def.label} />
           <Input id={id} value={value ?? ''} onChange={(e) => onChange(e.target.value)} className="font-mono" />
         </div>
       );

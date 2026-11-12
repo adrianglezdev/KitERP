@@ -57,7 +57,7 @@ export default function FichaLaboral({ id }: { id: string }) {
 
       <div>
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-[12.5px] font-semibold uppercase tracking-wide text-muted">
+          <h3 className="flex items-center gap-2 text-[12.5px] font-bold text-muted">
             <History className="h-4 w-4" /> Historial laboral
           </h3>
           {can('fic.editar') && data.puedeEditar && (

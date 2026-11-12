@@ -56,7 +56,7 @@ export default function Facturas() {
       <Card>
         <CardHeader title="Registrar una factura de proveedor" icon={FileInput} subtitle="Sube el PDF: se leen el NIF, el número, la fecha y los importes, y se busca la recepción que factura." />
         <div className="space-y-4 p-4">
-          <label className="flex cursor-pointer items-center justify-center gap-3 rounded-xl border-2 border-dashed border-line px-4 py-6 text-[13.5px] text-muted hover:border-primary/50 hover:bg-sunken/50">
+          <label className="flex cursor-pointer items-center justify-center gap-3 rounded-xl border-2 border-dashed border-line-strong px-4 py-6 text-[13.5px] text-muted hover:border-primary/50 hover:bg-sunken/50">
             <FileUp className="h-5 w-5" />
             {busy ? 'Leyendo la factura…' : a ? 'Subir otra factura' : 'Elige el PDF de la factura'}
             <input type="file" accept="application/pdf" hidden onChange={(e) => subir(e.target.files?.[0])} />

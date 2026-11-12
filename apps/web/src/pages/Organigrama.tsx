@@ -18,19 +18,20 @@ function Rama({ n, hijos }: { n: Nodo; hijos: Map<string, Nodo[]> }) {
   const sub = hijos.get(n.id) ?? [];
   return (
     <li className="relative">
-      <Link to={`/personas/${n.id}`} className="flex items-center gap-3 rounded-xl border border-line bg-surface px-3 py-2.5 shadow-card transition hover:border-primary/40" style={{ borderLeft: `4px solid ${n.color ?? '#7D2CDD'}` }}>
+      <Link to={`/personas/${n.id}`} className="relative flex max-w-[560px] items-center gap-3 rounded-2xl bg-surface px-4 py-3 shadow-card transition hover:bg-sunken/60">
         <Avatar name={n.nombre} src={n.fotoUrl} size={34} />
         <span className="min-w-0">
           <span className="block truncate text-[13.5px] font-semibold">{n.nombre}</span>
-          <span className="block truncate text-[12px] text-muted">
+          <span className="flex items-center gap-1.5 truncate text-[12px] text-muted">
+            <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: n.color ?? 'rgb(var(--primary))' }} />
             {n.puesto ?? '—'}
             {n.departamento ? ` · ${n.departamento}` : ''}
           </span>
         </span>
-        {sub.length > 0 && <span className="ml-auto shrink-0 rounded-full bg-sunken px-2 text-[11.5px] text-muted">{sub.length}</span>}
+        {sub.length > 0 && <span className="tag ml-auto shrink-0">{sub.length}</span>}
       </Link>
       {sub.length > 0 && (
-        <ul className="ml-5 mt-2 space-y-2 border-l-2 border-line pl-4">
+        <ul className="ml-7 mt-2.5 space-y-2.5 border-l-2 border-line-strong pl-6">
           {sub.map((h) => (
             <Rama key={h.id} n={h} hijos={hijos} />
           ))}

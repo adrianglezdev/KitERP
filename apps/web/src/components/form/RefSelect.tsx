@@ -93,7 +93,7 @@ export function RefSelect({
                 e.stopPropagation();
                 onChange(null);
               }}
-              className="rounded p-0.5 text-muted hover:text-fg"
+              className="rounded-pill p-0.5 text-muted hover:text-fg"
             >
               <X className="h-3.5 w-3.5" />
             </span>
@@ -103,7 +103,7 @@ export function RefSelect({
         </button>
       </P.Trigger>
       <P.Portal>
-        <P.Content align="start" sideOffset={4} className="z-[60] w-[var(--radix-popover-trigger-width)] min-w-[260px] rounded-xl border border-line bg-surface p-1 shadow-pop">
+        <P.Content align="start" sideOffset={4} className="z-[60] w-[var(--radix-popover-trigger-width)] min-w-[260px] rounded-xl border border-line-strong/70 bg-surface p-1 shadow-pop">
           <Command shouldFilter={false} loop>
             <div className="flex items-center gap-2 border-b border-line px-2">
               <Command.Input autoFocus value={q} onValueChange={setQ} placeholder={placeholder} className="h-10 w-full bg-transparent text-[14px] outline-none placeholder:text-muted" />

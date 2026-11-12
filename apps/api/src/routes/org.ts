@@ -4,6 +4,7 @@ import { z } from 'zod';
 import {
   MODULES,
   OPTIONAL_MODULE_CODES,
+  aparienciaSchema,
   centroResource,
   departamentoResource,
   dependents,
@@ -55,7 +56,12 @@ export async function orgRoutes(app: FastifyInstance) {
     return db.transaction(async (tx) => {
       const [before] = await tx.select().from(empresas).where(eq(empresas.id, req.ctx.empresaId));
       const data: Record<string, unknown> = { ...body };
-      if (body.ajustes) data.ajustes = { ...(before!.ajustes ?? {}), ...body.ajustes };
+      if (body.ajustes) {
+        const ajustes: Record<string, unknown> = { ...body.ajustes };
+        // La apariencia se valida entera: colores #RRGGBB, tipografías conocidas y opciones cerradas
+        if (ajustes.apariencia !== undefined) ajustes.apariencia = ajustes.apariencia === null ? undefined : parse(aparienciaSchema, ajustes.apariencia);
+        data.ajustes = { ...(before!.ajustes ?? {}), ...ajustes };
+      }
       const [after] = await tx.update(empresas).set(data).where(eq(empresas.id, req.ctx.empresaId)).returning();
       await audit(tx, req.ctx, 'editar', 'empresa', req.ctx.empresaId, diff(before, after));
       return after;

@@ -6,14 +6,14 @@ import { api, errorMessage } from '@/lib/api';
 import { useApi } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { Alert, Button, Card, Checkbox, Field, Input, Segmented, Select, Textarea } from '@/components/ui';
-import { PublicLayout } from './PublicLayout';
+import { PublicLayout, type MarcaPublica } from './PublicLayout';
 
 const CATEGORIAS = ['Acoso o discriminación', 'Fraude o corrupción', 'Seguridad y salud', 'Protección de datos', 'Medio ambiente', 'Otro incumplimiento'];
 
 /** Canal interno de información (Ley 2/2023): comunicar de forma anónima y consultar el estado. */
 export default function PublicCanal() {
   const { empresaId } = useParams();
-  const info = useApi<{ empresa: string }>(`/public/${empresaId}/canal`, { retry: false });
+  const info = useApi<{ empresa: string; marca?: MarcaPublica }>(`/public/${empresaId}/canal`, { retry: false });
   const [modo, setModo] = useState<'nueva' | 'consulta'>('nueva');
   const [f, setF] = useState({ categoria: CATEGORIAS[0]!, asunto: '', descripcion: '', anonima: true, nombre: '', email: '' });
   const [enviado, setEnviado] = useState<{ codigo: string; clave: string } | null>(null);
@@ -47,10 +47,10 @@ export default function PublicCanal() {
   }
 
   return (
-    <PublicLayout empresa={info.data?.empresa}>
+    <PublicLayout empresa={info.data?.empresa} marca={info.data?.marca}>
       <div className="space-y-5">
         <div>
-          <h1 className="flex items-center gap-2 text-[24px] font-extrabold">
+          <h1 className="flex items-center gap-2 text-[24px] font-semibold">
             <ShieldCheck className="h-6 w-6 text-primary" /> Canal de denuncias
           </h1>
           <p className="mt-1 text-[14px] text-muted">Puedes comunicar de forma anónima cualquier irregularidad. Solo las personas responsables del canal pueden leerla y está prohibida cualquier represalia.</p>

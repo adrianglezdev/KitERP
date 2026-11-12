@@ -35,7 +35,7 @@ export default function Plantilla() {
       <PageHeader title="Plantilla" icon={Users} subtitle="Contratos, datos laborales y avisos de vencimientos de cada persona." />
       <div className="grid gap-5 xl:grid-cols-[1fr_360px]">
         <Card className="min-w-0 overflow-hidden">
-          <div className="flex flex-wrap items-center gap-3 border-b border-line p-3">
+          <div className="flex flex-wrap items-center gap-3 px-4 pb-2 pt-4">
             <SearchInput value={q} onChange={setQ} placeholder="Nombre o DNI" className="min-w-[200px] flex-1" />
             <Checkbox checked={inactivos} onChange={setInactivos} label="Incluir bajas" />
           </div>

@@ -7,17 +7,17 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'soft'
 type Size = 'sm' | 'md' | 'lg';
 
 const VARIANTS: Record<Variant, string> = {
-  primary: 'bg-primary text-primary-fg hover:bg-primary/90 shadow-sm',
-  secondary: 'bg-surface text-fg border border-line hover:bg-sunken shadow-sm',
+  primary: 'bg-primary text-primary-fg hover:bg-primary/90',
+  secondary: 'bg-sunken text-fg hover:bg-line-strong/70',
   ghost: 'text-fg hover:bg-sunken',
-  danger: 'bg-bad text-white hover:bg-bad/90 shadow-sm',
-  success: 'bg-ok text-white hover:bg-ok/90 shadow-sm',
+  danger: 'bg-bad text-bg hover:bg-bad/90',
+  success: 'bg-sun text-sun-fg hover:brightness-95',
   soft: 'bg-primary-soft text-primary hover:bg-primary/15',
 };
 const SIZES: Record<Size, string> = {
-  sm: 'h-8 px-2.5 text-[13px] gap-1.5',
-  md: 'h-9 px-3.5 text-[14px] gap-2',
-  lg: 'h-11 px-5 text-[15px] gap-2',
+  sm: 'h-8 px-3.5 text-[13px] gap-1.5',
+  md: 'h-10 px-[18px] text-[14px] gap-2',
+  lg: 'h-12 px-6 text-[15px] gap-2',
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -38,7 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       type={type}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-lg font-medium transition disabled:pointer-events-none disabled:opacity-50',
+        'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-pill font-bold transition disabled:pointer-events-none disabled:opacity-50',
         VARIANTS[variant],
         SIZES[size],
         className,
@@ -56,7 +56,7 @@ export function ButtonLink({ to, variant = 'secondary', size = 'md', icon: Icon,
   return (
     <Link
       to={to}
-      className={cn('inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg font-medium transition', VARIANTS[variant], SIZES[size], className)}
+      className={cn('inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-pill font-bold transition', VARIANTS[variant], SIZES[size], className)}
       {...rest}
     >
       {Icon && <Icon className={size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'} />}
@@ -74,10 +74,10 @@ export const IconButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTM
         aria-label={label}
         title={label}
         className={cn(
-          'inline-flex shrink-0 items-center justify-center rounded-lg transition disabled:opacity-40',
+          'inline-flex shrink-0 items-center justify-center rounded-pill transition disabled:opacity-40',
           size === 'sm' ? 'h-8 w-8' : 'h-9 w-9',
           variant === 'ghost' && 'text-muted hover:bg-sunken hover:text-fg',
-          variant === 'secondary' && 'border border-line bg-surface text-fg hover:bg-sunken',
+          variant === 'secondary' && 'bg-sunken text-fg hover:bg-line-strong/70',
           variant === 'soft' && 'bg-primary-soft text-primary hover:bg-primary/15',
           className,
         )}

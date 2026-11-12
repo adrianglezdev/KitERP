@@ -15,7 +15,7 @@ export default function Series() {
     <div className="space-y-4">
       <Alert tone="violet">La numeración es correlativa y sin huecos dentro de cada serie y año: el número se asigna en el momento de emitir. Puedes crear series separadas (p. ej. por centro o para abonos).</Alert>
       <Card className="overflow-hidden">
-        <div className="flex justify-end border-b border-line p-3">
+        <div className="flex justify-end px-4 pb-2 pt-4">
           <Button variant="primary" icon={Plus} onClick={() => setNueva(true)}>
             Nueva serie
           </Button>

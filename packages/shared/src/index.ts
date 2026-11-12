@@ -8,6 +8,7 @@ export * from './api-types';
 export * from './core/enums';
 export * from './core/resources';
 export * from './format';
+export * from './apariencia';
 
 // Recursos de cada módulo (espacios de nombres para evitar colisiones)
 export * as ficShared from './modules/fic';

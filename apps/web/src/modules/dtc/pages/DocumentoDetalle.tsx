@@ -326,7 +326,7 @@ function Lecturas({ id, onClose }: { id: string; onClose: () => void }) {
             </p>
             <Checkbox checked={solo} onChange={setSolo} label="Solo quienes deben leerlo" />
           </div>
-          <ul className="max-h-[50vh] divide-y divide-line overflow-y-auto rounded-xl ring-1 ring-line">
+          <ul className="max-h-[50vh] divide-y divide-line overflow-y-auto rounded-xl ring-1 ring-line-strong/70">
             {filas.map((p: any) => (
               <li key={p.id} className="flex items-center gap-3 px-3 py-2 text-[13.5px]">
                 <span className="min-w-0 flex-1 truncate">{p.nombre}</span>

@@ -6,7 +6,7 @@ import { api } from '@/lib/api';
 import { useApi, useMut } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
 import { Button, Card, CardHeader, EnumBadge, PageHeader, Spinner, Stat, useConfirm } from '@/components/ui';
-import { Chart } from '@/components/charts/Widget';
+import { CHART, Chart } from '@/components/charts/Widget';
 import { AnioSelect, EJERCICIO_ESTADOS } from '../comun';
 
 /** Portada de contabilidad: resultado del año, evolución mensual y ejercicios. */
@@ -39,14 +39,14 @@ export default function Contabilidad() {
           <Card className="p-4">
             <CardHeader title="Ingresos y gastos por mes" className="!px-0 !pt-0" />
             {r ? (
-              <Chart chart="bar" data={r.meses} xKey="mes" series={[{ key: 'ingresos', label: 'Ingresos', color: '#35AE29' }, { key: 'gastos', label: 'Gastos', color: '#B28574' }]} format="money" height={240} />
+              <Chart chart="bar" data={r.meses} xKey="mes" series={[{ key: 'ingresos', label: 'Ingresos', color: CHART.primary }, { key: 'gastos', label: 'Gastos', color: CHART.alert }]} format="money" height={240} />
             ) : (
               <Spinner />
             )}
           </Card>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {accesos.map((a) => (
-              <Link key={a.to} to={a.to} className="flex items-center gap-2 rounded-xl bg-surface px-3 py-3 text-[13.5px] font-medium ring-1 ring-line hover:ring-primary">
+              <Link key={a.to} to={a.to} className="flex items-center gap-2 rounded-xl bg-surface px-3 py-3 text-[13.5px] font-medium ring-1 ring-line-strong/70 hover:ring-primary">
                 <a.icon className="h-4 w-4 text-primary" /> {a.label}
               </Link>
             ))}

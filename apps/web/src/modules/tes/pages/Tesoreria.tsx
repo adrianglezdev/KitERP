@@ -3,7 +3,7 @@ import { AlertTriangle, ArrowDownLeft, ArrowUpRight, Landmark, TrendingUp } from
 import { fmtDate, fmtMoney } from '@kite/shared';
 import { useApi } from '@/lib/hooks';
 import { Alert, Card, CardHeader, PageHeader, Spinner, Stat } from '@/components/ui';
-import { Chart } from '@/components/charts/Widget';
+import { CHART, Chart } from '@/components/charts/Widget';
 
 /** Resumen de tesorería: saldos, lo que hay que cobrar y pagar, y previsión de 13 semanas. */
 export default function Tesoreria() {
@@ -37,9 +37,9 @@ export default function Tesoreria() {
               data={p.semanas}
               xKey="etiqueta"
               series={[
-                { key: 'cobros', label: 'Cobros', color: '#35AE29' },
-                { key: 'pagos', label: 'Pagos', color: '#B28574' },
-                { key: 'saldo', label: 'Saldo', color: '#7D2CDD' },
+                { key: 'cobros', label: 'Cobros', color: CHART.accent },
+                { key: 'pagos', label: 'Pagos', color: CHART.alert },
+                { key: 'saldo', label: 'Saldo', color: CHART.primary },
               ]}
               format="money"
               height={260}

@@ -1,16 +1,9 @@
 import PDFDocument from 'pdfkit';
 import { PDFDocument as PdfLibDoc, StandardFonts, rgb } from 'pdf-lib';
 
-export const BRAND = {
-  violeta: '#7D2CDD',
-  morado: '#5E2A78',
-  verde: '#35AE29',
-  marron: '#B28574',
-  amarillo: '#F1DE07',
-  tinta: '#2A1838',
-  gris: '#6E6178',
-  linea: '#E4DCEB',
-};
+import { BRAND, type Marca } from './marca';
+
+export { BRAND, marcaDe, type Marca } from './marca';
 
 export function pdfToBuffer(doc: PDFKit.PDFDocument): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -27,7 +20,7 @@ export function newPdf(title: string) {
 }
 
 /** Cabecera común: nombre de empresa a la izquierda, título del documento a la derecha. */
-export function pdfHeader(doc: PDFKit.PDFDocument, empresa: { nombre: string; nif?: string | null; direccion?: string | null; localidad?: string | null; email?: string | null; telefono?: string | null }, titulo: string, logo?: Buffer | null) {
+export function pdfHeader(doc: PDFKit.PDFDocument, empresa: { nombre: string; nif?: string | null; direccion?: string | null; localidad?: string | null; email?: string | null; telefono?: string | null }, titulo: string, logo?: Buffer | null, marca: Marca = BRAND) {
   const top = 40;
   if (logo) {
     try {
@@ -36,12 +29,12 @@ export function pdfHeader(doc: PDFKit.PDFDocument, empresa: { nombre: string; ni
       /* logo no válido: se ignora */
     }
   } else {
-    doc.fillColor(BRAND.morado).font('Helvetica-Bold').fontSize(16).text(empresa.nombre, 48, top, { width: 260 });
+    doc.fillColor(marca.morado).font('Helvetica-Bold').fontSize(16).text(empresa.nombre, 48, top, { width: 260 });
   }
   doc.fillColor(BRAND.gris).font('Helvetica').fontSize(8.5);
   const lines = [logo ? empresa.nombre : null, empresa.nif ? `NIF ${empresa.nif}` : null, empresa.direccion, empresa.localidad, [empresa.telefono, empresa.email].filter(Boolean).join(' · ') || null].filter(Boolean) as string[];
   doc.text(lines.join('\n'), 48, top + (logo ? 52 : 22), { width: 260 });
-  doc.fillColor(BRAND.violeta).font('Helvetica-Bold').fontSize(20).text(titulo, 300, top, { width: 247, align: 'right' });
+  doc.fillColor(marca.violeta).font('Helvetica-Bold').fontSize(20).text(titulo, 300, top, { width: 247, align: 'right' });
   doc.moveTo(48, 128).lineTo(547, 128).lineWidth(1).strokeColor(BRAND.linea).stroke();
   doc.y = 140;
 }

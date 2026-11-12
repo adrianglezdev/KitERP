@@ -20,6 +20,7 @@ import { audit } from '../core/audit';
 import { systemCtx } from '../core/context';
 import { badRequest, forbidden, notFound, parse } from '../core/errors';
 import { saveFile, fileUrl } from '../core/files';
+import { marcaPublica } from '../core/marca-publica';
 import { emailLayout, queueEmail } from '../core/mail';
 import { activeModules } from '../core/modules';
 import { can, guard, scopeCondition } from '../core/permissions';
@@ -247,7 +248,7 @@ export async function documentosRoutes(app: FastifyInstance) {
       const token = await prepararEnvioPublico(tx, id);
       const { buffer, nombre } = await documentoPdf(id);
       const f = await saveFile(tx, { empresaId: ctx.empresaId, nombre, mime: 'application/pdf', data: buffer, subidoPor: ctx.usuarioId });
-      const [emp] = await tx.select({ nombre: empresas.nombre }).from(empresas).where(eq(empresas.id, ctx.empresaId));
+      const [emp] = await tx.select({ nombre: empresas.nombre, ajustes: empresas.ajustes }).from(empresas).where(eq(empresas.id, ctx.empresaId));
       const enlace = `${config.appUrl}/p/${token}`;
       await queueEmail(tx, {
         empresaId: ctx.empresaId,
@@ -258,6 +259,7 @@ export async function documentosRoutes(app: FastifyInstance) {
           titulo: `${tipoLabel(d.tipo)} ${d.codigo ?? ''}`,
           cuerpo: `${body.mensaje ? `<p>${body.mensaje.replace(/</g, '&lt;').replace(/\n/g, '<br>')}</p>` : ''}<p>Importe: <b>${fmtMoney(d.total)}</b></p>`,
           boton: { texto: d.tipo === 'presupuesto' ? 'Ver y aceptar el presupuesto' : 'Ver documento', url: enlace },
+          ajustes: emp!.ajustes,
         }),
         adjuntos: [{ archivoId: f.id, nombre }],
       });
@@ -351,6 +353,7 @@ export async function documentosRoutes(app: FastifyInstance) {
     const caducado = d.tipo === 'presupuesto' && d.fechaValidez && d.fechaValidez < new Date().toISOString().slice(0, 10) && ['enviado', 'visto'].includes(d.estado);
     return {
       empresa: { nombre: emp!.nombre, logoUrl: fileUrl(emp!.logo, 86400), email: emp!.email, telefono: emp!.telefono },
+      marca: await marcaPublica(d.empresaId),
       tipo: d.tipo,
       tipoLabel: tipoLabel(d.tipo),
       codigo: d.codigo,

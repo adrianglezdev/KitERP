@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, type ReactNode } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { scopeRank, type Scope, type SessionInfo } from '@kite/shared';
+import { scopeRank, type Preferencias, type Scope, type SessionInfo } from '@kite/shared';
 import { api, setUnauthorizedHandler } from './api';
+import { applyBrand } from './theme';
 
 interface SessionCtx {
   session: SessionInfo | null;
@@ -13,6 +14,8 @@ interface SessionCtx {
   /** ¿Está activo el módulo? */
   has: (module: string) => boolean;
   refresh: () => Promise<unknown>;
+  /** Guarda preferencias de la persona en esta empresa (se ven al momento y se envían al servidor). */
+  savePrefs: (p: Partial<Preferencias>) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -36,6 +39,14 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     });
   }, [qc]);
 
+  // La apariencia es de la empresa: al entrar o al cambiar de empresa se pinta la suya
+  const emp = q.data?.empresa;
+  const marca = emp ? JSON.stringify([emp.id, emp.nombre, emp.apariencia]) : null;
+  useEffect(() => {
+    if (emp) applyBrand({ empresaId: emp.id, nombre: emp.nombre, logoUrl: emp.logoUrl, apariencia: emp.apariencia }, { persist: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [marca]);
+
   const value = useMemo<SessionCtx>(() => {
     const s = q.data ?? null;
     const mods = new Set(s?.modulos ?? []);
@@ -50,6 +61,14 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       scope: (perm) => s?.permisos[perm],
       has: (m) => m === 'core' || mods.has(m),
       refresh: () => q.refetch(),
+      savePrefs: async (p) => {
+        qc.setQueryData<SessionInfo | null>(['session'], (old) => (old ? { ...old, preferencias: { ...old.preferencias, ...p } } : old));
+        try {
+          await api.patch('/auth/preferencias', p);
+        } catch {
+          await q.refetch();
+        }
+      },
       logout: async () => {
         await api.post('/auth/logout');
         qc.clear();

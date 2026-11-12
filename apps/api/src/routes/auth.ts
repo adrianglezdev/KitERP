@@ -1,7 +1,7 @@
 import { and, desc, eq, sql } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
-import { initials, type SessionInfo } from '@kite/shared';
+import { initials, normalizarApariencia, preferenciasSchema, type SessionInfo } from '@kite/shared';
 import { db } from '../db/client';
 import { departamentos, empresas, personas, roles, sesiones, usuarioEmpresas, usuarios } from '../db/schema';
 import {
@@ -18,6 +18,7 @@ import {
 import { audit } from '../core/audit';
 import { badRequest, forbidden, parse, unauthorized } from '../core/errors';
 import { fileUrl } from '../core/files';
+import { marcaPublica } from '../core/marca-publica';
 import { invalidatePermissions } from '../core/permissions';
 
 const loginSchema = z.object({
@@ -53,10 +54,12 @@ export async function authRoutes(app: FastifyInstance) {
         if (!body.codigo) return reply.status(200).send({ requiereCodigo: true });
         if (!u.totpSecreto || !verifyTotp(u.totpSecreto, body.codigo)) throw unauthorized('Código de verificación incorrecto');
       }
+      // Sin empresa indicada se entra en la primera a la que se le dio acceso
       const accesos = await db
         .select({ empresaId: usuarioEmpresas.empresaId })
         .from(usuarioEmpresas)
-        .where(and(eq(usuarioEmpresas.usuarioId, u.id), eq(usuarioEmpresas.activo, true)));
+        .where(and(eq(usuarioEmpresas.usuarioId, u.id), eq(usuarioEmpresas.activo, true)))
+        .orderBy(usuarioEmpresas.creadoEn);
       if (!accesos.length) throw forbidden('Tu usuario no tiene acceso a ninguna empresa');
       const empresaId = accesos.find((a) => a.empresaId === body.empresaId)?.empresaId ?? accesos[0]!.empresaId;
       const { token, expiraEn } = await createSession(u.id, empresaId, req);
@@ -78,7 +81,7 @@ export async function authRoutes(app: FastifyInstance) {
     const [u] = await db.select().from(usuarios).where(eq(usuarios.id, ctx.usuarioId));
     const [emp] = await db.select().from(empresas).where(eq(empresas.id, ctx.empresaId));
     const [ue] = await db
-      .select({ rolId: roles.id, rolNombre: roles.nombre })
+      .select({ rolId: roles.id, rolNombre: roles.nombre, preferencias: usuarioEmpresas.preferencias })
       .from(usuarioEmpresas)
       .leftJoin(roles, eq(roles.id, usuarioEmpresas.rolId))
       .where(eq(usuarioEmpresas.id, ctx.usuarioEmpresaId));
@@ -97,7 +100,8 @@ export async function authRoutes(app: FastifyInstance) {
       .select({ id: empresas.id, nombre: empresas.nombre })
       .from(usuarioEmpresas)
       .innerJoin(empresas, eq(empresas.id, usuarioEmpresas.empresaId))
-      .where(and(eq(usuarioEmpresas.usuarioId, ctx.usuarioId), eq(usuarioEmpresas.activo, true)));
+      .where(and(eq(usuarioEmpresas.usuarioId, ctx.usuarioId), eq(usuarioEmpresas.activo, true)))
+      .orderBy(empresas.creadoEn);
     return {
       user: {
         id: ctx.usuarioId,
@@ -111,11 +115,34 @@ export async function authRoutes(app: FastifyInstance) {
         tieneEquipo,
         totp: u!.totpActivo,
       },
-      empresa: { id: emp!.id, nombre: emp!.nombre, nif: emp!.nif, logoUrl: fileUrl(emp!.logoArchivoId, 86400) },
+      empresa: { id: emp!.id, nombre: emp!.nombre, nif: emp!.nif, logoUrl: fileUrl(emp!.logoArchivoId, 86400), apariencia: normalizarApariencia(emp!.ajustes?.apariencia) },
       empresas: emps,
+      preferencias: ue?.preferencias ?? {},
       permisos: Object.fromEntries(ctx.perms),
       modulos: [...ctx.modules],
     };
+  });
+
+  /* Preferencias de la persona en la empresa actual (favoritos del lanzador de aplicaciones…) */
+  app.patch('/auth/preferencias', async (req) => {
+    const body = parse(preferenciasSchema, req.body);
+    const [ue] = await db.select({ preferencias: usuarioEmpresas.preferencias }).from(usuarioEmpresas).where(eq(usuarioEmpresas.id, req.ctx.usuarioEmpresaId));
+    const preferencias = { ...(ue?.preferencias ?? {}), ...body };
+    await db.update(usuarioEmpresas).set({ preferencias }).where(eq(usuarioEmpresas.id, req.ctx.usuarioEmpresaId));
+    return preferencias;
+  });
+
+  /**
+   * Marca que se enseña antes de iniciar sesión (pantalla de entrada): nombre, logo y apariencia.
+   * Con ?empresa=<id> la de esa empresa; sin él, la de la primera empresa de la instalación.
+   */
+  app.get('/public/marca', { config: { public: true } }, async (req) => {
+    const { empresa } = parse(z.object({ empresa: z.string().uuid().optional() }), req.query);
+    const [emp] = empresa
+      ? await db.select({ id: empresas.id }).from(empresas).where(eq(empresas.id, empresa))
+      : await db.select({ id: empresas.id }).from(empresas).orderBy(empresas.creadoEn).limit(1);
+    if (!emp) return { id: null, nombre: null, logoUrl: null, apariencia: normalizarApariencia(null) };
+    return { id: emp.id, ...(await marcaPublica(emp.id)) };
   });
 
   app.post('/auth/empresa', async (req) => {

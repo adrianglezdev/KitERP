@@ -23,13 +23,13 @@ export class ErrorBoundary extends Component<{ children: ReactNode; resetKey?: s
   render() {
     if (!this.state.error) return this.props.children;
     return (
-      <div role="alert" className="mx-auto mt-10 max-w-md rounded-2xl bg-surface p-6 text-center shadow-sm ring-1 ring-line">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-bad">
+      <div role="alert" className="mx-auto mt-10 max-w-md rounded-2xl bg-surface p-6 text-center shadow-card">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-pill bg-bad-soft text-bad">
           <AlertTriangle className="h-6 w-6" />
         </div>
         <p className="font-display text-[17px] font-bold">Esta pantalla no se ha podido mostrar</p>
         <p className="mt-1 text-[13.5px] text-muted">Tus datos están a salvo. Prueba a recargar; si se repite, avisa al administrador indicando qué estabas haciendo.</p>
-        <button type="button" onClick={() => window.location.reload()} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-[13.5px] font-semibold text-white">
+        <button type="button" onClick={() => window.location.reload()} className="mt-4 inline-flex items-center gap-2 rounded-pill bg-primary px-4 py-2 text-[13.5px] font-bold text-primary-fg">
           <RotateCcw className="h-4 w-4" /> Recargar
         </button>
       </div>

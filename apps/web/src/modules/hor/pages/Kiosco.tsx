@@ -6,10 +6,12 @@ import { api, errorMessage } from '@/lib/api';
 import { useApi } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { Alert, Avatar, Spinner } from '@/components/ui';
-import { Logo } from '@/layout/Logo';
+import { BrandMark } from '@/layout/Logo';
+import { BrandFromServer, type MarcaPublica } from '@/pages/public/PublicLayout';
 
 interface Datos {
   empresa: string;
+  marca?: MarcaPublica;
   kiosco: string;
   centro: string;
   servidor: string;
@@ -65,16 +67,17 @@ export default function Kiosco() {
     );
 
   return (
-    <div className="flex min-h-dvh flex-col bg-deep text-deep-fg">
+    <div className="flex min-h-dvh flex-col bg-side text-side-fg">
+      <BrandFromServer marca={data.marca} />
       <header className="flex items-center gap-3 px-6 py-4">
-        <Logo className="h-8 w-8" stroke="#5E2A78" />
+        <BrandMark size="sm" stroke="rgb(var(--side))" />
         <div className="min-w-0 flex-1">
           <p className="font-display text-[18px] font-bold">{data.empresa}</p>
-          <p className="text-[13px] text-white/70">
+          <p className="text-[13px] opacity-70">
             {data.kiosco} · {data.centro}
           </p>
         </div>
-        <p className="tabular font-display text-[34px] font-extrabold">{ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' })}</p>
+        <p className="tabular font-display text-[34px] font-semibold">{ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' })}</p>
       </header>
       <main className="flex flex-1 flex-col rounded-t-3xl bg-bg p-5 text-fg">
         {msg ? (
@@ -84,11 +87,11 @@ export default function Kiosco() {
           </div>
         ) : !persona ? (
           <>
-            <h1 className="mb-4 text-[22px] font-extrabold">Pulsa tu nombre</h1>
+            <h1 className="mb-4 text-[22px] font-semibold">Pulsa tu nombre</h1>
             {!data.personas.length && <Alert tone="yellow">Nadie de este centro tiene PIN todavía. Cada persona lo elige en la app, en Fichar.</Alert>}
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {data.personas.map((p) => (
-                <button key={p.id} type="button" onClick={() => setPersona(p)} className="flex flex-col items-center gap-2 rounded-2xl border border-line bg-surface p-4 shadow-card active:scale-[0.98]">
+                <button key={p.id} type="button" onClick={() => setPersona(p)} className="flex flex-col items-center gap-2 rounded-2xl border border-line-strong/70 bg-surface p-4 shadow-card active:scale-[0.98]">
                   <Avatar name={p.nombre} size={56} />
                   <span className="text-center text-[15px] font-semibold leading-tight">{p.nombre}</span>
                   <span className={cn('rounded-full px-2 py-0.5 text-[11.5px] font-medium', p.estado === 'trabajando' ? 'bg-ok-soft text-ok' : p.estado === 'pausa' ? 'bg-sun-soft text-warn' : 'bg-sunken text-muted')}>

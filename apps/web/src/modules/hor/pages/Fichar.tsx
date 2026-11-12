@@ -124,10 +124,10 @@ function Hoy() {
 
   const principal =
     estado === 'fuera'
-      ? { tipo: 'entrada', label: 'Fichar entrada', icon: LogIn, cls: 'bg-ok text-white shadow-[0_12px_32px_-8px_rgb(53_174_41/0.55)]' }
+      ? { tipo: 'entrada', label: 'Fichar entrada', icon: LogIn, cls: 'bg-sun text-sun-fg shadow-[0_0_0_12px_rgb(var(--sun-soft))]' }
       : estado === 'trabajando'
-        ? { tipo: 'salida', label: 'Fichar salida', icon: LogOut, cls: 'bg-primary text-primary-fg shadow-[0_12px_32px_-8px_rgb(125_44_221/0.55)]' }
-        : { tipo: 'pausa_fin', label: 'Volver de la pausa', icon: Coffee, cls: 'bg-info text-white shadow-[0_12px_32px_-8px_rgb(52_102_214/0.5)]' };
+        ? { tipo: 'salida', label: 'Fichar salida', icon: LogOut, cls: 'bg-earth text-earth-fg shadow-[0_0_0_12px_rgb(var(--earth-soft))]' }
+        : { tipo: 'pausa_fin', label: 'Volver de la pausa', icon: Coffee, cls: 'bg-primary text-primary-fg shadow-[0_0_0_12px_rgb(var(--primary-soft))]' };
   const secundario = estado === 'trabajando' ? { tipo: 'pausa_inicio', label: 'Iniciar pausa', icon: Coffee } : estado === 'pausa' ? { tipo: 'salida', label: 'Fichar salida', icon: LogOut } : null;
   const Icon = principal.icon;
 
@@ -136,7 +136,7 @@ function Hoy() {
       <Card className="overflow-hidden">
         <div className="flex flex-col items-center px-4 pb-6 pt-5 text-center">
           <p className="text-[13px] capitalize text-muted">{fechaLarga(hoyLocal())}</p>
-          <p className="tabular font-display text-[44px] font-extrabold leading-none tracking-tight" aria-live="off">
+          <p className="tabular mt-1 font-display text-[52px] font-semibold leading-none tracking-[-0.04em] sm:text-[64px]" aria-live="off">
             {now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Madrid' })}
           </p>
           <div className="mt-3">
@@ -161,7 +161,7 @@ function Hoy() {
             type="button"
             onClick={() => fichar(principal.tipo)}
             disabled={!!busy}
-            className={cn('mt-6 flex h-44 w-44 select-none flex-col items-center justify-center gap-2 rounded-full text-[17px] font-bold transition active:scale-95 disabled:opacity-80 sm:h-48 sm:w-48', principal.cls)}
+            className={cn('mb-3 mt-9 flex h-44 w-44 select-none flex-col items-center justify-center gap-2 rounded-full font-display text-[19px] font-semibold tracking-tight transition hover:brightness-95 active:scale-95 disabled:opacity-80 sm:h-[184px] sm:w-[184px]', principal.cls)}
             aria-label={principal.label}
           >
             {busy === principal.tipo ? <Loader2 className="h-10 w-10 animate-spin" /> : <Icon className="h-10 w-10" />}

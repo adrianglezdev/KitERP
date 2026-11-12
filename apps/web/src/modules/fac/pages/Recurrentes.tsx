@@ -137,7 +137,7 @@ function RecurrenteDialog({ r, onClose }: { r: any; onClose: () => void }) {
         <div className="space-y-2">
           <p className="label">Líneas</p>
           {lineas.map((l, i) => (
-            <div key={i} className="grid grid-cols-2 gap-2 rounded-lg border border-line p-2 sm:grid-cols-[1fr_80px_110px_90px_auto]">
+            <div key={i} className="grid grid-cols-2 gap-2 rounded-lg border border-line-strong/70 p-2 sm:grid-cols-[1fr_80px_110px_90px_auto]">
               <Input className="col-span-2 sm:col-span-1" placeholder="Descripción" value={l.descripcion} onChange={(e) => setL(i, { descripcion: e.target.value })} />
               <NumberInput value={l.cantidad} onChange={(v) => setL(i, { cantidad: v ?? 0 })} decimals={3} />
               <NumberInput value={l.precio} onChange={(v) => setL(i, { precio: v ?? 0 })} suffix="€" />

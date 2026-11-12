@@ -23,7 +23,7 @@ export default function AusenciasPersona({ id }: { id: string }) {
         </div>
       )}
       <div className="grid gap-3 sm:grid-cols-2">{resumen.data?.saldos.map((s) => <SaldoCard key={s.tipoId} s={s} />)}</div>
-      <ul className="divide-y divide-line rounded-xl border border-line">
+      <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
         {(sols.data ?? []).map((s) => (
           <li key={s.id} className="flex items-center gap-3 px-3 py-2.5 text-[13.5px]">
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: s.color }} />

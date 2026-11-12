@@ -7,11 +7,11 @@
 export type Pillar = 'personas' | 'comercial' | 'operaciones' | 'finanzas' | 'plataforma';
 
 export const PILLARS: Record<Pillar, { label: string; color: string; soft: string; description: string }> = {
-  personas: { label: 'Personas', color: '#F1DE07', soft: '#FDF9CC', description: 'Trabajadores, tiempo y RRHH' },
-  comercial: { label: 'Comercial', color: '#7D2CDD', soft: '#EFE4FB', description: 'Del primer contacto a la factura' },
-  operaciones: { label: 'Operaciones', color: '#35AE29', soft: '#E1F4DE', description: 'Material, compras, trabajo y técnica' },
-  finanzas: { label: 'Finanzas', color: '#B28574', soft: '#F3EAE6', description: 'Dinero, impuestos y datos' },
-  plataforma: { label: 'Plataforma', color: '#5E2A78', soft: '#ECE3F1', description: 'El núcleo, siempre activo' },
+  personas: { label: 'Personas', color: '#5559E6', soft: '#ECECFD', description: 'Trabajadores, tiempo y RRHH' },
+  comercial: { label: 'Comercial', color: '#F14092', soft: '#FDE7F1', description: 'Del primer contacto a la factura' },
+  operaciones: { label: 'Operaciones', color: '#2651D4', soft: '#E7EDFC', description: 'Material, compras, trabajo y técnica' },
+  finanzas: { label: 'Finanzas', color: '#C6FA2D', soft: '#F1FDCF', description: 'Dinero, impuestos y datos' },
+  plataforma: { label: 'Plataforma', color: '#38465C', soft: '#E6E9EF', description: 'El núcleo, siempre activo' },
 };
 
 export interface ModuleInfo {

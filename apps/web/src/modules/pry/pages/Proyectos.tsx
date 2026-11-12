@@ -68,10 +68,13 @@ export default function Proyectos() {
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {data.items.map((p: any) => (
               <Link key={p.id} to={`/proyectos/${p.id}`} className="group block">
-                <Card className="h-full border-l-4 p-4 transition group-hover:shadow-pop" style={{ borderLeftColor: p.color ?? '#35AE29' }}>
+                <Card className="h-full p-5 transition group-hover:bg-sunken/60">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="text-[12px] text-muted">{p.codigo}</p>
+                      <p className="flex items-center gap-1.5 text-[12px] font-semibold text-muted">
+                        <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color ?? 'rgb(var(--leaf))' }} />
+                        {p.codigo}
+                      </p>
                       <p className="truncate font-semibold">{p.nombre}</p>
                       <p className="truncate text-[12.5px] text-muted">{p.cliente ?? 'Interno'}</p>
                     </div>

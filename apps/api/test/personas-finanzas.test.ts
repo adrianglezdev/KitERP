@@ -29,7 +29,7 @@ describe('GAS · gastos y dietas', () => {
 
     // sin la foto del ticket no se puede enviar
     expect((await empleado.post(`/api/gas/gastos/${id}/enviar`)).status).toBe(400);
-    const [e] = await db.select({ id: empresas.id }).from(empresas).limit(1);
+    const [e] = await db.select({ id: empresas.id }).from(empresas).orderBy(empresas.creadoEn).limit(1);
     const f = await saveFile(db, { empresaId: e!.id, nombre: 'ticket.jpg', mime: 'image/jpeg', data: Buffer.from(`ticket ${Date.now()} ${Math.random()}`) });
     expect((await empleado.patch(`/api/gas/gastos/${id}`, { archivoId: f.id })).status).toBe(200);
     expect((await empleado.post(`/api/gas/gastos/${id}/enviar`)).status).toBe(200);

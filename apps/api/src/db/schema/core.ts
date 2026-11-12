@@ -11,6 +11,7 @@ import {
   uuid,
   type AnyPgColumn,
 } from 'drizzle-orm/pg-core';
+import type { Preferencias } from '@kite/shared';
 import { archivedAt, createdAt, day, flag, money, pct, pk, price, ts, updatedAt } from '../helpers';
 
 /* ───────────────────────── Empresa y organización ───────────────────────── */
@@ -165,6 +166,8 @@ export const usuarioEmpresas = pgTable(
     rolId: uuid().references(() => roles.id),
     activo: flag(true),
     accesoHasta: day(),
+    /** Preferencias de la persona en esta empresa (aplicaciones favoritas del lanzador…). */
+    preferencias: jsonb().$type<Preferencias>().notNull().default({}),
     creadoEn: createdAt(),
   },
   (t) => [uniqueIndex().on(t.usuarioId, t.empresaId), index().on(t.personaId)],

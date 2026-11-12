@@ -109,11 +109,11 @@ export default function MisOrdenes() {
           </ol>
           {hechas.length > 0 && (
             <div>
-              <p className="mb-2 text-[12.5px] font-semibold uppercase tracking-wide text-muted">Finalizadas ({hechas.length})</p>
+              <p className="mb-2 text-[12.5px] font-bold text-muted">Finalizadas ({hechas.length})</p>
               <ul className="space-y-2">
                 {hechas.map((o) => (
                   <li key={o.id}>
-                    <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3 opacity-80">
+                    <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 rounded-xl border border-line-strong/70 bg-surface px-4 py-3 opacity-80">
                       <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{o.cliente}</span>
                       <span className="text-[12.5px] text-muted">{hora(o.finalizadaEn)}</span>
                       <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
@@ -169,7 +169,7 @@ function OrdenTarjeta({ o, n, onEstado }: { o: any; n: number; onEstado: (estado
             <Play className="h-5 w-5" /> Empezar
           </button>
         ) : (
-          <Link to={`/sat/ordenes/${o.id}#parte`} className="flex h-14 items-center justify-center gap-1.5 bg-ok text-[14px] font-semibold text-white active:bg-ok/90">
+          <Link to={`/sat/ordenes/${o.id}#parte`} className="flex h-14 items-center justify-center gap-1.5 bg-sun text-[14px] font-bold text-sun-fg active:brightness-95">
             <Wrench className="h-5 w-5" /> Parte
           </Link>
         )}

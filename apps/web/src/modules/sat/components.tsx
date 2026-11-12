@@ -39,7 +39,7 @@ export function ManualesVinculados({ entidad, id, articuloId, titulo = 'Manuales
                 </p>
               </div>
               {d.url && (
-                <a href={d.url} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-lg px-3 text-[13px] font-medium text-primary hover:bg-primary-soft">
+                <a href={d.url} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-pill px-3.5 text-[13px] font-bold text-primary hover:bg-primary-soft">
                   <ExternalLink className="h-4 w-4" /> Abrir
                 </a>
               )}
@@ -84,7 +84,7 @@ export function FotosOrden({ ordenId, puedeEditar }: { ordenId: string; puedeEdi
         ) : (
           <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4">
             {fotos.map((f) => (
-              <li key={f.id} className="group relative aspect-square overflow-hidden rounded-lg border border-line bg-sunken">
+              <li key={f.id} className="group relative aspect-square overflow-hidden rounded-lg border border-line-strong/70 bg-sunken">
                 <a href={f.url} target="_blank" rel="noreferrer" className="block h-full w-full">
                   {String(f.mime).startsWith('image/') ? <img src={f.url} alt={f.nombre} loading="lazy" className="h-full w-full object-cover" /> : <span className="flex h-full items-center justify-center p-2 text-center text-[11px] text-muted">{f.nombre}</span>}
                 </a>

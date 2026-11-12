@@ -3,9 +3,11 @@ import { Mail, Phone, Send, Star } from 'lucide-react';
 import { api, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { Alert, Button, Card, Checkbox, Field, Input, Select, Textarea } from '@/components/ui';
+import type { MarcaPublica } from '@/pages/public/PublicLayout';
 
 export interface EmpresaPublica {
   nombre: string;
+  marca?: MarcaPublica;
   telefono: string | null;
   email: string | null;
   logoUrl: string | null;
@@ -13,18 +15,18 @@ export interface EmpresaPublica {
 
 /** Estados del ticket contados al cliente con palabras sencillas. */
 export const ESTADO_CLIENTE: Record<string, { label: string; tone: string }> = {
-  nuevo: { label: 'Recibido', tone: 'bg-sky-100 text-sky-800' },
-  asignado: { label: 'Asignado a un técnico', tone: 'bg-violet-100 text-violet-800' },
-  en_curso: { label: 'En curso', tone: 'bg-amber-100 text-amber-900' },
-  esperando_cliente: { label: 'Pendiente de tu respuesta', tone: 'bg-orange-100 text-orange-900' },
-  resuelto: { label: 'Resuelto', tone: 'bg-green-100 text-green-800' },
-  cerrado: { label: 'Cerrado', tone: 'bg-gray-100 text-gray-700' },
-  cancelado: { label: 'Cancelado', tone: 'bg-gray-100 text-gray-700' },
+  nuevo: { label: 'Recibido', tone: 'bg-info-soft text-info' },
+  asignado: { label: 'Asignado a un técnico', tone: 'bg-primary-soft text-primary' },
+  en_curso: { label: 'En curso', tone: 'bg-info-soft text-info' },
+  esperando_cliente: { label: 'Pendiente de tu respuesta', tone: 'bg-bad-soft text-bad' },
+  resuelto: { label: 'Resuelto', tone: 'bg-ok-soft text-ok' },
+  cerrado: { label: 'Cerrado', tone: 'bg-sunken text-muted' },
+  cancelado: { label: 'Cancelado', tone: 'bg-sunken text-muted' },
 };
 
 export function EstadoCliente({ estado }: { estado: string }) {
-  const e = ESTADO_CLIENTE[estado] ?? { label: estado, tone: 'bg-gray-100 text-gray-700' };
-  return <span className={cn('inline-flex shrink-0 rounded-full px-2.5 py-0.5 text-[12px] font-semibold', e.tone)}>{e.label}</span>;
+  const e = ESTADO_CLIENTE[estado] ?? { label: estado, tone: 'bg-sunken text-muted' };
+  return <span className={cn('inline-flex h-6 shrink-0 items-center rounded-pill px-2.5 text-[11.5px] font-bold', e.tone)}>{e.label}</span>;
 }
 
 export function ContactoEmpresa({ empresa }: { empresa?: EmpresaPublica }) {
@@ -32,12 +34,12 @@ export function ContactoEmpresa({ empresa }: { empresa?: EmpresaPublica }) {
   return (
     <div className="flex flex-wrap gap-2">
       {empresa.telefono && (
-        <a href={`tel:${empresa.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[13.5px] font-medium shadow-sm ring-1 ring-line">
+        <a href={`tel:${empresa.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[13.5px] font-medium shadow-sm ring-1 ring-line-strong/70">
           <Phone className="h-4 w-4 text-primary" /> {empresa.telefono}
         </a>
       )}
       {empresa.email && (
-        <a href={`mailto:${empresa.email}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[13.5px] font-medium shadow-sm ring-1 ring-line">
+        <a href={`mailto:${empresa.email}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[13.5px] font-medium shadow-sm ring-1 ring-line-strong/70">
           <Mail className="h-4 w-4 text-primary" /> {empresa.email}
         </a>
       )}
@@ -97,7 +99,7 @@ export function Estrellas({ value, onChange, size = 'lg' }: { value: number; onC
     <span className="inline-flex gap-1">
       {[1, 2, 3, 4, 5].map((n) => (
         <button key={n} type="button" disabled={!onChange} aria-label={`${n} estrellas`} onClick={() => onChange?.(n)} className={cn('transition', onChange && 'hover:scale-110')}>
-          <Star className={cn(size === 'lg' ? 'h-8 w-8' : 'h-3.5 w-3.5', n <= value ? 'fill-[#F1DE07] text-[#c9b805]' : 'text-line')} />
+          <Star className={cn(size === 'lg' ? 'h-8 w-8' : 'h-3.5 w-3.5', n <= value ? 'fill-primary text-primary' : 'text-line-strong')} />
         </button>
       ))}
     </span>

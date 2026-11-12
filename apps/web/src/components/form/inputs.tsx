@@ -168,7 +168,7 @@ export function FileDrop({ onUploaded, multiple = true, accept, capture, label =
 
 export function FileChip({ f, onRemove }: { f: { nombre: string; tamano?: number; url?: string | null }; onRemove?: () => void }) {
   return (
-    <span className="inline-flex max-w-full items-center gap-2 rounded-lg border border-line bg-sunken px-2.5 py-1.5 text-[12.5px]">
+    <span className="inline-flex max-w-full items-center gap-2 rounded-lg border border-line-strong/70 bg-sunken px-2.5 py-1.5 text-[12.5px]">
       {f.url ? (
         <a href={f.url} target="_blank" rel="noreferrer" className="truncate hover:text-primary">
           {f.nombre}
@@ -205,7 +205,7 @@ export function SignaturePad({ onChange, height = 180 }: { onChange: (dataUrl: s
       ctx.lineWidth = 2.2;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
-      ctx.strokeStyle = '#2A1838';
+      ctx.strokeStyle = '#1E2635';
     };
     resize();
   }, [height]);
@@ -221,7 +221,7 @@ export function SignaturePad({ onChange, height = 180 }: { onChange: (dataUrl: s
   };
   return (
     <div className="space-y-2">
-      <div className="relative overflow-hidden rounded-xl border border-line bg-white">
+      <div className="relative overflow-hidden rounded-xl border border-line-strong/70 bg-white">
         <canvas
           ref={canvas}
           className="block touch-none"

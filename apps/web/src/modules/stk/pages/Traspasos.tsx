@@ -94,7 +94,7 @@ function TraspasoDetalle({ id, onClose }: { id: string; onClose: () => void }) {
       ) : (
         <div className="space-y-3">
           {data.notas && <p className="text-[13.5px] text-muted">{data.notas}</p>}
-          <ul className="divide-y divide-line rounded-xl border border-line">
+          <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
             {data.lineas.map((l: any) => (
               <li key={l.id} className="flex items-center justify-between gap-3 px-3 py-2.5 text-[13.5px]">
                 <span className="min-w-0 truncate">
@@ -186,7 +186,7 @@ export function TraspasoDialog({ onClose, origen, destino }: { onClose: () => vo
           {lineas.map((l) => {
             const d = l.articuloId ? disp.data?.[l.articuloId] : undefined;
             return (
-              <div key={l.key} className="grid grid-cols-[1fr_110px_auto] items-end gap-2 rounded-xl border border-line p-3 sm:grid-cols-[1fr_120px_110px_auto]">
+              <div key={l.key} className="grid grid-cols-[1fr_110px_auto] items-end gap-2 rounded-xl border border-line-strong/70 p-3 sm:grid-cols-[1fr_120px_110px_auto]">
                 <Field label="Artículo" className="col-span-3 sm:col-span-1" help={d ? `Hay ${fmtQty(d.fisico)} en origen` : undefined}>
                   <RefSelect target="articulos" value={l.articuloId} label={l.label} onChange={(v, o) => set(l.key, { articuloId: v, label: o?.label })} />
                 </Field>
