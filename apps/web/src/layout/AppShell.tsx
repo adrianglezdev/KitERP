@@ -230,9 +230,8 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
                   }
                 }}
               >
-                <span className={cn('mt-2 h-2 w-2 shrink-0 rounded-full', n.leidaEn ? 'bg-transparent' : 'bg-earth')} />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[14px] font-semibold">{n.titulo}</span>
+                  <span className={cn('block text-[14px]', n.leidaEn ? 'font-medium text-fg/80' : 'font-semibold')}>{n.titulo}</span>
                   {n.cuerpo && <span className="block truncate text-[13px] text-muted">{n.cuerpo}</span>}
                   <span className="text-[12px] text-muted">{relTime(n.creadoEn)}</span>
                 </span>

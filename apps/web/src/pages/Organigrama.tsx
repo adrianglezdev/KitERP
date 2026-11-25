@@ -23,7 +23,6 @@ function Rama({ n, hijos }: { n: Nodo; hijos: Map<string, Nodo[]> }) {
         <span className="min-w-0">
           <span className="block truncate text-[14px] font-medium">{n.nombre}</span>
           <span className="flex items-center gap-2 truncate text-[12px] text-muted">
-            <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: n.color ?? 'rgb(var(--primary))' }} />
             {n.puesto ?? '—'}
             {n.departamento ? ` · ${n.departamento}` : ''}
           </span>

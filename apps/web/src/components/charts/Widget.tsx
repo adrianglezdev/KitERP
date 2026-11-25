@@ -4,7 +4,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, P
 import { fmtHours, fmtMoney, fmtNumber, moduleInfo, type DashboardWidget, type Pillar } from '@kite/shared';
 import { SERIES_COLORS } from '@/lib/theme';
 import { cn, PILLAR_CLASSES, TONES, type Tone } from '@/lib/utils';
-import { Card } from '@/components/ui';
+import { Card, ModuleIcon } from '@/components/ui';
 
 export { CHART, SERIES_COLORS } from '@/lib/theme';
 
@@ -84,13 +84,12 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
  * Todas las cifras van en tarjetas tranquilas: el color queda para el punto del pilar y los gráficos.
  */
 export function WidgetCard({ w }: { w: DashboardWidget }) {
-  const pillar: Pillar = moduleInfo(w.modulo)?.pillar ?? 'plataforma';
   const d = w.data;
   const link = 'enlace' in d ? d.enlace : undefined;
   return (
     <Card className={cn('flex flex-col overflow-hidden', w.size === 'lg' && d.kind === 'chart' && 'md:col-span-2')}>
       <div className="flex items-center gap-2 px-5 pt-5">
-        <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pillar]!.dot)} />
+        <ModuleIcon modulo={w.modulo} size="xs" />
         <h3 className="min-w-0 flex-1 truncate font-sans text-[13px] font-medium text-fg/70">{w.titulo}</h3>
         {link && (
           <Link to={link} className="-mr-1 flex h-6 w-6 items-center justify-center rounded-md text-muted transition-colors hover:bg-sunken hover:text-fg" aria-label={`Abrir ${w.titulo}`}>

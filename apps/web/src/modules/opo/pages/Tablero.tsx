@@ -101,7 +101,6 @@ export default function Tablero() {
                 }}
               >
                 <div className="flex items-center gap-2 px-3 pb-2 pt-3">
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: e.color }} />
                   <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{e.nombre}</span>
                   <span className="text-[12px] text-muted">{items.length}</span>
                 </div>

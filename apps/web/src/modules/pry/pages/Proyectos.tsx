@@ -72,7 +72,6 @@ export default function Proyectos() {
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <p className="flex items-center gap-2 text-[12px] font-medium text-muted">
-                        <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color ?? 'rgb(var(--leaf))' }} />
                         {p.codigo}
                       </p>
                       <p className="truncate font-medium">{p.nombre}</p>

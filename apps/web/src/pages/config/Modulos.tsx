@@ -4,7 +4,8 @@ import { api } from '@/lib/api';
 import { useApi, useMut } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
 import { iconByName, PILLAR_CLASSES, cn } from '@/lib/utils';
-import { Alert, Badge, Card, Spinner, Switch, useConfirm } from '@/components/ui';
+import { Alert, Badge, Card, PillarTile, Spinner, Switch, useConfirm } from '@/components/ui';
+import { DEPARTAMENTO } from '@/layout/apps';
 
 export default function Modulos() {
   const { refresh } = useSession();
@@ -24,8 +25,8 @@ export default function Modulos() {
       </Alert>
       {porPilar.map(({ p, mods }) => (
         <section key={p}>
-          <h2 className="mb-2 flex items-center gap-2 text-[16px] font-semibold">
-            <span className={cn('h-2.5 w-2.5 rounded-full', PILLAR_CLASSES[p]!.dot)} />
+          <h2 className="mb-3 flex items-center gap-3 text-[16px] font-medium">
+            <PillarTile pillar={p} icon={DEPARTAMENTO[p].icon} />
             {PILLARS[p].label}
           </h2>
           <div className="grid gap-3 md:grid-cols-2">
@@ -33,8 +34,8 @@ export default function Modulos() {
               const Icon = iconByName(m.icon);
               return (
                 <Card key={m.code} className={cn('flex items-start gap-3 p-4', !m.activo && 'opacity-75')}>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sunken text-muted">
-                    <Icon className="h-[18px] w-[18px]" />
+                  <span className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', PILLAR_CLASSES[p]!.solid)}>
+                    <Icon className="h-5 w-5" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">

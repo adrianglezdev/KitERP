@@ -72,7 +72,7 @@ export default function FichaLaboral({ id }: { id: string }) {
           <ol className="space-y-2 border-l border-line pl-4">
             {hist.data.map((h) => (
               <li key={h.id} className="relative">
-                <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary ring-4 ring-surface" />
+                <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-line-strong ring-4 ring-surface" />
                 <div className="flex items-start gap-2">
                   <div className="min-w-0 flex-1">
                     <p className="text-[14px] font-medium">

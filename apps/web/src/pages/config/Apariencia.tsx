@@ -128,10 +128,7 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             </span>
           </div>
           <div>
-            <span className="inline-flex items-center gap-2 rounded-pill bg-surface py-0.5 pl-2 pr-3 text-[11px] font-semibold text-fg/70 shadow-card">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" /> Personas · Fichaje
-            </span>
-            <p className="mt-2 font-display text-[20px] font-medium leading-tight">Buenas tardes, Laura</p>
+            <p className="mt-2 font-display text-[20px] font-medium leading-tight">Martes, 14 de octubre</p>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="min-w-0 rounded-2xl bg-surface p-3 shadow-card">

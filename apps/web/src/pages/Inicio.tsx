@@ -7,7 +7,8 @@ import { useSession } from '@/lib/session';
 import { appName } from '@/lib/theme';
 import { cn, PILLAR_CLASSES, relTime } from '@/lib/utils';
 import { WidgetCard } from '@/components/charts/Widget';
-import { Card, CardHeader, Skeleton } from '@/components/ui';
+import { Card, CardHeader, ModuleIcon, PillarTile, Skeleton } from '@/components/ui';
+import { DEPARTAMENTO } from '@/layout/apps';
 import { moduleWebs } from '@/modules/registry';
 
 const pilarDe = (modulo: string): Pillar => moduleInfo(modulo)?.pillar ?? 'plataforma';
@@ -223,7 +224,7 @@ export default function Inicio() {
                 {aprob.data!.slice(0, 5).map((a) => (
                   <li key={a.id}>
                     <Link to="/bandeja" className="flex items-center gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/70">
-                      <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pilarDe(a.modulo)]!.dot)} />
+                      <ModuleIcon modulo={a.modulo} />
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-[14px] font-semibold">{a.titulo}</span>
                         <span className="block truncate text-[12px] text-muted">{[a.tipo, a.solicitante, relTime(a.fecha)].filter(Boolean).join(' · ')}</span>
@@ -273,9 +274,9 @@ export default function Inicio() {
       ) : (
         porPilar.map(({ p, ws }) => (
           <section key={p}>
-            <div className="mb-4 mt-8 flex items-center gap-2">
-              <span className={cn('h-2 w-2 rounded-full', PILLAR_CLASSES[p]!.dot)} />
-              <h2 className="text-[20px] font-medium">{PILLARS[p].label}</h2>
+            <div className="mb-4 mt-8 flex items-center gap-3">
+              <PillarTile pillar={p} icon={DEPARTAMENTO[p].icon} />
+              <h2 className="text-[20px] font-medium">{DEPARTAMENTO[p].label}</h2>
             </div>
             <SeccionPilar ws={ws} />
           </section>
