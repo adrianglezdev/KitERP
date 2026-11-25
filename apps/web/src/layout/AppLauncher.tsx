@@ -52,11 +52,11 @@ function Tile({
           </span>
         )}
       </span>
-      <span className="w-full truncate text-center text-[12.5px] font-semibold leading-tight">{app.label}</span>
+      <span className="w-full truncate text-center text-[13px] font-medium leading-tight">{app.label}</span>
     </>
   );
   const cls = cn(
-    'flex w-full flex-col items-center gap-2 rounded-2xl px-1 pb-2.5 pt-3 outline-none transition hover:bg-sunken focus-visible:bg-sunken',
+    'flex w-full flex-col items-center gap-2 rounded-2xl px-1 pb-2.5 pt-3 outline-none transition-colors hover:bg-sunken focus-visible:bg-sunken',
     active && !editing && 'bg-primary-soft hover:bg-primary-soft',
     drag?.dragging && 'opacity-40',
   );
@@ -139,7 +139,7 @@ function LauncherBody({ apps, favorites, currentId, onChange, onPick }: { apps: 
     <div className="flex min-h-0 flex-1 flex-col gap-2">
       <label className="flex h-11 shrink-0 items-center gap-2.5 rounded-pill bg-surface px-4 text-muted focus-within:ring-4 focus-within:ring-primary/20">
         <Search className="h-4 w-4 shrink-0" />
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar aplicación…" className="h-full w-full min-w-0 bg-transparent text-[14px] text-fg outline-none placeholder:text-muted" aria-label="Buscar aplicación" />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar aplicación" className="h-full w-full min-w-0 bg-transparent text-[14px] text-fg outline-none placeholder:text-muted" aria-label="Buscar aplicación" />
       </label>
 
       <div className="scroll-thin -mr-1 min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
@@ -159,9 +159,9 @@ function LauncherBody({ apps, favorites, currentId, onChange, onPick }: { apps: 
           <>
             <section className="rounded-3xl bg-surface p-2" aria-label="Tus favoritos">
               <div className="flex items-center gap-2 px-3 pb-1 pt-2">
-                <h2 className="min-w-0 flex-1 font-display text-[17px] font-semibold tracking-tight">Tus favoritos</h2>
+                <h2 className="min-w-0 flex-1 font-display text-[18px] font-medium">Tus favoritos</h2>
                 {editing ? (
-                  <button type="button" onClick={done} className="inline-flex h-9 items-center gap-1.5 rounded-pill bg-primary px-3.5 text-[13px] font-bold text-primary-fg hover:bg-primary/90">
+                  <button type="button" onClick={done} className="inline-flex h-9 items-center gap-1.5 rounded-pill bg-primary px-3.5 text-[13px] font-semibold text-primary-fg hover:bg-primary/90">
                     <Check className="h-4 w-4" /> Hecho
                   </button>
                 ) : (
@@ -186,12 +186,12 @@ function LauncherBody({ apps, favorites, currentId, onChange, onPick }: { apps: 
                   />
                 ))}
               </div>
-              {!favs.length && !editing && <p className="px-3 pb-3 pt-1 text-[12.5px] text-muted">Aún no tienes favoritas. Pulsa el lápiz para elegirlas.</p>}
+              {!favs.length && !editing && <p className="px-3 pb-3 pt-1 text-[13px] text-muted">Aún no tienes favoritas. Pulsa el lápiz para elegirlas.</p>}
             </section>
 
             {rest.length > 0 && (
               <section className="px-2 pb-1" aria-label="Más aplicaciones">
-                <h2 className="px-3 pb-1 pt-2 text-[12px] font-bold text-muted">{editing ? 'Añadir a favoritos' : 'Más aplicaciones'}</h2>
+                <h2 className="px-3 pb-1 pt-2 text-[12px] font-semibold text-muted">{editing ? 'Añadir a favoritos' : 'Más aplicaciones'}</h2>
                 <div className="grid grid-cols-3 gap-0.5">
                   {rest.map((a) => (
                     <Tile key={a.id} app={a} active={a.id === currentId} editing={editing} mode="rest" onPick={onPick} onToggle={() => toggle(a.id)} />

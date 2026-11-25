@@ -34,7 +34,7 @@ export default function Valoracion() {
     { key: 'almacen', header: 'Almacén', hideBelow: 'md', cell: (r) => r.almacen },
     { key: 'cantidad', header: 'Cantidad', align: 'right', cell: (r) => fmtQty(r.cantidad, r.unidad) },
     { key: 'pmp', header: 'PMP', align: 'right', hideBelow: 'lg', cell: (r) => fmtMoney(r.costeMedio) },
-    { key: 'valor', header: 'Valor', align: 'right', cell: (r) => <b className="font-semibold">{fmtMoney(r.valor)}</b> },
+    { key: 'valor', header: 'Valor', align: 'right', cell: (r) => <b className="font-medium">{fmtMoney(r.valor)}</b> },
   ];
   return (
     <div className="space-y-5">

@@ -9,7 +9,7 @@ import { useApi, useDebounced, useLocalState, useMut } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
 import { useMode } from '@/lib/theme';
 import { cn, iconByName, PILLAR_CLASSES, relTime } from '@/lib/utils';
-import { Avatar, Kbd, Menu, Sheet, Tooltip } from '@/components/ui';
+import { Avatar, Kbd, Menu, Sheet } from '@/components/ui';
 import { moduleWebs } from '@/modules/registry';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { buildApps, favoriteIds, locate, quickActions, type AppInfo, type AppItem } from './apps';
@@ -20,7 +20,7 @@ import { BrandMark, BrandName } from './Logo';
 function NavBadge({ url }: { url: string }) {
   const { data } = useApi<{ n: number }>(url, { refetchInterval: 60_000 });
   if (!data?.n) return null;
-  return <span className="ml-auto rounded-full bg-earth px-2 text-[11px] font-bold leading-[19px] text-earth-fg">{data.n > 99 ? '99+' : data.n}</span>;
+  return <span className="tabular ml-auto font-mono text-[12px] text-side-fg/60">{data.n > 99 ? '99+' : data.n}</span>;
 }
 
 /** Apartados de la aplicación abierta. */
@@ -36,7 +36,7 @@ function AppNav({ app, collapsed, onNavigate }: { app: AppInfo; collapsed?: bool
           lastGroup = i.group;
           return (
             <li key={i.to}>
-              {head && !collapsed && <p className="px-3 pb-1 pt-4 text-[11.5px] font-bold tracking-wide text-side-fg/45 first:pt-1">{head}</p>}
+              {head && !collapsed && <p className="px-3 pb-2 pt-6 text-[12px] font-medium text-side-fg/50 first:pt-2">{head}</p>}
               {head && collapsed && <div className="mx-3 my-2 h-px bg-side-fg/10" />}
               <NavLink
                 to={i.to}
@@ -45,8 +45,8 @@ function AppNav({ app, collapsed, onNavigate }: { app: AppInfo; collapsed?: bool
                 title={collapsed ? i.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    'group flex items-center gap-3 rounded-xl px-3 py-2 text-[13.5px] font-semibold transition',
-                    isActive ? 'bg-side-active text-side-active-fg' : 'text-side-fg/75 hover:bg-side-fg/10 hover:text-side-fg',
+                    'group flex h-9 items-center gap-3 rounded-lg px-3 text-[14px] font-medium transition-colors',
+                    isActive ? 'bg-side-fg/[0.12] text-side-fg ring-1 ring-inset ring-side-fg/[0.08]' : 'text-side-fg/70 hover:bg-side-fg/[0.06] hover:text-side-fg',
                     collapsed && 'justify-center px-0',
                   )
                 }
@@ -75,7 +75,7 @@ function CommandPalette({ open, setOpen, apps }: { open: boolean; setOpen: (o: b
   };
   const all = useMemo(() => apps.flatMap((a) => a.items.map((i) => ({ ...i, app: a }))), [apps]);
   const pages = all.filter((i) => !q || `${i.label} ${i.app.label}`.toLowerCase().includes(q.toLowerCase()));
-  const heading = 'px-1 text-[11.5px] font-bold text-muted [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-2';
+  const heading = 'px-1 text-[12px] font-semibold text-muted [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-2';
   return (
     <D.Root open={open} onOpenChange={setOpen}>
       <D.Portal>
@@ -86,7 +86,7 @@ function CommandPalette({ open, setOpen, apps }: { open: boolean; setOpen: (o: b
           <Command shouldFilter={false} loop>
             <div className="m-2 flex items-center gap-3 rounded-pill bg-sunken px-4">
               <Search className="h-5 w-5 shrink-0 text-muted" />
-              <Command.Input value={q} onValueChange={setQ} autoFocus placeholder="Busca clientes, facturas, personas, artículos…" className="h-12 w-full bg-transparent text-[15px] outline-none placeholder:text-muted" />
+              <Command.Input value={q} onValueChange={setQ} autoFocus placeholder="Buscar" className="h-12 w-full bg-transparent text-[16px] outline-none placeholder:text-muted" />
               <Kbd>Esc</Kbd>
             </div>
             <Command.List className="scroll-thin max-h-[60vh] overflow-y-auto p-2 pt-0">
@@ -97,11 +97,11 @@ function CommandPalette({ open, setOpen, apps }: { open: boolean; setOpen: (o: b
                     const Icon = iconByName(r.icono);
                     return (
                       <Command.Item key={`${r.tipo}-${r.id}`} value={`${r.tipo}-${r.id}`} onSelect={() => go(r.enlace)} className="flex cursor-pointer items-center gap-3 rounded-xl px-2 py-2 text-fg data-[selected=true]:bg-sunken">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-pill bg-primary-soft text-primary">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sunken text-muted">
                           <Icon className="h-4 w-4" />
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-[14px] font-semibold">{r.titulo}</p>
+                          <p className="truncate text-[14px] font-medium">{r.titulo}</p>
                           <p className="truncate text-[12px] font-medium text-muted">
                             {r.tipo}
                             {r.subtitulo ? ` · ${r.subtitulo}` : ''}
@@ -117,7 +117,7 @@ function CommandPalette({ open, setOpen, apps }: { open: boolean; setOpen: (o: b
                   {pages.slice(0, q ? 8 : 10).map((i) => (
                     <Command.Item key={i.to} value={`nav-${i.to}`} onSelect={() => go(i.to)} className="flex cursor-pointer items-center gap-3 rounded-xl px-2 py-2 text-fg data-[selected=true]:bg-sunken">
                       <AppIcon app={i.app} size="sm" />
-                      <span className="min-w-0 flex-1 truncate text-[14px] font-semibold">{i.label}</span>
+                      <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{i.label}</span>
                       <span className="shrink-0 text-[12px] font-medium text-muted">{i.app.label}</span>
                     </Command.Item>
                   ))}
@@ -138,7 +138,7 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
   return (
     <Sheet open={open} onOpenChange={setOpen} title="Avisos">
       <div className="flex justify-end px-5 pb-1">
-        <button type="button" className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-primary disabled:opacity-40" disabled={!data?.sinLeer} onClick={() => leer.mutate(undefined)}>
+        <button type="button" className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary disabled:opacity-40" disabled={!data?.sinLeer} onClick={() => leer.mutate(undefined)}>
           <CheckCheck className="h-4 w-4" /> Marcar todo como leído
         </button>
       </div>
@@ -150,7 +150,7 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
             <li key={n.id}>
               <button
                 type="button"
-                className={cn('flex w-full gap-3 rounded-2xl px-3 py-3 text-left hover:bg-sunken', !n.leidaEn && 'bg-primary-soft/50')}
+                className={cn('flex w-full gap-3 rounded-2xl px-3 py-3 text-left hover:bg-sunken', !n.leidaEn && 'bg-sunken/60')}
                 onClick={() => {
                   if (!n.leidaEn) leer.mutate([n.id]);
                   if (n.enlace) {
@@ -161,9 +161,9 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
               >
                 <span className={cn('mt-1.5 h-2 w-2 shrink-0 rounded-full', n.leidaEn ? 'bg-transparent' : 'bg-earth')} />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[13.5px] font-bold">{n.titulo}</span>
-                  {n.cuerpo && <span className="block truncate text-[12.5px] text-muted">{n.cuerpo}</span>}
-                  <span className="text-[11.5px] text-muted">{relTime(n.creadoEn)}</span>
+                  <span className="block text-[14px] font-semibold">{n.titulo}</span>
+                  {n.cuerpo && <span className="block truncate text-[13px] text-muted">{n.cuerpo}</span>}
+                  <span className="text-[12px] text-muted">{relTime(n.creadoEn)}</span>
                 </span>
               </button>
             </li>
@@ -218,8 +218,6 @@ export function AppShell() {
   const ctx = useMemo(() => ({ apps, app, item: found?.item ?? null, claim }), [apps, app, found, claim]);
 
   const favIds = useMemo(() => favoriteIds(apps, session?.preferencias?.favoritos), [apps, session?.preferencias?.favoritos]);
-  const favApps = useMemo(() => favIds.map((id) => apps.find((a) => a.id === id)).filter(Boolean) as AppInfo[], [favIds, apps]);
-  const inicio = apps.find((a) => a.id === 'inicio');
   const saveFavs = (ids: string[]) => void savePrefs({ favoritos: ids });
 
   useEffect(() => {
@@ -243,32 +241,27 @@ export function AppShell() {
 
   const launcherProps = { apps, favorites: favIds, currentId: app?.id, onChange: saveFavs };
 
-  /** Cambiador de aplicaciones de la barra lateral: Inicio, las favoritas y el acceso a todas. */
-  const switcher = (mini: boolean) => {
-    const cell = (a: AppInfo) => (
-      <Tooltip key={a.id} content={a.label} side={mini ? 'right' : 'bottom'}>
-        <Link
-          to={a.home}
-          aria-label={a.label}
-          aria-current={a.id === app?.id ? 'page' : undefined}
-          className={cn('flex h-[42px] items-center justify-center rounded-xl transition', a.id === app?.id ? 'bg-side-active text-side-active-fg' : 'text-side-fg/75 hover:bg-side-fg/10 hover:text-side-fg')}
-        >
-          <a.icon className="h-[19px] w-[19px]" />
-        </Link>
-      </Tooltip>
-    );
-    return (
-      <div className={cn('grid gap-1.5 rounded-2xl bg-side-fg/[0.07] p-[5px]', mini ? 'grid-cols-1' : 'grid-cols-5')}>
-        {inicio && cell(inicio)}
-        {favApps.slice(0, mini ? 6 : 8).map(cell)}
-        <AppLauncher {...launcherProps} open={launcher === 'side'} onOpenChange={(o) => setLauncher(o ? 'side' : null)} side="right" align="start">
-          <button type="button" aria-label="Todas las aplicaciones" title="Todas las aplicaciones" className="flex h-[42px] items-center justify-center rounded-xl text-side-fg/75 transition hover:bg-side-fg/10 hover:text-side-fg">
-            <Grip className="h-[19px] w-[19px]" />
-          </button>
-        </AppLauncher>
-      </div>
-    );
-  };
+  /**
+   * Cambiador de aplicaciones de la barra lateral: el nombre de la aplicación abierta con el botón
+   * que abre el lanzador (allí están Inicio, las favoritas y todas las demás).
+   */
+  const switcher = (mini: boolean) => (
+    <AppLauncher {...launcherProps} open={launcher === 'side'} onOpenChange={(o) => setLauncher(o ? 'side' : null)} side="right" align="start">
+      <button
+        type="button"
+        aria-label={app ? `${app.label}: cambiar de aplicación` : 'Aplicaciones'}
+        title="Aplicaciones"
+        className={cn(
+          'group flex h-10 w-full items-center gap-3 rounded-xl text-side-fg transition-colors hover:bg-side-fg/[0.08]',
+          launcher === 'side' && 'bg-side-fg/[0.08]',
+          mini ? 'justify-center' : 'pl-3 pr-2.5',
+        )}
+      >
+        {!mini && <span className="min-w-0 flex-1 truncate text-left font-display text-[18px] font-medium">{app?.label ?? 'Aplicaciones'}</span>}
+        <Grip className="h-[18px] w-[18px] shrink-0 text-side-fg/70 transition-colors group-hover:text-side-fg" />
+      </button>
+    </AppLauncher>
+  );
 
   const sidebar = (mobile = false) => {
     const mini = collapsed && !mobile;
@@ -277,17 +270,9 @@ export function AppShell() {
         <div className={cn('shrink-0 px-4 pb-1 pt-5', mini && 'px-3')}>
           <Link to="/" className={cn('flex min-w-0 items-center gap-2.5', mini && 'justify-center')}>
             <BrandMark size="sm" stroke="rgb(var(--side))" className={mini ? 'h-8 w-8' : undefined} />
-            {!mini && <BrandName className="text-[19px] text-side-fg" />}
+            {!mini && <BrandName className="text-[20px] text-side-fg" />}
           </Link>
-          <div className="mt-5">{switcher(mini)}</div>
-          {!mini && app && (
-            <div className="mt-[18px] flex items-baseline justify-between gap-2 px-1">
-              <b className="truncate font-display text-[17px] font-semibold tracking-tight text-side-fg">{app.label}</b>
-              <span className="shrink-0 text-[12px] font-medium text-side-fg/45">
-                {app.items.length} {app.items.length === 1 ? 'apartado' : 'apartados'}
-              </span>
-            </div>
-          )}
+          <div className={cn('mt-6', !mini && '-mx-1')}>{switcher(mini)}</div>
           {mini && <div className="mx-2 mt-3 h-px bg-side-fg/10" />}
         </div>
         <div className="scroll-side min-h-0 flex-1 overflow-y-auto px-3 pb-4 pt-2">{app && <AppNav app={app} collapsed={mini} onNavigate={() => setMobileOpen(false)} />}</div>
@@ -295,7 +280,7 @@ export function AppShell() {
           <button
             type="button"
             onClick={() => setCollapsed(!collapsed)}
-            className="flex h-11 shrink-0 items-center justify-center gap-2 bg-side-fg/[0.06] text-[12.5px] font-semibold text-side-fg/60 hover:text-side-fg"
+            className="flex h-11 shrink-0 items-center justify-center gap-2 bg-side-fg/[0.06] text-[13px] font-medium text-side-fg/60 hover:text-side-fg"
             aria-label={collapsed ? 'Expandir menú' : 'Contraer menú'}
           >
             {collapsed ? (
@@ -311,25 +296,25 @@ export function AppShell() {
     );
   };
 
-  const iconBtn = 'relative flex h-10 w-10 shrink-0 items-center justify-center rounded-pill bg-surface text-muted shadow-card transition hover:text-fg';
+  const iconBtn = 'relative flex h-10 w-10 shrink-0 items-center justify-center rounded-pill bg-surface text-muted shadow-card transition-colors hover:text-fg';
 
   return (
     <AppContextProvider value={ctx}>
       <div className="flex h-dvh overflow-hidden">
-        <aside className={cn('hidden shrink-0 py-3 pl-3 transition-[width] md:block', collapsed ? 'w-[82px]' : 'w-[284px]')}>{sidebar()}</aside>
+        <aside className={cn('hidden shrink-0 py-3 pl-3 md:block', collapsed ? 'w-20' : 'w-[280px]')}>{sidebar()}</aside>
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen} side="left" tone="none">
           {sidebar(true)}
         </Sheet>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="safe-top z-20 flex h-[68px] shrink-0 items-center gap-2 px-3 md:h-[76px] md:px-6 lg:px-8">
+          <header className="safe-top z-20 flex h-16 shrink-0 items-center gap-2 px-3 md:h-[72px] md:px-6 lg:px-8">
             <button type="button" className={cn(iconBtn, 'md:hidden')} onClick={() => setMobileOpen(true)} aria-label="Abrir menú">
               <MenuIcon className="h-5 w-5" />
             </button>
 
             {/* Dónde estás: pilar, aplicación y apartado */}
             {app && (
-              <nav className="hidden min-w-0 items-center gap-1.5 text-[13px] font-semibold text-muted lg:flex" aria-label="Ubicación">
+              <nav className="hidden min-w-0 items-center gap-1.5 text-[13px] font-medium text-muted lg:flex" aria-label="Ubicación">
                 <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[app.pillar]!.dot)} />
                 <Link to={app.home} className="truncate hover:text-fg">
                   {app.label}
@@ -337,7 +322,7 @@ export function AppShell() {
                 {ctx.item && ctx.item.label !== app.label && (
                   <>
                     <span className="text-muted/50">/</span>
-                    <b className="truncate font-bold text-fg">{ctx.item.label}</b>
+                    <b className="truncate font-semibold text-fg">{ctx.item.label}</b>
                   </>
                 )}
               </nav>
@@ -346,10 +331,10 @@ export function AppShell() {
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-pill bg-surface px-4 text-left text-[13.5px] font-medium text-muted shadow-card transition hover:text-fg md:max-w-[360px] md:flex-none md:basis-[32%]"
+              className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-pill bg-surface px-4 text-left text-[14px] font-medium text-muted shadow-card transition-colors hover:text-fg md:max-w-[360px] md:flex-none md:basis-[32%]"
             >
               <Search className="h-4 w-4 shrink-0" />
-              <span className="truncate">Buscar…</span>
+              <span className="truncate">Buscar</span>
               <span className="ml-auto hidden md:inline">
                 <Kbd>Ctrl K</Kbd>
               </span>
@@ -359,7 +344,7 @@ export function AppShell() {
               {quick.length > 0 && (
                 <Menu
                   trigger={
-                    <button type="button" className="hidden h-10 items-center gap-1.5 rounded-pill bg-primary px-4 text-[13.5px] font-bold text-primary-fg transition hover:bg-primary/90 sm:inline-flex">
+                    <button type="button" className="hidden h-10 items-center gap-1.5 rounded-pill bg-primary px-4 text-[14px] font-semibold text-primary-fg transition-colors hover:bg-primary/90 sm:inline-flex">
                       <Plus className="h-4 w-4" /> Crear
                     </button>
                   }
@@ -376,16 +361,16 @@ export function AppShell() {
               <button type="button" onClick={() => setNotifOpen(true)} className={iconBtn} aria-label="Avisos" title="Avisos">
                 <Bell className="h-5 w-5" />
                 {!!notif.data?.sinLeer && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-earth px-1 text-[10px] font-bold text-earth-fg ring-2 ring-bg">{notif.data.sinLeer > 9 ? '9+' : notif.data.sinLeer}</span>
+                  <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-earth px-1 text-[11px] font-semibold text-earth-fg ring-2 ring-bg">{notif.data.sinLeer > 9 ? '9+' : notif.data.sinLeer}</span>
                 )}
               </button>
               <Menu
                 trigger={
-                  <button type="button" className="flex items-center gap-2 rounded-pill p-1 transition hover:bg-surface lg:pr-3" aria-label="Menú de usuario">
+                  <button type="button" className="flex items-center gap-2 rounded-pill p-1 transition-colors hover:bg-surface lg:pr-3" aria-label="Menú de usuario">
                     <Avatar name={session.user.nombre} src={session.user.fotoUrl} size={34} />
                     <span className="hidden max-w-[150px] truncate text-left lg:block">
-                      <span className="block truncate text-[13px] font-bold leading-tight">{session.user.nombre}</span>
-                      <span className="block truncate text-[11.5px] font-medium leading-tight text-muted">{session.empresas.length > 1 ? session.empresa.nombre : (session.user.rol?.nombre ?? session.empresa.nombre)}</span>
+                      <span className="block truncate text-[13px] font-semibold leading-tight">{session.user.nombre}</span>
+                      <span className="block truncate text-[12px] font-medium leading-tight text-muted">{session.empresas.length > 1 ? session.empresa.nombre : (session.user.rol?.nombre ?? session.empresa.nombre)}</span>
                     </span>
                   </button>
                 }
@@ -420,17 +405,17 @@ export function AppShell() {
                 fichar ? { to: fichar.to, label: 'Fichar', icon: fichar.icon } : { to: '/tareas', label: 'Tareas', icon: Inbox },
                 { to: '/bandeja', label: 'Bandeja', icon: Inbox },
               ].map((i) => (
-                <NavLink key={i.to + i.label} to={i.to} end={'end' in i ? i.end : undefined} className={({ isActive }) => cn('flex flex-col items-center justify-center gap-0.5 text-[11px] font-semibold', isActive ? 'text-side-active' : 'text-side-fg/60')}>
+                <NavLink key={i.to + i.label} to={i.to} end={'end' in i ? i.end : undefined} className={({ isActive }) => cn('flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium', isActive ? 'text-side-fg' : 'text-side-fg/60')}>
                   <i.icon className="h-5 w-5" />
                   {i.label}
                 </NavLink>
               ))}
               <AppLauncher {...launcherProps} open={launcher === 'mobile'} onOpenChange={(o) => setLauncher(o ? 'mobile' : null)}>
-                <button type="button" className={cn('flex flex-col items-center justify-center gap-0.5 text-[11px] font-semibold', launcher === 'mobile' ? 'text-side-active' : 'text-side-fg/60')}>
+                <button type="button" className={cn('flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium', launcher === 'mobile' ? 'text-side-fg' : 'text-side-fg/60')}>
                   <Grip className="h-5 w-5" /> Apps
                 </button>
               </AppLauncher>
-              <button type="button" onClick={() => setMobileOpen(true)} className="flex flex-col items-center justify-center gap-0.5 text-[11px] font-semibold text-side-fg/60">
+              <button type="button" onClick={() => setMobileOpen(true)} className="flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-side-fg/60">
                 <MenuIcon className="h-5 w-5" /> Menú
               </button>
             </div>

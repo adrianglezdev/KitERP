@@ -239,7 +239,7 @@ export default function DocumentoEditar() {
           }
         />
         {!!habituales.data?.length && !id && (
-          <div className="flex flex-wrap items-center gap-1.5 border-b border-line bg-sunken/40 px-4 py-2 text-[12.5px]">
+          <div className="flex flex-wrap items-center gap-1.5 border-b border-line bg-sunken/40 px-4 py-2 text-[13px]">
             <History className="h-3.5 w-3.5 text-muted" />
             <span className="text-muted">Suele comprar:</span>
             {habituales.data.slice(0, 6).map((h) => (
@@ -300,7 +300,7 @@ export default function DocumentoEditar() {
           </div>
         </Card>
         <Card className="h-fit lg:sticky lg:top-4">
-          <div className="space-y-2 p-4 text-[13.5px]">
+          <div className="space-y-2 p-4 text-[14px]">
             <div className="flex items-center justify-between">
               <span className="text-muted">Suma de líneas</span>
               <span className="tabular">{fmtMoney(calc.sumaLineas)}</span>
@@ -329,12 +329,12 @@ export default function DocumentoEditar() {
                 <span className="tabular">-{fmtMoney(calc.totalRetencion)}</span>
               </div>
             )}
-            <div className="flex items-center justify-between border-t border-line pt-2 font-display text-[20px] font-semibold text-deep dark:text-fg">
+            <div className="flex items-center justify-between border-t border-line pt-2 font-display text-[20px] font-medium text-deep dark:text-fg">
               <span>Total</span>
               <span className="tabular">{fmtMoney(calc.total)}</span>
             </div>
             {verCostes && !compra && calc.coste > 0 && (
-              <div className={cn('mt-2 rounded-lg px-3 py-2 text-[12.5px]', margenPct < 15 ? 'bg-bad-soft text-bad' : 'bg-ok-soft text-ok')}>
+              <div className={cn('mt-2 rounded-lg px-3 py-2 text-[13px]', margenPct < 15 ? 'bg-bad-soft text-bad' : 'bg-ok-soft text-ok')}>
                 Margen {fmtMoney(calc.margen)} ({fmtNumber(margenPct, 1)} %) · coste {fmtMoney(calc.coste)}
               </div>
             )}
@@ -386,7 +386,7 @@ function LineaRow({
     return (
       <div className="flex items-center gap-2 px-4 py-2.5">
         {l.tipoLinea === 'capitulo' ? <Heading className="h-4 w-4 text-primary" /> : <Type className="h-4 w-4 text-muted" />}
-        <Input value={l.descripcion} onChange={(e) => onChange({ descripcion: e.target.value })} placeholder={l.tipoLinea === 'capitulo' ? 'Título del capítulo' : 'Texto libre (sin importe)'} className={cn(l.tipoLinea === 'capitulo' && 'font-semibold text-primary')} />
+        <Input value={l.descripcion} onChange={(e) => onChange({ descripcion: e.target.value })} placeholder={l.tipoLinea === 'capitulo' ? 'Título del capítulo' : 'Texto libre (sin importe)'} className={cn(l.tipoLinea === 'capitulo' && 'font-medium text-primary')} />
         {tools}
       </div>
     );
@@ -399,8 +399,8 @@ function LineaRow({
         <Textarea rows={1} value={l.descripcion} onChange={(e) => onChange({ descripcion: e.target.value })} placeholder="Descripción" className="min-h-[38px]" />
         {(stock && (l.lote || compra)) && (
           <div className="mt-1.5 grid grid-cols-2 gap-1.5">
-            <Input value={l.lote ?? ''} onChange={(e) => onChange({ lote: e.target.value })} placeholder="Lote" className="h-8 py-1 text-[12.5px]" />
-            <Input type="date" value={l.caducidad ?? ''} onChange={(e) => onChange({ caducidad: e.target.value })} className="h-8 py-1 text-[12.5px]" aria-label="Caducidad" />
+            <Input value={l.lote ?? ''} onChange={(e) => onChange({ lote: e.target.value })} placeholder="Lote" className="h-8 py-1 text-[13px]" />
+            <Input type="date" value={l.caducidad ?? ''} onChange={(e) => onChange({ caducidad: e.target.value })} className="h-8 py-1 text-[13px]" aria-label="Caducidad" />
           </div>
         )}
       </div>
@@ -418,7 +418,7 @@ function LineaRow({
       </Field>
       <div className="flex items-center justify-between gap-2 md:block md:pt-2 md:text-right">
         <span className="text-[12px] text-muted md:hidden">Importe</span>
-        <span className="tabular text-[14px] font-semibold">{fmtMoney(subtotal)}</span>
+        <span className="tabular text-[14px] font-medium">{fmtMoney(subtotal)}</span>
         {verCostes && !compra && l.coste > 0 && <span className="block text-[11px] text-muted">coste {fmtMoney(l.coste * l.cantidad)}</span>}
       </div>
       <div className="col-span-2 flex justify-end md:col-span-1">{tools}</div>

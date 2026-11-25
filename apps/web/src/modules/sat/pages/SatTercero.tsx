@@ -35,7 +35,7 @@ export default function SatTercero({ id }: { id: string }) {
             {data.equipos.map((e: any) => (
               <li key={e.id}>
                 <Link to={`/sat/equipos/${e.id}`} className="block px-4 py-2.5 hover:bg-sunken">
-                  <span className="block text-[13.5px] font-medium">{e.nombre}</span>
+                  <span className="block text-[14px] font-medium">{e.nombre}</span>
                   <span className="text-[12px] text-muted">
                     {[e.marca, e.modelo, e.ubicacion].filter(Boolean).join(' · ')}
                     {e.garantiaHasta && ` · garantía hasta ${fmtDate(e.garantiaHasta)}`}
@@ -53,7 +53,7 @@ export default function SatTercero({ id }: { id: string }) {
               <li key={t.id}>
                 <Link to={`/sat/tickets/${t.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13.5px] font-medium">{t.asunto}</span>
+                    <span className="block truncate text-[14px] font-medium">{t.asunto}</span>
                     <span className="text-[12px] text-muted">
                       {t.codigo} · {fmtDateTime(t.creadoEn)}
                       {t.valoracion ? ` · ${'★'.repeat(t.valoracion)}` : ''}
@@ -73,7 +73,7 @@ export default function SatTercero({ id }: { id: string }) {
               <li key={o.id}>
                 <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
                   <span className="w-24 font-medium">{o.codigo}</span>
-                  <span className="min-w-0 flex-1 truncate text-[12.5px] text-muted">{o.tecnico ?? 'Sin técnico'}</span>
+                  <span className="min-w-0 flex-1 truncate text-[13px] text-muted">{o.tecnico ?? 'Sin técnico'}</span>
                   <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
                 </Link>
               </li>
@@ -89,7 +89,7 @@ export default function SatTercero({ id }: { id: string }) {
                 <li key={c.id}>
                   <Link to={`/sat/contratos/${c.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-medium">{c.nombre}</span>
+                      <span className="block truncate text-[14px] font-medium">{c.nombre}</span>
                       <span className="text-[12px] text-muted">{c.proximaVisita ? `Próxima visita ${fmtDate(c.proximaVisita)}` : c.codigo}</span>
                     </span>
                     <EnumBadge options={CONTRATO_ESTADOS} value={c.estado} />

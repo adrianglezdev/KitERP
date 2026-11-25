@@ -45,11 +45,11 @@ export default function Tablon() {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     {a.fijado && <Pin className="h-4 w-4 text-primary" />}
-                    <h3 className="text-[16px] font-bold">{a.titulo}</h3>
+                    <h3 className="text-[16px] font-semibold">{a.titulo}</h3>
                     {!a.leido && <Badge tone="violet">Nuevo</Badge>}
                     {a.departamentos?.length > 0 && <Badge>Solo algunos departamentos</Badge>}
                   </div>
-                  <p className="text-[12.5px] text-muted">
+                  <p className="text-[13px] text-muted">
                     {a.autor ?? 'Empresa'} · {relTime(a.publicadoEn)}
                     {a.caduca && ` · visible hasta el ${fmtDate(a.caduca)}`}
                   </p>
@@ -124,7 +124,7 @@ function Lecturas({ id, onClose }: { id: string; onClose: () => void }) {
     <Dialog open onOpenChange={(o) => !o && onClose()} title="Confirmaciones de lectura" description={data ? `${leidos.length} de ${data.length} personas lo han leído` : undefined}>
       <ul className="divide-y divide-line">
         {data?.map((p) => (
-          <li key={p.id} className="flex items-center justify-between py-2 text-[13.5px]">
+          <li key={p.id} className="flex items-center justify-between py-2 text-[14px]">
             <span>{p.nombre}</span>
             {p.leidoEn ? <Badge tone="green">{relTime(p.leidoEn)}</Badge> : <Badge>Sin leer</Badge>}
           </li>

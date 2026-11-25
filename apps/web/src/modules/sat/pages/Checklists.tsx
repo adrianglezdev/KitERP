@@ -64,7 +64,7 @@ export default function Checklists() {
             {data?.items.map((l) => (
               <li key={l.id}>
                 <button type="button" onClick={() => setSel(l)} className={cn('w-full px-4 py-3 text-left hover:bg-sunken', sel?.id === l.id && 'bg-primary-soft')}>
-                  <span className="block text-[13.5px] font-medium">{l.nombre}</span>
+                  <span className="block text-[14px] font-medium">{l.nombre}</span>
                   <span className="text-[12px] text-muted">
                     {l.items.length} puntos{l.tipo ? ` · ${optionLabel(satShared.ORDEN_TIPOS, l.tipo)?.label}` : ''}
                     {!l.activo && ' · inactiva'}

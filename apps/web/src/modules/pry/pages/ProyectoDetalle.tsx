@@ -123,7 +123,7 @@ function Hijos({ p, path, def, titulo, extra }: { p: any; path: string; def: Res
       <CardHeader title={titulo} actions={p._puedeEditar && <Button size="sm" icon={Plus} onClick={() => setEdit(null)}>Añadir</Button>} />
       <ul className="divide-y divide-line">
         {(data?.items ?? []).map((r) => (
-          <li key={r.id} className="flex items-center gap-2 px-4 py-2.5 text-[13.5px]">
+          <li key={r.id} className="flex items-center gap-2 px-4 py-2.5 text-[14px]">
             <span className="min-w-0 flex-1">
               <span className="block truncate font-medium">{r[def.titleField]}</span>
               <span className="text-[12px] text-muted">
@@ -174,21 +174,21 @@ function Tareas({ p }: { p: any }) {
           const ts = items.filter((t) => t.estado === col.value);
           return (
             <div key={col.value} className="w-72 shrink-0 snap-start rounded-2xl bg-sunken/60 p-2 lg:w-auto">
-              <p className="mb-2 flex items-center justify-between px-1 text-[13px] font-semibold">
+              <p className="mb-2 flex items-center justify-between px-1 text-[13px] font-medium">
                 <EnumBadge options={TAREA_ESTADOS} value={col.value} /> <span className="text-muted">{ts.length}</span>
               </p>
               <div className="space-y-2">
                 {ts.map((t) => (
                   <Card key={t.id} className="cursor-pointer p-3 hover:shadow-pop" onClick={() => setEdit(t)}>
-                    <p className="text-[13.5px] font-medium">{t.titulo}</p>
+                    <p className="text-[14px] font-medium">{t.titulo}</p>
                     <p className="mt-1 flex flex-wrap items-center gap-1.5 text-[12px] text-muted">
                       {t.prioridad === 'alta' && <Badge tone="red">Alta</Badge>}
                       {t.asignadoId && <span>{refs.personas?.[t.asignadoId]}</span>}
-                      {t.fechaFin && <span className={cn(t.fechaFin < new Date().toISOString().slice(0, 10) && t.estado !== 'hecha' && 'font-semibold text-bad')}>· {fmtDate(t.fechaFin)}</span>}
+                      {t.fechaFin && <span className={cn(t.fechaFin < new Date().toISOString().slice(0, 10) && t.estado !== 'hecha' && 'font-medium text-bad')}>· {fmtDate(t.fechaFin)}</span>}
                       {t.estimacionHoras && <span>· {Number(t.estimacionHoras)} h</span>}
                     </p>
                     <Select
-                      className="mt-2 h-8 text-[12.5px]"
+                      className="mt-2 h-8 text-[13px]"
                       value={t.estado}
                       onClick={(e) => e.stopPropagation()}
                       onChange={(e) => mover.mutate({ sid: t.id, estado: e.target.value })}
@@ -219,7 +219,7 @@ function Horas({ p }: { p: any }) {
   const total = (data ?? []).reduce((s, i) => s + Number(i.horas), 0);
   return (
     <Card className="overflow-hidden">
-      <CardHeader title={`Horas imputadas · ${total.toLocaleString('es-ES')} h`} icon={Clock} actions={<Link to="/mis-horas" className="text-[12.5px] font-semibold text-primary">Imputar mis horas</Link>} />
+      <CardHeader title={`Horas imputadas · ${total.toLocaleString('es-ES')} h`} icon={Clock} actions={<Link to="/mis-horas" className="text-[13px] font-medium text-primary">Imputar mis horas</Link>} />
       <DataTable
         dense
         loading={isLoading}
@@ -366,7 +366,7 @@ function Rentabilidad({ p }: { p: any }) {
             { key: 'tipo', header: 'Tipo', cell: (x: any) => optionLabel(PARTIDA_TIPOS, x.tipo)?.label, hideBelow: 'md' },
             { key: 'horas', header: 'Horas', align: 'right', cell: (x: any) => `${x.horas} / ${x.horasPrevistas}`, hideBelow: 'md' },
             { key: 'coste', header: 'Coste real / previsto', align: 'right', cell: (x: any) => `${fmtMoney(x.costeReal)} / ${fmtMoney(x.costePrevisto)}` },
-            { key: 'desv', header: 'Desviación', align: 'right', cell: (x: any) => (x.desviacionPct == null ? '—' : <span className={cn(x.alerta && 'font-bold text-bad')}>{x.desviacionPct > 0 ? '+' : ''}{x.desviacionPct} %</span>) },
+            { key: 'desv', header: 'Desviación', align: 'right', cell: (x: any) => (x.desviacionPct == null ? '—' : <span className={cn(x.alerta && 'font-semibold text-bad')}>{x.desviacionPct > 0 ? '+' : ''}{x.desviacionPct} %</span>) },
           ]}
           mobileTitle={(x: any) => x.nombre}
           mobileRight={(x: any) => fmtMoney(x.costeReal)}

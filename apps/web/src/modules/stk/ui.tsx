@@ -12,7 +12,7 @@ export function fmtQty(v: number | null | undefined, unidad?: string | null) {
 }
 
 export function QtyCell({ value, unidad, tone }: { value: number; unidad?: string | null; tone?: 'auto' | 'none' }) {
-  return <span className={cn('tabular', tone !== 'none' && value < 0 && 'font-semibold text-bad', tone !== 'none' && value === 0 && 'text-muted')}>{fmtQty(value, unidad)}</span>;
+  return <span className={cn('tabular', tone !== 'none' && value < 0 && 'font-medium text-bad', tone !== 'none' && value === 0 && 'text-muted')}>{fmtQty(value, unidad)}</span>;
 }
 
 /** Cantidad con signo para movimientos (+ verde, − normal). */
@@ -27,7 +27,7 @@ export function Stepper({ value, onChange, step = 1, min = 0, decimals = 3 }: { 
     <div className="flex items-center gap-1.5">
       <IconButton icon={Minus} label="Restar" variant="secondary" onClick={() => onChange(Math.max(min, Math.round((v - step) * 1000) / 1000))} />
       <div className="w-24">
-        <NumberInput value={value} onChange={(n) => onChange(n ?? 0)} decimals={decimals} align="right" className="text-center text-[16px] font-semibold" />
+        <NumberInput value={value} onChange={(n) => onChange(n ?? 0)} decimals={decimals} align="right" className="text-center text-[16px] font-medium" />
       </div>
       <IconButton icon={Plus} label="Sumar" variant="secondary" onClick={() => onChange(Math.round((v + step) * 1000) / 1000)} />
     </div>
@@ -134,7 +134,7 @@ function CameraScanner({ onCode, onClose }: { onCode: (c: string) => void; onClo
   }, []);
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()} title="Leer código de barras" description="Apunta la cámara al código" size="sm" footer={<Button icon={X} onClick={onClose}>Cerrar</Button>}>
-      {error ? <p className="text-[13.5px] text-bad">{error}</p> : <video ref={video} className="aspect-[4/3] w-full rounded-xl bg-black object-cover" playsInline muted />}
+      {error ? <p className="text-[14px] text-bad">{error}</p> : <video ref={video} className="aspect-[4/3] w-full rounded-xl bg-black object-cover" playsInline muted />}
     </Dialog>
   );
 }

@@ -130,13 +130,13 @@ export function MaterialDialog({ proyecto, onClose }: { proyecto: any; onClose: 
                   </div>
                 )}
                 {d && (
-                  <p className={cn('flex items-center gap-1 text-[12.5px]', falta ? 'font-semibold text-warn' : 'text-muted')}>
+                  <p className={cn('flex items-center gap-1 text-[13px]', falta ? 'font-medium text-warn' : 'text-muted')}>
                     {falta && <AlertTriangle className="h-3.5 w-3.5" />}
                     Disponible {origen ? (almacenId ? 'en ese almacén' : 'en tu furgoneta') : 'en total'}: {d.disponible.toLocaleString('es-ES')}
                     {falta && ' · se registrará igualmente y el stock quedará en negativo hasta que se regularice'}
                   </p>
                 )}
-                {l.modo === 'libre' && l.cantidad && l.costeUnitario ? <p className="text-[12.5px] text-muted">Importe: {fmtMoney(l.cantidad * l.costeUnitario)}</p> : null}
+                {l.modo === 'libre' && l.cantidad && l.costeUnitario ? <p className="text-[13px] text-muted">Importe: {fmtMoney(l.cantidad * l.costeUnitario)}</p> : null}
               </div>
             );
           })}

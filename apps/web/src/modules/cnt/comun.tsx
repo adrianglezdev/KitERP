@@ -21,7 +21,7 @@ export function AnioSelect({ value, onChange, className }: { value: string; onCh
 
 /** Importe con signo y color para los estados financieros. */
 export function Importe({ v, bold }: { v: number; bold?: boolean }) {
-  return <span className={cn('tabular-nums', v < 0 && 'text-bad', bold && 'font-semibold')}>{fmtMoney(v)}</span>;
+  return <span className={cn('tabular-nums', v < 0 && 'text-bad', bold && 'font-medium')}>{fmtMoney(v)}</span>;
 }
 
 interface Linea {
@@ -61,7 +61,7 @@ export function AsientoEditor({ asiento, onClose }: { asiento?: any; onClose: ()
       title={asiento ? `Asiento ${asiento.numero}` : 'Nuevo asiento'}
       footer={
         <div className="flex w-full flex-wrap items-center justify-between gap-2">
-          <span className={cn('text-[13px]', descuadre ? 'font-semibold text-bad' : 'text-muted')}>
+          <span className={cn('text-[13px]', descuadre ? 'font-medium text-bad' : 'text-muted')}>
             Debe {fmtMoney(debe)} · Haber {fmtMoney(haber)}
             {descuadre !== 0 && ` · descuadre ${fmtMoney(descuadre)}`}
           </span>
@@ -81,7 +81,7 @@ export function AsientoEditor({ asiento, onClose }: { asiento?: any; onClose: ()
           </Field>
         </div>
         <div className="space-y-2">
-          <div className="hidden grid-cols-[1fr_1fr_120px_120px_32px] gap-2 text-[12px] font-semibold text-muted md:grid">
+          <div className="hidden grid-cols-[1fr_1fr_120px_120px_32px] gap-2 text-[12px] font-medium text-muted md:grid">
             <span>Cuenta</span>
             <span>Concepto de la línea</span>
             <span className="text-right">Debe</span>

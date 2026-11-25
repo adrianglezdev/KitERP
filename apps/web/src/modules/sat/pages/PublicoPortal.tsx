@@ -26,7 +26,7 @@ export default function PublicoPortal() {
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-[13px] text-muted">Portal de asistencia</p>
-              <h1 className="text-[22px] font-semibold">{d.cliente}</h1>
+              <h1 className="text-[24px] font-medium">{d.cliente}</h1>
             </div>
             {!nuevo && (
               <Button variant="primary" icon={Plus} onClick={() => setNuevo(true)}>
@@ -36,7 +36,7 @@ export default function PublicoPortal() {
           </div>
           {nuevo && <NuevoAviso endpoint={`/sat/public/portal/${token}/tickets`} equipos={d.equipos} onCreado={(t) => nav(`/publico/sat/ticket/${t.token}`)} />}
           <Card className="overflow-hidden">
-            <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-semibold">
+            <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-medium">
               <LifeBuoy className="h-4 w-4 text-primary" /> Mis avisos
             </p>
             <ul className="divide-y divide-line">
@@ -44,10 +44,10 @@ export default function PublicoPortal() {
                 <li key={t.codigo}>
                   <Link to={`/publico/sat/ticket/${t.token}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-medium">{t.asunto}</span>
+                      <span className="block truncate text-[14px] font-medium">{t.asunto}</span>
                       <span className="flex items-center gap-2 text-[12px] text-muted">
                         {t.codigo} · {fmtDateTime(t.creadoEn)}
-                        {t.valoracion ? <Estrellas value={t.valoracion} size="sm" /> : t.puedeValorar ? <span className="font-semibold text-primary">Valorar</span> : null}
+                        {t.valoracion ? <Estrellas value={t.valoracion} size="sm" /> : t.puedeValorar ? <span className="font-medium text-primary">Valorar</span> : null}
                       </span>
                     </span>
                     <EstadoCliente estado={t.estado} />
@@ -58,13 +58,13 @@ export default function PublicoPortal() {
             </ul>
           </Card>
           <Card className="overflow-hidden">
-            <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-semibold">
+            <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-medium">
               <HardDrive className="h-4 w-4 text-primary" /> Mis equipos
             </p>
             <ul className="divide-y divide-line">
               {d.equipos.map((e: any) => (
                 <li key={e.id} className="px-4 py-2.5">
-                  <span className="block text-[13.5px] font-medium">{e.nombre}</span>
+                  <span className="block text-[14px] font-medium">{e.nombre}</span>
                   <span className="flex flex-wrap items-center gap-1 text-[12px] text-muted">
                     {[e.marca, e.modelo, e.ubicacion, e.numeroSerie && `S/N ${e.numeroSerie}`].filter(Boolean).join(' · ')}
                     {e.garantiaHasta && (

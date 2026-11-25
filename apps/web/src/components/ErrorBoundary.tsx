@@ -27,9 +27,9 @@ export class ErrorBoundary extends Component<{ children: ReactNode; resetKey?: s
         <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-pill bg-bad-soft text-bad">
           <AlertTriangle className="h-6 w-6" />
         </div>
-        <p className="font-display text-[17px] font-bold">Esta pantalla no se ha podido mostrar</p>
-        <p className="mt-1 text-[13.5px] text-muted">Tus datos están a salvo. Prueba a recargar; si se repite, avisa al administrador indicando qué estabas haciendo.</p>
-        <button type="button" onClick={() => window.location.reload()} className="mt-4 inline-flex items-center gap-2 rounded-pill bg-primary px-4 py-2 text-[13.5px] font-bold text-primary-fg">
+        <p className="font-display text-[18px] font-semibold">Esta pantalla no se ha podido mostrar</p>
+        <p className="mt-1 text-[14px] text-muted">Tus datos están a salvo. Prueba a recargar; si se repite, avisa al administrador indicando qué estabas haciendo.</p>
+        <button type="button" onClick={() => window.location.reload()} className="mt-4 inline-flex items-center gap-2 rounded-pill bg-primary px-4 py-2 text-[14px] font-semibold text-primary-fg">
           <RotateCcw className="h-4 w-4" /> Recargar
         </button>
       </div>

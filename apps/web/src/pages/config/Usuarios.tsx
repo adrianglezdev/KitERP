@@ -59,7 +59,7 @@ export default function Usuarios() {
       </Card>
       {edit && <UsuarioDialog u={edit} roles={roles.data ?? []} onClose={() => setEdit(null)} onTemporal={setTemporal} />}
       <Dialog open={!!temporal} onOpenChange={(o) => !o && setTemporal(null)} title="Contraseña temporal" size="sm">
-        <p className="mb-3 text-[13.5px]">Comunícasela por un canal seguro. Se le pedirá cambiarla al entrar.</p>
+        <p className="mb-3 text-[14px]">Comunícasela por un canal seguro. Se le pedirá cambiarla al entrar.</p>
         <div className="flex gap-2">
           <Input readOnly value={temporal ?? ''} className="font-mono" onFocus={(e) => e.target.select()} />
           <Button icon={Copy} onClick={() => navigator.clipboard.writeText(temporal ?? '').then(() => toast.success('Copiada')).catch(() => {})}>

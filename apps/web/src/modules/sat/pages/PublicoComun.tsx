@@ -26,7 +26,7 @@ export const ESTADO_CLIENTE: Record<string, { label: string; tone: string }> = {
 
 export function EstadoCliente({ estado }: { estado: string }) {
   const e = ESTADO_CLIENTE[estado] ?? { label: estado, tone: 'bg-sunken text-muted' };
-  return <span className={cn('inline-flex h-6 shrink-0 items-center rounded-pill px-2.5 text-[11.5px] font-bold', e.tone)}>{e.label}</span>;
+  return <span className={cn('inline-flex h-6 shrink-0 items-center rounded-pill px-2.5 text-[12px] font-semibold', e.tone)}>{e.label}</span>;
 }
 
 export function ContactoEmpresa({ empresa }: { empresa?: EmpresaPublica }) {
@@ -34,12 +34,12 @@ export function ContactoEmpresa({ empresa }: { empresa?: EmpresaPublica }) {
   return (
     <div className="flex flex-wrap gap-2">
       {empresa.telefono && (
-        <a href={`tel:${empresa.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[13.5px] font-medium shadow-sm ring-1 ring-line-strong/70">
+        <a href={`tel:${empresa.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[14px] font-medium shadow-sm ring-1 ring-line-strong/70">
           <Phone className="h-4 w-4 text-primary" /> {empresa.telefono}
         </a>
       )}
       {empresa.email && (
-        <a href={`mailto:${empresa.email}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[13.5px] font-medium shadow-sm ring-1 ring-line-strong/70">
+        <a href={`mailto:${empresa.email}`} className="inline-flex items-center gap-1.5 rounded-xl bg-surface px-3 py-2 text-[14px] font-medium shadow-sm ring-1 ring-line-strong/70">
           <Mail className="h-4 w-4 text-primary" /> {empresa.email}
         </a>
       )}
@@ -65,7 +65,7 @@ export function NuevoAviso({ endpoint, equipos, onCreado }: { endpoint: string; 
   }
   return (
     <Card className="space-y-3 p-4">
-      <h2 className="text-[16px] font-bold">Abrir un aviso</h2>
+      <h2 className="text-[16px] font-semibold">Abrir un aviso</h2>
       {error && <Alert tone="red">{error}</Alert>}
       {equipos && equipos.length > 0 && (
         <Field label="¿Qué equipo?">
@@ -98,7 +98,7 @@ export function Estrellas({ value, onChange, size = 'lg' }: { value: number; onC
   return (
     <span className="inline-flex gap-1">
       {[1, 2, 3, 4, 5].map((n) => (
-        <button key={n} type="button" disabled={!onChange} aria-label={`${n} estrellas`} onClick={() => onChange?.(n)} className={cn('transition', onChange && 'hover:scale-110')}>
+        <button key={n} type="button" disabled={!onChange} aria-label={`${n} estrellas`} onClick={() => onChange?.(n)} className={cn('transition-colors', onChange && 'hover:opacity-80')}>
           <Star className={cn(size === 'lg' ? 'h-8 w-8' : 'h-3.5 w-3.5', n <= value ? 'fill-primary text-primary' : 'text-line-strong')} />
         </button>
       ))}

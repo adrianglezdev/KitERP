@@ -41,8 +41,8 @@ export default function FormacionPrl({ id }: { id: string }) {
           </ul>
         </Alert>
       )}
-      <ResourceList def={ficShared.formacionResource} endpoint="/fic/formacion" createPerm={editor} editPerm={editor ?? []} fixed={{ personaId: id }} embedded pageSize={10} title={<h3 className="text-[15px] font-bold">Formación</h3>} emptyText="Sin cursos registrados." />
-      <ResourceList def={ficShared.prlResource} endpoint="/fic/prl" createPerm={editor} editPerm={editor ?? []} fixed={{ personaId: id }} embedded pageSize={10} title={<h3 className="text-[15px] font-bold">Prevención de riesgos laborales</h3>} emptyText="Sin reconocimientos, cursos de PRL ni entregas de EPIs." />
+      <ResourceList def={ficShared.formacionResource} endpoint="/fic/formacion" createPerm={editor} editPerm={editor ?? []} fixed={{ personaId: id }} embedded pageSize={10} title={<h3 className="text-[16px] font-semibold">Formación</h3>} emptyText="Sin cursos registrados." />
+      <ResourceList def={ficShared.prlResource} endpoint="/fic/prl" createPerm={editor} editPerm={editor ?? []} fixed={{ personaId: id }} embedded pageSize={10} title={<h3 className="text-[16px] font-semibold">Prevención de riesgos laborales</h3>} emptyText="Sin reconocimientos, cursos de PRL ni entregas de EPIs." />
       <Dialog
         open={!!firmar}
         onOpenChange={(o) => !o && setFirmar(null)}
@@ -55,7 +55,7 @@ export default function FormacionPrl({ id }: { id: string }) {
         }
       >
         {firmar?.epis?.length > 0 && (
-          <ul className="mb-3 list-disc pl-5 text-[13.5px]">
+          <ul className="mb-3 list-disc pl-5 text-[14px]">
             {firmar.epis.map((e: any, i: number) => (
               <li key={i}>
                 {e.cantidad} × {e.nombre}

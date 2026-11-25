@@ -29,7 +29,7 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
   const tooltip = (
     <Tooltip
       cursor={{ fill: 'rgb(var(--sunken))' }}
-      contentStyle={{ background: 'rgb(var(--surface))', border: 'none', borderRadius: 'calc(0.875rem * var(--radius, 1))', boxShadow: 'var(--shadow-pop)', fontSize: 12.5, fontWeight: 600, padding: '8px 12px' }}
+      contentStyle={{ background: 'rgb(var(--surface))', border: 'none', borderRadius: 'calc(0.875rem * var(--radius, 1))', boxShadow: 'var(--shadow-pop)', fontSize: 12, fontWeight: 500, padding: '8px 12px' }}
       formatter={(v: number, n: string) => [fmtValue(v, format), series.find((s) => s.key === n)?.label ?? n]}
     />
   );
@@ -71,7 +71,7 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
           <YAxis tick={tick} axisLine={false} tickLine={false} width={52} tickFormatter={yfmt} />
           {tooltip}
           {series.map((s, i) => (
-            <Bar key={s.key} dataKey={s.key} fill={s.color ?? SERIES_COLORS[i]} radius={[8, 8, 3, 3]} maxBarSize={36} />
+            <Bar key={s.key} dataKey={s.key} fill={s.color ?? SERIES_COLORS[i]} radius={[4, 4, 0, 0]} maxBarSize={36} />
           ))}
         </BarChart>
       )}
@@ -79,28 +79,21 @@ export function Chart({ chart, data, xKey, series, format, height = 220 }: { cha
   );
 }
 
-// La cifra destacada de cada pilar va sobre un bloque de color (como en el panel de dirección)
-const DESTACADO: Record<Pillar, string> = {
-  personas: 'bg-primary text-primary-fg',
-  comercial: 'bg-primary text-primary-fg',
-  operaciones: 'bg-sun text-sun-fg',
-  finanzas: 'bg-deep text-deep-fg dark:bg-sunken dark:text-fg',
-  plataforma: 'bg-deep text-deep-fg dark:bg-sunken dark:text-fg',
-};
-
-/** Tarjeta de indicador del panel de inicio (stat, lista o gráfico), aportada por cualquier módulo. */
-export function WidgetCard({ w, destacado }: { w: DashboardWidget; destacado?: boolean }) {
+/**
+ * Tarjeta de indicador del panel de inicio (stat, lista o gráfico), aportada por cualquier módulo.
+ * Todas las cifras van en tarjetas tranquilas: el color queda para el punto del pilar y los gráficos.
+ */
+export function WidgetCard({ w }: { w: DashboardWidget }) {
   const pillar: Pillar = moduleInfo(w.modulo)?.pillar ?? 'plataforma';
   const d = w.data;
   const link = 'enlace' in d ? d.enlace : undefined;
-  const fill = destacado && d.kind === 'stat';
   return (
-    <Card className={cn('flex flex-col overflow-hidden', fill && DESTACADO[pillar], fill && '!shadow-none', w.size === 'lg' && d.kind === 'chart' && 'md:col-span-2', d.kind === 'stat' ? '' : 'min-h-[180px]')}>
-      <div className="flex items-center gap-2 px-5 pt-[18px]">
-        {!fill && <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pillar]!.dot)} />}
-        <h3 className={cn('min-w-0 flex-1 truncate font-sans text-[12.5px] font-bold tracking-normal', fill ? 'opacity-80' : 'text-fg/65')}>{w.titulo}</h3>
+    <Card className={cn('flex flex-col overflow-hidden', w.size === 'lg' && d.kind === 'chart' && 'md:col-span-2', d.kind === 'stat' ? '' : 'min-h-[180px]')}>
+      <div className="flex items-center gap-2 px-5 pt-5">
+        <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pillar]!.dot)} />
+        <h3 className="min-w-0 flex-1 truncate font-sans text-[13px] font-medium text-fg/70">{w.titulo}</h3>
         {link && (
-          <Link to={link} className={cn('-mr-1 flex h-6 w-6 items-center justify-center rounded-pill transition', fill ? 'opacity-80 hover:opacity-100' : 'text-muted hover:bg-sunken hover:text-primary')} aria-label={`Abrir ${w.titulo}`}>
+          <Link to={link} className="-mr-1 flex h-6 w-6 items-center justify-center rounded-md text-muted transition-colors hover:bg-sunken hover:text-fg" aria-label={`Abrir ${w.titulo}`}>
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         )}
@@ -108,10 +101,10 @@ export function WidgetCard({ w, destacado }: { w: DashboardWidget; destacado?: b
       <div className="min-h-0 flex-1 px-5 pb-5 pt-2">
         {d.kind === 'stat' && (
           <div>
-            <p className="tabular font-display text-[30px] font-semibold leading-[1.1] tracking-[-0.03em]">{fmtValue(d.value, d.format)}</p>
+            <p className="tabular font-display text-[28px] font-medium leading-[1.1]">{fmtValue(d.value, d.format)}</p>
             {(d.hint || d.delta !== undefined) && (
-              <p className={cn('mt-1 text-[12.5px]', fill ? 'opacity-80' : 'text-muted')}>
-                {d.delta !== undefined && d.delta !== null && <span className={cn('mr-1 font-bold', fill ? '' : d.delta >= 0 ? 'text-ok' : 'text-bad')}>{d.delta >= 0 ? '▲' : '▼'} {fmtNumber(Math.abs(d.delta), 1)} %</span>}
+              <p className="mt-1 text-[13px] text-muted">
+                {d.delta !== undefined && d.delta !== null && <span className={cn('mr-1 font-medium', d.delta >= 0 ? 'text-ok' : 'text-bad')}>{d.delta >= 0 ? '▲' : '▼'} {fmtNumber(Math.abs(d.delta), 1)} %</span>}
                 {d.hint}
               </p>
             )}
@@ -124,16 +117,16 @@ export function WidgetCard({ w, destacado }: { w: DashboardWidget; destacado?: b
                 const inner = (
                   <>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-semibold">{it.titulo}</span>
+                      <span className="block truncate text-[14px] font-medium">{it.titulo}</span>
                       {it.subtitulo && <span className="block truncate text-[12px] text-muted">{it.subtitulo}</span>}
                     </span>
-                    {it.valor && <span className={cn('tabular inline-flex h-6 shrink-0 items-center rounded-pill px-2.5 text-[11.5px] font-bold', TONES[(it.tone as Tone) ?? 'gray'])}>{it.valor}</span>}
+                    {it.valor && <span className={cn('tabular inline-flex h-6 shrink-0 items-center rounded-md px-2 text-[12px] font-medium', TONES[(it.tone as Tone) ?? 'gray'])}>{it.valor}</span>}
                   </>
                 );
                 return (
                   <li key={i}>
                     {it.enlace ? (
-                      <Link to={it.enlace} className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-sunken/70">
+                      <Link to={it.enlace} className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition-colors hover:bg-sunken/70">
                         {inner}
                       </Link>
                     ) : (

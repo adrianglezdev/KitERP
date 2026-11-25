@@ -62,7 +62,7 @@ export function NumberInput({
           if (!Number.isNaN(n)) onChange(min !== undefined ? Math.max(min, n) : n);
         }}
       />
-      {suffix && <span className="pointer-events-none absolute inset-y-0 right-2.5 flex items-center text-[12.5px] text-muted">{suffix}</span>}
+      {suffix && <span className="pointer-events-none absolute inset-y-0 right-2.5 flex items-center text-[13px] text-muted">{suffix}</span>}
     </div>
   );
 }
@@ -83,7 +83,7 @@ export function TagsInput({ value, onChange, placeholder = 'Escribe y pulsa Intr
   return (
     <div className="field-input flex min-h-[38px] flex-wrap items-center gap-1.5 py-1.5">
       {value.map((v) => (
-        <span key={v} className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-2 py-0.5 text-[12.5px] text-primary">
+        <span key={v} className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-2 py-0.5 text-[13px] text-primary">
           {v}
           <button type="button" onClick={() => onChange(value.filter((x) => x !== v))} aria-label={`Quitar ${v}`}>
             <X className="h-3 w-3" />
@@ -154,7 +154,7 @@ export function FileDrop({ onUploaded, multiple = true, accept, capture, label =
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && input.current?.click()}
       className={cn(
-        'flex cursor-pointer items-center justify-center gap-3 rounded-xl border-2 border-dashed text-center text-[13px] text-muted transition',
+        'flex cursor-pointer items-center justify-center gap-3 rounded-xl border-2 border-dashed text-center text-[13px] text-muted transition-colors',
         compact ? 'px-3 py-3' : 'flex-col px-4 py-6',
         over ? 'border-primary bg-primary-soft/50 text-primary' : 'border-line hover:border-primary/50 hover:bg-sunken/50',
       )}
@@ -168,7 +168,7 @@ export function FileDrop({ onUploaded, multiple = true, accept, capture, label =
 
 export function FileChip({ f, onRemove }: { f: { nombre: string; tamano?: number; url?: string | null }; onRemove?: () => void }) {
   return (
-    <span className="inline-flex max-w-full items-center gap-2 rounded-lg border border-line-strong/70 bg-sunken px-2.5 py-1.5 text-[12.5px]">
+    <span className="inline-flex max-w-full items-center gap-2 rounded-lg border border-line-strong/70 bg-sunken px-2.5 py-1.5 text-[13px]">
       {f.url ? (
         <a href={f.url} target="_blank" rel="noreferrer" className="truncate hover:text-primary">
           {f.nombre}
@@ -248,7 +248,7 @@ export function SignaturePad({ onChange, height = 180 }: { onChange: (dataUrl: s
         />
         <span className="pointer-events-none absolute bottom-2 left-3 text-[11px] text-gray-400">Firma aquí</span>
       </div>
-      <button type="button" onClick={clear} className="inline-flex items-center gap-1.5 text-[12.5px] text-muted hover:text-fg">
+      <button type="button" onClick={clear} className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-fg">
         <Eraser className="h-3.5 w-3.5" /> Borrar firma
       </button>
     </div>

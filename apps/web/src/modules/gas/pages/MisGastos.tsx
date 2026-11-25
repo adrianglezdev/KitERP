@@ -70,7 +70,7 @@ export default function MisGastos({ vista = 'mios' }: { vista?: 'mios' | 'todos'
             { key: 'concepto', header: 'Concepto', cell: (g: any) => <span className="line-clamp-1">{g.comercio || g.concepto || optionLabel(GASTO_TIPOS, g.tipo)?.label}</span> },
             { key: 'tipo', header: 'Tipo', cell: (g: any) => optionLabel(GASTO_CATEGORIAS, g.categoria)?.label ?? optionLabel(GASTO_TIPOS, g.tipo)?.label, hideBelow: 'md' },
             { key: 'estado', header: 'Estado', cell: (g: any) => <EnumBadge options={GASTO_ESTADOS} value={g.estado} /> },
-            { key: 'total', header: 'Importe', align: 'right', cell: (g: any) => <span className="font-semibold tabular-nums">{fmtMoney(g.total)}</span> },
+            { key: 'total', header: 'Importe', align: 'right', cell: (g: any) => <span className="font-medium tabular-nums">{fmtMoney(g.total)}</span> },
           ]}
           mobileTitle={(g: any) => g.comercio || g.concepto || optionLabel(GASTO_TIPOS, g.tipo)?.label}
           mobileSubtitle={(g: any) => (
@@ -78,12 +78,12 @@ export default function MisGastos({ vista = 'mios' }: { vista?: 'mios' | 'todos'
               {fmtDate(g.fecha)} {vista === 'todos' && `· ${g.persona}`} <EnumBadge options={GASTO_ESTADOS} value={g.estado} />
             </span>
           )}
-          mobileRight={(g: any) => <span className="font-semibold">{fmtMoney(g.total)}</span>}
+          mobileRight={(g: any) => <span className="font-medium">{fmtMoney(g.total)}</span>}
           footer={
             data?.total ? (
               <div className="flex justify-between px-4 py-2 text-[13px]">
                 <span className="text-muted">{data.total} gastos</span>
-                <span className="font-semibold">{fmtMoney(data.suma)}</span>
+                <span className="font-medium">{fmtMoney(data.suma)}</span>
               </div>
             ) : null
           }

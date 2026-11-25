@@ -93,15 +93,15 @@ function TraspasoDetalle({ id, onClose }: { id: string; onClose: () => void }) {
         <Spinner />
       ) : (
         <div className="space-y-3">
-          {data.notas && <p className="text-[13.5px] text-muted">{data.notas}</p>}
+          {data.notas && <p className="text-[14px] text-muted">{data.notas}</p>}
           <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
             {data.lineas.map((l: any) => (
-              <li key={l.id} className="flex items-center justify-between gap-3 px-3 py-2.5 text-[13.5px]">
+              <li key={l.id} className="flex items-center justify-between gap-3 px-3 py-2.5 text-[14px]">
                 <span className="min-w-0 truncate">
                   <b className="font-medium">{l.referencia}</b> · {l.articulo}
                   {l.lote && <span className="text-muted"> · lote {l.lote}</span>}
                 </span>
-                <span className="tabular font-semibold">{fmtQty(l.cantidad, l.unidad)}</span>
+                <span className="tabular font-medium">{fmtQty(l.cantidad, l.unidad)}</span>
               </li>
             ))}
           </ul>

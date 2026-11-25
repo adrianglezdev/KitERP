@@ -111,19 +111,19 @@ export default function TicketDetalle() {
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {t.cliente?.telefono && (
-                <a href={telHref(t.cliente.telefono)} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[12.5px] font-semibold transition hover:text-primary">
+                <a href={telHref(t.cliente.telefono)} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
                   <Phone className="h-3.5 w-3.5 text-primary" /> {t.cliente.telefono}
                 </a>
               )}
               {t.cliente?.email && (
-                <a href={`mailto:${t.cliente.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[12.5px] font-semibold transition hover:text-primary">
+                <a href={`mailto:${t.cliente.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
                   <Mail className="h-3.5 w-3.5 text-primary" /> Email
                 </a>
               )}
             </div>
           </Card>
           <Card className="p-4 text-[13px]">
-            <p className="mb-2 font-semibold">Enlace de seguimiento para el cliente</p>
+            <p className="mb-2 font-medium">Enlace de seguimiento para el cliente</p>
             <p className="mb-2 text-muted">Con él ve el estado del aviso y, al terminar, puede valorar la asistencia.</p>
             <Button size="sm" icon={Copy} onClick={() => navigator.clipboard.writeText(t.enlaceSeguimiento).then(() => toast.success('Enlace copiado')).catch(() => toast.info(t.enlaceSeguimiento))}>
               Copiar enlace

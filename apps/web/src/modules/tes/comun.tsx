@@ -53,7 +53,7 @@ export function RegistrarLoteDialog({ ids, circuito, total, onClose }: { ids: st
           <Select value={f.medio} onChange={(e) => setF({ ...f, medio: e.target.value })} options={MEDIOS_MANUALES} />
         </Field>
       </div>
-      <p className="mt-3 text-[12.5px] text-muted">Se genera el asiento contable de cada uno. Los recibos que están en una remesa se cobran al cerrarla.</p>
+      <p className="mt-3 text-[13px] text-muted">Se genera el asiento contable de cada uno. Los recibos que están en una remesa se cobran al cerrarla.</p>
     </Dialog>
   );
 }

@@ -14,7 +14,7 @@ export default function Tarjetas() {
     <>
       <PageHeader title="Tarjetas de empresa" icon={CreditCard} subtitle="Importa el extracto de cada tarjeta: se casa solo con los tickets y avisa de los cargos sin justificar." />
       <ResourceList def={gasShared.tarjetaResource} endpoint="/gas/tarjetas" createPerm="gas.liquidar" />
-      <p className="mt-3 text-[12.5px] text-muted">Pulsa en una tarjeta para editarla. Para ver sus cargos, usa el botón de extracto:</p>
+      <p className="mt-3 text-[13px] text-muted">Pulsa en una tarjeta para editarla. Para ver sus cargos, usa el botón de extracto:</p>
       <ListaExtractos onOpen={setAbierta} />
       {abierta && <Extracto tarjeta={abierta} onClose={() => setAbierta(null)} />}
     </>

@@ -49,7 +49,7 @@ export function ListaRecibos({ url, onAbierto }: { url: string; onAbierto?: () =
                   >
                     <FileText className="h-4 w-4 shrink-0 text-primary" />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-medium">{r.titulo ?? (r.mes ? nombrePeriodo(r.anio, r.mes) : 'Documento')}</span>
+                      <span className="block truncate text-[14px] font-medium">{r.titulo ?? (r.mes ? nombrePeriodo(r.anio, r.mes) : 'Documento')}</span>
                       <span className="text-[12px] text-muted">
                         <EnumBadge options={RECIBO_TIPOS} value={r.tipo} dot={false} /> {r.publicadoEn && `· publicado el ${fmtDate(r.publicadoEn)}`}
                       </span>
@@ -83,7 +83,7 @@ export function AnticipoDialog({ onClose }: { onClose: () => void }) {
         <Field label="Motivo (opcional)">
           <Textarea rows={2} value={f.motivo} onChange={(e) => setF({ ...f, motivo: e.target.value })} />
         </Field>
-        <p className="text-[12.5px] text-muted">Se descuenta de tu próxima nómina. Lo aprueba tu responsable o RRHH.</p>
+        <p className="text-[13px] text-muted">Se descuenta de tu próxima nómina. Lo aprueba tu responsable o RRHH.</p>
       </div>
     </Dialog>
   );
@@ -91,7 +91,7 @@ export function AnticipoDialog({ onClose }: { onClose: () => void }) {
 
 export function AnticipoFila({ a, onAprobar, onRechazar }: { a: any; onAprobar?: () => void; onRechazar?: () => void }) {
   return (
-    <li className="flex flex-wrap items-center gap-3 px-3 py-2.5 text-[13.5px]">
+    <li className="flex flex-wrap items-center gap-3 px-3 py-2.5 text-[14px]">
       <span className="min-w-0 flex-1">
         <span className="block font-medium">
           {a.persona ? `${a.persona} · ` : ''}

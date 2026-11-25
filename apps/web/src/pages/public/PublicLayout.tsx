@@ -31,7 +31,7 @@ export function PublicLayout({ empresa, logoUrl, marca, children }: { empresa?: 
       <header className="mx-auto max-w-3xl px-3 pt-3 sm:px-4">
         <div className="flex h-16 items-center gap-3 rounded-2xl bg-surface px-4 shadow-card">
           {logo ? <img src={logo} alt="" className="h-9 max-w-[160px] object-contain" /> : <BrandMark size="sm" />}
-          <span className="min-w-0 truncate font-display text-[17px] font-semibold tracking-tight">{empresa ?? marca?.nombre}</span>
+          <span className="min-w-0 truncate font-display text-[18px] font-medium">{empresa ?? marca?.nombre}</span>
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-3 py-5 pb-16 sm:px-4">{children}</main>

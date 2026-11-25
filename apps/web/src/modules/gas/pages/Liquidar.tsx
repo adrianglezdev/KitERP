@@ -47,11 +47,11 @@ export default function Liquidar() {
                 <Card key={pid} className="overflow-hidden">
                   <div className="flex items-center justify-between px-5 pb-2 pt-4">
                     <Checkbox checked={todos} onChange={(v) => toggle(ids, v)} label={<b>{g.persona}</b>} />
-                    <span className="font-semibold">{fmtMoney(g.items.reduce((s, x) => s + Number(x.total), 0))}</span>
+                    <span className="font-medium">{fmtMoney(g.items.reduce((s, x) => s + Number(x.total), 0))}</span>
                   </div>
                   <ul className="divide-y divide-line">
                     {g.items.map((x) => (
-                      <li key={x.id} className="flex items-center gap-3 px-4 py-2 text-[13.5px]">
+                      <li key={x.id} className="flex items-center gap-3 px-4 py-2 text-[14px]">
                         <Checkbox checked={sel.has(x.id)} onChange={(v) => toggle([x.id], v)} />
                         <button type="button" className="min-w-0 flex-1 truncate text-left hover:text-primary" onClick={() => setAbierto(x.id)}>
                           {fmtDate(x.fecha)} · {x.comercio || x.concepto}
@@ -69,7 +69,7 @@ export default function Liquidar() {
         <div className="space-y-4">
           <Card className="space-y-3 p-4">
             <p className="text-[13px] text-muted">Seleccionado</p>
-            <p className="font-display text-[26px] font-bold">{fmtMoney(total)}</p>
+            <p className="font-display text-[28px] font-semibold">{fmtMoney(total)}</p>
             <Field label="Cómo se paga">
               <Select value={via} onChange={(e) => setVia(e.target.value)} options={LIQUIDACION_VIAS} />
             </Field>

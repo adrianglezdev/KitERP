@@ -41,11 +41,11 @@ export function BrandMark({ className, stroke, size = 'md' }: { className?: stri
 export function BrandName({ className, badgeClassName }: { className?: string; badgeClassName?: string }) {
   const brand = useBrand();
   const propio = brand?.apariencia.nombreApp || brand?.nombre;
-  if (propio) return <span className={cn('truncate font-display font-bold tracking-[-0.03em]', className)}>{appName(brand)}</span>;
+  if (propio) return <span className={cn('truncate font-display font-semibold', className)}>{appName(brand)}</span>;
   return (
-    <span className={cn('font-display font-bold tracking-[-0.03em]', className)}>
+    <span className={cn('font-display font-semibold', className)}>
       kite
-      <span className={cn('ml-1.5 rounded-pill bg-sun px-1.5 py-px align-middle font-sans text-[10px] font-bold tracking-normal text-sun-fg', badgeClassName)}>ERP</span>
+      <span className={cn('ml-1.5 rounded-pill bg-sun px-1.5 py-px align-middle font-sans text-[11px] font-semibold tracking-normal text-sun-fg', badgeClassName)}>ERP</span>
     </span>
   );
 }

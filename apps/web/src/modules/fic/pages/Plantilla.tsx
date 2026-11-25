@@ -76,10 +76,10 @@ export default function Plantilla() {
                 <li key={a.id}>
                   <Link to={a.enlace} className="block px-4 py-2.5 hover:bg-sunken">
                     <span className="flex items-center justify-between gap-2">
-                      <span className="truncate text-[13.5px] font-medium">{a.persona}</span>
+                      <span className="truncate text-[14px] font-medium">{a.persona}</span>
                       <Badge tone={a.dias <= 7 ? 'red' : a.dias <= 15 ? 'orange' : 'gray'}>{a.dias < 0 ? 'Vencido' : a.dias === 0 ? 'Hoy' : `${a.dias} días`}</Badge>
                     </span>
-                    <span className="block truncate text-[12.5px] text-muted">
+                    <span className="block truncate text-[13px] text-muted">
                       {optionLabel(ficShared.ALERTA_TIPOS, a.tipo)?.label} · {a.detalle} · {fmtDate(a.fecha)}
                     </span>
                   </Link>

@@ -48,7 +48,7 @@ export default function Seleccion() {
               {ofertas.data.map((o) => (
                 <li key={o.id}>
                   <button type="button" onClick={() => setSel(o.id)} className={cn('w-full px-4 py-3 text-left hover:bg-sunken', actual?.id === o.id && 'bg-primary-soft')}>
-                    <span className="block truncate text-[13.5px] font-semibold">{o.titulo}</span>
+                    <span className="block truncate text-[14px] font-medium">{o.titulo}</span>
                     <span className="flex items-center gap-1.5 text-[12px] text-muted">
                       <EnumBadge options={OFERTA_ESTADOS} value={o.estado} /> {o.activos} en proceso · {o.candidatos} total
                     </span>
@@ -75,7 +75,7 @@ function Tablero({ oferta, gestiona, onEditar }: { oferta: any; gestiona: boolea
   return (
     <div className="min-w-0 space-y-3">
       <div className="flex flex-wrap items-center gap-2">
-        <h2 className="min-w-0 flex-1 truncate font-display text-[18px] font-bold">{oferta.titulo}</h2>
+        <h2 className="min-w-0 flex-1 truncate font-display text-[18px] font-semibold">{oferta.titulo}</h2>
         {gestiona && (
           <>
             <Button size="sm" icon={Pencil} onClick={onEditar}>
@@ -99,14 +99,14 @@ function Tablero({ oferta, gestiona, onEditar }: { oferta: any; gestiona: boolea
               <div className="space-y-2">
                 {cs.map((c) => (
                   <Card key={c.id} className="cursor-pointer p-3 hover:shadow-pop" onClick={() => setAbierto(c)}>
-                    <p className="truncate text-[13.5px] font-medium">
+                    <p className="truncate text-[14px] font-medium">
                       {c.nombre} {c.apellidos}
                     </p>
                     <p className="text-[12px] text-muted">
                       {c.valoracion ? '★'.repeat(c.valoracion) : ''} {c.localidad}
                     </p>
                     {gestiona && (
-                      <Select className="mt-2 h-8 text-[12.5px]" value={c.estado} onClick={(e) => e.stopPropagation()} onChange={(e) => mover.mutate({ id: c.id, estado: e.target.value })} options={FASES} />
+                      <Select className="mt-2 h-8 text-[13px]" value={c.estado} onClick={(e) => e.stopPropagation()} onChange={(e) => mover.mutate({ id: c.id, estado: e.target.value })} options={FASES} />
                     )}
                   </Card>
                 ))}

@@ -60,15 +60,15 @@ export default function Informes() {
         <div className="space-y-4">
           <Card className="overflow-hidden">
             <div className="flex items-center justify-between px-5 pb-2 pt-4">
-              <p className="text-[13px] font-semibold">Guardados</p>
+              <p className="text-[13px] font-medium">Guardados</p>
               <IconButton icon={Plus} label="Nuevo" size="sm" onClick={() => { setActual(null); setDef(vacia(def.dataset)); setRes(null); }} />
             </div>
             <ul className="divide-y divide-line">
               {(guardados.data ?? []).map((g) => (
                 <li key={g.id}>
                   <button type="button" onClick={() => abrir(g)} className={cn('w-full px-4 py-2.5 text-left hover:bg-sunken', actual?.id === g.id && 'bg-primary-soft')}>
-                    <span className="block truncate text-[13.5px] font-medium">{g.nombre}</span>
-                    <span className="flex flex-wrap items-center gap-1 text-[11.5px] text-muted">
+                    <span className="block truncate text-[14px] font-medium">{g.nombre}</span>
+                    <span className="flex flex-wrap items-center gap-1 text-[12px] text-muted">
                       {g.datasetLabel}
                       {g.compartido && <Badge tone="blue">Compartido</Badge>}
                       {g.programacion !== 'ninguna' && <Badge tone="violet">Se envía</Badge>}
@@ -76,7 +76,7 @@ export default function Informes() {
                   </button>
                 </li>
               ))}
-              {!guardados.data?.length && <li className="px-4 py-3 text-[12.5px] text-muted">Aún no has guardado informes.</li>}
+              {!guardados.data?.length && <li className="px-4 py-3 text-[13px] text-muted">Aún no has guardado informes.</li>}
             </ul>
           </Card>
         </div>
@@ -93,7 +93,7 @@ export default function Informes() {
                 <Select value={def.agruparPor ?? ''} onChange={(e) => setDef({ ...def, agruparPor: e.target.value || null })} options={cols.filter((c) => c.group).map((c) => ({ value: c.key, label: c.label }))} placeholder="Sin agrupar (detalle)" />
               </Field>
             </div>
-            {ds && <p className="text-[12.5px] text-muted">{ds.description}</p>}
+            {ds && <p className="text-[13px] text-muted">{ds.description}</p>}
             {def.filtros.periodo === 'personalizado' && (
               <div className="grid grid-cols-2 gap-3 sm:w-96">
                 <Field label="Desde">
@@ -120,7 +120,7 @@ export default function Informes() {
               </div>
             )}
             <details>
-              <summary className="cursor-pointer text-[13px] font-semibold text-primary">Columnas ({elegidas.length} de {cols.length})</summary>
+              <summary className="cursor-pointer text-[13px] font-medium text-primary">Columnas ({elegidas.length} de {cols.length})</summary>
               <div className="mt-2 grid grid-cols-2 gap-1 sm:grid-cols-3">
                 {cols.map((c) => (
                   <Checkbox key={c.key} checked={elegidas.includes(c.key)} onChange={(on) => toggleCol(c.key, on)} label={c.label} />
@@ -179,7 +179,7 @@ function Resultado({ r }: { r: any }) {
         }}
         footer={
           Object.keys(r.totales).length ? (
-            <div className="flex flex-wrap justify-end gap-x-6 px-4 py-2 text-[13px] font-semibold">
+            <div className="flex flex-wrap justify-end gap-x-6 px-4 py-2 text-[13px] font-medium">
               {columnas
                 .filter((c) => r.totales[c.key] != null)
                 .map((c) => (

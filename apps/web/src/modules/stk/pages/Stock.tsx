@@ -39,8 +39,8 @@ export default function Stock() {
     { key: 'nombre', header: 'Artículo', sortable: true, cell: (r) => <span className="block max-w-[340px] truncate">{r.nombre}</span> },
     { key: 'fisico', header: 'Físico', align: 'right', sortable: true, cell: (r) => <QtyCell value={r.fisico} unidad={r.unidad} /> },
     { key: 'reservado', header: 'Reservado', align: 'right', hideBelow: 'lg', cell: (r) => (r.reservado ? <span className="tabular text-warn">{fmtQty(r.reservado)}</span> : <span className="text-muted">—</span>) },
-    { key: 'disponible', header: 'Disponible', align: 'right', sortable: true, cell: (r) => <span className={cn('tabular font-semibold', r.disponible < 0 && 'text-bad')}>{fmtQty(r.disponible, r.unidad)}</span> },
-    { key: 'minimo', header: 'Mínimo', align: 'right', hideBelow: 'md', cell: (r) => (r.stockMin ? <span className={cn('tabular', r.bajoMinimo && 'font-semibold text-bad')}>{fmtQty(r.stockMin)}</span> : <span className="text-muted">—</span>) },
+    { key: 'disponible', header: 'Disponible', align: 'right', sortable: true, cell: (r) => <span className={cn('tabular font-medium', r.disponible < 0 && 'text-bad')}>{fmtQty(r.disponible, r.unidad)}</span> },
+    { key: 'minimo', header: 'Mínimo', align: 'right', hideBelow: 'md', cell: (r) => (r.stockMin ? <span className={cn('tabular', r.bajoMinimo && 'font-medium text-bad')}>{fmtQty(r.stockMin)}</span> : <span className="text-muted">—</span>) },
     { key: 'valor', header: 'Valor (PMP)', align: 'right', sortable: true, hideBelow: 'lg', cell: (r) => <span className="tabular">{fmtMoney(r.valor)}</span> },
   ];
 
@@ -117,8 +117,8 @@ export default function Stock() {
           mobileSubtitle={(r) => `${r.referencia}${r.reservado ? ` · ${fmtQty(r.reservado)} reservado` : ''}`}
           mobileRight={(r) => (
             <div className="text-right">
-              <p className={cn('tabular text-[15px] font-semibold', r.disponible < 0 && 'text-bad')}>{fmtQty(r.disponible, r.unidad)}</p>
-              {r.bajoMinimo && <p className="text-[11.5px] font-medium text-bad">bajo mínimo</p>}
+              <p className={cn('tabular text-[16px] font-medium', r.disponible < 0 && 'text-bad')}>{fmtQty(r.disponible, r.unidad)}</p>
+              {r.bajoMinimo && <p className="text-[12px] font-medium text-bad">bajo mínimo</p>}
             </div>
           )}
           empty={<EmptyState icon={Boxes} title="No hay artículos con ese filtro">Los artículos que controlan stock aparecen aquí.</EmptyState>}

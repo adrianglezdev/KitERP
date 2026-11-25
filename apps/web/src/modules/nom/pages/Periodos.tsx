@@ -30,7 +30,7 @@ export default function Periodos() {
           onRowClick={(p: any) => nav(`/nominas/periodos/${p.id}`)}
           empty="Crea el primer mes de nómina."
           columns={[
-            { key: 'nombre', header: 'Mes', cell: (p: any) => <span className="font-semibold">{p.nombre}</span> },
+            { key: 'nombre', header: 'Mes', cell: (p: any) => <span className="font-medium">{p.nombre}</span> },
             { key: 'estado', header: 'Estado', cell: (p: any) => <EnumBadge options={PERIODO_ESTADOS} value={p.estado} /> },
             { key: 'variables', header: 'Variables', align: 'right', cell: (p: any) => p.variables, hideBelow: 'md' },
             { key: 'recibos', header: 'Recibos', align: 'right', cell: (p: any) => (

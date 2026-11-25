@@ -81,7 +81,7 @@ function AltaDialog({ onClose }: { onClose: () => void }) {
     <Dialog open onOpenChange={(o) => !o && onClose()} title="Nueva incorporación" footer={<Button variant="primary" disabled={!f.personaId} loading={m.isPending} onClick={() => m.mutate(undefined)}>Empezar</Button>}>
       <div className="space-y-3">
         <p className="text-[13px] text-muted">
-          Primero crea la ficha de la persona en <Link to="/personas" className="font-semibold text-primary">Personas</Link> (o contrátala desde Selección).
+          Primero crea la ficha de la persona en <Link to="/personas" className="font-medium text-primary">Personas</Link> (o contrátala desde Selección).
         </p>
         <Field label="Persona" required>
           <RefSelect target="personas" value={f.personaId} onChange={(v) => setF({ ...f, personaId: v })} />
@@ -184,7 +184,7 @@ function ProcesoSheet({ id, onClose }: { id: string; onClose: () => void }) {
           </p>
           <ul className="divide-y divide-line rounded-xl ring-1 ring-line-strong/70">
             {p.tareas.map((t: any) => (
-              <li key={t.id} className="flex items-center gap-3 px-3 py-2 text-[13.5px]">
+              <li key={t.id} className="flex items-center gap-3 px-3 py-2 text-[14px]">
                 <span className="min-w-0 flex-1">
                   <span className={t.estado === 'hecha' ? 'text-muted line-through' : 'font-medium'}>{t.titulo}</span>
                   <span className="block text-[12px] text-muted">
@@ -192,7 +192,7 @@ function ProcesoSheet({ id, onClose }: { id: string; onClose: () => void }) {
                     {t.vence && ` · ${fmtDate(t.vence)}`}
                   </span>
                 </span>
-                {gestiona && t.tareaId ? <Select className="h-8 w-28 text-[12.5px]" value={t.estado ?? 'pendiente'} onChange={(e) => tarea.mutate({ tid: t.tareaId, estado: e.target.value })} options={ESTADO_TAREA} /> : <span className="text-[12px] text-muted">{t.estado}</span>}
+                {gestiona && t.tareaId ? <Select className="h-8 w-28 text-[13px]" value={t.estado ?? 'pendiente'} onChange={(e) => tarea.mutate({ tid: t.tareaId, estado: e.target.value })} options={ESTADO_TAREA} /> : <span className="text-[12px] text-muted">{t.estado}</span>}
               </li>
             ))}
             {!p.tareas.length && <li className="px-3 py-3 text-center text-[13px] text-muted">Sin tareas.</li>}
@@ -200,7 +200,7 @@ function ProcesoSheet({ id, onClose }: { id: string; onClose: () => void }) {
           {p.activos?.length > 0 && (
             <Alert tone="orange" title="Material que debe devolver">
               {p.activos.map((a: any) => (
-                <Link key={a.id} to={`/activos/${a.id}`} className="mr-2 font-semibold underline">
+                <Link key={a.id} to={`/activos/${a.id}`} className="mr-2 font-medium underline">
                   {a.nombre}
                 </Link>
               ))}

@@ -39,7 +39,7 @@ export default function PublicoTicket() {
         <div className="space-y-5">
           <div>
             <p className="text-[13px] text-muted">Aviso {t.codigo}</p>
-            <h1 className="mt-0.5 flex items-center gap-2 text-[22px] font-semibold">
+            <h1 className="mt-0.5 flex items-center gap-2 text-[24px] font-medium">
               <LifeBuoy className="h-6 w-6 shrink-0 text-primary" /> {t.asunto}
             </h1>
             <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-muted">
@@ -56,7 +56,7 @@ export default function PublicoTicket() {
           )}
           {t.puedeValorar && (
             <Card className="space-y-3 p-4">
-              <h2 className="text-[16px] font-bold">¿Qué tal te hemos atendido?</h2>
+              <h2 className="text-[16px] font-semibold">¿Qué tal te hemos atendido?</h2>
               {err && <Alert tone="red">{err}</Alert>}
               <Estrellas value={val} onChange={setVal} />
               <Field label="Comentario (opcional)">
@@ -69,14 +69,14 @@ export default function PublicoTicket() {
           )}
           {!!t.valoracion && (
             <Card className="space-y-2 p-4">
-              <p className="text-[14px] font-semibold">Gracias por tu valoración</p>
+              <p className="text-[14px] font-medium">Gracias por tu valoración</p>
               <Estrellas value={t.valoracion} size="sm" />
-              {t.valoracionComentario && <p className="text-[13.5px] text-muted">{t.valoracionComentario}</p>}
+              {t.valoracionComentario && <p className="text-[14px] text-muted">{t.valoracionComentario}</p>}
             </Card>
           )}
           <ContactoEmpresa empresa={empresa} />
           {t.portalToken && (
-            <Link to={`/publico/sat/${t.portalToken}`} className="inline-block text-[13.5px] font-semibold text-primary hover:underline">
+            <Link to={`/publico/sat/${t.portalToken}`} className="inline-block text-[14px] font-medium text-primary hover:underline">
               Ver todos mis equipos y avisos
             </Link>
           )}

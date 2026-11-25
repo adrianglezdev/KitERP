@@ -98,7 +98,7 @@ export function DocumentList({
       cell: (r) => (
         <span className="font-medium">
           {r.codigo ?? <span className="text-muted">Borrador</span>}
-          {tipos.length > 1 && <span className="ml-1.5 text-[11.5px] font-normal text-muted">{tipoLabel(r.tipo)}</span>}
+          {tipos.length > 1 && <span className="ml-1.5 text-[12px] font-normal text-muted">{tipoLabel(r.tipo)}</span>}
         </span>
       ),
     },
@@ -148,13 +148,13 @@ export function DocumentList({
         mobileSubtitle={(r) => `${r.codigo ?? 'Borrador'} · ${fmtDate(r.fecha)}${r.titulo ? ` · ${r.titulo}` : ''}`}
         mobileRight={(r) => (
           <div className="space-y-1">
-            <p className="tabular text-[14px] font-semibold">{fmtMoney(r.total)}</p>
+            <p className="tabular text-[14px] font-medium">{fmtMoney(r.total)}</p>
             <EnumBadge options={DOC_ESTADOS[r.tipo as DocTipo]} value={r.estado} dot={false} />
           </div>
         )}
       />
       {data && data.total > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-sunken/40 px-4 py-2 text-[12.5px] text-muted">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-sunken/40 px-4 py-2 text-[13px] text-muted">
           <span>
             Base imponible <b className="tabular text-fg">{fmtMoney(data.sumaBase)}</b> · Total <b className="tabular text-fg">{fmtMoney(data.sumaTotal)}</b>
           </span>

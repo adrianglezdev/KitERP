@@ -62,8 +62,8 @@ function Plan() {
         <Card className="overflow-hidden">
           <ul className="divide-y divide-line">
             {filas.slice(0, 800).map((c) => (
-              <li key={c.id} className={cn('flex items-center gap-3 px-4 py-1.5 text-[13px]', c.codigo.length <= 2 && 'bg-sunken/60 font-semibold', !c.subcuenta && 'text-fg/80')}>
-                <span className="w-24 shrink-0 font-mono text-[12.5px]" style={{ paddingLeft: Math.min(c.codigo.length - 1, 3) * 8 }}>
+              <li key={c.id} className={cn('flex items-center gap-3 px-4 py-1.5 text-[13px]', c.codigo.length <= 2 && 'bg-sunken/60 font-medium', !c.subcuenta && 'text-fg/80')}>
+                <span className="w-24 shrink-0 font-mono text-[13px]" style={{ paddingLeft: Math.min(c.codigo.length - 1, 3) * 8 }}>
                   {c.codigo}
                 </span>
                 <span className="min-w-0 flex-1 truncate">

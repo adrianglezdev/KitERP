@@ -47,7 +47,7 @@ export default function Verifactu() {
             { key: 'numSerie', header: 'Factura', cell: (r) => <Link to={`/documentos/${r.documentoId}`} className="font-medium hover:text-primary">{r.numSerie}</Link> },
             { key: 'fecha', header: 'Expedición', cell: (r) => r.fechaExpedicion },
             { key: 'tipo', header: 'Tipo', cell: (r) => <Badge tone="purple">{r.tipoFactura}</Badge> },
-            { key: 'huella', header: 'Huella', hideBelow: 'lg', cell: (r) => <code className="text-[11.5px] text-muted">{r.huella.slice(0, 20)}…</code> },
+            { key: 'huella', header: 'Huella', hideBelow: 'lg', cell: (r) => <code className="text-[12px] text-muted">{r.huella.slice(0, 20)}…</code> },
             { key: 'estado', header: 'Envío', cell: (r) => <Badge tone={r.estadoEnvio === 'aceptado' ? 'green' : 'yellow'}>{r.estadoEnvio === 'sin_certificado' ? 'Pendiente' : r.estadoEnvio}</Badge> },
             { key: 'importe', header: 'Importe', align: 'right', cell: (r) => fmtMoney(r.importeTotal) },
             { key: 'creado', header: 'Generado', hideBelow: 'xl', cell: (r) => fmtDateTime(r.creadoEn) },
@@ -55,10 +55,10 @@ export default function Verifactu() {
           ]}
           mobileTitle={(r) => r.numSerie}
           mobileSubtitle={(r) => `${r.fechaExpedicion} · ${r.tipoFactura}`}
-          mobileRight={(r) => <span className="tabular font-semibold">{fmtMoney(r.importeTotal)}</span>}
+          mobileRight={(r) => <span className="tabular font-medium">{fmtMoney(r.importeTotal)}</span>}
         />
       </Card>
-      <p className="mt-3 text-[12.5px] text-muted">
+      <p className="mt-3 text-[13px] text-muted">
         Calendario vigente: obligatorio para sociedades desde el 1 de enero de 2027 y para el resto desde el 1 de julio de 2027 (revisa cualquier cambio normativo).{' '}
         <Download className="hidden" />
       </p>

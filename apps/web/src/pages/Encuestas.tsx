@@ -39,7 +39,7 @@ export default function Encuestas() {
           {data.map((e) => (
             <Card key={e.id} className="flex flex-col p-4">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="text-[15.5px] font-bold">{e.titulo}</h3>
+                <h3 className="text-[16px] font-semibold">{e.titulo}</h3>
                 <div className="flex shrink-0 gap-1">
                   {e.anonima && (
                     <Badge tone="purple">
@@ -50,7 +50,7 @@ export default function Encuestas() {
                 </div>
               </div>
               {e.descripcion && <p className="mt-1 text-[13px] text-muted">{e.descripcion}</p>}
-              <p className="mt-2 text-[12.5px] text-muted">
+              <p className="mt-2 text-[13px] text-muted">
                 {e.preguntas.length} preguntas{e.cierre ? ` · hasta el ${fmtDate(e.cierre)}` : ''}
                 {e.respuestas !== undefined && can('msg.encuestas') ? ` · ${e.respuestas} respuestas` : ''}
               </p>
@@ -99,7 +99,7 @@ function Responder({ e, onClose }: { e: any; onClose: () => void }) {
             {p.tipo === 'escala' && (
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <button key={n} type="button" onClick={() => setR({ ...r, [p.id]: n })} className={cn('h-10 w-10 rounded-pill border text-[14px] font-bold transition', r[p.id] === n ? 'border-primary bg-primary text-primary-fg' : 'border-line hover:border-primary/50')}>
+                  <button key={n} type="button" onClick={() => setR({ ...r, [p.id]: n })} className={cn('h-10 w-10 rounded-pill border text-[14px] font-semibold transition-colors', r[p.id] === n ? 'border-primary bg-primary text-primary-fg' : 'border-line hover:border-primary/50')}>
                     {n}
                   </button>
                 ))}
@@ -130,7 +130,7 @@ function Resultados({ id, onClose }: { id: string; onClose: () => void }) {
               </p>
               {p.tipo === 'escala' && (
                 <div className="mt-2">
-                  <p className="font-display text-[22px] font-bold">{p.media ?? '—'} / 5</p>
+                  <p className="font-display text-[24px] font-semibold">{p.media ?? '—'} / 5</p>
                   <div className="mt-1 space-y-1">
                     {p.distribucion.map((n: number, k: number) => (
                       <div key={k} className="flex items-center gap-2 text-[12px]">

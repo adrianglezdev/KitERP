@@ -50,9 +50,9 @@ export default function Bolsa() {
             { key: 'nombre', header: 'Persona', cell: (r) => <Link to={`/personas/${r.personaId}?tab=hor-fichajes`} className="font-medium hover:text-primary">{r.nombre}</Link> },
             { key: 'dep', header: 'Departamento', hideBelow: 'md', cell: (r) => r.departamento ?? '—' },
             { key: 'ultimo', header: 'Último movimiento', hideBelow: 'md', cell: (r) => (r.ultimo ? fmtDate(r.ultimo) : '—') },
-            { key: 'saldo', header: 'Saldo', align: 'right', cell: (r) => <span className={cn('font-semibold', r.saldo > 0 ? 'text-ok' : r.saldo < 0 ? 'text-bad' : 'text-muted')}>{r.saldo > 0 ? '+' : ''}{fmtHours(r.saldo)}</span> },
+            { key: 'saldo', header: 'Saldo', align: 'right', cell: (r) => <span className={cn('font-medium', r.saldo > 0 ? 'text-ok' : r.saldo < 0 ? 'text-bad' : 'text-muted')}>{r.saldo > 0 ? '+' : ''}{fmtHours(r.saldo)}</span> },
           ]}
-          mobileRight={(r) => <span className={cn('font-semibold', r.saldo > 0 ? 'text-ok' : r.saldo < 0 ? 'text-bad' : 'text-muted')}>{fmtHours(r.saldo)}</span>}
+          mobileRight={(r) => <span className={cn('font-medium', r.saldo > 0 ? 'text-ok' : r.saldo < 0 ? 'text-bad' : 'text-muted')}>{fmtHours(r.saldo)}</span>}
         />
       </Card>
       <Dialog open={nuevo} onOpenChange={setNuevo} title="Ajuste de la bolsa de horas" size="sm" footer={<Button variant="primary" disabled={!f.personaId || !f.horas || f.concepto.length < 2} loading={crear.isPending} onClick={() => crear.mutate(undefined)}>Guardar</Button>}>

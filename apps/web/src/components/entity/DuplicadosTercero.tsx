@@ -21,7 +21,7 @@ export function DuplicadosTercero({ values, excluir }: { values: Record<string, 
     <div className="flex gap-3 rounded-xl bg-warn-soft px-4 py-3 text-[13px] ring-1 ring-inset ring-warn/25">
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warn" />
       <div>
-        <p className="font-semibold text-warn">Puede que ya exista</p>
+        <p className="font-medium text-warn">Puede que ya exista</p>
         <ul className="mt-1 space-y-0.5">
           {data.map((d) => (
             <li key={d.id}>

@@ -55,21 +55,21 @@ export default function Bandeja() {
           ) : (
             <ul className="px-2 pb-3 pt-1">
               {lista.map((a) => (
-                <li key={`${a.modulo}-${a.id}`} className="flex flex-col gap-3 rounded-2xl px-3 py-3 transition hover:bg-sunken/60 sm:flex-row sm:items-center">
+                <li key={`${a.modulo}-${a.id}`} className="flex flex-col gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/60 sm:flex-row sm:items-center">
                   <div className="flex min-w-0 flex-1 items-start gap-3">
                     <span className={cn('mt-[7px] h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pilarDe(a.modulo)]!.dot)} />
                     <div className="min-w-0 flex-1">
-                      <p className="text-[11.5px] font-bold text-primary">
+                      <p className="text-[12px] font-semibold text-primary">
                         {a.tipo} · {relTime(a.fecha)}
                       </p>
                       {a.enlace ? (
-                        <Link to={a.enlace} className="block text-[14px] font-bold hover:text-primary">
+                        <Link to={a.enlace} className="block text-[14px] font-semibold hover:text-primary">
                           {a.titulo}
                         </Link>
                       ) : (
-                        <p className="text-[14px] font-bold">{a.titulo}</p>
+                        <p className="text-[14px] font-semibold">{a.titulo}</p>
                       )}
-                      <p className="text-[12.5px] text-muted">{[a.solicitante, a.detalle].filter(Boolean).join(' · ')}</p>
+                      <p className="text-[13px] text-muted">{[a.solicitante, a.detalle].filter(Boolean).join(' · ')}</p>
                     </div>
                   </div>
                   <div className="flex shrink-0 gap-2 pl-5 sm:pl-0">
@@ -112,9 +112,9 @@ export default function Bandeja() {
                 const cuerpo = (
                   <>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[13.5px] font-bold">{n.titulo}</span>
-                      {n.cuerpo && <span className="block text-[12.5px] text-muted">{n.cuerpo}</span>}
-                      <span className="block text-[11.5px] text-muted">{relTime(n.creadoEn)}</span>
+                      <span className="block text-[14px] font-semibold">{n.titulo}</span>
+                      {n.cuerpo && <span className="block text-[13px] text-muted">{n.cuerpo}</span>}
+                      <span className="block text-[12px] text-muted">{relTime(n.creadoEn)}</span>
                     </span>
                     {!n.leidaEn && <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-earth" aria-label="Sin leer" />}
                   </>
@@ -122,7 +122,7 @@ export default function Bandeja() {
                 return (
                   <li key={n.id}>
                     {n.enlace ? (
-                      <Link to={n.enlace} className="flex items-start gap-3 rounded-2xl px-3 py-2.5 transition hover:bg-sunken/60">
+                      <Link to={n.enlace} className="flex items-start gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-sunken/60">
                         {cuerpo}
                       </Link>
                     ) : (

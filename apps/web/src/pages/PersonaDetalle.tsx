@@ -33,8 +33,8 @@ export default function PersonaDetalle() {
           )}
         </button>
         <div className="min-w-0 flex-1">
-          <p className="text-[16px] font-semibold">{p.puesto ?? 'Sin puesto'}</p>
-          <p className="text-[13.5px] text-muted">
+          <p className="text-[16px] font-medium">{p.puesto ?? 'Sin puesto'}</p>
+          <p className="text-[14px] text-muted">
             {p._refs?.departamentos?.[p.departamentoId] ?? 'Sin departamento'} · {p._refs?.centros?.[p.centroId] ?? 'Sin centro'}
           </p>
           {p.responsableId && (
@@ -47,12 +47,12 @@ export default function PersonaDetalle() {
           )}
           <div className="mt-3 flex flex-wrap gap-2">
             {p.email && (
-              <a href={`mailto:${p.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[12.5px] font-semibold transition hover:text-primary">
+              <a href={`mailto:${p.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
                 <Mail className="h-3.5 w-3.5" /> {p.email}
               </a>
             )}
             {p.telefono && (
-              <a href={`tel:${p.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[12.5px] font-semibold transition hover:text-primary">
+              <a href={`tel:${p.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
                 <Phone className="h-3.5 w-3.5" /> {p.telefono}
               </a>
             )}

@@ -12,8 +12,8 @@ export default function Turnos() {
   return (
     <div className="space-y-6">
       <PageHeader title="Turnos y quioscos" icon={MonitorSmartphone} subtitle="Los turnos definen la jornada prevista; las asignaciones dicen quién tiene cada turno y desde cuándo." />
-      <ResourceList def={horShared.turnoResource} endpoint="/hor/turnos" createPerm="hor.gestionar" title={<h2 className="text-[16px] font-bold">Turnos</h2>} />
-      <ResourceList def={horShared.asignacionResource} endpoint="/hor/asignaciones" createPerm="hor.gestionar" title={<h2 className="text-[16px] font-bold">Asignaciones</h2>} />
+      <ResourceList def={horShared.turnoResource} endpoint="/hor/turnos" createPerm="hor.gestionar" title={<h2 className="text-[16px] font-semibold">Turnos</h2>} />
+      <ResourceList def={horShared.asignacionResource} endpoint="/hor/asignaciones" createPerm="hor.gestionar" title={<h2 className="text-[16px] font-semibold">Asignaciones</h2>} />
       <Quioscos />
     </div>
   );

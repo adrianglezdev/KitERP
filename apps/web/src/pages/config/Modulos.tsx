@@ -24,7 +24,7 @@ export default function Modulos() {
       </Alert>
       {porPilar.map(({ p, mods }) => (
         <section key={p}>
-          <h2 className="mb-2 flex items-center gap-2 text-[15px] font-bold">
+          <h2 className="mb-2 flex items-center gap-2 text-[16px] font-semibold">
             <span className={cn('h-2.5 w-2.5 rounded-full', PILLAR_CLASSES[p]!.dot)} />
             {PILLARS[p].label}
           </h2>
@@ -38,7 +38,7 @@ export default function Modulos() {
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="text-[14.5px] font-semibold">{m.name}</p>
+                      <p className="text-[14px] font-medium">{m.name}</p>
                       <code className="text-[11px] uppercase text-muted">{m.code}</code>
                     </div>
                     <p className="text-[13px] text-muted">{m.description}</p>

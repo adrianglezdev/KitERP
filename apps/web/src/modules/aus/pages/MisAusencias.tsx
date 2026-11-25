@@ -46,7 +46,7 @@ export default function MisAusencias() {
                   <p className="text-[14px] font-medium">
                     {s.tipo} · {rango(s.desde, s.hasta, s.medioDia)}
                   </p>
-                  <p className="text-[12.5px] text-muted">
+                  <p className="text-[13px] text-muted">
                     {fmtNumber(s.dias, 1)} días{s.motivoRechazo ? ` · ${s.motivoRechazo}` : ''}
                   </p>
                 </div>

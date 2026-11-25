@@ -2,17 +2,16 @@ import { useEffect, type ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, type LucideIcon } from 'lucide-react';
 import { appName } from '@/lib/theme';
-import { cn, PILLAR_CLASSES } from '@/lib/utils';
-import { useCurrentApp } from '@/layout/app-context';
+import { cn } from '@/lib/utils';
 
 /**
  * Cabecera de página: título, subtítulo, migas y acciones. En móvil las acciones bajan a una fila propia.
- * Sobre el título se indica la aplicación a la que pertenece la pantalla, con el color de su pilar.
+ * La aplicación y el pilar ya se ven en la cabecera de la ventana, así que aquí no se repiten.
+ * `icon` se acepta por compatibilidad, pero no se pinta.
  */
 export function PageHeader({
   title,
   subtitle,
-  icon: Icon,
   actions,
   back,
   crumbs,
@@ -27,21 +26,13 @@ export function PageHeader({
   badges?: ReactNode;
 }) {
   const nav = useNavigate();
-  const { app } = useCurrentApp();
   useEffect(() => {
     if (typeof title === 'string') document.title = `${title} · ${appName()}`;
   }, [title]);
-  const eyebrow = app && !back && !(crumbs && crumbs.length > 0);
   return (
     <div className="mb-5 mt-1">
-      {eyebrow && (
-        <p className="mb-2.5 inline-flex items-center gap-1.5 rounded-pill bg-surface py-1 pl-2.5 pr-3 text-[12px] font-bold text-fg/70 shadow-card">
-          <span className={cn('h-2 w-2 rounded-full', PILLAR_CLASSES[app.pillar]!.dot)} />
-          {app.pillarLabel === app.label || app.pillar === 'plataforma' ? app.label : `${app.pillarLabel} · ${app.label}`}
-        </p>
-      )}
       {crumbs && crumbs.length > 0 && (
-        <nav className="mb-2 hidden items-center gap-1 text-[12.5px] font-semibold text-muted sm:flex" aria-label="Migas de pan">
+        <nav className="mb-2 hidden items-center gap-1 text-[13px] font-medium text-muted sm:flex" aria-label="Migas de pan">
           {crumbs.map((c, i) => (
             <span key={i} className="flex items-center gap-1">
               {i > 0 && <ChevronRight className="h-3.5 w-3.5" />}
@@ -67,17 +58,12 @@ export function PageHeader({
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
-        {Icon && !back && (
-          <span className="mt-0.5 hidden h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-primary-soft text-primary sm:flex">
-            <Icon className="h-5 w-5" />
-          </span>
-        )}
         <div className="min-w-0 flex-1 basis-[min(100%,24rem)]">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="truncate text-[26px] font-semibold leading-tight tracking-[-0.03em] sm:text-[30px]">{title}</h1>
+            <h1 className="truncate text-[28px] font-medium leading-tight sm:text-[32px]">{title}</h1>
             {badges}
           </div>
-          {subtitle && <div className="mt-1 max-w-[72ch] text-[13.5px] text-muted">{subtitle}</div>}
+          {subtitle && <div className="mt-1 max-w-[72ch] text-[14px] text-muted">{subtitle}</div>}
         </div>
         {actions && <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">{actions}</div>}
       </div>
@@ -91,7 +77,7 @@ export function Section({ title, description, actions, children, className }: { 
       {(title || actions) && (
         <div className="flex items-end justify-between gap-3">
           <div>
-            {title && <h2 className="text-[18px] font-semibold tracking-[-0.02em]">{title}</h2>}
+            {title && <h2 className="text-[18px] font-medium">{title}</h2>}
             {description && <p className="text-[13px] text-muted">{description}</p>}
           </div>
           {actions}
@@ -126,13 +112,13 @@ export function Tabs({ tabs, value, onChange, urlKey = 'tab', className }: { tab
             aria-selected={current === t.id}
             onClick={() => select(t.id)}
             className={cn(
-              'flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[13.5px] font-semibold transition',
-              current === t.id ? 'bg-primary-soft text-primary' : 'text-muted hover:bg-surface hover:text-fg',
+              'flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[14px] font-medium transition-colors',
+              current === t.id ? 'bg-surface text-fg shadow-card' : 'text-muted hover:text-fg',
             )}
           >
             {t.icon && <t.icon className="h-4 w-4" />}
             {t.label}
-            {t.count !== undefined && t.count > 0 && <span className={cn('rounded-full px-1.5 text-[11px] font-bold', current === t.id ? 'bg-primary/15' : 'bg-line-strong/60 text-fg/70')}>{t.count}</span>}
+            {t.count !== undefined && t.count > 0 && <span className="tabular font-mono text-[12px] text-muted">{t.count}</span>}
           </button>
         ))}
       </div>

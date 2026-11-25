@@ -90,7 +90,7 @@ export default function Tablero() {
             {columnas.map(({ e, items }) => (
               <div
                 key={e.id}
-                className={cn('flex w-[280px] shrink-0 flex-col rounded-xl bg-sunken/70 transition', drag && 'ring-2 ring-primary/0 hover:ring-primary/30')}
+                className={cn('flex w-[280px] shrink-0 flex-col rounded-xl bg-sunken/70 transition-shadow', drag && 'ring-2 ring-primary/0 hover:ring-primary/30')}
                 onDragOver={(ev) => ev.preventDefault()}
                 onDrop={(ev) => {
                   ev.preventDefault();
@@ -102,7 +102,7 @@ export default function Tablero() {
               >
                 <div className="flex items-center gap-2 px-3 pb-2 pt-3">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: e.color }} />
-                  <span className="min-w-0 flex-1 truncate text-[13.5px] font-semibold">{e.nombre}</span>
+                  <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{e.nombre}</span>
                   <span className="text-[12px] text-muted">{items.length}</span>
                 </div>
                 <p className="px-3 pb-2 text-[12px] text-muted">{fmtMoney(items.reduce((a, i) => a + (i.importe ?? 0), 0))}</p>
@@ -119,16 +119,16 @@ export default function Tablero() {
                         }}
                         onDragEnd={() => setDrag(null)}
                         onClick={() => nav(`/oportunidades/${o.id}`)}
-                        className={cn('cursor-pointer rounded-2xl bg-surface p-3 shadow-card transition hover:bg-sunken/60', drag === o.id && 'opacity-50')}
+                        className={cn('cursor-pointer rounded-2xl bg-surface p-3 shadow-card transition-[background-color,opacity] hover:bg-sunken/60', drag === o.id && 'opacity-50')}
                       >
-                        <p className="line-clamp-2 text-[13.5px] font-medium leading-snug">{o.titulo}</p>
+                        <p className="line-clamp-2 text-[14px] font-medium leading-snug">{o.titulo}</p>
                         <p className="mt-0.5 truncate text-[12px] text-muted">{o.tercero}</p>
                         <div className="mt-2 flex items-center justify-between gap-2">
-                          <span className="tabular text-[13px] font-semibold">{o.importe ? fmtMoney(o.importe) : '—'}</span>
+                          <span className="tabular text-[13px] font-medium">{o.importe ? fmtMoney(o.importe) : '—'}</span>
                           {o.comercial && <Avatar name={o.comercial} size={22} />}
                         </div>
                         {(o.cierrePrevisto || o.presupuesto) && (
-                          <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[11.5px]">
+                          <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[12px]">
                             {o.cierrePrevisto && e.tipo === 'abierta' && (
                               <span className={cn('inline-flex items-center gap-1 rounded px-1.5 py-0.5', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
                                 <CalendarClock className="h-3 w-3" />
@@ -247,7 +247,7 @@ function Prevision() {
         <CardHeader title="Motivos de pérdida" />
         <ul className="divide-y divide-line">
           {(data?.perdidas ?? []).map((p) => (
-            <li key={p.motivo ?? 'x'} className="flex items-center justify-between px-4 py-2.5 text-[13.5px]">
+            <li key={p.motivo ?? 'x'} className="flex items-center justify-between px-4 py-2.5 text-[14px]">
               <span>{opoShared.MOTIVOS_PERDIDA.find((m) => m.value === p.motivo)?.label ?? 'Sin indicar'}</span>
               <span className="text-muted">
                 {p.n} · {fmtMoney(p.importe)}

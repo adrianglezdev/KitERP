@@ -46,7 +46,7 @@ export default function RegistroRetributivo() {
               </thead>
               <tbody>
                 {[...data.filas, data.total].map((f: any) => (
-                  <tr key={f.grupo} className={cn('border-b border-line/60', f === data.total && 'bg-sunken/60 font-semibold')}>
+                  <tr key={f.grupo} className={cn('border-b border-line/60', f === data.total && 'bg-sunken/60 font-medium')}>
                     <td className="px-3 py-2">{f.grupo}</td>
                     <td className="px-3 py-2 text-right tabular-nums">
                       {celda(f.mujeres)} <span className="text-muted">({f.mujeres.n})</span>
@@ -54,7 +54,7 @@ export default function RegistroRetributivo() {
                     <td className="px-3 py-2 text-right tabular-nums">
                       {celda(f.hombres)} <span className="text-muted">({f.hombres.n})</span>
                     </td>
-                    <td className={cn('px-3 py-2 text-right tabular-nums', f.brecha != null && Math.abs(f.brecha) >= 25 && 'font-bold text-bad')}>{f.brecha != null ? `${f.brecha} %` : '—'}</td>
+                    <td className={cn('px-3 py-2 text-right tabular-nums', f.brecha != null && Math.abs(f.brecha) >= 25 && 'font-semibold text-bad')}>{f.brecha != null ? `${f.brecha} %` : '—'}</td>
                   </tr>
                 ))}
               </tbody>

@@ -47,7 +47,7 @@ export function MonthNav({ mes, onChange, max }: { mes: string; onChange: (m: st
   return (
     <div className="flex items-center gap-1">
       <IconButton icon={ChevronLeft} label="Mes anterior" onClick={() => onChange(moverMes(mes, -1))} />
-      <span className="min-w-[132px] text-center text-[14px] font-semibold capitalize">{nombreMes(mes)}</span>
+      <span className="min-w-[132px] text-center text-[14px] font-medium capitalize">{nombreMes(mes)}</span>
       <IconButton icon={ChevronRight} label="Mes siguiente" disabled={!!max && mes >= max} onClick={() => onChange(moverMes(mes, 1))} />
     </div>
   );
@@ -94,7 +94,7 @@ export function TimelineFichajes({ fichajes, compact }: { fichajes: DiaJornada['
                 </p>
               )}
             </div>
-            <span className={cn('tabular font-display text-[17px] font-bold', f.anulado && 'text-muted line-through')}>{hora(f.momento)}</span>
+            <span className={cn('tabular font-display text-[18px] font-semibold', f.anulado && 'text-muted line-through')}>{hora(f.momento)}</span>
           </li>
         );
       })}
@@ -253,13 +253,13 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
               return (
                 <li key={d.fecha} className={cn('flex items-center gap-3 px-3 py-2.5 sm:px-4', libre && 'bg-sunken/40')}>
                   <div className={cn('flex w-10 shrink-0 flex-col items-center rounded-lg py-1', d.fecha === hoy ? 'bg-primary text-primary-fg' : 'bg-sunken')}>
-                    <span className="text-[10.5px] font-semibold uppercase">{dc.semana}</span>
-                    <span className="tabular text-[15px] font-bold leading-none">{dc.num}</span>
+                    <span className="text-[11px] font-medium uppercase">{dc.semana}</span>
+                    <span className="tabular text-[16px] font-semibold leading-none">{dc.num}</span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="tabular truncate text-[13.5px] font-medium">{tramos(d) || (d.festivo ? d.festivo : d.ausencia ? d.ausencia.tipo : libre ? 'Libre' : 'Sin fichajes')}</p>
+                    <p className="tabular truncate text-[14px] font-medium">{tramos(d) || (d.festivo ? d.festivo : d.ausencia ? d.ausencia.tipo : libre ? 'Libre' : 'Sin fichajes')}</p>
                     <div className="mt-0.5 flex flex-wrap items-center gap-1">
-                      {d.turno && <span className="text-[11.5px] text-muted">{d.turno.nombre} {d.turno.horaInicio}–{d.turno.horaFin}</span>}
+                      {d.turno && <span className="text-[12px] text-muted">{d.turno.nombre} {d.turno.horaInicio}–{d.turno.horaFin}</span>}
                       {d.ausencia && (
                         <Badge tone="green" className="!py-0 text-[11px]">
                           {d.ausencia.tipo}
@@ -276,8 +276,8 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
                     </div>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="tabular text-[14px] font-semibold">{d.trabajadas ? fmtHours(d.trabajadas) : '—'}</p>
-                    {d.extra > 0 && <p className="tabular text-[11.5px] text-ok">+{fmtHours(d.extra)}</p>}
+                    <p className="tabular text-[14px] font-medium">{d.trabajadas ? fmtHours(d.trabajadas) : '—'}</p>
+                    {d.extra > 0 && <p className="tabular text-[12px] text-ok">+{fmtHours(d.extra)}</p>}
                   </div>
                   {propio && <IconButton icon={Plus} label="Pedir corrección de este día" size="sm" onClick={() => setCorreccion(d.fecha)} />}
                 </li>
@@ -286,7 +286,7 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
           </ul>
         )}
       </Card>
-      <p className="text-[11.5px] leading-relaxed text-muted">{NOTA_LEGAL_REGISTRO}</p>
+      <p className="text-[12px] leading-relaxed text-muted">{NOTA_LEGAL_REGISTRO}</p>
       {correccion && <CorreccionDialog open={!!correccion} onOpenChange={(o) => !o && setCorreccion(null)} fecha={correccion} />}
       <Dialog
         open={firmar}
@@ -305,7 +305,7 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
         }
       >
         {t && (
-          <p className="mb-3 text-[13.5px]">
+          <p className="mb-3 text-[14px]">
             {t.diasTrabajados} días trabajados · {fmtHours(t.trabajadas)} en total · {fmtHours(t.extra)} por encima de la jornada.
           </p>
         )}
@@ -318,9 +318,9 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
 export function MiniStat({ label, value, hint, tone }: { label: string; value: string; hint?: string; tone?: string }) {
   return (
     <div className="rounded-xl border border-line-strong/70 bg-surface px-3 py-2.5">
-      <p className="text-[11.5px] text-muted">{label}</p>
-      <p className={cn('tabular font-display text-[18px] font-bold leading-tight', tone)}>{value}</p>
-      {hint && <p className="tabular truncate text-[11.5px] text-muted">{hint}</p>}
+      <p className="text-[12px] text-muted">{label}</p>
+      <p className={cn('tabular font-display text-[18px] font-semibold leading-tight', tone)}>{value}</p>
+      {hint && <p className="tabular truncate text-[12px] text-muted">{hint}</p>}
     </div>
   );
 }

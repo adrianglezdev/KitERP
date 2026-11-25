@@ -18,7 +18,7 @@ export default function Documentos() {
       {!!pend.data?.n && (
         <Alert tone="violet" icon={Eye} className="mb-4">
           Tienes {pend.data.n} {pend.data.n === 1 ? 'documento nuevo o actualizado' : 'documentos nuevos o actualizados'} por leer.{' '}
-          <Link to="/dtc/pendientes" className="font-semibold underline">
+          <Link to="/dtc/pendientes" className="font-medium underline">
             Ver
           </Link>
         </Alert>

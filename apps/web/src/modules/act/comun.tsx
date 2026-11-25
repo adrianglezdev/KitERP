@@ -48,4 +48,4 @@ export function CompletarDialog({ v, onClose }: { v: any; onClose: () => void })
   );
 }
 
-export const tono = (v: any) => cn(v.vencido && 'text-bad font-semibold', !v.vencido && v.enAviso && 'text-warn');
+export const tono = (v: any) => cn(v.vencido && 'text-bad font-medium', !v.vencido && v.enAviso && 'text-warn');

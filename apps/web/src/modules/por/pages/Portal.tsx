@@ -25,10 +25,10 @@ export default function Portal() {
         <Card className="flex items-center gap-3 p-4">
           <Avatar name={r.persona.nombre} size={48} />
           <div className="min-w-0">
-            <p className="truncate font-display text-[18px] font-bold">{r.persona.nombre}</p>
+            <p className="truncate font-display text-[18px] font-semibold">{r.persona.nombre}</p>
             <p className="truncate text-[13px] text-muted">{[r.persona.puesto, r.persona.departamento, r.persona.responsable && `responsable: ${r.persona.responsable}`].filter(Boolean).join(' · ')}</p>
           </div>
-          <Link to="/mi-ficha" className="ml-auto shrink-0 text-[12.5px] font-semibold text-primary">
+          <Link to="/mi-ficha" className="ml-auto shrink-0 text-[13px] font-medium text-primary">
             Mi ficha
           </Link>
         </Card>
@@ -62,8 +62,8 @@ export default function Portal() {
                   {j.estado === 'trabajando' ? 'Trabajando' : j.estado === 'pausa' ? 'En pausa' : 'Fuera'}
                 </Badge>
               </p>
-              <p className="mt-2 font-display text-[24px] font-bold">{horas(j.horasHoy)}</p>
-              <p className="text-[12.5px] text-muted">hoy · semana {horas(j.horasSemana)} de {horas(j.previstasSemana)}</p>
+              <p className="mt-2 font-display text-[24px] font-semibold">{horas(j.horasHoy)}</p>
+              <p className="text-[13px] text-muted">hoy · semana {horas(j.horasSemana)} de {horas(j.previstasSemana)}</p>
               <div className="mt-2">
                 <ProgressBar value={j.previstasSemana ? (j.horasSemana / j.previstasSemana) * 100 : 0} tone="green" />
               </div>
@@ -76,15 +76,15 @@ export default function Portal() {
               <p className="flex items-center gap-2 text-[13px] text-muted">
                 <Palmtree className="h-4 w-4 text-primary" /> Vacaciones
               </p>
-              <p className="mt-2 font-display text-[24px] font-bold">
+              <p className="mt-2 font-display text-[24px] font-semibold">
                 {r.vacaciones.disponibles} <span className="text-[14px] font-medium text-muted">días disponibles</span>
               </p>
-              <p className="text-[12.5px] text-muted">
+              <p className="text-[13px] text-muted">
                 de {r.vacaciones.asignados} {r.vacaciones.unidad}
                 {r.vacaciones.pendientes ? ` · ${r.vacaciones.pendientes} pendientes de aprobar` : ''}
               </p>
               {r.vacaciones.proxima && (
-                <p className="mt-1 text-[12.5px]">
+                <p className="mt-1 text-[13px]">
                   Próxima: {r.vacaciones.proxima.tipo} del {fmtDate(r.vacaciones.proxima.desde)} al {fmtDate(r.vacaciones.proxima.hasta)}
                 </p>
               )}
@@ -102,8 +102,8 @@ export default function Portal() {
                   </Badge>
                 )}
               </p>
-              <p className="mt-2 truncate font-semibold">{r.nominas.ultimo?.titulo ?? 'Aún no hay recibos'}</p>
-              {r.nominas.ultimo && <p className="text-[12.5px] text-muted">Publicada el {fmtDate(r.nominas.ultimo.publicadoEn)}</p>}
+              <p className="mt-2 truncate font-medium">{r.nominas.ultimo?.titulo ?? 'Aún no hay recibos'}</p>
+              {r.nominas.ultimo && <p className="text-[13px] text-muted">Publicada el {fmtDate(r.nominas.ultimo.publicadoEn)}</p>}
             </Card>
           </Link>
         )}
@@ -119,8 +119,8 @@ export default function Portal() {
               return (
                 <div key={t.fecha} className={cn('rounded-xl px-1 py-2 text-center ring-1 ring-line-strong/70', (t.festivo || t.ausencia) && 'bg-sunken')} style={t.color && !t.festivo && !t.ausencia ? { boxShadow: `inset 0 3px 0 ${t.color}` } : undefined}>
                   <p className="text-[11px] text-muted">{DIAS[d.getDay()]}</p>
-                  <p className="text-[14px] font-bold">{d.getDate()}</p>
-                  <p className="truncate text-[10.5px] text-muted" title={t.festivo ?? t.ausencia ?? t.horario ?? ''}>
+                  <p className="text-[14px] font-semibold">{d.getDate()}</p>
+                  <p className="truncate text-[11px] text-muted" title={t.festivo ?? t.ausencia ?? t.horario ?? ''}>
                     {t.festivo ? 'Festivo' : t.ausencia ? t.ausencia : t.horario ?? 'Libre'}
                   </p>
                 </div>
@@ -140,7 +140,7 @@ export default function Portal() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[14px] font-medium">{t.label}</span>
-                    {t.description && <span className="block truncate text-[12.5px] text-muted">{t.description}</span>}
+                    {t.description && <span className="block truncate text-[13px] text-muted">{t.description}</span>}
                   </span>
                   <ChevronRight className="h-4 w-4 text-muted" />
                 </Link>

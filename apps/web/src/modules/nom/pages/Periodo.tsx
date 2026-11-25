@@ -64,7 +64,7 @@ export default function Periodo() {
           ].map(([k, v]) => (
             <Card key={k as string} className="p-3">
               <p className="text-muted">{k}</p>
-              <p className="font-display text-[17px] font-bold">{fmtMoney(v as number)}</p>
+              <p className="font-display text-[18px] font-semibold">{fmtMoney(v as number)}</p>
             </Card>
           ))}
         </div>
@@ -137,7 +137,7 @@ function SinAsignar({ recibos }: { recibos: any[] }) {
       <ul className="divide-y divide-line">
         {recibos.map((r) => (
           <li key={r.id} className="flex flex-col gap-2 px-4 py-2.5 sm:flex-row sm:items-center">
-            <a href={r.url} target="_blank" rel="noreferrer" className="flex min-w-0 flex-1 items-center gap-2 text-[13.5px] text-primary">
+            <a href={r.url} target="_blank" rel="noreferrer" className="flex min-w-0 flex-1 items-center gap-2 text-[14px] text-primary">
               <Eye className="h-4 w-4" /> <span className="truncate">{r.titulo ?? 'Recibo'}</span>
               {r.dniDetectado && <span className="text-muted">· DNI {r.dniDetectado}</span>}
             </a>
@@ -171,7 +171,7 @@ function CerrarDialog({ id, onClose }: { id: string; onClose: () => void }) {
           {campo('irpf', 'Retenciones IRPF')}
           {campo('neto', 'Líquido a percibir')}
         </div>
-        {t.bruto ? <p className="text-[12.5px] text-muted">Neto esperado: {fmtMoney(neto)}</p> : null}
+        {t.bruto ? <p className="text-[13px] text-muted">Neto esperado: {fmtMoney(neto)}</p> : null}
         <Field label="Notas">
           <Textarea rows={2} value={notas} onChange={(e) => setNotas(e.target.value)} />
         </Field>

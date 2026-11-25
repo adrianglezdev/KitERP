@@ -42,7 +42,7 @@ export default function Cuenta() {
       </Card>
       <Card>
         <CardHeader title="Verificación en dos pasos" icon={ShieldCheck} actions={session?.user.totp ? <Badge tone="green">Activada</Badge> : <Badge>Desactivada</Badge>} />
-        <div className="space-y-3 p-4 text-[13.5px]">
+        <div className="space-y-3 p-4 text-[14px]">
           {!session?.user.totp && !qr && (
             <>
               <p className="text-muted">Además de la contraseña, se pedirá un código de una app como Google Authenticator o Microsoft Authenticator.</p>

@@ -39,7 +39,7 @@ export default function Incidencias() {
                   <p className="text-[14px] font-medium">
                     {c.persona} · {fmtDate(c.fecha)}
                   </p>
-                  <p className="text-[12.5px] text-muted">
+                  <p className="text-[13px] text-muted">
                     <EstadoCorreccion c={c} /> · {c.motivo}
                   </p>
                 </div>

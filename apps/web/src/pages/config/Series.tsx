@@ -29,7 +29,7 @@ export default function Series() {
             { key: 'codigo', header: 'Prefijo', cell: (r) => <code className="font-mono">{r.codigo}{String(r.anio).slice(2)}-</code> },
             { key: 'anio', header: 'Año', cell: (r) => r.anio },
             { key: 'siguiente', header: 'Próximo nº', align: 'right', cell: (r) => r.siguiente },
-            { key: 'def', header: 'Por defecto', cell: (r) => (r.porDefecto ? <Badge tone="violet">Sí</Badge> : <button type="button" className="text-[12.5px] text-primary hover:underline" onClick={() => cambiar.mutate({ id: r.id, data: { porDefecto: true } })}>Usar por defecto</button>) },
+            { key: 'def', header: 'Por defecto', cell: (r) => (r.porDefecto ? <Badge tone="violet">Sí</Badge> : <button type="button" className="text-[13px] text-primary hover:underline" onClick={() => cambiar.mutate({ id: r.id, data: { porDefecto: true } })}>Usar por defecto</button>) },
             { key: 'activo', header: 'Activa', cell: (r) => <Switch checked={r.activo} onChange={(v) => cambiar.mutate({ id: r.id, data: { activo: v } })} /> },
           ]}
         />

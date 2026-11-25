@@ -65,12 +65,12 @@ export default function Asientos() {
           {data.items.map((a: any) => (
             <Card key={a.id} className="overflow-hidden">
               <div className="flex flex-wrap items-center gap-2 border-b border-line bg-sunken/50 px-3 py-2 text-[13px]">
-                <span className="font-display font-bold">{a.numero ?? '—'}</span>
+                <span className="font-display font-semibold">{a.numero ?? '—'}</span>
                 <span className="text-muted">{fmtDate(a.fecha)}</span>
                 <span className="min-w-0 flex-1 truncate font-medium">{a.concepto}</span>
                 <EnumBadge options={ASIENTO_ORIGENES} value={a.origen} dot={false} />
                 {a.documentoId && (
-                  <Link to={`/documentos/${a.documentoId}`} className="text-[12px] font-semibold text-primary">
+                  <Link to={`/documentos/${a.documentoId}`} className="text-[12px] font-medium text-primary">
                     Ver documento
                   </Link>
                 )}
@@ -86,7 +86,7 @@ export default function Asientos() {
                 <tbody>
                   {a.lineas.map((l: any) => (
                     <tr key={l.id} className="border-b border-line/60 last:border-0">
-                      <td className="w-24 px-3 py-1.5 font-mono text-[12.5px]">
+                      <td className="w-24 px-3 py-1.5 font-mono text-[13px]">
                         <Link to={`/contabilidad/libros?libro=mayor&cuenta=${l.cuenta}&anio=${anio}`} className="hover:text-primary">
                           {l.cuenta}
                         </Link>

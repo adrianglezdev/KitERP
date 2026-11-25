@@ -43,7 +43,7 @@ export default function Amortizaciones() {
           ]}
           mobileTitle={(r: any) => r.nombre}
           mobileRight={(r: any) => fmtMoney(r.importe)}
-          footer={data?.items.length ? <div className="flex justify-end px-4 py-2 text-[13px] font-semibold">Total {fmtMoney(data.total)}</div> : null}
+          footer={data?.items.length ? <div className="flex justify-end px-4 py-2 text-[13px] font-medium">Total {fmtMoney(data.total)}</div> : null}
         />
       </Card>
     </>

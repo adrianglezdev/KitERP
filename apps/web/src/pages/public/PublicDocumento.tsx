@@ -34,7 +34,7 @@ export default function PublicDocumento() {
             {d.tipoLabel} {d.codigo} · {fmtDate(d.fecha)}
             {d.fechaValidez && d.tipo === 'presupuesto' && ` · válido hasta el ${fmtDate(d.fechaValidez)}`}
           </p>
-          <h1 className="text-[24px] font-semibold">{d.titulo ?? `${d.tipoLabel} para ${d.cliente}`}</h1>
+          <h1 className="text-[24px] font-medium">{d.titulo ?? `${d.tipoLabel} para ${d.cliente}`}</h1>
         </div>
         {d.estado === 'aceptado' && <Alert tone="green" icon={CheckCircle2} title="Presupuesto aceptado">Aceptado por {d.aceptadoPor} el {fmtDate(d.aceptadoEn)}. Gracias: nos pondremos en contacto contigo.</Alert>}
         {d.estado === 'rechazado' && <Alert tone="gray" title="Presupuesto rechazado">Hemos recibido tu respuesta. Si cambias de idea, contacta con nosotros.</Alert>}
@@ -44,14 +44,14 @@ export default function PublicDocumento() {
           <ul className="divide-y divide-line">
             {d.lineas.map((l: any, i: number) =>
               l.tipoLinea !== 'articulo' ? (
-                <li key={i} className={`px-4 py-2 text-[13.5px] ${l.tipoLinea === 'capitulo' ? 'font-semibold text-primary' : 'text-muted'}`}>
+                <li key={i} className={`px-4 py-2 text-[14px] ${l.tipoLinea === 'capitulo' ? 'font-medium text-primary' : 'text-muted'}`}>
                   {l.descripcion}
                 </li>
               ) : (
                 <li key={i} className="flex items-start justify-between gap-4 px-4 py-3">
                   <div className="min-w-0">
                     <p className="text-[14px]">{l.descripcion}</p>
-                    <p className="text-[12.5px] text-muted">
+                    <p className="text-[13px] text-muted">
                       {fmtNumber(l.cantidad, 3)} × {fmtMoney(l.precio)}
                       {l.descuento ? ` · dto. ${fmtNumber(l.descuento)} %` : ''}
                     </p>
@@ -70,14 +70,14 @@ export default function PublicDocumento() {
               <span>IVA</span>
               <span className="tabular">{fmtMoney(d.totalIva)}</span>
             </div>
-            <div className="flex justify-between font-display text-[20px] font-semibold">
+            <div className="flex justify-between font-display text-[20px] font-medium">
               <span>Total</span>
               <span className="tabular">{fmtMoney(d.total)}</span>
             </div>
           </div>
         </Card>
         {(d.observaciones || d.condiciones) && (
-          <div className="space-y-2 text-[13.5px] text-muted">
+          <div className="space-y-2 text-[14px] text-muted">
             {d.observaciones && <p className="whitespace-pre-wrap">{d.observaciones}</p>}
             {d.condiciones && <p className="whitespace-pre-wrap">{d.condiciones}</p>}
           </div>
@@ -99,7 +99,7 @@ export default function PublicDocumento() {
         </div>
         {modo && (
           <Card className="space-y-3 p-4">
-            <h2 className="text-[17px] font-bold">{modo === 'aceptar' ? 'Aceptar el presupuesto' : 'Rechazar el presupuesto'}</h2>
+            <h2 className="text-[18px] font-semibold">{modo === 'aceptar' ? 'Aceptar el presupuesto' : 'Rechazar el presupuesto'}</h2>
             <Field label="Tu nombre y apellidos">
               <Input value={nombre} onChange={(e) => setNombre(e.target.value)} />
             </Field>

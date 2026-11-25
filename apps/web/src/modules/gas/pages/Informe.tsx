@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BarChart3 } from 'lucide-react';
-import { fmtMoney } from '@kite/shared';
+import { fmtMoney, fmtNumber } from '@kite/shared';
 import { useApi } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
 import { Card, DataTable, Field, Input, PageHeader, Segmented } from '@/components/ui';
@@ -54,7 +54,7 @@ export default function Informe() {
           columns={[
             { key: 'etiqueta', header: agrupar === 'mes' ? 'Mes' : 'Grupo', cell: (f: any) => <span className="font-medium">{f.etiqueta}</span> },
             { key: 'gastos', header: 'Gastos', align: 'right', cell: (f: any) => f.gastos },
-            { key: 'km', header: 'Km', align: 'right', cell: (f: any) => (f.km ? f.km.toLocaleString('es-ES') : '—'), hideBelow: 'md' },
+            { key: 'km', header: 'Km', align: 'right', cell: (f: any) => (f.km ? fmtNumber(f.km, 0) : '—'), hideBelow: 'md' },
             { key: 'iva', header: 'IVA', align: 'right', cell: (f: any) => fmtMoney(f.iva), hideBelow: 'md' },
             { key: 'liquidado', header: 'Pagado', align: 'right', cell: (f: any) => fmtMoney(f.liquidado), hideBelow: 'lg' },
             { key: 'total', header: 'Total', align: 'right', cell: (f: any) => <b>{fmtMoney(f.total)}</b> },
@@ -64,7 +64,7 @@ export default function Informe() {
           mobileRight={(f: any) => <b>{fmtMoney(f.total)}</b>}
           footer={
             filas.length > 0 && (
-              <div className="flex justify-between px-4 py-2 text-[13px] font-semibold">
+              <div className="flex justify-between px-4 py-2 text-[13px] font-medium">
                 <span>{tot.gastos} gastos</span>
                 <span>{fmtMoney(tot.total)}</span>
               </div>

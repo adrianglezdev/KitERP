@@ -124,7 +124,7 @@ export function ResourceList({ def, endpoint, detailPath, createPerm, editPerm, 
   const body = (
     <>
       <div className="flex flex-wrap items-center gap-2 px-4 pb-2 pt-4">
-        <SearchInput value={q} onChange={(v) => { setQ(v); setPage(1); }} placeholder={`Buscar en ${def.plural.toLowerCase()}…`} className="min-w-[200px] flex-1" />
+        <SearchInput value={q} onChange={(v) => { setQ(v); setPage(1); }} placeholder={`Buscar en ${def.plural.toLowerCase()}`} className="min-w-[200px] flex-1" />
         {filterKeys.length > 0 && (
           <>
             <div className="hidden flex-wrap items-end gap-2 xl:flex">{filterControls.map((c, i) => <div key={i} className="w-44">{c}</div>)}</div>

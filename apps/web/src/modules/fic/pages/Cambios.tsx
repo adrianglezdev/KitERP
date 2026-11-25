@@ -29,10 +29,10 @@ export default function Cambios() {
             <Card key={c.id} className="p-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <Link to={`/personas/${c.personaId}?tab=fic-ficha`} className="text-[15px] font-semibold hover:text-primary">
+                  <Link to={`/personas/${c.personaId}?tab=fic-ficha`} className="text-[16px] font-medium hover:text-primary">
                     {c.persona}
                   </Link>
-                  <p className="text-[12.5px] text-muted" title={fmtDateTime(c.creadoEn)}>
+                  <p className="text-[13px] text-muted" title={fmtDateTime(c.creadoEn)}>
                     Enviado {relTime(c.creadoEn)}
                     {c.comentario ? ` · «${c.comentario}»` : ''}
                   </p>
@@ -55,7 +55,7 @@ export default function Cambios() {
               </div>
               <table className="mt-3 w-full text-[13px]">
                 <thead>
-                  <tr className="text-left text-[11.5px] font-bold text-muted">
+                  <tr className="text-left text-[12px] font-semibold text-muted">
                     <th className="py-1 font-medium">Dato</th>
                     <th className="py-1 font-medium">Antes</th>
                     <th className="py-1 font-medium">Ahora</th>

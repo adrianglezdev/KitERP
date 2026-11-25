@@ -50,7 +50,7 @@ export default function PublicCanal() {
     <PublicLayout empresa={info.data?.empresa} marca={info.data?.marca}>
       <div className="space-y-5">
         <div>
-          <h1 className="flex items-center gap-2 text-[24px] font-semibold">
+          <h1 className="flex items-center gap-2 text-[24px] font-medium">
             <ShieldCheck className="h-6 w-6 text-primary" /> Canal de denuncias
           </h1>
           <p className="mt-1 text-[14px] text-muted">Puedes comunicar de forma anónima cualquier irregularidad. Solo las personas responsables del canal pueden leerla y está prohibida cualquier represalia.</p>
@@ -69,7 +69,7 @@ export default function PublicCanal() {
                 ].map(([k, v]) => (
                   <div key={k} className="rounded-xl bg-sunken p-3">
                     <p className="text-[12px] text-muted">{k}</p>
-                    <p className="flex items-center justify-between gap-2 font-mono text-[16px] font-semibold">
+                    <p className="flex items-center justify-between gap-2 font-mono text-[16px] font-medium">
                       {v}
                       <button type="button" aria-label={`Copiar ${k}`} onClick={() => navigator.clipboard.writeText(v!).catch(() => {})}>
                         <Copy className="h-4 w-4 text-muted" />
@@ -128,11 +128,11 @@ export default function PublicCanal() {
                 <p className="text-[13px] text-muted">
                   {exp.codigo} · {fmtDateTime(exp.creadoEn)} · estado: <b className="text-fg">{exp.estado.replace(/_/g, ' ')}</b>
                 </p>
-                <h2 className="text-[17px] font-bold">{exp.asunto}</h2>
+                <h2 className="text-[18px] font-semibold">{exp.asunto}</h2>
                 {exp.resolucion && <Alert tone="green" title="Resolución">{exp.resolucion}</Alert>}
                 <div className="space-y-2">
                   {exp.mensajes.map((m: any) => (
-                    <div key={m.id} className={cn('max-w-[85%] rounded-xl px-3 py-2 text-[13.5px]', m.autor === 'gestor' ? 'bg-primary-soft' : 'ml-auto bg-sunken')}>
+                    <div key={m.id} className={cn('max-w-[85%] rounded-xl px-3 py-2 text-[14px]', m.autor === 'gestor' ? 'bg-primary-soft' : 'ml-auto bg-sunken')}>
                       <p className="whitespace-pre-wrap">{m.texto}</p>
                       <p className="mt-0.5 text-[11px] text-muted">
                         {m.autor === 'gestor' ? 'Responsable del canal' : 'Tú'} · {fmtDateTime(m.creadoEn)}

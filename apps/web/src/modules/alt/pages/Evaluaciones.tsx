@@ -122,7 +122,7 @@ function Editor({ e }: { e: any }) {
       {e.estado === 'firmada' && <Alert tone="green">Firmada el {fmtDate(e.firmadaEn)}. Ya no se puede modificar.</Alert>}
       <Card className="overflow-hidden">
         <div className="flex items-center justify-between px-5 pb-2 pt-4">
-          <p className="font-semibold">Objetivos y competencias</p>
+          <p className="font-medium">Objetivos y competencias</p>
           <p className="text-[13px]">
             Global <b className="font-display text-[18px]">{global ?? '—'}</b> / {PUNTUACION_MAX}
           </p>
@@ -139,7 +139,7 @@ function Editor({ e }: { e: any }) {
               </div>
               <div className="flex flex-wrap items-center gap-1">
                 {Array.from({ length: PUNTUACION_MAX + 1 }, (_, n) => (
-                  <button key={n} type="button" disabled={!ed} onClick={() => upd(i, { puntuacion: n })} className={cn('h-8 w-8 rounded-pill text-[13px] font-bold ring-1 ring-line-strong/70', o.puntuacion === n ? 'bg-primary text-primary-fg ring-primary' : 'hover:bg-sunken')}>
+                  <button key={n} type="button" disabled={!ed} onClick={() => upd(i, { puntuacion: n })} className={cn('h-8 w-8 rounded-pill text-[13px] font-semibold ring-1 ring-line-strong/70', o.puntuacion === n ? 'bg-primary text-primary-fg ring-primary' : 'hover:bg-sunken')}>
                     {n}
                   </button>
                 ))}
@@ -153,7 +153,7 @@ function Editor({ e }: { e: any }) {
             <Button size="sm" icon={Plus} onClick={() => setObjs([...objs, { titulo: '', peso: objs.length ? 0 : 100, puntuacion: null }])}>
               Objetivo
             </Button>
-            <span className={cn('text-[12.5px]', pesoTotal !== 100 ? 'text-warn' : 'text-muted')}>Pesos: {pesoTotal} %</span>
+            <span className={cn('text-[13px]', pesoTotal !== 100 ? 'text-warn' : 'text-muted')}>Pesos: {pesoTotal} %</span>
           </div>
         )}
       </Card>
@@ -168,7 +168,7 @@ function Editor({ e }: { e: any }) {
       {(e.comentariosEvaluado || e.estado === 'firmada') && (
         <Card className="p-4">
           <p className="label mb-1">Comentarios de la persona evaluada</p>
-          <p className="whitespace-pre-line text-[13.5px]">{e.comentariosEvaluado || 'Sin comentarios.'}</p>
+          <p className="whitespace-pre-line text-[14px]">{e.comentariosEvaluado || 'Sin comentarios.'}</p>
         </Card>
       )}
       {firmar && <FirmarDialog id={e.id} onClose={() => setFirmar(false)} />}

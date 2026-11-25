@@ -68,15 +68,15 @@ export default function Proyectos() {
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {data.items.map((p: any) => (
               <Link key={p.id} to={`/proyectos/${p.id}`} className="group block">
-                <Card className="h-full p-5 transition group-hover:bg-sunken/60">
+                <Card className="h-full p-5 transition-colors group-hover:bg-sunken/60">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="flex items-center gap-1.5 text-[12px] font-semibold text-muted">
+                      <p className="flex items-center gap-1.5 text-[12px] font-medium text-muted">
                         <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color ?? 'rgb(var(--leaf))' }} />
                         {p.codigo}
                       </p>
-                      <p className="truncate font-semibold">{p.nombre}</p>
-                      <p className="truncate text-[12.5px] text-muted">{p.cliente ?? 'Interno'}</p>
+                      <p className="truncate font-medium">{p.nombre}</p>
+                      <p className="truncate text-[13px] text-muted">{p.cliente ?? 'Interno'}</p>
                     </div>
                     <EnumBadge options={PROYECTO_ESTADOS} value={p.estado} />
                   </div>

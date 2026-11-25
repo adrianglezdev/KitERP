@@ -54,8 +54,8 @@ export default function Recepciones() {
               {data.map((p) => (
                 <li key={p.id} className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[14.5px] font-semibold">{p.proveedor}</p>
-                    <p className="text-[12.5px] text-muted">
+                    <p className="truncate text-[14px] font-medium">{p.proveedor}</p>
+                    <p className="text-[13px] text-muted">
                       {p.codigo} · {p.lineas} líneas · {fmtNumber(p.pendiente, 3)} unidades pendientes
                     </p>
                     <p className={cn('mt-1 inline-flex items-center gap-1 text-[12px]', p.retrasado ? 'font-medium text-bad' : 'text-muted')}>

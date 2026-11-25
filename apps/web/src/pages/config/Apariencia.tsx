@@ -38,7 +38,7 @@ function TemaCard({ ap, nombre, descripcion, activo, onClick }: { ap: Apariencia
   const r = ap.esquinas === 'rectas' ? 3 : ap.esquinas === 'suaves' ? 6 : 10;
   const pill = ap.botones === 'pildora' ? 99 : ap.botones === 'redondeados' ? 5 : 2;
   return (
-    <button type="button" onClick={onClick} aria-pressed={activo} className={cn('group rounded-2xl bg-surface p-2 text-left shadow-card outline-none transition hover:-translate-y-0.5', activo ? 'ring-2 ring-primary' : 'ring-1 ring-transparent hover:ring-line-strong')}>
+    <button type="button" onClick={onClick} aria-pressed={activo} className={cn('group rounded-2xl bg-surface p-2 text-left shadow-card outline-none transition-shadow hover:shadow-pop', activo ? 'ring-2 ring-primary' : 'ring-1 ring-transparent hover:ring-line-strong')}>
       <div className="flex h-[92px] gap-1.5 overflow-hidden p-1.5" style={{ background: s.bg, borderRadius: r + 4 }} aria-hidden>
         <div className="flex w-[30%] flex-col gap-1 p-1.5" style={{ background: s.side, borderRadius: r }}>
           <span className="h-1.5 w-3/4 rounded-full" style={{ background: s.sideFg, opacity: 0.85 }} />
@@ -70,7 +70,7 @@ function TemaCard({ ap, nombre, descripcion, activo, onClick }: { ap: Apariencia
       </div>
       <div className="flex items-start gap-2 px-1.5 pb-1 pt-2.5">
         <div className="min-w-0 flex-1">
-          <p className="font-display text-[14px] font-semibold tracking-tight" style={{ fontFamily: `${fuente(ap.fuenteTitulos).familia}, var(--font-display)` }}>
+          <p className="font-display text-[14px] font-medium" style={{ fontFamily: `${fuente(ap.fuenteTitulos).familia}, var(--font-display)` }}>
             {nombre}
           </p>
           <p className="mt-0.5 line-clamp-2 text-[12px] leading-snug text-muted">{descripcion}</p>
@@ -88,12 +88,12 @@ function TemaCard({ ap, nombre, descripcion, activo, onClick }: { ap: Apariencia
 /** La aplicación en miniatura con el tema que se está editando, hecha con los componentes reales. */
 function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre: string }) {
   const style = useMemo(() => scopedVars(ap, mode), [ap, mode]);
-  const item = 'flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-[12px] font-semibold';
+  const item = 'flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-[12px] font-medium';
   return (
     <div data-theme={mode} style={style} className="overflow-hidden rounded-2xl ring-1 ring-line-strong/60">
       <div className="flex gap-2.5 p-2.5">
         <div className="hidden w-[132px] shrink-0 flex-col rounded-2xl bg-side p-2.5 text-side-fg shadow-card sm:flex">
-          <p className="truncate px-1 font-display text-[13px] font-bold tracking-tight">{nombre}</p>
+          <p className="truncate px-1 font-display text-[13px] font-semibold">{nombre}</p>
           <div className="mt-2.5 grid grid-cols-4 gap-1 rounded-xl bg-side-fg/[0.07] p-1">
             {[Home, Clock, Users, Grip].map((I, i) => (
               <span key={i} className={cn('flex h-7 items-center justify-center rounded-lg', i === 1 ? 'bg-side-active text-side-active-fg' : 'text-side-fg/70')}>
@@ -101,7 +101,7 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
               </span>
             ))}
           </div>
-          <p className="mt-3 px-1 font-display text-[12.5px] font-semibold">Fichaje</p>
+          <p className="mt-3 px-1 font-display text-[13px] font-medium">Fichaje</p>
           <div className="mt-1.5 space-y-0.5">
             <span className={cn(item, 'bg-side-active text-side-active-fg')}>
               <Clock className="h-3.5 w-3.5" /> Fichar
@@ -111,16 +111,16 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             </span>
             <span className={cn(item, 'text-side-fg/75')}>
               <Inbox className="h-3.5 w-3.5" /> Incidencias
-              <span className="ml-auto rounded-full bg-earth px-1.5 text-[10px] font-bold text-earth-fg">3</span>
+              <span className="ml-auto rounded-full bg-earth px-1.5 text-[11px] font-semibold text-earth-fg">3</span>
             </span>
           </div>
         </div>
         <div className="min-w-0 flex-1 space-y-2.5">
           <div className="flex items-center gap-1.5">
-            <span className="flex h-8 min-w-0 flex-1 items-center gap-1.5 rounded-pill bg-surface px-3 text-[11.5px] text-muted shadow-card">
-              <Search className="h-3.5 w-3.5" /> Buscar…
+            <span className="flex h-8 min-w-0 flex-1 items-center gap-1.5 rounded-pill bg-surface px-3 text-[12px] text-muted shadow-card">
+              <Search className="h-3.5 w-3.5" /> Buscar
             </span>
-            <span className="flex h-8 items-center gap-1 rounded-pill bg-primary px-3 text-[11.5px] font-bold text-primary-fg">
+            <span className="flex h-8 items-center gap-1 rounded-pill bg-primary px-3 text-[12px] font-semibold text-primary-fg">
               <Plus className="h-3.5 w-3.5" /> Crear
             </span>
             <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-surface text-muted shadow-card">
@@ -128,28 +128,28 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             </span>
           </div>
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-pill bg-surface py-0.5 pl-2 pr-2.5 text-[10.5px] font-bold text-fg/70 shadow-card">
+            <span className="inline-flex items-center gap-1.5 rounded-pill bg-surface py-0.5 pl-2 pr-2.5 text-[11px] font-semibold text-fg/70 shadow-card">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" /> Personas · Fichaje
             </span>
-            <p className="mt-1.5 font-display text-[20px] font-semibold leading-tight tracking-[-0.03em]">Buenas tardes, Laura</p>
+            <p className="mt-1.5 font-display text-[20px] font-medium leading-tight">Buenas tardes, Laura</p>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="min-w-0 rounded-2xl bg-surface p-3 shadow-card">
-              <p className="truncate text-[10.5px] font-bold text-fg/65">Horas esta semana</p>
-              <p className="tabular whitespace-nowrap font-display text-[15px] font-semibold tracking-tight">21:43 h</p>
+              <p className="truncate text-[11px] font-semibold text-fg/65">Horas esta semana</p>
+              <p className="tabular whitespace-nowrap font-display text-[16px] font-medium">21:43 h</p>
               <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-sunken">
                 <div className="h-full w-[54%] rounded-full bg-primary" />
               </div>
             </div>
             <div className="min-w-0 rounded-2xl bg-primary p-3 text-primary-fg">
-              <p className="truncate text-[10.5px] font-bold opacity-80">Facturado</p>
-              <p className="tabular whitespace-nowrap font-display text-[15px] font-semibold tracking-tight">6.378 €</p>
-              <p className="mt-0.5 text-[10.5px] font-semibold opacity-80">▲ 12 %</p>
+              <p className="truncate text-[11px] font-semibold opacity-80">Facturado</p>
+              <p className="tabular whitespace-nowrap font-display text-[16px] font-medium">6.378 €</p>
+              <p className="mt-0.5 text-[11px] font-medium opacity-80">▲ 12 %</p>
             </div>
             <div className="min-w-0 rounded-2xl bg-sun p-3 text-sun-fg">
-              <p className="truncate text-[10.5px] font-bold opacity-75">Valor del stock</p>
-              <p className="tabular whitespace-nowrap font-display text-[15px] font-semibold tracking-tight">15.631 €</p>
-              <p className="mt-0.5 flex items-center gap-1 text-[10.5px] font-semibold opacity-75">
+              <p className="truncate text-[11px] font-semibold opacity-75">Valor del stock</p>
+              <p className="tabular whitespace-nowrap font-display text-[16px] font-medium">15.631 €</p>
+              <p className="mt-0.5 flex items-center gap-1 text-[11px] font-medium opacity-75">
                 <Wallet className="h-3 w-3 shrink-0" /> <span className="truncate">precio medio</span>
               </p>
             </div>
@@ -196,8 +196,8 @@ function ColorField({ label, help, value, onChange, aviso }: { label: string; he
         <input type="color" value={value} onChange={(e) => onChange(e.target.value.toUpperCase())} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label={`Color ${label.toLowerCase()}`} />
       </label>
       <div className="min-w-0 flex-1">
-        <p className="text-[13.5px] font-bold leading-tight">{label}</p>
-        <p className="truncate text-[12px] text-muted">{aviso ? <span className="font-semibold text-bad">{aviso}</span> : help}</p>
+        <p className="text-[14px] font-semibold leading-tight">{label}</p>
+        <p className="truncate text-[12px] text-muted">{aviso ? <span className="font-medium text-bad">{aviso}</span> : help}</p>
       </div>
       <input
         value={text}
@@ -209,7 +209,7 @@ function ColorField({ label, help, value, onChange, aviso }: { label: string; he
         onBlur={() => setText(value)}
         maxLength={7}
         spellCheck={false}
-        className="field-input !w-[92px] shrink-0 !bg-surface !px-2.5 !py-2 font-mono text-[12.5px] uppercase"
+        className="field-input !w-[92px] shrink-0 !bg-surface !px-2.5 !py-2 font-mono text-[13px] uppercase"
         aria-label={`Código del color ${label.toLowerCase()}`}
       />
     </div>
@@ -225,12 +225,12 @@ function FuentePicker({ value, onChange }: { value: string; onChange: (id: strin
           type="button"
           onClick={() => onChange(f.id)}
           aria-pressed={value === f.id}
-          className={cn('flex items-baseline gap-2 rounded-xl px-3 py-2 text-left transition', value === f.id ? 'bg-primary-soft text-primary ring-2 ring-primary' : 'bg-sunken/70 hover:bg-sunken')}
+          className={cn('flex items-baseline gap-2 rounded-xl px-3 py-2 text-left transition-colors', value === f.id ? 'bg-primary-soft text-primary ring-2 ring-primary' : 'bg-sunken/70 hover:bg-sunken')}
         >
-          <span className="text-[19px] font-semibold leading-none" style={{ fontFamily: `${f.familia}, system-ui, sans-serif` }}>
+          <span className="text-[20px] font-medium leading-none" style={{ fontFamily: `${f.familia}, system-ui, sans-serif` }}>
             Aa
           </span>
-          <span className="min-w-0 truncate text-[12.5px] font-semibold" style={{ fontFamily: `${f.familia}, system-ui, sans-serif` }}>
+          <span className="min-w-0 truncate text-[13px] font-medium" style={{ fontFamily: `${f.familia}, system-ui, sans-serif` }}>
             {f.nombre}
           </span>
         </button>
@@ -243,7 +243,7 @@ function Opcion<T extends string>({ label, help, value, onChange, options }: { l
   return (
     <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
       <div className="min-w-0">
-        <p className="text-[13.5px] font-bold">{label}</p>
+        <p className="text-[14px] font-semibold">{label}</p>
         {help && <p className="text-[12px] text-muted">{help}</p>}
       </div>
       <Segmented value={value} onChange={onChange} options={options} />
@@ -398,15 +398,15 @@ export default function AparienciaConfig() {
       <div className="space-y-4 xl:sticky xl:top-2">
         <Card className="space-y-3 p-4">
           <div className="flex items-center gap-2">
-            <h3 className="min-w-0 flex-1 font-display text-[15px] font-semibold tracking-tight">Vista previa</h3>
+            <h3 className="min-w-0 flex-1 font-display text-[16px] font-medium">Vista previa</h3>
             {cambios ? <Badge tone="yellow">Cambios sin guardar</Badge> : <Badge tone="green">Guardado</Badge>}
           </div>
           <div>
-            <p className="mb-1.5 text-[12px] font-bold text-muted">Claro</p>
+            <p className="mb-1.5 text-[12px] font-semibold text-muted">Claro</p>
             <VistaPrevia ap={ap} mode="light" nombre={nombre} />
           </div>
           <div>
-            <p className="mb-1.5 text-[12px] font-bold text-muted">Oscuro</p>
+            <p className="mb-1.5 text-[12px] font-semibold text-muted">Oscuro</p>
             <VistaPrevia ap={ap} mode="dark" nombre={nombre} />
           </div>
           <Switch checked={enVivo} onChange={setEnVivo} label="Probar en toda la aplicación" description="Mientras editas ves el resultado en todas las pantallas. Si sales sin guardar, vuelve el tema anterior." />

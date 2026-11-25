@@ -49,14 +49,14 @@ export default function ArticuloStockTab({ id, record }: { id: string; record: a
                     {s.almacen} {s.tipo === 'furgoneta' && <Badge tone="blue">Furgoneta</Badge>}
                   </p>
                   {s.lote && (
-                    <p className="text-[12.5px] text-muted">
+                    <p className="text-[13px] text-muted">
                       Lote {s.lote}
                       {s.caducidad && ` · caduca ${fmtDate(s.caducidad)}`}
                     </p>
                   )}
                 </div>
-                {s.reservado > 0 && <span className="text-[12.5px] text-warn">{fmtQty(s.reservado)} reserv.</span>}
-                <span className={cn('tabular w-24 text-right font-semibold', s.cantidad < 0 && 'text-bad')}>{fmtQty(s.cantidad, u)}</span>
+                {s.reservado > 0 && <span className="text-[13px] text-warn">{fmtQty(s.reservado)} reserv.</span>}
+                <span className={cn('tabular w-24 text-right font-medium', s.cantidad < 0 && 'text-bad')}>{fmtQty(s.cantidad, u)}</span>
               </li>
             ))}
           </ul>
@@ -68,7 +68,7 @@ export default function ArticuloStockTab({ id, record }: { id: string; record: a
           <CardHeader title="Reservado para pedidos" />
           <ul className="divide-y divide-line">
             {data.reservas.map((r: any) => (
-              <li key={r.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-[13.5px]">
+              <li key={r.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-[14px]">
                 <Link to={`/documentos/${r.documentoId}`} className="min-w-0 truncate hover:text-primary">
                   <b className="font-medium">{r.codigo ?? 'Pedido'}</b> · {r.tercero}
                   {r.fecha && <span className="text-muted"> · entrega {fmtDate(r.fecha)}</span>}
@@ -101,7 +101,7 @@ export default function ArticuloStockTab({ id, record }: { id: string; record: a
       )}
 
       <Card className="overflow-hidden">
-        <CardHeader title="Últimos movimientos" actions={<Link to={`/stock/movimientos?articuloId=${id}`} className="text-[12.5px] font-medium text-primary">Ver todos</Link>} />
+        <CardHeader title="Últimos movimientos" actions={<Link to={`/stock/movimientos?articuloId=${id}`} className="text-[13px] font-medium text-primary">Ver todos</Link>} />
         <DataTable columns={movimientoColumns({ articulo: false })} rows={data.movimientos} dense mobileTitle={(m) => m.almacen} mobileSubtitle={(m) => fmtDate(m.momento)} empty={<p className="px-4 py-6 text-center text-[13px] text-muted">Sin movimientos</p>} />
       </Card>
       {ajuste && <AjusteDialog articuloId={id} onClose={() => setAjuste(false)} />}

@@ -23,7 +23,7 @@ export default function Calendario() {
       <PageHeader title="Calendario de equipo" icon={CalendarRange} subtitle="Ausencias aprobadas y pendientes de cada persona." />
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <IconButton icon={ChevronLeft} label="Mes anterior" variant="secondary" onClick={() => setMes(mover(mes, -1))} />
-        <span className="w-40 text-center text-[15px] font-semibold capitalize">{titulo}</span>
+        <span className="w-40 text-center text-[16px] font-medium capitalize">{titulo}</span>
         <IconButton icon={ChevronRight} label="Mes siguiente" variant="secondary" onClick={() => setMes(mover(mes, 1))} />
         <div className="w-full sm:ml-auto sm:w-60">
           <RefSelect target="departamentos" value={dep} onChange={setDep} placeholder="Todos los departamentos" />
@@ -33,7 +33,7 @@ export default function Calendario() {
         <Spinner />
       ) : (
         <Card className="scroll-thin overflow-x-auto">
-          <table className="w-full min-w-[960px] border-collapse text-[11.5px]">
+          <table className="w-full min-w-[960px] border-collapse text-[12px]">
             <thead>
               <tr>
                 <th className="sticky left-0 z-10 bg-surface px-3 py-2 text-left text-[12px] font-medium text-muted">Persona</th>
@@ -53,7 +53,7 @@ export default function Calendario() {
             <tbody>
               {data.personas.map((p: any) => (
                 <tr key={p.id} className="border-t border-line">
-                  <td className="sticky left-0 z-10 max-w-[180px] truncate bg-surface px-3 py-1.5 text-[12.5px] font-medium">{p.nombre}</td>
+                  <td className="sticky left-0 z-10 max-w-[180px] truncate bg-surface px-3 py-1.5 text-[13px] font-medium">{p.nombre}</td>
                   {data.dias.map((d: string) => {
                     const dow = (new Date(d + 'T12:00:00Z').getUTCDay() + 6) % 7;
                     const a = p.ausencias.find((x: any) => x.desde <= d && x.hasta >= d);
@@ -63,7 +63,7 @@ export default function Calendario() {
                         {a && (
                           <span
                             title={`${a.tipo}${a.estado !== 'aprobada' ? ' (pendiente)' : ''}`}
-                            className={cn('flex h-full w-full items-center justify-center rounded text-[10px] font-bold text-white', a.estado !== 'aprobada' && 'opacity-50 ring-1 ring-inset ring-white')}
+                            className={cn('flex h-full w-full items-center justify-center rounded text-[11px] font-semibold text-white', a.estado !== 'aprobada' && 'opacity-50 ring-1 ring-inset ring-white')}
                             style={{ background: a.color }}
                           >
                             {a.codigo ?? ''}

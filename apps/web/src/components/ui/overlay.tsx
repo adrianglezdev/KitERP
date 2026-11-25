@@ -40,7 +40,7 @@ export function Dialog({
         >
           <div className="flex items-start gap-3 px-5 pb-2 pt-5">
             <div className="min-w-0 flex-1">
-              <D.Title className="font-display text-[18px] font-semibold tracking-tight">{title}</D.Title>
+              <D.Title className="font-display text-[18px] font-medium">{title}</D.Title>
               {description ? <D.Description className="mt-0.5 text-[13px] text-muted">{description}</D.Description> : <D.Description className="sr-only">{String(title)}</D.Description>}
             </div>
             <D.Close className="-mr-1 -mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-pill text-muted hover:bg-sunken hover:text-fg" aria-label="Cerrar">
@@ -93,7 +93,7 @@ export function Sheet({
         >
           {title ? (
             <div className="safe-top flex items-center gap-3 px-5 pb-2 pt-4">
-              <D.Title className="min-w-0 flex-1 truncate font-display text-[17px] font-semibold tracking-tight">{title}</D.Title>
+              <D.Title className="min-w-0 flex-1 truncate font-display text-[18px] font-medium">{title}</D.Title>
               <D.Close className="-mr-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-pill text-muted hover:bg-sunken hover:text-fg" aria-label="Cerrar">
                 <X className="h-5 w-5" />
               </D.Close>
@@ -206,7 +206,7 @@ export function Menu({ trigger, items, align = 'end' }: { trigger: ReactNode; it
                 disabled={it.disabled}
                 onSelect={it.onSelect}
                 className={cn(
-                  'flex cursor-pointer select-none items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13.5px] font-semibold outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-sunken data-[disabled]:opacity-40',
+                  'flex cursor-pointer select-none items-center gap-2.5 rounded-lg px-2.5 py-2 text-[14px] font-medium outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-sunken data-[disabled]:opacity-40',
                   it.danger && 'text-bad',
                 )}
               >
@@ -226,7 +226,7 @@ export function Tooltip({ content, children, side }: { content: ReactNode; child
     <T.Root delayDuration={300}>
       <T.Trigger asChild>{children}</T.Trigger>
       <T.Portal>
-        <T.Content side={side} sideOffset={6} className="z-50 max-w-xs rounded-lg bg-fg px-2.5 py-1.5 text-[12px] font-semibold text-bg shadow-pop">
+        <T.Content side={side} sideOffset={6} className="z-50 max-w-xs rounded-lg bg-fg px-2.5 py-1.5 text-[12px] font-medium text-bg shadow-pop">
           {content}
         </T.Content>
       </T.Portal>

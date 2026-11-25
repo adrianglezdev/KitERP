@@ -59,7 +59,7 @@ export default function Tareas() {
                   </button>
                   <div className="min-w-0 flex-1">
                     <p className={cn('text-[14px] font-medium', t.estado === 'hecha' && 'text-muted line-through')}>{t.titulo}</p>
-                    {t.descripcion && <p className="text-[12.5px] text-muted">{t.descripcion}</p>}
+                    {t.descripcion && <p className="text-[13px] text-muted">{t.descripcion}</p>}
                     <div className="mt-1 flex flex-wrap items-center gap-2 text-[12px] text-muted">
                       {t.asignado && ver === 'creadas' && <span>Para {t.asignado}</span>}
                       {t.prioridad === 'alta' && <Badge tone="red">Alta</Badge>}

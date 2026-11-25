@@ -78,7 +78,7 @@ export default function Propuesta() {
                     <Link to={`/catalogo/${l.articuloId}`} className="font-medium hover:text-primary">
                       {l.nombre}
                     </Link>
-                    <p className="text-[12.5px] text-muted">
+                    <p className="text-[13px] text-muted">
                       <span className="font-mono">{l.referencia}</span> · disponible {fmtNumber(l.disponible, 3)} {l.unidad} · pedido {fmtNumber(l.pendiente, 3)} · punto de pedido {fmtNumber(l.puntoPedido, 3)}
                       {l.enBorrador > 0 && ` · ${fmtNumber(l.enBorrador, 3)} en pedidos sin confirmar`}
                     </p>
@@ -86,7 +86,7 @@ export default function Propuesta() {
                   <RefSelect target="proveedores" value={s.proveedorId} onChange={(v) => set(l.articuloId, { proveedorId: v, on: true })} placeholder="Elige proveedor" label={l.proveedor ?? undefined} invalid={s.on && !s.proveedorId} />
                   <div>
                     <NumberInput value={s.cantidad} onChange={(v) => set(l.articuloId, { cantidad: v ?? 0 })} decimals={3} suffix={l.unidad} />
-                    <p className="mt-0.5 text-right text-[11.5px] text-muted">{l.precio ? fmtMoney(l.precio * s.cantidad) : 'sin precio'}{l.plazoDias ? ` · ${l.plazoDias} días` : ''}</p>
+                    <p className="mt-0.5 text-right text-[12px] text-muted">{l.precio ? fmtMoney(l.precio * s.cantidad) : 'sin precio'}{l.plazoDias ? ` · ${l.plazoDias} días` : ''}</p>
                   </div>
                 </li>
               );

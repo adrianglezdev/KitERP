@@ -49,7 +49,7 @@ export default function ContratoDetalle() {
                 <li key={e.id}>
                   <Link to={`/sat/equipos/${e.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
                     <span className="min-w-0 flex-1 truncate font-medium">{e.nombre}</span>
-                    <span className="text-[12.5px] text-muted">{[e.marca, e.modelo, e.ubicacion].filter(Boolean).join(' · ')}</span>
+                    <span className="text-[13px] text-muted">{[e.marca, e.modelo, e.ubicacion].filter(Boolean).join(' · ')}</span>
                   </Link>
                 </li>
               ))}
@@ -93,7 +93,7 @@ export default function ContratoDetalle() {
             <Alert tone="violet" icon={Repeat} title="Facturación recurrente">
               Próxima factura el {fmtDate(c.recurrente.proximaFecha)}
               {!c.recurrente.activo && ' (pausada)'}.{' '}
-              <Link to="/facturas/recurrentes" className="font-semibold underline">
+              <Link to="/facturas/recurrentes" className="font-medium underline">
                 Ver cuotas
               </Link>
             </Alert>

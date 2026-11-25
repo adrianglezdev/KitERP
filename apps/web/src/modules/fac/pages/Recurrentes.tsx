@@ -73,7 +73,7 @@ export default function Recurrentes() {
             },
           ]}
           mobileSubtitle={(r) => `${r.tercero} · ${fmtDate(r.proximaFecha)}`}
-          mobileRight={(r) => <span className="tabular font-semibold">{fmtMoney(r.importe)}</span>}
+          mobileRight={(r) => <span className="tabular font-medium">{fmtMoney(r.importe)}</span>}
         />
       </Card>
       {edit && <RecurrenteDialog r={edit} onClose={() => setEdit(null)} />}

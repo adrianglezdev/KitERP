@@ -25,8 +25,8 @@ export default function Denuncias() {
       <PageHeader title="Canal de denuncias" icon={ShieldAlert} subtitle="Sistema interno de información (Ley 2/2023). Solo lo ven las personas responsables del canal y cada consulta queda registrada." />
       <Alert tone="violet" icon={Lock} className="mb-4" title="Enlace del canal para la plantilla">
         <span className="flex flex-wrap items-center gap-2">
-          <code className="rounded bg-surface px-2 py-0.5 text-[12.5px]">{enlace}</code>
-          <button type="button" className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-primary" onClick={() => navigator.clipboard.writeText(enlace).then(() => toast.success('Enlace copiado')).catch(() => {})}>
+          <code className="rounded bg-surface px-2 py-0.5 text-[13px]">{enlace}</code>
+          <button type="button" className="inline-flex items-center gap-1 text-[13px] font-medium text-primary" onClick={() => navigator.clipboard.writeText(enlace).then(() => toast.success('Enlace copiado')).catch(() => {})}>
             <Copy className="h-3.5 w-3.5" /> Copiar
           </button>
         </span>
@@ -71,13 +71,13 @@ function Expediente({ id, onClose }: { id: string; onClose: () => void }) {
         <Spinner />
       ) : (
         <div className="space-y-4">
-          <p className="text-[12.5px] text-muted">
+          <p className="text-[13px] text-muted">
             {d.categoria} · {d.anonima ? 'Anónima' : `${d.nombre ?? ''} ${d.email ? `(${d.email})` : ''}`} · {fmtDateTime(d.creadoEn)}
           </p>
           <p className="whitespace-pre-wrap rounded-xl bg-sunken p-3 text-[14px]">{d.descripcion}</p>
           <div className="space-y-2">
             {d.mensajes.map((m: any) => (
-              <div key={m.id} className={cn('max-w-[85%] rounded-xl px-3 py-2 text-[13.5px]', m.autor === 'gestor' ? 'ml-auto bg-primary-soft' : 'bg-sunken')}>
+              <div key={m.id} className={cn('max-w-[85%] rounded-xl px-3 py-2 text-[14px]', m.autor === 'gestor' ? 'ml-auto bg-primary-soft' : 'bg-sunken')}>
                 <p className="whitespace-pre-wrap">{m.texto}</p>
                 <p className="mt-0.5 text-[11px] text-muted">
                   {m.autor === 'gestor' ? 'Gestor del canal' : 'Informante'} · {fmtDateTime(m.creadoEn)}

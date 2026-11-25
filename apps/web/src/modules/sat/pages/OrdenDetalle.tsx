@@ -153,31 +153,31 @@ export default function OrdenDetalle() {
       {/* Acciones principales, grandes para el móvil */}
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {telefono && (
-          <a href={telHref(telefono)} className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[15px] font-semibold shadow-card active:bg-sunken">
+          <a href={telHref(telefono)} className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[16px] font-medium shadow-card active:bg-sunken">
             <Phone className="h-5 w-5 text-primary" /> Llamar
           </a>
         )}
         {o.mapsUrl && (
-          <a href={o.mapsUrl} target="_blank" rel="noreferrer" className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[15px] font-semibold shadow-card active:bg-sunken">
+          <a href={o.mapsUrl} target="_blank" rel="noreferrer" className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[16px] font-medium shadow-card active:bg-sunken">
             <Navigation className="h-5 w-5 text-primary" /> Cómo llegar
           </a>
         )}
         {o.puedeEditar && ['pendiente', 'planificada'].includes(estado) && (
-          <Button size="lg" className="h-14 text-[15px]" icon={Car} onClick={() => cambiarEstado('en_ruta')}>
+          <Button size="lg" className="h-14 text-[16px]" icon={Car} onClick={() => cambiarEstado('en_ruta')}>
             En ruta
           </Button>
         )}
         {o.puedeEditar && ['pendiente', 'planificada', 'en_ruta'].includes(estado) && (
-          <Button size="lg" variant="primary" className="h-14 text-[15px]" icon={Play} onClick={() => cambiarEstado('en_curso')}>
+          <Button size="lg" variant="primary" className="h-14 text-[16px]" icon={Play} onClick={() => cambiarEstado('en_curso')}>
             Empezar
           </Button>
         )}
         {o.puedeEditar && estado === 'en_curso' && (
           <>
-            <Button size="lg" className="h-14 text-[15px]" icon={corriendo ? Pause : Play} onClick={() => crono(corriendo ? 'parar' : 'iniciar')}>
+            <Button size="lg" className="h-14 text-[16px]" icon={corriendo ? Pause : Play} onClick={() => crono(corriendo ? 'parar' : 'iniciar')}>
               {corriendo ? 'Pausar' : 'Reanudar'}
             </Button>
-            <Button size="lg" variant="success" className="h-14 text-[15px]" icon={CheckCircle2} onClick={() => document.getElementById('parte')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" variant="success" className="h-14 text-[16px]" icon={CheckCircle2} onClick={() => document.getElementById('parte')?.scrollIntoView({ behavior: 'smooth' })}>
               Finalizar
             </Button>
           </>
@@ -196,7 +196,7 @@ export default function OrdenDetalle() {
             <CardHeader title="Visita" icon={MapPin} />
             <div className="space-y-3 p-4">
               <div>
-                <p className="text-[15px] font-medium">{[dir.direccion, dir.codigoPostal, dir.localidad].filter(Boolean).join(', ') || 'Sin dirección'}</p>
+                <p className="text-[16px] font-medium">{[dir.direccion, dir.codigoPostal, dir.localidad].filter(Boolean).join(', ') || 'Sin dirección'}</p>
                 {dir.nombre && dir.nombre !== o.cliente?.nombre && <p className="text-[13px] text-muted">{dir.nombre}</p>}
               </div>
               {o.descripcion && <p className="whitespace-pre-wrap rounded-lg bg-sunken px-3 py-2 text-[14px]">{o.descripcion}</p>}
@@ -214,7 +214,7 @@ export default function OrdenDetalle() {
 
           {o.equipo && (
             <Card>
-              <CardHeader title="Equipo" icon={Wrench} actions={<Link to={`/sat/equipos/${o.equipo.id}`} className="text-[12.5px] font-medium text-primary">Historial</Link>} />
+              <CardHeader title="Equipo" icon={Wrench} actions={<Link to={`/sat/equipos/${o.equipo.id}`} className="text-[13px] font-medium text-primary">Historial</Link>} />
               <div className="p-4">
                 <KeyValue
                   items={[

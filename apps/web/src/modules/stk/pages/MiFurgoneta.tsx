@@ -66,7 +66,7 @@ export default function MiFurgoneta() {
           ))}
         </div>
       )}
-      <SearchInput value={q} onChange={setQ} placeholder="Buscar en la furgoneta…" />
+      <SearchInput value={q} onChange={setQ} placeholder="Buscar en la furgoneta" />
       <Card className="overflow-hidden">
         {!stock.length ? (
           <EmptyState icon={Truck} title={q ? 'No hay coincidencias' : 'La furgoneta está vacía'} />
@@ -77,13 +77,13 @@ export default function MiFurgoneta() {
               return (
                 <li key={`${s.articuloId}-${s.lote}`} className="flex items-center gap-3 px-4 py-3">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[14.5px] font-medium">{s.nombre}</p>
-                    <p className="truncate text-[12.5px] text-muted">
+                    <p className="truncate text-[14px] font-medium">{s.nombre}</p>
+                    <p className="truncate text-[13px] text-muted">
                       {s.referencia}
                       {s.lote && ` · lote ${s.lote}`}
                     </p>
                   </div>
-                  <span className={cn('tabular text-[17px] font-bold', (s.cantidad < 0 || bajo) && 'text-bad')}>{fmtQty(s.cantidad, s.unidad)}</span>
+                  <span className={cn('tabular text-[18px] font-semibold', (s.cantidad < 0 || bajo) && 'text-bad')}>{fmtQty(s.cantidad, s.unidad)}</span>
                 </li>
               );
             })}
@@ -99,7 +99,7 @@ export default function MiFurgoneta() {
             {a.movimientos.map((m: any) => (
               <li key={m.id} className="flex items-center gap-3 px-4 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13.5px]">
+                  <p className="truncate text-[14px]">
                     <b className="font-medium">{m.referencia}</b> · {m.articulo}
                   </p>
                   <p className="flex items-center gap-1.5 text-[12px] text-muted">

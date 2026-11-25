@@ -77,26 +77,26 @@ export default function Banco() {
             <Card key={m.id} className="p-3">
               <div className="flex flex-wrap items-start gap-3">
                 <div className="min-w-0 flex-1">
-                  <p className="text-[13.5px] font-medium">{m.concepto}</p>
+                  <p className="text-[14px] font-medium">{m.concepto}</p>
                   <p className="text-[12px] text-muted">
                     {fmtDate(m.fecha)} · {m.cuenta}
                     {m.referencia && ` · ref. ${m.referencia}`}
                   </p>
                 </div>
-                <span className={cn('font-display text-[16px] font-bold tabular-nums', m.importe < 0 ? 'text-bad' : 'text-primary')}>{fmtMoney(m.importe)}</span>
+                <span className={cn('font-display text-[16px] font-semibold tabular-nums', m.importe < 0 ? 'text-bad' : 'text-primary')}>{fmtMoney(m.importe)}</span>
                 <EnumBadge options={MOV_ESTADOS} value={m.estado} />
                 {gestiona && m.estado === 'pendiente' && <IconButton icon={EyeOff} label="Sin pareja (comisión, etc.)" size="sm" onClick={() => accion.mutate({ url: `/tes/movimientos/${m.id}/ignorar` })} />}
                 {gestiona && m.estado !== 'pendiente' && <IconButton icon={Undo2} label="Deshacer" size="sm" onClick={() => accion.mutate({ url: `/tes/movimientos/${m.id}/deshacer` })} />}
               </div>
               {m.conciliadoCon?.length > 0 && (
-                <p className="mt-1 text-[12.5px] text-muted">
+                <p className="mt-1 text-[13px] text-muted">
                   Con: {m.conciliadoCon.map((c: any) => `${c.tercero ?? ''} ${c.concepto ?? ''} (${fmtMoney(c.importe)})`).join(' · ')}
                 </p>
               )}
               {gestiona && m.sugerencias?.length > 0 && (
                 <ul className="mt-2 space-y-1">
                   {m.sugerencias.slice(0, 3).map((s: any) => (
-                    <li key={`${s.tipo}-${s.id}`} className="flex items-center gap-2 rounded-lg bg-sunken px-2.5 py-1.5 text-[12.5px]">
+                    <li key={`${s.tipo}-${s.id}`} className="flex items-center gap-2 rounded-lg bg-sunken px-2.5 py-1.5 text-[13px]">
                       <Badge tone={s.puntuacion >= 75 ? 'green' : 'gray'}>{s.puntuacion}%</Badge>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate font-medium">{s.titulo}</span>

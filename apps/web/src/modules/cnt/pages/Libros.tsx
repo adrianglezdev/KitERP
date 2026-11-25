@@ -61,7 +61,7 @@ function Mayor({ anio, inicial }: { anio: string; inicial: string }) {
           <Input className="w-48" value={cuenta} inputMode="numeric" onChange={(e) => setCuenta(e.target.value.replace(/\D/g, ''))} placeholder="p. ej. 4300001 o 572" />
         </Field>
         {data && <Exportar url={url} nombre={`mayor-${dc}-${anio}.xlsx`} />}
-        {data?.nombre && <span className="pb-2 text-[13.5px] font-semibold">{data.nombre}</span>}
+        {data?.nombre && <span className="pb-2 text-[14px] font-medium">{data.nombre}</span>}
       </div>
       {dc.length < 3 ? (
         <Alert tone="blue">Escribe al menos 3 dígitos de la cuenta.</Alert>
@@ -112,7 +112,7 @@ function Sumas({ anio }: { anio: string }) {
         </Field>
         <Exportar url={url} nombre={`sumas-saldos-${anio}.xlsx`} />
         {data && !data.cuadra && (
-          <span className="flex items-center gap-1 pb-2 text-[13px] font-semibold text-bad">
+          <span className="flex items-center gap-1 pb-2 text-[13px] font-medium text-bad">
             <AlertTriangle className="h-4 w-4" /> No cuadra
           </span>
         )}
@@ -125,7 +125,7 @@ function Sumas({ anio }: { anio: string }) {
             dense
             rows={data.filas.map((f: any) => ({ ...f, id: f.cuenta }))}
             columns={[
-              { key: 'cuenta', header: 'Cuenta', cell: (f: any) => <span className="font-mono text-[12.5px]">{f.cuenta}</span>, width: '96px' },
+              { key: 'cuenta', header: 'Cuenta', cell: (f: any) => <span className="font-mono text-[13px]">{f.cuenta}</span>, width: '96px' },
               { key: 'nombre', header: 'Nombre', cell: (f: any) => <span className="line-clamp-1">{f.nombre}</span> },
               { key: 'debe', header: 'Debe', align: 'right', cell: (f: any) => fmtMoney(f.debe), hideBelow: 'md' },
               { key: 'haber', header: 'Haber', align: 'right', cell: (f: any) => fmtMoney(f.haber), hideBelow: 'md' },
@@ -135,7 +135,7 @@ function Sumas({ anio }: { anio: string }) {
             mobileTitle={(f: any) => `${f.cuenta} · ${f.nombre}`}
             mobileRight={(f: any) => <Importe v={f.saldo} />}
             footer={
-              <div className="flex justify-end gap-6 px-4 py-2 text-[13px] font-semibold">
+              <div className="flex justify-end gap-6 px-4 py-2 text-[13px] font-medium">
                 <span>Debe {fmtMoney(data.totales.debe)}</span>
                 <span>Haber {fmtMoney(data.totales.haber)}</span>
               </div>
@@ -151,8 +151,8 @@ function Estado({ lineas }: { lineas: any[] }) {
   return (
     <ul className="divide-y divide-line">
       {lineas.map((l) => (
-        <li key={l.id} className={cn('flex items-center gap-3 py-1.5 pr-4 text-[13.5px]', l.nivel === 0 && 'bg-sunken/60 font-bold')} style={{ paddingLeft: 16 + l.nivel * 16 }}>
-          <span className={cn('min-w-0 flex-1', l.nivel === 1 && 'font-semibold')}>{l.titulo}</span>
+        <li key={l.id} className={cn('flex items-center gap-3 py-1.5 pr-4 text-[14px]', l.nivel === 0 && 'bg-sunken/60 font-semibold')} style={{ paddingLeft: 16 + l.nivel * 16 }}>
+          <span className={cn('min-w-0 flex-1', l.nivel === 1 && 'font-medium')}>{l.titulo}</span>
           <Importe v={l.importe} bold={l.nivel <= 1} />
         </li>
       ))}
@@ -179,11 +179,11 @@ function Balance({ anio }: { anio: string }) {
           {!data.cuadra && <Alert tone="red">El balance no cuadra: revisa {data.sinClasificar?.length ? `las cuentas sin clasificar (${data.sinClasificar.map((c: any) => c.cuenta ?? c).join(', ')})` : 'los asientos'}.</Alert>}
           <div className="grid gap-5 lg:grid-cols-2">
             <Card className="overflow-hidden">
-              <p className="px-5 pb-2 pt-4 font-display font-bold">Activo · {fmtMoney(data.totalActivo)}</p>
+              <p className="px-5 pb-2 pt-4 font-display font-semibold">Activo · {fmtMoney(data.totalActivo)}</p>
               <Estado lineas={data.activo} />
             </Card>
             <Card className="overflow-hidden">
-              <p className="px-5 pb-2 pt-4 font-display font-bold">Patrimonio neto y pasivo · {fmtMoney(data.totalPasivo)}</p>
+              <p className="px-5 pb-2 pt-4 font-display font-semibold">Patrimonio neto y pasivo · {fmtMoney(data.totalPasivo)}</p>
               <Estado lineas={data.pasivo} />
             </Card>
           </div>
@@ -204,7 +204,7 @@ function PyG({ anio }: { anio: string }) {
       ) : (
         <Card className="overflow-hidden">
           <Estado lineas={data.lineas} />
-          <p className="flex justify-between border-t border-line px-4 py-3 font-display text-[16px] font-bold">
+          <p className="flex justify-between border-t border-line px-4 py-3 font-display text-[16px] font-semibold">
             <span>Resultado del ejercicio</span>
             <Importe v={data.resultado} bold />
           </p>
@@ -252,7 +252,7 @@ function Iva({ anio }: { anio: string }) {
             mobileSubtitle={(l: any) => `${fmtDate(l.fecha)} · base ${fmtMoney(l.base)} al ${Number(l.ivaTipo)} %`}
             mobileRight={(l: any) => fmtMoney(l.cuota)}
             footer={
-              <div className="flex flex-wrap justify-end gap-x-6 px-4 py-2 text-[13px] font-semibold">
+              <div className="flex flex-wrap justify-end gap-x-6 px-4 py-2 text-[13px] font-medium">
                 <span>{data.totales.facturas} facturas</span>
                 <span>Base {fmtMoney(data.totales.base)}</span>
                 <span>Cuota {fmtMoney(data.totales.cuota)}</span>

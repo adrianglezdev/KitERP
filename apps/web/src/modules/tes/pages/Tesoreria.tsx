@@ -47,31 +47,31 @@ export default function Tesoreria() {
           )}
         </Card>
         <Card className="overflow-hidden">
-          <CardHeader title="Bancos y cajas" actions={<Link to="/tesoreria/cuentas" className="text-[12.5px] font-semibold text-primary">Gestionar</Link>} />
+          <CardHeader title="Bancos y cajas" actions={<Link to="/tesoreria/cuentas" className="text-[13px] font-medium text-primary">Gestionar</Link>} />
           <ul className="divide-y divide-line">
             {(saldos.data ?? []).filter((c) => c.activo).map((c) => (
               <li key={c.id}>
                 <Link to={`/tesoreria/banco?cuenta=${c.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13.5px] font-medium">{c.nombre}</span>
+                    <span className="block truncate text-[14px] font-medium">{c.nombre}</span>
                     <span className="text-[12px] text-muted">{c.sinConciliar ? `${c.sinConciliar} movimientos sin conciliar` : c.iban ? `···· ${String(c.iban).slice(-4)}` : 'Caja'}</span>
                   </span>
                   <span className="text-right">
-                    <span className="block font-semibold tabular-nums">{fmtMoney(c.saldo)}</span>
-                    {c.saldoExtracto !== null && Math.abs(c.saldoExtracto - c.saldo) > 0.01 && <span className="text-[11.5px] text-warn">Banco: {fmtMoney(c.saldoExtracto)}</span>}
+                    <span className="block font-medium tabular-nums">{fmtMoney(c.saldo)}</span>
+                    {c.saldoExtracto !== null && Math.abs(c.saldoExtracto - c.saldo) > 0.01 && <span className="text-[12px] text-warn">Banco: {fmtMoney(c.saldoExtracto)}</span>}
                   </span>
                 </Link>
               </li>
             ))}
             {!saldos.data?.length && (
               <li className="px-4 py-4 text-center text-[13px] text-muted">
-                <Link to="/tesoreria/cuentas?nuevo=1" className="font-semibold text-primary">
+                <Link to="/tesoreria/cuentas?nuevo=1" className="font-medium text-primary">
                   Añade tu primera cuenta bancaria
                 </Link>
               </li>
             )}
           </ul>
-          {p?.cuentas?.[0]?.fechaSaldo && <p className="px-4 pb-3 text-[11.5px] text-muted">Saldo inicial a {fmtDate(p.cuentas[0].fechaSaldo)}</p>}
+          {p?.cuentas?.[0]?.fechaSaldo && <p className="px-4 pb-3 text-[12px] text-muted">Saldo inicial a {fmtDate(p.cuentas[0].fechaSaldo)}</p>}
         </Card>
       </div>
     </>

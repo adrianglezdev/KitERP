@@ -80,14 +80,14 @@ export default function Pendientes() {
                     <li key={a.id} className="flex items-center gap-3 px-4 py-2.5">
                       <input type="checkbox" className="h-4 w-4 accent-[rgb(var(--primary))]" checked={sel.has(a.id)} onChange={(e) => toggle(a.id, e.target.checked)} aria-label={`Seleccionar ${a.codigo}`} />
                       <Link to={`/documentos/${a.id}`} className="min-w-0 flex-1 hover:text-primary">
-                        <span className="text-[13.5px] font-medium">{a.codigo}</span>
-                        <span className="ml-2 text-[12.5px] text-muted">
+                        <span className="text-[14px] font-medium">{a.codigo}</span>
+                        <span className="ml-2 text-[13px] text-muted">
                           {fmtDate(a.fecha)}
                           {a.origenTipo === 'sat_orden' && ' · servicio técnico'}
                           {a.referenciaExterna && ` · su ref. ${a.referenciaExterna}`}
                         </span>
                       </Link>
-                      <span className="tabular text-[13.5px] font-medium">{fmtMoney(a.baseImponible)}</span>
+                      <span className="tabular text-[14px] font-medium">{fmtMoney(a.baseImponible)}</span>
                     </li>
                   ))}
                 </ul>

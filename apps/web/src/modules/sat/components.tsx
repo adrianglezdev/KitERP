@@ -30,7 +30,7 @@ export function ManualesVinculados({ entidad, id, articuloId, titulo = 'Manuales
           {data.map((d) => (
             <li key={d.id} className="flex items-center gap-3 px-4 py-2.5">
               <div className="min-w-0 flex-1">
-                <Link to={`/dtc/documentos/${d.id}`} className="block truncate text-[13.5px] font-medium hover:text-primary">
+                <Link to={`/dtc/documentos/${d.id}`} className="block truncate text-[14px] font-medium hover:text-primary">
                   {d.titulo}
                 </Link>
                 <p className="text-[12px] text-muted">
@@ -39,7 +39,7 @@ export function ManualesVinculados({ entidad, id, articuloId, titulo = 'Manuales
                 </p>
               </div>
               {d.url && (
-                <a href={d.url} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-pill px-3.5 text-[13px] font-bold text-primary hover:bg-primary-soft">
+                <a href={d.url} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-pill px-3.5 text-[13px] font-semibold text-primary hover:bg-primary-soft">
                   <ExternalLink className="h-4 w-4" /> Abrir
                 </a>
               )}

@@ -59,9 +59,9 @@ export default function Trazabilidad() {
               <CardHeader title="Lotes" />
               <ul className="divide-y divide-line">
                 {data!.lotes.map((l) => (
-                  <li key={l.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-[13.5px]">
+                  <li key={l.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-[14px]">
                     <span>
-                      <b className="font-semibold">{l.lote}</b> · {l.referencia} {l.nombre}
+                      <b className="font-medium">{l.lote}</b> · {l.referencia} {l.nombre}
                     </span>
                     <span className="text-muted">
                       {l.proveedor ?? 'Proveedor desconocido'}

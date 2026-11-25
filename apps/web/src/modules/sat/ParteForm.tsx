@@ -129,7 +129,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
             ref={textRef}
             id="parte-trabajo"
             rows={5}
-            className="text-[15px]"
+            className="text-[16px]"
             placeholder="Qué has encontrado y qué has hecho"
             value={parte.trabajoRealizado}
             onChange={(e) => update((p) => ({ ...p, trabajoRealizado: e.target.value, error: null }))}
@@ -147,12 +147,12 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
                     <button
                       type="button"
                       onClick={() => update((p) => ({ ...p, checklist: { ...p.checklist, [i.id]: { ...p.checklist[i.id], hecho: !hecho } } }))}
-                      className={cn('flex min-h-[52px] w-full items-center gap-3 px-3 py-2.5 text-left text-[14.5px] transition active:bg-sunken', hecho && 'bg-ok-soft/40')}
+                      className={cn('flex min-h-[52px] w-full items-center gap-3 px-3 py-2.5 text-left text-[14px] transition-colors active:bg-sunken', hecho && 'bg-ok-soft/40')}
                       aria-pressed={hecho}
                     >
                       {hecho ? <CheckCircle2 className="h-6 w-6 shrink-0 text-ok" /> : <CircleDashed className="h-6 w-6 shrink-0 text-muted" />}
                       <span className="flex-1">{i.texto}</span>
-                      {i.obligatorio && !hecho && <span className="shrink-0 text-[11.5px] font-medium text-bad">Obligatorio</span>}
+                      {i.obligatorio && !hecho && <span className="shrink-0 text-[12px] font-medium text-bad">Obligatorio</span>}
                     </button>
                   </li>
                 );
@@ -216,10 +216,10 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Tiempo registrado" help={minutos > 0 ? 'Con el cronómetro de la orden' : 'Si no usaste el cronómetro, indica las horas'}>
-            <div className="flex h-11 items-center rounded-lg bg-sunken px-3 text-[15px] font-semibold">{minutosTexto(minutos)}</div>
+            <div className="flex h-11 items-center rounded-lg bg-sunken px-3 text-[16px] font-medium">{minutosTexto(minutos)}</div>
           </Field>
           <Field label="Horas a facturar" help="Déjalo vacío para usar el tiempo registrado">
-            <NumberInput value={parte.horas} onChange={(v) => update((p) => ({ ...p, horas: v }))} decimals={2} min={0} suffix="h" className="h-11 text-[15px]" />
+            <NumberInput value={parte.horas} onChange={(v) => update((p) => ({ ...p, horas: v }))} decimals={2} min={0} suffix="h" className="h-11 text-[16px]" />
           </Field>
         </div>
         <div className="space-y-3 rounded-xl border border-line-strong/70 p-3">
@@ -244,13 +244,13 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
           ) : (
             <SignaturePad height={170} onChange={(d) => update((p) => ({ ...p, firma: d }))} />
           )}
-          <Input placeholder="Nombre de quien firma" value={parte.firmaNombre} onChange={(e) => update((p) => ({ ...p, firmaNombre: e.target.value }))} className="h-11 text-[15px]" autoComplete="off" />
+          <Input placeholder="Nombre de quien firma" value={parte.firmaNombre} onChange={(e) => update((p) => ({ ...p, firmaNombre: e.target.value }))} className="h-11 text-[16px]" autoComplete="off" />
         </div>
 
         <Button variant="success" size="lg" icon={Send} className="h-14 w-full text-[16px]" loading={enviando} onClick={enviar}>
           Finalizar y enviar parte
         </Button>
-        {faltan.length > 0 && <p className="text-center text-[12.5px] text-bad">Faltan {faltan.length} punto{faltan.length === 1 ? '' : 's'} obligatorio{faltan.length === 1 ? '' : 's'} del checklist</p>}
+        {faltan.length > 0 && <p className="text-center text-[13px] text-bad">Faltan {faltan.length} punto{faltan.length === 1 ? '' : 's'} obligatorio{faltan.length === 1 ? '' : 's'} del checklist</p>}
       </div>
     </Card>
   );

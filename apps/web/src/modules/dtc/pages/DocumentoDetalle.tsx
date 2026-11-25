@@ -106,7 +106,7 @@ export default function DocumentoDetalle() {
           </div>
         </Alert>
       )}
-      {d.lectura.leidoEn && <p className="text-[12.5px] text-muted">Leíste la versión vigente el {fmtDateTime(d.lectura.leidoEn)}.</p>}
+      {d.lectura.leidoEn && <p className="text-[13px] text-muted">Leíste la versión vigente el {fmtDateTime(d.lectura.leidoEn)}.</p>}
       {vencida && d.estado !== 'obsoleto' && (
         <Alert tone="orange" icon={CalendarCheck} title="Revisión periódica vencida">
           Tocaba revisar este documento el {fmtDate(d.proximaRevision)}. Sube una nueva versión o confirma que sigue vigente.
@@ -123,11 +123,11 @@ export default function DocumentoDetalle() {
               <ul className="divide-y divide-line">
                 {d.versiones.map((v: any) => (
                   <li key={v.id} className="flex flex-wrap items-start gap-3 px-4 py-3">
-                    <span className="mt-0.5 w-12 shrink-0 font-display text-[16px] font-bold">{v.numero}</span>
+                    <span className="mt-0.5 w-12 shrink-0 font-display text-[16px] font-semibold">{v.numero}</span>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <EnumBadge options={DTC_VERSION_ESTADOS} value={v.estado} />
-                        <span className="truncate text-[12.5px] text-muted">{v.nombreArchivo}</span>
+                        <span className="truncate text-[13px] text-muted">{v.nombreArchivo}</span>
                       </div>
                       {v.resumenCambios && <p className="mt-1 text-[13px]">{v.resumenCambios}</p>}
                       <p className="mt-0.5 text-[12px] text-muted">
@@ -135,7 +135,7 @@ export default function DocumentoDetalle() {
                         {fmtDateTime(v.creadoEn)}
                         {v.aprobador && ` · aprobada por ${v.aprobador} el ${fmtDate(v.aprobadoEn)}`}
                       </p>
-                      {v.estado === 'rechazada' && v.rechazoMotivo && <p className="mt-1 text-[12.5px] text-bad">Motivo: {v.rechazoMotivo}</p>}
+                      {v.estado === 'rechazada' && v.rechazoMotivo && <p className="mt-1 text-[13px] text-bad">Motivo: {v.rechazoMotivo}</p>}
                     </div>
                     <div className="flex items-center gap-1">
                       {p.editar && v.estado === 'borrador' && (
@@ -175,7 +175,7 @@ export default function DocumentoDetalle() {
         </div>
         <div className="space-y-5">
           <Card className="p-4">
-            {d.descripcion && <p className="mb-3 whitespace-pre-line text-[13.5px]">{d.descripcion}</p>}
+            {d.descripcion && <p className="mb-3 whitespace-pre-line text-[14px]">{d.descripcion}</p>}
             <KeyValue
               cols={1}
               items={[
@@ -224,7 +224,7 @@ function NuevaVersion({ doc, onClose }: { doc: any; onClose: () => void }) {
     >
       <div className="space-y-3">
         {archivo ? (
-          <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 text-[13.5px]">
+          <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 text-[14px]">
             <span className="truncate">{archivo.nombre}</span>
             <IconButton icon={X} label="Quitar" size="sm" onClick={() => setArchivo(null)} />
           </div>
@@ -235,7 +235,7 @@ function NuevaVersion({ doc, onClose }: { doc: any; onClose: () => void }) {
         <Field label="Qué cambia">
           <Textarea rows={3} value={resumen} onChange={(e) => setResumen(e.target.value)} placeholder="Se lo verán quienes deben leerlo" />
         </Field>
-        <p className="text-[12.5px] text-muted">La versión no será la vigente hasta que la apruebe {doc.revisor ?? 'un revisor'} (nunca quien la redacta).</p>
+        <p className="text-[13px] text-muted">La versión no será la vigente hasta que la apruebe {doc.revisor ?? 'un revisor'} (nunca quien la redacta).</p>
       </div>
     </Dialog>
   );
@@ -252,7 +252,7 @@ function Vinculos({ doc }: { doc: any }) {
         {doc.vinculos.map((v: any) => (
           <li key={v.id} className="flex items-center gap-3 px-4 py-2.5">
             <span className="w-32 shrink-0 text-[12px] text-muted">{optionLabel(DTC_VINCULOS, v.entidad)?.label}</span>
-            <Link to={RUTA_VINCULO[v.entidad]?.(v.entidadId) ?? '#'} className="min-w-0 flex-1 truncate text-[13.5px] font-medium hover:text-primary">
+            <Link to={RUTA_VINCULO[v.entidad]?.(v.entidadId) ?? '#'} className="min-w-0 flex-1 truncate text-[14px] font-medium hover:text-primary">
               {v.label ?? '(no disponible)'}
             </Link>
             {doc.permisos.editar && <IconButton icon={X} label="Quitar vínculo" size="sm" onClick={() => del.mutate(v.id)} />}
@@ -277,7 +277,7 @@ function Distribucion({ doc }: { doc: any }) {
   return (
     <Card className="p-4">
       <div className="mb-2 flex items-center justify-between">
-        <p className="flex items-center gap-2 text-[13.5px] font-semibold">
+        <p className="flex items-center gap-2 text-[14px] font-medium">
           <Building2 className="h-4 w-4 text-primary" /> Deben leerlo
         </p>
         {doc.permisos.editar && !editando && (
@@ -328,7 +328,7 @@ function Lecturas({ id, onClose }: { id: string; onClose: () => void }) {
           </div>
           <ul className="max-h-[50vh] divide-y divide-line overflow-y-auto rounded-xl ring-1 ring-line-strong/70">
             {filas.map((p: any) => (
-              <li key={p.id} className="flex items-center gap-3 px-3 py-2 text-[13.5px]">
+              <li key={p.id} className="flex items-center gap-3 px-3 py-2 text-[14px]">
                 <span className="min-w-0 flex-1 truncate">{p.nombre}</span>
                 <span className="hidden text-[12px] text-muted sm:inline">{p.departamento}</span>
                 {p.leidoEn ? <Badge tone="green">{fmtDate(p.leidoEn)}</Badge> : <Badge tone={p.debeLeer ? 'orange' : 'gray'}>Sin leer</Badge>}

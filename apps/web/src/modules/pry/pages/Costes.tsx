@@ -32,13 +32,13 @@ function Fila({ p }: { p: any }) {
   return (
     <li className="flex items-center gap-3 px-4 py-2">
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[13.5px] font-medium">{p.nombre}</span>
+        <span className="block truncate text-[14px] font-medium">{p.nombre}</span>
         <span className="text-[12px] text-muted">{p.puesto}</span>
       </span>
       <div className="w-36">
         <NumberInput value={v} onChange={setV} suffix="€/h" />
       </div>
-      <button type="button" disabled={m.isPending || v === (p.costeHora != null ? Number(p.costeHora) : null)} onClick={() => m.mutate(undefined)} className="text-[12.5px] font-semibold text-primary disabled:opacity-30">
+      <button type="button" disabled={m.isPending || v === (p.costeHora != null ? Number(p.costeHora) : null)} onClick={() => m.mutate(undefined)} className="text-[13px] font-medium text-primary disabled:opacity-30">
         Guardar
       </button>
     </li>

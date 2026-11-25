@@ -100,7 +100,7 @@ export function GastoDialog({ gasto, onClose }: { gasto?: any; onClose: () => vo
         )}
         {(tipo === 'ticket' || tipo === 'tarjeta') &&
           (archivo ? (
-            <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 text-[13.5px]">
+            <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 text-[14px]">
               <span className="truncate">{archivo.nombre}</span>
               {leyendo ? <Spinner className="!py-0" /> : <IconButton icon={X} label="Quitar" size="sm" onClick={() => setArchivo(null)} />}
             </div>
@@ -232,7 +232,7 @@ export function GastoSheet({ id, onClose }: { id: string; onClose: () => void })
                   <img src={g.archivo.url} alt="Ticket" className="max-h-72 w-full rounded-xl object-contain ring-1 ring-line-strong/70" />
                 </a>
               ) : (
-                <a href={g.archivo.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-xl bg-sunken px-3 py-2 text-[13.5px] text-primary">
+                <a href={g.archivo.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-xl bg-sunken px-3 py-2 text-[14px] text-primary">
                   <Camera className="h-4 w-4" /> {g.archivo.nombre}
                 </a>
               ))}

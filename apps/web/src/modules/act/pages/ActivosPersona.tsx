@@ -20,7 +20,7 @@ export default function ActivosPersona({ id }: { id: string }) {
               <li key={a.id}>
                 <Link to={`/activos/${a.id}`} className="flex items-center gap-3 px-3 py-2 hover:bg-sunken">
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13.5px] font-medium">{a.nombre}</span>
+                    <span className="block truncate text-[14px] font-medium">{a.nombre}</span>
                     <span className="text-[12px] text-muted">
                       {a.codigo}
                       {a.matricula && ` · ${a.matricula}`}

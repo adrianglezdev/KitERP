@@ -156,8 +156,8 @@ export default function InventarioDetalle() {
                 <li key={l.id}>
                   <button type="button" disabled={!abierto} onClick={() => setEditar(l)} className="flex w-full items-center gap-3 px-4 py-3 text-left active:bg-sunken enabled:hover:bg-sunken/60">
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[14.5px] font-medium">{l.nombre}</p>
-                      <p className="truncate text-[12.5px] text-muted">
+                      <p className="truncate text-[14px] font-medium">{l.nombre}</p>
+                      <p className="truncate text-[13px] text-muted">
                         {l.referencia}
                         {l.lote && ` · lote ${l.lote}`}
                         {verTeorico && ` · teórico ${fmtQty(l.teorico, l.unidad)}`}
@@ -168,7 +168,7 @@ export default function InventarioDetalle() {
                         <Badge>Sin contar</Badge>
                       ) : (
                         <>
-                          <p className="tabular text-[16px] font-bold">{fmtQty(l.contado, l.unidad)}</p>
+                          <p className="tabular text-[16px] font-semibold">{fmtQty(l.contado, l.unidad)}</p>
                           {verTeorico && dif !== null && Math.abs(dif) > 0.0001 && <p className={cn('tabular text-[12px] font-medium', dif > 0 ? 'text-ok' : 'text-bad')}>{dif > 0 ? '+' : ''}{fmtQty(dif)}</p>}
                         </>
                       )}

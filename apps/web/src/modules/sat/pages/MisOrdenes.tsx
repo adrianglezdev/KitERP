@@ -109,13 +109,13 @@ export default function MisOrdenes() {
           </ol>
           {hechas.length > 0 && (
             <div>
-              <p className="mb-2 text-[12.5px] font-bold text-muted">Finalizadas ({hechas.length})</p>
+              <p className="mb-2 text-[13px] font-semibold text-muted">Finalizadas ({hechas.length})</p>
               <ul className="space-y-2">
                 {hechas.map((o) => (
                   <li key={o.id}>
                     <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 rounded-xl border border-line-strong/70 bg-surface px-4 py-3 opacity-80">
                       <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{o.cliente}</span>
-                      <span className="text-[12.5px] text-muted">{hora(o.finalizadaEn)}</span>
+                      <span className="text-[13px] text-muted">{hora(o.finalizadaEn)}</span>
                       <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
                     </Link>
                   </li>
@@ -135,41 +135,41 @@ function OrdenTarjeta({ o, n, onEstado }: { o: any; n: number; onEstado: (estado
   return (
     <li className={cn('overflow-hidden rounded-2xl border bg-surface shadow-card', o.estado === 'en_curso' ? 'border-warn/60' : 'border-line')}>
       <Link to={`/sat/ordenes/${o.id}`} className="block space-y-1.5 px-4 pb-3 pt-3.5 active:bg-sunken">
-        <div className="flex items-center gap-2 text-[12.5px] text-muted">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-soft text-[12px] font-bold text-primary">{n}</span>
-          <span className="font-semibold text-fg">{o.planificadaInicio ? `${hora(o.planificadaInicio)}–${hora(o.planificadaFin)}` : 'Sin hora'}</span>
+        <div className="flex items-center gap-2 text-[13px] text-muted">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-soft text-[12px] font-semibold text-primary">{n}</span>
+          <span className="font-medium text-fg">{o.planificadaInicio ? `${hora(o.planificadaInicio)}–${hora(o.planificadaFin)}` : 'Sin hora'}</span>
           {o.atrasada && <Badge tone="red">Atrasada</Badge>}
           <span className="ml-auto">
             <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
           </span>
         </div>
-        <p className="text-[17px] font-bold leading-snug">{o.cliente}</p>
+        <p className="text-[18px] font-semibold leading-snug">{o.cliente}</p>
         <p className="text-[14px] text-fg/80">{[dir.direccion, dir.localidad].filter(Boolean).join(', ') || 'Sin dirección'}</p>
         <div className="flex flex-wrap items-center gap-1.5">
           <Badge>{ORDEN_TIPOS.find((t) => t.value === o.tipo)?.label}</Badge>
           {o.prioridad !== 'normal' && <EnumBadge options={PRIORIDADES} value={o.prioridad} />}
-          {o.equipo && <span className="text-[12.5px] text-muted">{o.equipo}</span>}
+          {o.equipo && <span className="text-[13px] text-muted">{o.equipo}</span>}
           {borrador && <Badge tone={borrador.pendienteEnvio ? 'orange' : 'violet'}>{borrador.pendienteEnvio ? 'Parte sin enviar' : 'Parte empezado'}</Badge>}
         </div>
         {o.descripcion && <p className="line-clamp-2 text-[13px] text-muted">{o.descripcion}</p>}
       </Link>
       <div className="grid grid-cols-3 border-t border-line">
-        <a href={telHref(o.telefono)} aria-disabled={!o.telefono} className={cn('flex h-14 items-center justify-center gap-1.5 text-[14px] font-semibold active:bg-sunken', !o.telefono && 'pointer-events-none opacity-40')}>
+        <a href={telHref(o.telefono)} aria-disabled={!o.telefono} className={cn('flex h-14 items-center justify-center gap-1.5 text-[14px] font-medium active:bg-sunken', !o.telefono && 'pointer-events-none opacity-40')}>
           <Phone className="h-5 w-5 text-primary" /> Llamar
         </a>
-        <a href={o.mapsUrl ?? undefined} target="_blank" rel="noreferrer" aria-disabled={!o.mapsUrl} className={cn('flex h-14 items-center justify-center gap-1.5 border-x border-line text-[14px] font-semibold active:bg-sunken', !o.mapsUrl && 'pointer-events-none opacity-40')}>
+        <a href={o.mapsUrl ?? undefined} target="_blank" rel="noreferrer" aria-disabled={!o.mapsUrl} className={cn('flex h-14 items-center justify-center gap-1.5 border-x border-line text-[14px] font-medium active:bg-sunken', !o.mapsUrl && 'pointer-events-none opacity-40')}>
           <Navigation className="h-5 w-5 text-primary" /> Ir
         </a>
         {['pendiente', 'planificada'].includes(o.estado) ? (
-          <button type="button" onClick={() => onEstado('en_ruta')} className="flex h-14 items-center justify-center gap-1.5 text-[14px] font-semibold text-primary active:bg-sunken">
+          <button type="button" onClick={() => onEstado('en_ruta')} className="flex h-14 items-center justify-center gap-1.5 text-[14px] font-medium text-primary active:bg-sunken">
             <Car className="h-5 w-5" /> En ruta
           </button>
         ) : o.estado === 'en_ruta' ? (
-          <button type="button" onClick={() => onEstado('en_curso')} className="flex h-14 items-center justify-center gap-1.5 bg-primary text-[14px] font-semibold text-primary-fg active:bg-primary/90">
+          <button type="button" onClick={() => onEstado('en_curso')} className="flex h-14 items-center justify-center gap-1.5 bg-primary text-[14px] font-medium text-primary-fg active:bg-primary/90">
             <Play className="h-5 w-5" /> Empezar
           </button>
         ) : (
-          <Link to={`/sat/ordenes/${o.id}#parte`} className="flex h-14 items-center justify-center gap-1.5 bg-sun text-[14px] font-bold text-sun-fg active:brightness-95">
+          <Link to={`/sat/ordenes/${o.id}#parte`} className="flex h-14 items-center justify-center gap-1.5 bg-sun text-[14px] font-semibold text-sun-fg active:brightness-95">
             <Wrench className="h-5 w-5" /> Parte
           </Link>
         )}

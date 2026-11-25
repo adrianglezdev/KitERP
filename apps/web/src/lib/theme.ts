@@ -157,7 +157,8 @@ export function buildTokens(input: Apariencia): Tokens {
   }
 
   /* ── Sombras y bordes de las tarjetas ── */
-  const sTrip = triplet(S);
+  // Sombras neutras (sin el tono de la marca): un filo casi invisible y una sombra corta.
+  // En oscuro la profundidad sale del escalón de superficie y de un filo, no de la sombra.
   if (ap.tarjetas === 'borde') {
     light['shadow-card'] = `0 0 0 1px rgb(${triplet(lLineStrong)})`;
     dark['shadow-card'] = `0 0 0 1px rgb(${triplet(dLineStrong)})`;
@@ -165,8 +166,8 @@ export function buildTokens(input: Apariencia): Tokens {
     light['shadow-card'] = '0 0 #0000';
     dark['shadow-card'] = '0 0 #0000';
   } else {
-    light['shadow-card'] = `0 1px 2px rgb(${sTrip} / 0.06), 0 6px 20px -10px rgb(${sTrip} / 0.16)`;
-    dark['shadow-card'] = '0 0 #0000';
+    light['shadow-card'] = `0 0 0 1px rgb(${triplet(lFg)} / 0.05), 0 1px 2px rgb(0 0 0 / 0.04)`;
+    dark['shadow-card'] = `0 0 0 1px rgb(${triplet(dFg)} / 0.06)`;
   }
   light['shadow-pop'] = `0 24px 48px -16px rgb(${triplet(lFg)} / 0.28)`;
   dark['shadow-pop'] = '0 24px 48px -16px rgb(0 0 0 / 0.6)';

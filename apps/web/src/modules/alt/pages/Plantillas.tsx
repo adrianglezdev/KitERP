@@ -34,7 +34,7 @@ export default function Plantillas() {
             {(data ?? []).map((p) => (
               <li key={p.id}>
                 <button type="button" onClick={() => setSel(p)} className={cn('w-full px-4 py-3 text-left hover:bg-sunken', sel?.id === p.id && 'bg-primary-soft')}>
-                  <span className="block text-[13.5px] font-medium">{p.nombre}</span>
+                  <span className="block text-[14px] font-medium">{p.nombre}</span>
                   <span className="text-[12px] text-muted">
                     {p.tipo === 'alta' ? 'Incorporación' : 'Salida'} · {p.tareas.length} tareas
                   </span>

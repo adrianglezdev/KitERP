@@ -51,7 +51,7 @@ export function FieldControl({ name, def, value, onChange, error, refLabel }: { 
       return (
         <Textarea
           id={id}
-          className="font-mono text-[12.5px]"
+          className="font-mono text-[13px]"
           value={typeof value === 'string' ? value : JSON.stringify(value ?? null, null, 2)}
           onChange={(e) => {
             try {

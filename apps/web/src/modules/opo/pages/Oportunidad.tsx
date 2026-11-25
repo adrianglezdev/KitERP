@@ -65,7 +65,7 @@ export default function Oportunidad() {
       {o.presupuestoId && (
         <Alert tone="violet" icon={FileSignature}>
           Tiene un presupuesto asociado.{' '}
-          <Link to={`/documentos/${o.presupuestoId}`} className="font-semibold underline">
+          <Link to={`/documentos/${o.presupuestoId}`} className="font-medium underline">
             Abrir presupuesto
           </Link>
         </Alert>
@@ -81,7 +81,7 @@ export default function Oportunidad() {
                 key={e.id}
                 type="button"
                 onClick={() => e.id !== o.etapaId && mover.mutate({ etapaId: e.id })}
-                className={`shrink-0 rounded-pill px-3.5 py-1.5 text-[12.5px] font-bold transition ${e.orden <= (etapa?.orden ?? 0) ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg'}`}
+                className={`shrink-0 rounded-pill px-3.5 py-1.5 text-[13px] font-semibold transition-colors ${e.orden <= (etapa?.orden ?? 0) ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg'}`}
               >
                 {e.nombre}
               </button>
@@ -99,8 +99,8 @@ export default function Oportunidad() {
           />
         </div>
         <Card className="h-fit p-4">
-          <p className="text-[12.5px] text-muted">Importe estimado</p>
-          <p className="tabular font-display text-[26px] font-semibold">{o.importe ? fmtMoney(o.importe) : '—'}</p>
+          <p className="text-[13px] text-muted">Importe estimado</p>
+          <p className="tabular font-display text-[28px] font-medium">{o.importe ? fmtMoney(o.importe) : '—'}</p>
           <p className="mt-2 text-[13px] text-muted">
             Probabilidad {o.probabilidad ?? etapa?.probabilidad ?? 0} % · cierre previsto {o.cierrePrevisto ? fmtDate(o.cierrePrevisto) : 'sin fecha'}
           </p>

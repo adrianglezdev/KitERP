@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { fmtNumber } from '@kite/shared';
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/lib/hooks';
@@ -80,8 +81,8 @@ export function DataTable<T extends { id?: string }>({
                 <input type="checkbox" className="h-4 w-4 accent-[rgb(var(--primary))]" checked={selected?.has(r.id) ?? false} onChange={(e) => onSelect?.(r.id!, e.target.checked)} onClick={(e) => e.stopPropagation()} />
               )}
               <div className="min-w-0 flex-1">
-                <div className="truncate text-[14.5px] font-bold">{title}</div>
-                {mobileSubtitle && <div className="mt-0.5 truncate text-[12.5px] text-muted">{mobileSubtitle(r)}</div>}
+                <div className="truncate text-[14px] font-semibold">{title}</div>
+                {mobileSubtitle && <div className="mt-0.5 truncate text-[13px] text-muted">{mobileSubtitle(r)}</div>}
               </div>
               {mobileRight && <div className="shrink-0 text-right">{mobileRight(r)}</div>}
             </div>
@@ -110,12 +111,12 @@ export function DataTable<T extends { id?: string }>({
   const hide = (c: Column<T>) => cn(c.hideBelow === 'md' && 'hidden md:table-cell', c.hideBelow === 'lg' && 'hidden lg:table-cell', c.hideBelow === 'xl' && 'hidden xl:table-cell');
   return (
     <div className="scroll-thin overflow-x-auto px-2 pb-2">
-      <table className="w-full border-separate border-spacing-0 text-[13.5px]">
+      <table className="w-full border-separate border-spacing-0 text-[14px]">
         <thead>
           <tr className="text-left text-[12px] text-muted">
             {selectable && <th className="w-10 px-3 py-2.5" />}
             {columns.map((c) => (
-              <th key={c.key} className={cn('whitespace-nowrap px-3 py-2.5 font-bold', c.align === 'right' && 'text-right', c.align === 'center' && 'text-center', hide(c))} style={{ width: c.width }}>
+              <th key={c.key} className={cn('whitespace-nowrap px-3 py-2.5 font-semibold', c.align === 'right' && 'text-right', c.align === 'center' && 'text-center', hide(c))} style={{ width: c.width }}>
                 {c.sortable && onSort ? (
                   <button type="button" onClick={() => onSort(c.key)} className={cn('inline-flex items-center gap-1 hover:text-fg', sort?.field === c.key && 'text-fg')}>
                     {c.header}
@@ -137,7 +138,7 @@ export function DataTable<T extends { id?: string }>({
                 if (rowHref && (e.metaKey || e.ctrlKey)) window.open(rowHref(r), '_blank');
                 else click(r);
               }}
-              className={cn('group/row transition', (onRowClick || rowHref) && 'cursor-pointer', selected?.has(r.id ?? '') && '[&>td]:bg-primary-soft/50')}
+              className={cn('group/row transition-colors', (onRowClick || rowHref) && 'cursor-pointer', selected?.has(r.id ?? '') && '[&>td]:bg-primary-soft/50')}
             >
               {selectable && (
                 <td className={cn(TD, 'px-3')} data-no-row>
@@ -168,13 +169,13 @@ export function DataTable<T extends { id?: string }>({
 
 export function Pagination({ page, pageSize, total, onPage }: { page: number; pageSize: number; total: number; onPage: (p: number) => void }) {
   const pages = Math.max(1, Math.ceil(total / pageSize));
-  if (total <= pageSize) return total ? <p className="px-5 pb-4 pt-2 text-[12.5px] font-medium text-muted">{total} {total === 1 ? 'resultado' : 'resultados'}</p> : null;
+  if (total <= pageSize) return total ? <p className="px-5 pb-4 pt-2 text-[13px] font-medium text-muted">{total} {total === 1 ? 'resultado' : 'resultados'}</p> : null;
   const from = (page - 1) * pageSize + 1;
   const to = Math.min(total, page * pageSize);
   return (
     <div className="flex items-center justify-between gap-3 px-5 py-3 text-[13px] font-medium text-muted">
       <span className="tabular">
-        {from.toLocaleString('es-ES')}–{to.toLocaleString('es-ES')} de {total.toLocaleString('es-ES')}
+        {fmtNumber(from, 0)}–{fmtNumber(to, 0)} de {fmtNumber(total, 0)}
       </span>
       <div className="flex items-center gap-1">
         <button type="button" disabled={page <= 1} onClick={() => onPage(page - 1)} className="flex h-8 w-8 items-center justify-center rounded-pill bg-sunken text-fg hover:bg-line-strong/70 disabled:opacity-30" aria-label="Página anterior">

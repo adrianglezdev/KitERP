@@ -26,10 +26,10 @@ export default function Pendientes() {
             {data.map((d) => (
               <li key={d.versionId} className="flex flex-wrap items-center gap-3 px-4 py-3">
                 <div className="min-w-0 flex-1">
-                  <Link to={`/dtc/documentos/${d.id}`} className="block truncate text-[14px] font-semibold hover:text-primary">
+                  <Link to={`/dtc/documentos/${d.id}`} className="block truncate text-[14px] font-medium hover:text-primary">
                     {d.titulo}
                   </Link>
-                  <p className="flex flex-wrap items-center gap-1.5 text-[12.5px] text-muted">
+                  <p className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted">
                     {d.codigo} · <EnumBadge options={dtcShared.DTC_TIPOS} value={d.tipo} dot={false} /> · versión {d.version}
                     {d.aprobadoEn && ` · publicada el ${fmtDate(d.aprobadoEn)}`}
                   </p>

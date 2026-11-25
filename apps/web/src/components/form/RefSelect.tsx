@@ -38,7 +38,7 @@ export function RefSelect({
   target,
   value,
   onChange,
-  placeholder = 'Buscar…',
+  placeholder = 'Buscar',
   filter,
   label: knownLabel,
   disabled,
@@ -121,7 +121,7 @@ export function RefSelect({
                     setOpen(false);
                     setQ('');
                   }}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-[13.5px] data-[selected=true]:bg-sunken"
+                  className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-[14px] data-[selected=true]:bg-sunken"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="truncate">{o.label}</div>
@@ -151,7 +151,7 @@ export function RefMultiSelect({ target, value, onChange, placeholder, filter }:
       {value.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {value.map((id) => (
-            <span key={id} className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-2.5 py-1 text-[12.5px] text-primary">
+            <span key={id} className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-2.5 py-1 text-[13px] text-primary">
               {labels.data?.find((l) => l.id === id)?.label ?? '…'}
               <button type="button" onClick={() => onChange(value.filter((v) => v !== id))} aria-label="Quitar" className="hover:text-fg">
                 <X className="h-3 w-3" />

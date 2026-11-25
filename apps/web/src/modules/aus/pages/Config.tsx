@@ -22,9 +22,9 @@ export default function Config() {
         }
       />
       <Alert tone="violet">El calendario laboral (festivos nacionales, autonómicos y locales) está en Configuración → Calendario laboral y lo usan a la vez las ausencias y el control horario.</Alert>
-      <ResourceList def={ausShared.tipoAusenciaResource} endpoint="/aus/tipos" createPerm="aus.gestionar" title={<h2 className="text-[16px] font-bold">Tipos de ausencia</h2>} />
-      <ResourceList def={ausShared.saldoResource} endpoint="/aus/saldos" createPerm="aus.gestionar" title={<h2 className="text-[16px] font-bold">Saldos por persona</h2>} />
-      <ResourceList def={ausShared.minimoResource} endpoint="/aus/minimos" createPerm="aus.gestionar" title={<h2 className="text-[16px] font-bold">Mínimo de personas por departamento</h2>} />
+      <ResourceList def={ausShared.tipoAusenciaResource} endpoint="/aus/tipos" createPerm="aus.gestionar" title={<h2 className="text-[16px] font-semibold">Tipos de ausencia</h2>} />
+      <ResourceList def={ausShared.saldoResource} endpoint="/aus/saldos" createPerm="aus.gestionar" title={<h2 className="text-[16px] font-semibold">Saldos por persona</h2>} />
+      <ResourceList def={ausShared.minimoResource} endpoint="/aus/minimos" createPerm="aus.gestionar" title={<h2 className="text-[16px] font-semibold">Mínimo de personas por departamento</h2>} />
     </div>
   );
 }

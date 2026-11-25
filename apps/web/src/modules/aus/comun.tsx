@@ -16,9 +16,9 @@ export function SaldoCard({ s }: { s: SaldoResumen }) {
     <Card className="p-4">
       <div className="flex items-center gap-2">
         <span className="h-3 w-3 rounded-full" style={{ background: s.color }} />
-        <p className="text-[13px] font-semibold">{s.tipo}</p>
+        <p className="text-[13px] font-medium">{s.tipo}</p>
       </div>
-      <p className="tabular mt-1 font-display text-[28px] font-semibold">
+      <p className="tabular mt-1 font-display text-[28px] font-medium">
         {fmtNumber(s.disponibles, 1)} <span className="text-[14px] font-medium text-muted">días disponibles</span>
       </p>
       <ProgressBar value={s.disfrutados + s.pendientes} max={total || 1} tone="green" />
@@ -94,8 +94,8 @@ export function SolicitudDialog({ open, onOpenChange, personaId }: { open: boole
         )}
         {prev.isError && <Alert tone="red">{String((prev.error as Error)?.message)}</Alert>}
         {p && (
-          <div className={cn('rounded-xl p-3 text-[13.5px]', p.dias > 0 ? 'bg-sunken' : 'bg-bad-soft')}>
-            <p className="font-semibold">
+          <div className={cn('rounded-xl p-3 text-[14px]', p.dias > 0 ? 'bg-sunken' : 'bg-bad-soft')}>
+            <p className="font-medium">
               {fmtNumber(p.dias, 1)} {p.unidad === 'naturales' ? 'días naturales' : 'días laborables'}
             </p>
             {p.saldo && (

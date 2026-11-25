@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CalendarClock, Check, Fuel, Pencil, Plus, Truck, UserCheck, UserX, Wrench, X } from 'lucide-react';
-import { fmtDate, fmtMoney, optionLabel } from '@kite/shared';
+import { fmtDate, fmtMoney, optionLabel, fmtNumber } from '@kite/shared';
 import { api } from '@/lib/api';
 import { useApi, useMut } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
@@ -61,7 +61,7 @@ export default function ActivoDetalle() {
         <Stat label="Asignado a" value={a.asignadoId ? <Link to={`/personas/${a.asignadoId}`} className="hover:text-primary">{refs.personas?.[a.asignadoId] ?? '—'}</Link> : 'Nadie'} tone="violet" />
         <Stat label="Coste último año" value={r ? fmtMoney(r.costes.ultimoAnio) : '…'} tone="yellow" />
         {a.tipo === 'vehiculo' ? (
-          <Stat label="Coste por km" value={r?.costes.costeKm != null ? `${r.costes.costeKm.toLocaleString('es-ES')} €` : '—'} hint={r?.costes.consumo100 ? `${r.costes.consumo100} l/100 km` : undefined} tone="green" />
+          <Stat label="Coste por km" value={r?.costes.costeKm != null ? `${fmtNumber(r.costes.costeKm)} €` : '—'} hint={r?.costes.consumo100 ? `${r.costes.consumo100} l/100 km` : undefined} tone="green" />
         ) : (
           <Stat label="Coste total" value={r ? fmtMoney(r.costes.total) : '…'} tone="green" />
         )}
@@ -85,7 +85,7 @@ export default function ActivoDetalle() {
             <KeyValue
               items={[
                 { label: 'Nº serie / bastidor', value: a.numeroSerie },
-                { label: 'Kilómetros', value: a.km ? a.km.toLocaleString('es-ES') : null },
+                { label: 'Kilómetros', value: a.km ? fmtNumber(a.km, 0) : null },
                 { label: 'Centro', value: refs.centros?.[a.centroId] },
                 { label: 'Proyecto', value: a.proyectoId && has('pry') ? <Link to={`/proyectos/${a.proyectoId}`} className="text-primary hover:underline">{refs.proyectos?.[a.proyectoId] ?? 'Ver'}</Link> : null },
                 { label: 'Proveedor', value: refs.proveedores?.[a.proveedorId] },
@@ -129,7 +129,7 @@ function Vencimientos({ activo, gestiona }: { activo: any; gestiona: boolean }) 
       <CardHeader title="ITV, seguros, revisiones…" icon={CalendarClock} actions={gestiona && <Button size="sm" icon={Plus} onClick={() => setNuevo(true)}>Añadir</Button>} />
       <ul className="divide-y divide-line">
         {(data ?? []).map((v) => (
-          <li key={v.id} className="flex flex-wrap items-center gap-3 px-4 py-2.5 text-[13.5px]">
+          <li key={v.id} className="flex flex-wrap items-center gap-3 px-4 py-2.5 text-[14px]">
             <span className="min-w-0 flex-1">
               <span className="block font-medium">{v.descripcion || optionLabel(VENCIMIENTO_TIPOS, v.tipo)?.label}</span>
               <span className="text-[12px] text-muted">
@@ -172,7 +172,7 @@ function Registros({ activo }: { activo: any }) {
           { key: 'fecha', header: 'Fecha', cell: (r: any) => fmtDate(r.fecha), width: '100px' },
           { key: 'tipo', header: 'Tipo', cell: (r: any) => <EnumBadge options={REGISTRO_TIPOS} value={r.tipo} dot={false} /> },
           { key: 'desc', header: 'Descripción', cell: (r: any) => <span className="line-clamp-1">{r.descripcion ?? r.proveedor ?? ''}</span>, hideBelow: 'md' },
-          { key: 'km', header: 'Km', align: 'right', cell: (r: any) => (r.km ? r.km.toLocaleString('es-ES') : ''), hideBelow: 'md' },
+          { key: 'km', header: 'Km', align: 'right', cell: (r: any) => (r.km ? fmtNumber(r.km, 0) : ''), hideBelow: 'md' },
           { key: 'litros', header: 'Litros', align: 'right', cell: (r: any) => (r.litros ? Number(r.litros) : ''), hideBelow: 'lg' },
           { key: 'coste', header: 'Coste', align: 'right', cell: (r: any) => (r.coste ? fmtMoney(r.coste) : '') },
           { key: 'f', header: '', width: '60px', cell: (r: any) => (r.archivoUrl ? <a href={r.archivoUrl} target="_blank" rel="noreferrer" className="text-[12px] text-primary">Factura</a> : null) },
@@ -207,7 +207,7 @@ function Asignaciones({ activo }: { activo: any }) {
       <CardHeader title="Historial de entregas" icon={UserCheck} subtitle="Quién lo ha tenido, cuándo, con qué kilómetros y su firma." />
       <ul className="divide-y divide-line">
         {(data ?? []).map((x) => (
-          <li key={x.id} className="flex flex-wrap items-center gap-3 px-4 py-2.5 text-[13.5px]">
+          <li key={x.id} className="flex flex-wrap items-center gap-3 px-4 py-2.5 text-[14px]">
             <span className="min-w-0 flex-1">
               <span className="block font-medium">{x.persona}</span>
               <span className="text-[12px] text-muted">
@@ -216,12 +216,12 @@ function Asignaciones({ activo }: { activo: any }) {
               </span>
             </span>
             {x.firmaEntrega && (
-              <button type="button" className="text-[12px] font-semibold text-primary" onClick={() => verFirma(x.id, 'entrega')}>
+              <button type="button" className="text-[12px] font-medium text-primary" onClick={() => verFirma(x.id, 'entrega')}>
                 Firma entrega
               </button>
             )}
             {x.firmaDevolucion && (
-              <button type="button" className="text-[12px] font-semibold text-primary" onClick={() => verFirma(x.id, 'devolucion')}>
+              <button type="button" className="text-[12px] font-medium text-primary" onClick={() => verFirma(x.id, 'devolucion')}>
                 Firma devolución
               </button>
             )}

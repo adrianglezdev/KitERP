@@ -27,9 +27,9 @@ export default function Actividades() {
                 {agenda.data.map((a) => (
                   <li key={a.id}>
                     <Link to={`/terceros/${a.terceroId}?tab=crm-actividad`} className="flex items-start gap-3 px-4 py-2.5 hover:bg-sunken">
-                      <span className={cn('mt-0.5 shrink-0 rounded-pill px-2 py-0.5 text-[11.5px] font-bold', a.proximaFecha < hoy ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>{fmtDate(a.proximaFecha).slice(0, 5)}</span>
+                      <span className={cn('mt-0.5 shrink-0 rounded-pill px-2 py-0.5 text-[12px] font-semibold', a.proximaFecha < hoy ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>{fmtDate(a.proximaFecha).slice(0, 5)}</span>
                       <span className="min-w-0">
-                        <span className="block truncate text-[13.5px] font-medium">{a.proximaAccion ?? a.asunto}</span>
+                        <span className="block truncate text-[14px] font-medium">{a.proximaAccion ?? a.asunto}</span>
                         <span className="block truncate text-[12px] text-muted">
                           {a.tercero} · {a.responsable}
                         </span>
@@ -49,7 +49,7 @@ export default function Actividades() {
                 {sinContacto.data.slice(0, 12).map((t) => (
                   <li key={t.id}>
                     <Link to={`/terceros/${t.id}?tab=crm-actividad`} className="flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-sunken">
-                      <span className="min-w-0 truncate text-[13.5px]">{t.nombre}</span>
+                      <span className="min-w-0 truncate text-[14px]">{t.nombre}</span>
                       <span className="shrink-0 text-[12px] text-muted">{t.ultima ? fmtDate(t.ultima) : 'Nunca'}</span>
                     </Link>
                   </li>

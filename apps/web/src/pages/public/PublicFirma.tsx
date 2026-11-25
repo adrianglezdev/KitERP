@@ -26,14 +26,14 @@ export default function PublicFirma() {
       <div className="space-y-5">
         <div>
           <p className="text-[13px] text-muted">Documento para firmar</p>
-          <h1 className="text-[24px] font-semibold">{f.titulo}</h1>
-          <p className="text-[13.5px] text-muted">Firmante: {f.firmante}</p>
+          <h1 className="text-[24px] font-medium">{f.titulo}</h1>
+          <p className="text-[14px] text-muted">Firmante: {f.firmante}</p>
         </div>
         {f.estado === 'firmado' && (
           <Alert tone="green" icon={CheckCircle2} title="Documento firmado">
             Firmado el {fmtDateTime(f.firmadoEn)}.{' '}
             {f.url && (
-              <a href={f.url} target="_blank" rel="noreferrer" className="font-semibold underline">
+              <a href={f.url} target="_blank" rel="noreferrer" className="font-medium underline">
                 Descargar copia firmada
               </a>
             )}
@@ -45,14 +45,14 @@ export default function PublicFirma() {
             <FileText className="h-6 w-6 text-primary" />
             <span>
               <span className="block font-medium">Leer el documento completo</span>
-              <span className="text-[12.5px] text-muted">Se abre en una pestaña nueva (PDF)</span>
+              <span className="text-[13px] text-muted">Se abre en una pestaña nueva (PDF)</span>
             </span>
           </a>
         )}
         {f.contenido && !f.url && <Card className="whitespace-pre-wrap p-4 text-[14px]">{f.contenido}</Card>}
         {f.estado === 'pendiente' && (
           <Card className="space-y-4 p-4">
-            <h2 className="flex items-center gap-2 text-[17px] font-bold">
+            <h2 className="flex items-center gap-2 text-[18px] font-semibold">
               <PenLine className="h-5 w-5 text-primary" /> Firma
             </h2>
             <SignaturePad onChange={setFirma} />

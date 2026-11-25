@@ -17,7 +17,7 @@ const VARIANTS: Record<Variant, string> = {
 const SIZES: Record<Size, string> = {
   sm: 'h-8 px-3.5 text-[13px] gap-1.5',
   md: 'h-10 px-[18px] text-[14px] gap-2',
-  lg: 'h-12 px-6 text-[15px] gap-2',
+  lg: 'h-12 px-6 text-[16px] gap-2',
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -38,7 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       type={type}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-pill font-bold transition disabled:pointer-events-none disabled:opacity-50',
+        'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-pill font-semibold transition-[color,background-color,transform] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50',
         VARIANTS[variant],
         SIZES[size],
         className,
@@ -56,7 +56,7 @@ export function ButtonLink({ to, variant = 'secondary', size = 'md', icon: Icon,
   return (
     <Link
       to={to}
-      className={cn('inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-pill font-bold transition', VARIANTS[variant], SIZES[size], className)}
+      className={cn('inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-pill font-semibold transition-colors', VARIANTS[variant], SIZES[size], className)}
       {...rest}
     >
       {Icon && <Icon className={size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'} />}
@@ -74,7 +74,7 @@ export const IconButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTM
         aria-label={label}
         title={label}
         className={cn(
-          'inline-flex shrink-0 items-center justify-center rounded-pill transition disabled:opacity-40',
+          'inline-flex shrink-0 items-center justify-center rounded-pill transition-colors disabled:opacity-40',
           size === 'sm' ? 'h-8 w-8' : 'h-9 w-9',
           variant === 'ghost' && 'text-muted hover:bg-sunken hover:text-fg',
           variant === 'secondary' && 'bg-sunken text-fg hover:bg-line-strong/70',

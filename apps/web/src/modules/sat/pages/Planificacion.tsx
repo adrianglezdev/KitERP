@@ -41,7 +41,7 @@ export default function Planificacion() {
       />
       <div className="mb-4 flex items-center gap-2">
         <IconButton icon={ChevronLeft} label="Día anterior" variant="secondary" onClick={() => setDia(sumarDias(dia, -1))} />
-        <span className="w-56 text-center text-[15px] font-semibold capitalize">{diaLargo(dia)}</span>
+        <span className="w-56 text-center text-[16px] font-medium capitalize">{diaLargo(dia)}</span>
         <IconButton icon={ChevronRight} label="Día siguiente" variant="secondary" onClick={() => setDia(sumarDias(dia, 1))} />
         <Button size="sm" variant="ghost" onClick={() => setDia(hoyISO())}>
           Hoy
@@ -58,7 +58,7 @@ export default function Planificacion() {
                 <div key={t.id} className="w-[260px] shrink-0 rounded-xl bg-sunken/70 p-2">
                   <div className="flex items-center gap-2 px-1 pb-2">
                     <Avatar name={t.nombre} size={28} />
-                    <span className="min-w-0 flex-1 truncate text-[13.5px] font-semibold">{t.nombre}</span>
+                    <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{t.nombre}</span>
                     <span className="text-[12px] text-muted">{suyas.length}</span>
                   </div>
                   <div className="space-y-2">
@@ -91,12 +91,12 @@ function OrdenCard({ o, onClick }: { o: Orden; onClick: () => void }) {
   return (
     <button type="button" onClick={onClick} className={cn('block w-full rounded-2xl bg-surface p-2.5 text-left shadow-card hover:bg-sunken/60', o.prioridad === 'urgente' && 'ring-2 ring-inset ring-earth/70')}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[12.5px] font-semibold">{o.planificadaInicio ? hora(o.planificadaInicio) : o.codigo}</span>
+        <span className="text-[13px] font-medium">{o.planificadaInicio ? hora(o.planificadaInicio) : o.codigo}</span>
         <EnumBadge options={ORDEN_ESTADOS} value={o.estado} dot={false} />
       </div>
       <p className="mt-0.5 truncate text-[13px] font-medium">{o.cliente}</p>
       {o.descripcion && <p className="line-clamp-2 text-[12px] text-muted">{o.descripcion}</p>}
-      <div className="mt-1 flex items-center gap-2 text-[11.5px] text-muted">
+      <div className="mt-1 flex items-center gap-2 text-[12px] text-muted">
         {o.localidad && (
           <span className="inline-flex items-center gap-0.5">
             <MapPin className="h-3 w-3" />

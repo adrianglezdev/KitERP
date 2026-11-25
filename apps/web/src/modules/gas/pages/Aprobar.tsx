@@ -47,11 +47,11 @@ export default function Aprobar() {
               { key: 'concepto', header: 'Concepto', cell: (g: any) => <span className="line-clamp-1">{g.comercio || g.concepto}</span> },
               { key: 'tipo', header: 'Tipo', cell: (g: any) => optionLabel(GASTO_CATEGORIAS, g.categoria)?.label ?? optionLabel(GASTO_TIPOS, g.tipo)?.label, hideBelow: 'md' },
               { key: 'ticket', header: 'Ticket', cell: (g: any) => (g.archivoId ? 'Sí' : <span className="text-warn">Sin ticket</span>), hideBelow: 'lg' },
-              { key: 'total', header: 'Importe', align: 'right', cell: (g: any) => <span className="font-semibold tabular-nums">{fmtMoney(g.total)}</span> },
+              { key: 'total', header: 'Importe', align: 'right', cell: (g: any) => <span className="font-medium tabular-nums">{fmtMoney(g.total)}</span> },
             ]}
             mobileTitle={(g: any) => `${g.persona} · ${g.comercio || g.concepto}`}
             mobileSubtitle={(g: any) => fmtDate(g.fecha)}
-            mobileRight={(g: any) => <span className="font-semibold">{fmtMoney(g.total)}</span>}
+            mobileRight={(g: any) => <span className="font-medium">{fmtMoney(g.total)}</span>}
           />
         )}
       </Card>

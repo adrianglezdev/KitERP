@@ -34,15 +34,15 @@ function Preparacion() {
           {data.map((p) => {
             const tarde = !!p.fechaEntrega && p.fechaEntrega < hoy;
             return (
-              <Link key={p.id} to={`/documentos/${p.id}`} className="rounded-2xl bg-surface p-4 shadow-card transition hover:bg-sunken/60">
+              <Link key={p.id} to={`/documentos/${p.id}`} className="rounded-2xl bg-surface p-4 shadow-card transition-colors hover:bg-sunken/60">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="truncate font-display text-[16px] font-bold">{p.tercero}</p>
-                    <p className="text-[12.5px] text-muted">{p.codigo}</p>
+                    <p className="truncate font-display text-[16px] font-semibold">{p.tercero}</p>
+                    <p className="text-[13px] text-muted">{p.codigo}</p>
                   </div>
                   <EnumBadge options={DOC_ESTADOS.pedido} value={p.estado} />
                 </div>
-                <p className={cn('mt-3 inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[12.5px] font-bold', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
+                <p className={cn('mt-3 inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[13px] font-semibold', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
                   <CalendarClock className="h-3.5 w-3.5" />
                   {p.fechaEntrega ? `${tarde ? 'Retrasado, debía entregarse el' : 'Entrega el'} ${fmtDate(p.fechaEntrega)}` : 'Sin fecha de entrega'}
                 </p>

@@ -109,7 +109,7 @@ export default function Vencimientos({ circuito }: { circuito: 'cobro' | 'pago' 
             data?.total ? (
               <div className="flex justify-between px-4 py-2 text-[13px]">
                 <span className="text-muted">{data.total} vencimientos</span>
-                <span className="font-semibold">Pendiente {fmtMoney(data.sumaPendiente)}</span>
+                <span className="font-medium">Pendiente {fmtMoney(data.sumaPendiente)}</span>
               </div>
             ) : null
           }

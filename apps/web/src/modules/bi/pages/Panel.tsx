@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart3, TrendingDown, TrendingUp } from 'lucide-react';
-import { fmtMoney } from '@kite/shared';
+import { fmtMoney, fmtNumber } from '@kite/shared';
 import { useApi } from '@/lib/hooks';
 import { useSession } from '@/lib/session';
 import { cn } from '@/lib/utils';
@@ -71,7 +71,7 @@ export default function Panel() {
           )}
           <div className="grid gap-5 lg:grid-cols-2">
             {d.topClientes && <Top titulo="Mejores clientes" filas={d.topClientes.map((x: any) => ({ k: x.id, a: x.nombre, b: `${x.facturas} facturas`, v: x.importe, to: `/terceros/${x.id}` }))} />}
-            {d.topArticulos && <Top titulo="Artículos más vendidos" filas={d.topArticulos.map((x: any) => ({ k: x.id, a: `${x.referencia} · ${x.nombre}`, b: `${x.cantidad.toLocaleString('es-ES')} uds`, v: x.importe, to: `/catalogo/${x.id}` }))} />}
+            {d.topArticulos && <Top titulo="Artículos más vendidos" filas={d.topArticulos.map((x: any) => ({ k: x.id, a: `${x.referencia} · ${x.nombre}`, b: `${fmtNumber(x.cantidad)} uds`, v: x.importe, to: `/catalogo/${x.id}` }))} />}
             {d.topComerciales && d.topComerciales.length > 1 && <Top titulo="Por comercial" filas={d.topComerciales.map((x: any) => ({ k: x.id ?? x.nombre, a: x.nombre ?? 'Sin comercial', b: x.margen != null ? `margen ${fmtMoney(x.margen)}` : `${x.facturas} facturas`, v: x.importe }))} />}
             {d.cobros && (
               <Card className="p-4">
@@ -86,8 +86,8 @@ export default function Panel() {
                 <div className="grid grid-cols-4 gap-2 text-center">
                   {d.presupuestos.embudo.map((e: any, i: number) => (
                     <div key={e.etapa} className="rounded-xl bg-sunken py-2" style={{ opacity: 1 - i * 0.12 }}>
-                      <p className="font-display text-[20px] font-bold">{e.n}</p>
-                      <p className="text-[11.5px] text-muted">{e.etapa}</p>
+                      <p className="font-display text-[20px] font-semibold">{e.n}</p>
+                      <p className="text-[12px] text-muted">{e.etapa}</p>
                     </div>
                   ))}
                 </div>
@@ -100,7 +100,7 @@ export default function Panel() {
             {d.cartera && (
               <Card className="p-4">
                 <CardHeader title="Cartera de pedidos" className="!px-0 !pt-0" />
-                <p className="font-display text-[26px] font-bold">{fmtMoney(d.cartera.importe)}</p>
+                <p className="font-display text-[28px] font-semibold">{fmtMoney(d.cartera.importe)}</p>
                 <p className="text-[13px] text-muted">{d.cartera.pedidos} pedidos pendientes de servir</p>
               </Card>
             )}
@@ -122,14 +122,14 @@ function Top({ titulo, filas }: { titulo: string; filas: { k: string; a: string;
           const inner = (
             <>
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-[13.5px] font-medium">{f.a}</span>
+                <span className="block truncate text-[14px] font-medium">{f.a}</span>
                 <span className="mt-1 block h-1.5 rounded-full bg-sunken">
                   <span className="block h-1.5 rounded-full bg-primary" style={{ width: `${(f.v / max) * 100}%` }} />
                 </span>
               </span>
               <span className="text-right">
-                <span className="block font-semibold tabular-nums">{fmtMoney(f.v)}</span>
-                <span className="text-[11.5px] text-muted">{f.b}</span>
+                <span className="block font-medium tabular-nums">{fmtMoney(f.v)}</span>
+                <span className="text-[12px] text-muted">{f.b}</span>
               </span>
             </>
           );

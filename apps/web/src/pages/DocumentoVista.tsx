@@ -232,9 +232,9 @@ export default function DocumentoVista() {
           <Card className="overflow-hidden">
             <CardHeader title="Líneas" icon={FileText} />
             <div className="scroll-thin overflow-x-auto">
-              <table className="w-full text-[13.5px]">
+              <table className="w-full text-[14px]">
                 <thead>
-                  <tr className="border-b border-line text-left text-[12px] font-bold text-muted">
+                  <tr className="border-b border-line text-left text-[12px] font-semibold text-muted">
                     <th className="px-4 py-2 font-medium">Descripción</th>
                     <th className="px-3 py-2 text-right font-medium">Cant.</th>
                     <th className="hidden px-3 py-2 text-right font-medium sm:table-cell">Precio</th>
@@ -247,7 +247,7 @@ export default function DocumentoVista() {
                   {d.lineas.map((l: any) =>
                     l.tipoLinea !== 'articulo' ? (
                       <tr key={l.id} className="border-b border-line/60">
-                        <td colSpan={6} className={cn('px-4 py-2', l.tipoLinea === 'capitulo' ? 'font-semibold text-primary' : 'text-muted')}>
+                        <td colSpan={6} className={cn('px-4 py-2', l.tipoLinea === 'capitulo' ? 'font-medium text-primary' : 'text-muted')}>
                           {l.descripcion}
                         </td>
                       </tr>
@@ -264,7 +264,7 @@ export default function DocumentoVista() {
                           )}
                         </td>
                         <td className="tabular px-3 py-2.5 text-right">
-                          {fmtNumber(l.cantidad, 3)} <span className="text-[11.5px] text-muted">{l.unidad}</span>
+                          {fmtNumber(l.cantidad, 3)} <span className="text-[12px] text-muted">{l.unidad}</span>
                         </td>
                         <td className="tabular hidden px-3 py-2.5 text-right sm:table-cell">{fmtMoney(l.precio)}</td>
                         <td className="tabular hidden px-3 py-2.5 text-right md:table-cell">{l.descuento ? `${fmtNumber(l.descuento)} %` : ''}</td>
@@ -288,7 +288,7 @@ export default function DocumentoVista() {
 
         <div className="space-y-5">
           <Card>
-            <div className="space-y-1.5 p-4 text-[13.5px]">
+            <div className="space-y-1.5 p-4 text-[14px]">
               {d.descuentoGlobal > 0 && (
                 <div className="flex justify-between text-muted">
                   <span>Descuento {fmtNumber(d.descuentoGlobal)} %</span>
@@ -311,12 +311,12 @@ export default function DocumentoVista() {
                   <span className="tabular">-{fmtMoney(d.totalRetencion)}</span>
                 </div>
               )}
-              <div className="flex justify-between border-t border-line pt-2 font-display text-[22px] font-semibold">
+              <div className="flex justify-between border-t border-line pt-2 font-display text-[24px] font-medium">
                 <span>Total</span>
                 <span className="tabular">{fmtMoney(d.total)}</span>
               </div>
               {d.margen !== null && d.coste > 0 && !compra && (
-                <p className="text-[12.5px] text-muted">
+                <p className="text-[13px] text-muted">
                   Margen {fmtMoney(d.margen)} ({d.baseImponible ? fmtNumber((d.margen / d.baseImponible) * 100, 1) : 0} %)
                 </p>
               )}
@@ -350,7 +350,7 @@ export default function DocumentoVista() {
                   <li key={x.id}>
                     <Link to={`/documentos/${x.id}`} className="flex items-center gap-2 px-4 py-2.5 hover:bg-sunken">
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[13.5px] font-medium">
+                        <span className="block truncate text-[14px] font-medium">
                           {tipoLabel(x.tipo)} {x.codigo ?? '(borrador)'}
                         </span>
                         <span className="text-[12px] text-muted">
@@ -363,7 +363,7 @@ export default function DocumentoVista() {
                 ))}
                 {d.relacionados.versiones.map((v: any) => (
                   <li key={v.id}>
-                    <Link to={`/documentos/${v.id}`} className={cn('flex items-center justify-between px-4 py-2 text-[13px] hover:bg-sunken', v.id === d.id && 'font-semibold')}>
+                    <Link to={`/documentos/${v.id}`} className={cn('flex items-center justify-between px-4 py-2 text-[13px] hover:bg-sunken', v.id === d.id && 'font-medium')}>
                       <span>Versión {v.version}</span>
                       <EnumBadge options={DOC_ESTADOS.presupuesto} value={v.estado} dot={false} />
                     </Link>
@@ -375,7 +375,7 @@ export default function DocumentoVista() {
           {d.verifactu && (
             <Card>
               <CardHeader title="Verifactu" icon={ShieldCheck} subtitle={`Registro nº ${d.verifactu.secuencia}`} />
-              <div className="space-y-2 p-4 text-[12.5px]">
+              <div className="space-y-2 p-4 text-[13px]">
                 <p className="break-all font-mono text-muted">{d.verifactu.huella}</p>
                 <p>
                   Estado del envío: <Badge tone={d.verifactu.estadoEnvio === 'aceptado' ? 'green' : 'yellow'}>{d.verifactu.estadoEnvio === 'sin_certificado' ? 'pendiente de certificado' : d.verifactu.estadoEnvio}</Badge>
@@ -505,7 +505,7 @@ function ConvertirDialog({ doc, destino, onClose }: { doc: any; destino: string;
           return (
             <li key={l.id} className="flex items-center gap-3 py-2.5">
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[13.5px]">{l.descripcion}</p>
+                <p className="truncate text-[14px]">{l.descripcion}</p>
                 <p className="text-[12px] text-muted">
                   Pendiente {fmtNumber(pend, 3)} de {fmtNumber(l.cantidad, 3)}
                 </p>

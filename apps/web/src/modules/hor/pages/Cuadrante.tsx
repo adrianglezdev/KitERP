@@ -70,7 +70,7 @@ export default function Cuadrante() {
       />
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <IconButton icon={ChevronLeft} label="Semana anterior" variant="secondary" onClick={() => data && setDesde(sumar(data.desde, -7))} />
-        <span className="text-[13.5px] font-medium">{data ? `${data.desde.split('-').reverse().join('/')} – ${data.hasta.split('-').reverse().join('/')}` : ''}</span>
+        <span className="text-[14px] font-medium">{data ? `${data.desde.split('-').reverse().join('/')} – ${data.hasta.split('-').reverse().join('/')}` : ''}</span>
         <IconButton icon={ChevronRight} label="Semana siguiente" variant="secondary" onClick={() => data && setDesde(sumar(data.desde, 7))} />
         <Button size="sm" variant="ghost" onClick={() => setDesde(undefined)}>
           Hoy
@@ -91,7 +91,7 @@ export default function Cuadrante() {
         <Spinner />
       ) : (
         <Card className="scroll-thin overflow-x-auto">
-          <table className="w-full min-w-[900px] border-collapse text-[12.5px]">
+          <table className="w-full min-w-[900px] border-collapse text-[13px]">
             <thead>
               <tr>
                 <th className="sticky left-0 z-10 bg-surface px-3 py-2 text-left font-medium text-muted">Persona</th>
@@ -126,7 +126,7 @@ export default function Cuadrante() {
                           disabled={!data.editable}
                           onClick={() => ciclar(f.persona.id, c)}
                           title={[t?.nombre ?? 'Libre', c.festivo, c.ausencia?.tipo].filter(Boolean).join(' · ')}
-                          className={cn('flex h-9 w-full min-w-[44px] items-center justify-center rounded-md text-[11px] font-semibold transition', ch && 'ring-2 ring-primary', data.editable && 'hover:opacity-80', !t && 'bg-sunken text-muted')}
+                          className={cn('flex h-9 w-full min-w-[44px] items-center justify-center rounded-md text-[11px] font-medium transition-[opacity,box-shadow]', ch && 'ring-2 ring-primary', data.editable && 'hover:opacity-80', !t && 'bg-sunken text-muted')}
                           style={t ? { background: `${t.color}26`, color: t.color } : undefined}
                         >
                           {c.ausencia ? <span style={{ color: c.ausencia.color }}>{c.ausencia.tipo.slice(0, 3)}</span> : c.festivo ? 'Fest.' : t ? t.nombre.slice(0, 3) : '—'}

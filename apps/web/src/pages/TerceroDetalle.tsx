@@ -24,7 +24,7 @@ function Direcciones({ id, canEdit }: { id: string; canEdit: boolean }) {
         {data?.map((d) => (
           <li key={d.id} className="flex items-start gap-3 rounded-xl border border-line-strong/70 p-3">
             <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-            <div className="min-w-0 flex-1 text-[13.5px]">
+            <div className="min-w-0 flex-1 text-[14px]">
               <p className="font-medium">{d.nombre}</p>
               <p className="text-muted">{[d.direccion, d.codigoPostal, d.localidad, d.provincia].filter(Boolean).join(', ')}</p>
             </div>
@@ -100,17 +100,17 @@ export default function TerceroDetalle() {
       />
       <div className="flex flex-wrap gap-2">
         {t.telefono && (
-          <a href={`tel:${t.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-semibold shadow-card transition hover:text-primary">
+          <a href={`tel:${t.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
             <Phone className="h-4 w-4 text-primary" /> {t.telefono}
           </a>
         )}
         {t.email && (
-          <a href={`mailto:${t.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-semibold shadow-card transition hover:text-primary">
+          <a href={`mailto:${t.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
             <Mail className="h-4 w-4 text-primary" /> {t.email}
           </a>
         )}
         {t.direccion && (
-          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([t.direccion, t.codigoPostal, t.localidad].filter(Boolean).join(' '))}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-semibold shadow-card transition hover:text-primary">
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([t.direccion, t.codigoPostal, t.localidad].filter(Boolean).join(' '))}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
             <MapPin className="h-4 w-4 text-primary" /> {[t.direccion, t.localidad].filter(Boolean).join(', ')}
           </a>
         )}
@@ -122,8 +122,8 @@ export default function TerceroDetalle() {
           {t.esProveedor && <Stat label={`Comprado ${new Date().getFullYear()}`} value={fmtMoney(r.compradoAnio)} tone="brown" />}
           {r.riesgoMax ? (
             <div className="rounded-2xl bg-surface p-4 shadow-card">
-              <p className="text-[12.5px] text-muted">Riesgo usado</p>
-              <p className="tabular font-display text-[22px] font-bold">{Math.round(riesgoUso)} %</p>
+              <p className="text-[13px] text-muted">Riesgo usado</p>
+              <p className="tabular font-display text-[24px] font-semibold">{Math.round(riesgoUso)} %</p>
               <ProgressBar value={riesgoUso} tone={riesgoUso > 90 ? 'red' : riesgoUso > 70 ? 'yellow' : 'green'} />
               <p className="mt-1 text-[12px] text-muted">Máximo {fmtMoney(r.riesgoMax)}</p>
             </div>

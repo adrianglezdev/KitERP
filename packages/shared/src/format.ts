@@ -1,16 +1,19 @@
 /** Formateo común (es-ES) para la web, los PDF y los emails. */
-const eur = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
-const num = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 });
+// En español los números de cuatro cifras no llevan separador de miles por defecto («7908,00 €»
+// junto a «10.712,00 €»). Se fuerza para que todas las cifras de una pantalla se lean igual.
+const G = { useGrouping: 'always' } as unknown as Intl.NumberFormatOptions;
+const eur = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', ...G });
+const num = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2, ...G });
 
 export function fmtMoney(v: number | string | null | undefined, currency = 'EUR'): string {
   if (v === null || v === undefined || v === '') return '—';
   const n = Number(v);
   if (currency === 'EUR') return eur.format(n);
-  return new Intl.NumberFormat('es-ES', { style: 'currency', currency }).format(n);
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency, ...G }).format(n);
 }
 export function fmtNumber(v: number | string | null | undefined, decimals = 2): string {
   if (v === null || v === undefined || v === '') return '—';
-  return decimals === 2 ? num.format(Number(v)) : new Intl.NumberFormat('es-ES', { maximumFractionDigits: decimals }).format(Number(v));
+  return decimals === 2 ? num.format(Number(v)) : new Intl.NumberFormat('es-ES', { maximumFractionDigits: decimals, ...G }).format(Number(v));
 }
 export function fmtDate(v: string | Date | null | undefined): string {
   if (!v) return '—';

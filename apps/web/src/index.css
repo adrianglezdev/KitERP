@@ -54,7 +54,7 @@
   --chart-4: 198 250 45;
   --chart-5: 56 70 92;
   --chart-6: 190 192 245;
-  --shadow-card: 0 1px 2px rgb(56 70 92 / 0.06), 0 6px 20px -10px rgb(56 70 92 / 0.16);
+  --shadow-card: 0 0 0 1px rgb(30 38 53 / 0.05), 0 1px 2px rgb(0 0 0 / 0.04);
   --shadow-pop: 0 24px 48px -16px rgb(30 38 53 / 0.28);
   --font-sans: 'Manrope';
   --font-display: 'Sora';
@@ -107,7 +107,7 @@
   --chart-4: 198 250 45;
   --chart-5: 148 158 178;
   --chart-6: 58 62 140;
-  --shadow-card: 0 0 #0000;
+  --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.06);
   --shadow-pop: 0 24px 48px -16px rgb(0 0 0 / 0.6);
   color-scheme: dark;
 }
@@ -124,7 +124,7 @@
     font-weight: var(--font-weight-body, 500);
   }
   h1, h2, h3 {
-    @apply font-display tracking-tight;
+    @apply font-display;
     text-wrap: balance;
   }
   :focus-visible {
@@ -135,6 +135,10 @@
   input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+  /* Todos los iconos (lucide) con el mismo trazo; las marcas diminutas (strokeWidth={3}) conservan el suyo */
+  svg.lucide:not([stroke-width='3']) {
+    stroke-width: 1.75;
   }
   ::selection {
     background: rgb(var(--primary) / 0.22);
@@ -155,7 +159,7 @@
   }
   /* Etiqueta de código o referencia (P26-00001, TK26-00002…) */
   .tag {
-    @apply inline-flex items-center whitespace-nowrap rounded-lg bg-sunken px-2 py-0.5 font-mono text-[11.5px] font-semibold text-fg/70;
+    @apply inline-flex items-center whitespace-nowrap rounded-md bg-sunken px-2 py-0.5 font-mono text-[12px] text-fg/70;
   }
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -164,11 +168,11 @@
     padding-top: env(safe-area-inset-top, 0px);
   }
   .field-input {
-    @apply w-full rounded-xl border border-transparent bg-sunken px-3 py-2.5 text-[14px] text-fg placeholder:text-muted/70 transition
+    @apply w-full rounded-xl border border-transparent bg-sunken px-3 py-2.5 text-[14px] text-fg placeholder:text-muted/70 transition-[background-color,box-shadow]
       focus:bg-surface focus:outline-none focus:ring-4 focus:ring-primary/20 disabled:cursor-not-allowed disabled:bg-sunken disabled:text-muted;
   }
   .label {
-    @apply mb-1.5 block text-[12.5px] font-bold text-fg/70;
+    @apply mb-1.5 block text-[13px] font-medium text-fg/70;
   }
 }
 

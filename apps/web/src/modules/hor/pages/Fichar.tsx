@@ -136,7 +136,7 @@ function Hoy() {
       <Card className="overflow-hidden">
         <div className="flex flex-col items-center px-4 pb-6 pt-5 text-center">
           <p className="text-[13px] capitalize text-muted">{fechaLarga(hoyLocal())}</p>
-          <p className="tabular mt-1 font-display text-[52px] font-semibold leading-none tracking-[-0.04em] sm:text-[64px]" aria-live="off">
+          <p className="tabular mt-1 font-display text-[52px] font-medium leading-none tracking-[-0.04em] sm:text-[64px]" aria-live="off">
             {now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Madrid' })}
           </p>
           <div className="mt-3">
@@ -161,7 +161,7 @@ function Hoy() {
             type="button"
             onClick={() => fichar(principal.tipo)}
             disabled={!!busy}
-            className={cn('mb-3 mt-9 flex h-44 w-44 select-none flex-col items-center justify-center gap-2 rounded-full font-display text-[19px] font-semibold tracking-tight transition hover:brightness-95 active:scale-95 disabled:opacity-80 sm:h-[184px] sm:w-[184px]', principal.cls)}
+            className={cn('mb-3 mt-9 flex h-44 w-44 select-none flex-col items-center justify-center gap-2 rounded-full font-display text-[20px] font-medium transition-[transform,filter] hover:brightness-95 active:scale-[0.98] disabled:opacity-80 sm:h-[184px] sm:w-[184px]', principal.cls)}
             aria-label={principal.label}
           >
             {busy === principal.tipo ? <Loader2 className="h-10 w-10 animate-spin" /> : <Icon className="h-10 w-10" />}
@@ -173,7 +173,7 @@ function Hoy() {
             </Button>
           )}
 
-          <div className="mt-5 flex items-center gap-1.5 text-[12.5px]">
+          <div className="mt-5 flex items-center gap-1.5 text-[13px]">
             {geo === 'concedido' && (
               <span className="inline-flex items-center gap-1 text-ok">
                 <MapPin className="h-3.5 w-3.5" /> Ubicación activada
@@ -193,7 +193,7 @@ function Hoy() {
           </div>
         </div>
         {geo === 'denegado' && (
-          <div className="border-t border-line px-4 py-3 text-[12.5px] text-muted">
+          <div className="border-t border-line px-4 py-3 text-[13px] text-muted">
             Para activarla, abre los ajustes del navegador (icono del candado junto a la dirección) y permite la ubicación para esta web. Solo se guarda en el momento de fichar, nunca en segundo plano.
           </div>
         )}
@@ -201,16 +201,16 @@ function Hoy() {
 
       <div className="grid grid-cols-2 gap-3">
         <Card className="p-4">
-          <p className="text-[12.5px] text-muted">Hoy</p>
-          <p className="tabular font-display text-[24px] font-bold leading-tight">{estado === 'trabajando' ? fmtDuracion(horasHoy * 3600000) : fmtHours(horasHoy)}</p>
+          <p className="text-[13px] text-muted">Hoy</p>
+          <p className="tabular font-display text-[24px] font-semibold leading-tight">{estado === 'trabajando' ? fmtDuracion(horasHoy * 3600000) : fmtHours(horasHoy)}</p>
           <div className="mt-2">
             <ProgressBar value={horasHoy} max={previstas || 8} tone={previstas && horasHoy > previstas ? 'yellow' : 'green'} />
           </div>
           <p className="mt-1 text-[12px] text-muted">{previstas ? `de ${fmtHours(previstas)} previstas` : 'Hoy no tienes jornada prevista'}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-[12.5px] text-muted">Esta semana</p>
-          <p className="tabular font-display text-[24px] font-bold leading-tight">{fmtHours(semana.trabajadas + Math.max(0, vivo))}</p>
+          <p className="text-[13px] text-muted">Esta semana</p>
+          <p className="tabular font-display text-[24px] font-semibold leading-tight">{fmtHours(semana.trabajadas + Math.max(0, vivo))}</p>
           <div className="mt-2">
             <ProgressBar value={semana.trabajadas} max={semana.previstas || 40} tone="violet" />
           </div>
@@ -249,7 +249,7 @@ function Hoy() {
           <KeyRound className="h-4 w-4" /> {data.tienePin ? 'Cambiar mi PIN del quiosco' : 'Crear mi PIN para el quiosco'}
         </button>
       </div>
-      <p className="px-1 text-[11.5px] leading-relaxed text-muted">{NOTA_LEGAL_REGISTRO} La hora la pone el servidor, no tu dispositivo.</p>
+      <p className="px-1 text-[12px] leading-relaxed text-muted">{NOTA_LEGAL_REGISTRO} La hora la pone el servidor, no tu dispositivo.</p>
       <PinDialog open={pin} onOpenChange={setPin} />
       <CorreccionDialog open={correccion} onOpenChange={setCorreccion} />
     </div>
@@ -328,8 +328,8 @@ function MisCorrecciones() {
                   <p className="text-[14px] font-medium">
                     {new Date(c.fecha + 'T12:00:00Z').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })} · <EstadoCorreccion c={c} />
                   </p>
-                  <p className="mt-0.5 text-[12.5px] text-muted">{c.motivo}</p>
-                  {c.motivoRechazo && <p className="mt-0.5 text-[12.5px] text-bad">Respuesta: {c.motivoRechazo}</p>}
+                  <p className="mt-0.5 text-[13px] text-muted">{c.motivo}</p>
+                  {c.motivoRechazo && <p className="mt-0.5 text-[13px] text-bad">Respuesta: {c.motivoRechazo}</p>}
                 </div>
                 <Badge tone={optionLabel(CORRECCION_ESTADOS, c.estado)?.tone} dot>
                   {optionLabel(CORRECCION_ESTADOS, c.estado)?.label}

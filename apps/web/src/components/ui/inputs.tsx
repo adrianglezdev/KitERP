@@ -77,7 +77,7 @@ export function Checkbox({ checked, onChange, label, disabled, id, description }
       {label && (
         <span className="text-[14px]">
           {label}
-          {description && <span className="block text-[12.5px] text-muted">{description}</span>}
+          {description && <span className="block text-[13px] text-muted">{description}</span>}
         </span>
       )}
     </label>
@@ -90,7 +90,7 @@ export function Switch({ checked, onChange, label, disabled, description }: { ch
       {label && (
         <span className="min-w-0 text-[14px]">
           {label}
-          {description && <span className="block text-[12.5px] text-muted">{description}</span>}
+          {description && <span className="block text-[13px] text-muted">{description}</span>}
         </span>
       )}
       <button
@@ -99,15 +99,15 @@ export function Switch({ checked, onChange, label, disabled, description }: { ch
         aria-checked={checked}
         disabled={disabled}
         onClick={() => onChange(!checked)}
-        className={cn('relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition', checked ? 'bg-primary' : 'bg-line-strong')}
+        className={cn('relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors', checked ? 'bg-primary' : 'bg-line-strong')}
       >
-        <span className={cn('inline-block h-5 w-5 transform rounded-full bg-white shadow transition', checked ? 'translate-x-5' : 'translate-x-0.5')} />
+        <span className={cn('inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform', checked ? 'translate-x-5' : 'translate-x-0.5')} />
       </button>
     </label>
   );
 }
 
-export function SearchInput({ value, onChange, placeholder = 'Buscar…', className, autoFocus }: { value: string; onChange: (v: string) => void; placeholder?: string; className?: string; autoFocus?: boolean }) {
+export function SearchInput({ value, onChange, placeholder = 'Buscar', className, autoFocus }: { value: string; onChange: (v: string) => void; placeholder?: string; className?: string; autoFocus?: boolean }) {
   return (
     <div className={cn('relative', className)}>
       <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
@@ -140,10 +140,10 @@ export function Segmented<T extends string>({ value, onChange, options, classNam
           role="tab"
           aria-selected={value === o.value}
           onClick={() => onChange(o.value)}
-          className={cn('flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[13px] font-semibold transition', value === o.value ? 'bg-fg text-bg' : 'text-fg/65 hover:text-fg')}
+          className={cn('flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[13px] font-medium transition-colors', value === o.value ? 'bg-fg text-bg' : 'text-fg/65 hover:text-fg')}
         >
           {o.label}
-          {o.count !== undefined && <span className={cn('rounded-full px-1.5 text-[11px] font-bold', value === o.value ? 'bg-bg/20' : 'bg-line-strong/60')}>{o.count}</span>}
+          {o.count !== undefined && <span className={cn('rounded-full px-1.5 text-[11px] font-semibold', value === o.value ? 'bg-bg/20' : 'bg-line-strong/60')}>{o.count}</span>}
         </button>
       ))}
     </div>

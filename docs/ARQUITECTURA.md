@@ -65,7 +65,7 @@ En la web: `const { can, has } = useSession()`.
 En la web cada módulo activo se presenta como una **aplicación** (`apps/web/src/layout/apps.ts`): tiene icono, color de su pilar y sus apartados, que son los de `nav` del módulo. Algunas juntan pantallas del núcleo con las de un módulo (Equipo = directorio + ficha; Clientes = terceros + CRM; Almacén = catálogo + stock) y Configuración es una aplicación más.
 
 - La barra lateral enseña solo los apartados de la aplicación abierta. Cuál es se deduce de la dirección (`locate`, gana el prefijo más largo); las pantallas sin apartado propio la indican con `useClaimApp` (un documento dice si es de Facturas, Presupuestos o Compras) y, si no, se mantiene la última.
-- El lanzador (`AppLauncher.tsx`) es la cuadrícula de la cabecera: favoritas arriba, editables con el lápiz (añadir, quitar y ordenar arrastrando), y el resto debajo. Las favoritas también están en la parte alta de la barra lateral. Se guardan por persona y empresa en `usuario_empresas.preferencias` (`PATCH /api/auth/preferencias`).
+- El lanzador (`AppLauncher.tsx`) es la cuadrícula de la cabecera: favoritas arriba, editables con el lápiz (añadir, quitar y ordenar arrastrando), y el resto debajo. En la barra lateral, el nombre de la aplicación abierta lleva el botón que abre ese mismo lanzador. Se guardan por persona y empresa en `usuario_empresas.preferencias` (`PATCH /api/auth/preferencias`).
 - Para añadir una aplicación basta una entrada en `APPS`; un módulo nuevo aparece al declarar su `nav`.
 
 ## Apariencia por empresa

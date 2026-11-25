@@ -57,19 +57,19 @@ export default function Ahora() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filas.map((f) => (
-            <Link key={f.personaId} to={`/personas/${f.personaId}?tab=hor-fichajes`} className="rounded-2xl bg-surface p-4 shadow-card transition hover:bg-sunken/60">
+            <Link key={f.personaId} to={`/personas/${f.personaId}?tab=hor-fichajes`} className="rounded-2xl bg-surface p-4 shadow-card transition-colors hover:bg-sunken/60">
               <div className="flex items-start gap-3">
                 <Avatar name={f.nombre} size={38} />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold">{f.nombre}</p>
-                  <p className="truncate text-[12.5px] text-muted">{[f.puesto, f.departamento].filter(Boolean).join(' · ')}</p>
+                  <p className="truncate font-medium">{f.nombre}</p>
+                  <p className="truncate text-[13px] text-muted">{[f.puesto, f.departamento].filter(Boolean).join(' · ')}</p>
                 </div>
                 <Badge tone={ESTADO[f.estado].tone} dot>
                   {ESTADO[f.estado].label}
                 </Badge>
               </div>
-              <div className="mt-3 flex flex-wrap items-center gap-2 text-[12.5px] text-muted">
-                <span className="tabular font-semibold text-fg">{fmtHours(f.horasHoy)} hoy</span>
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-[13px] text-muted">
+                <span className="tabular font-medium text-fg">{fmtHours(f.horasHoy)} hoy</span>
                 {f.desde && f.estado !== 'fuera' && <span>desde las {hora(f.desde)}</span>}
                 {f.turno && <span>· turno {f.turno.nombre}</span>}
                 {ausenciaTexto(f.ausencia) && <Badge tone="blue">{ausenciaTexto(f.ausencia)}</Badge>}
@@ -95,10 +95,10 @@ export default function Ahora() {
       <Card className="mt-6 p-4">
         <div className="flex flex-wrap items-end gap-3">
           <div className="min-w-0 flex-1">
-            <p className="flex items-center gap-2 font-semibold">
+            <p className="flex items-center gap-2 font-medium">
               <FileText className="h-4 w-4 text-primary" /> Registro de jornada oficial
             </p>
-            <p className="text-[12.5px] text-muted">{NOTA_LEGAL_REGISTRO}</p>
+            <p className="text-[13px] text-muted">{NOTA_LEGAL_REGISTRO}</p>
           </div>
           <Input type="month" value={mes} onChange={(e) => setMes(e.target.value)} className="w-[170px]" aria-label="Mes" />
           <Button icon={Download} onClick={() => download(`/hor/registro?mes=${mes}&format=xlsx${departamento ? `&departamentoId=${departamento}` : ''}`)}>

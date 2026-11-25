@@ -57,7 +57,7 @@ export default function FichaLaboral({ id }: { id: string }) {
 
       <div>
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-[12.5px] font-bold text-muted">
+          <h3 className="flex items-center gap-2 text-[13px] font-semibold text-muted">
             <History className="h-4 w-4" /> Historial laboral
           </h3>
           {can('fic.editar') && data.puedeEditar && (
@@ -75,11 +75,11 @@ export default function FichaLaboral({ id }: { id: string }) {
                 <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary ring-4 ring-surface" />
                 <div className="flex items-start gap-2">
                   <div className="min-w-0 flex-1">
-                    <p className="text-[13.5px] font-medium">
+                    <p className="text-[14px] font-medium">
                       {optionLabel(HISTORIAL_TIPOS, h.tipo)?.label ?? h.tipo}
                       {h.descripcion ? ` · ${h.descripcion}` : ''}
                     </p>
-                    <p className="text-[12.5px] text-muted">
+                    <p className="text-[13px] text-muted">
                       {fmtDate(h.fecha)}
                       {h.valorAnterior || h.valorNuevo ? ` · ${h.valorAnterior ?? '—'} → ${h.valorNuevo ?? '—'}` : ''}
                       {h.origen === 'automatico' && <Badge className="ml-2">automático</Badge>}

@@ -27,7 +27,7 @@ export function Nota({ v }: { v: number | null }) {
   if (v === null) return <span className="text-muted">—</span>;
   const tone = v >= 7.5 ? 'text-ok' : v >= 5 ? 'text-warn' : 'text-bad';
   return (
-    <span className={cn('inline-flex items-center gap-1 font-semibold', tone)}>
+    <span className={cn('inline-flex items-center gap-1 font-medium', tone)}>
       <Star className="h-3.5 w-3.5 fill-current" /> {fmtNumber(v, 1)}
     </span>
   );

@@ -41,7 +41,7 @@ export function Attachments({ entidad, id, canEdit = true, carpetas }: { entidad
       ) : (
         [...groups.entries()].map(([g, items]) => (
           <div key={g}>
-            <p className="mb-1.5 text-[12px] font-bold text-muted">{g}</p>
+            <p className="mb-1.5 text-[12px] font-semibold text-muted">{g}</p>
             <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
               {items.map((a) => {
                 const vencido = a.caduca && a.caduca < new Date().toISOString().slice(0, 10);
@@ -49,7 +49,7 @@ export function Attachments({ entidad, id, canEdit = true, carpetas }: { entidad
                   <li key={a.id} className="flex items-center gap-3 px-3 py-2.5">
                     <FileText className="h-5 w-5 shrink-0 text-primary" />
                     <div className="min-w-0 flex-1">
-                      <a href={a.url} target="_blank" rel="noreferrer" className="block truncate text-[13.5px] font-medium hover:text-primary">
+                      <a href={a.url} target="_blank" rel="noreferrer" className="block truncate text-[14px] font-medium hover:text-primary">
                         {a.nombre}
                       </a>
                       <p className="text-[12px] text-muted">
@@ -104,8 +104,8 @@ export function Comments({ entidad, id }: { entidad: string; id: string }) {
             <li key={c.id} className="flex gap-3">
               <Avatar name={c.autor ?? 'Usuario'} size={30} />
               <div className="min-w-0 flex-1 rounded-xl bg-sunken px-3 py-2">
-                <div className="flex items-center gap-2 text-[12.5px]">
-                  <span className="font-semibold">{c.autor ?? 'Usuario'}</span>
+                <div className="flex items-center gap-2 text-[13px]">
+                  <span className="font-medium">{c.autor ?? 'Usuario'}</span>
                   <span className="text-muted">{relTime(c.creadoEn)}</span>
                   {c.usuarioId === session?.user.id && (
                     <button type="button" className="ml-auto text-muted hover:text-bad" onClick={() => del.mutate(c.id)} aria-label="Borrar comentario">
@@ -113,7 +113,7 @@ export function Comments({ entidad, id }: { entidad: string; id: string }) {
                     </button>
                   )}
                 </div>
-                <p className="mt-0.5 whitespace-pre-wrap break-words text-[13.5px]">{c.texto}</p>
+                <p className="mt-0.5 whitespace-pre-wrap break-words text-[14px]">{c.texto}</p>
               </div>
             </li>
           ))}
@@ -128,7 +128,7 @@ export function Comments({ entidad, id }: { entidad: string; id: string }) {
           </div>
         )}
         <div className="flex items-center justify-between">
-          <button type="button" onClick={() => setMencionar(!mencionar)} className="text-[12.5px] font-medium text-primary hover:underline">
+          <button type="button" onClick={() => setMencionar(!mencionar)} className="text-[13px] font-medium text-primary hover:underline">
             @ Mencionar
           </button>
           <Button size="sm" variant="primary" icon={Send} disabled={!texto.trim()} loading={send.isPending} onClick={() => send.mutate(undefined)}>
@@ -151,8 +151,8 @@ export function Timeline({ entidad, id }: { entidad: string; id: string }) {
         const Icon = iconByName(e.icono);
         const body = (
           <>
-            <p className="text-[13.5px] font-medium">{e.titulo}</p>
-            {e.detalle && <p className="text-[12.5px] text-muted">{e.detalle}</p>}
+            <p className="text-[14px] font-medium">{e.titulo}</p>
+            {e.detalle && <p className="text-[13px] text-muted">{e.detalle}</p>}
             <p className="mt-0.5 text-[12px] text-muted">
               {relTime(e.fecha)}
               {e.autor && ` · ${e.autor}`}
@@ -202,7 +202,7 @@ export function EntityTasks({ entidad, id }: { entidad: string; id: string }) {
             <button type="button" onClick={() => toggle.mutate(t)} aria-label={t.estado === 'hecha' ? 'Marcar pendiente' : 'Marcar hecha'}>
               {t.estado === 'hecha' ? <CheckCircle2 className="h-5 w-5 text-ok" /> : <Circle className="h-5 w-5 text-muted" />}
             </button>
-            <span className={cn('min-w-0 flex-1 truncate text-[13.5px]', t.estado === 'hecha' && 'text-muted line-through')}>{t.titulo}</span>
+            <span className={cn('min-w-0 flex-1 truncate text-[14px]', t.estado === 'hecha' && 'text-muted line-through')}>{t.titulo}</span>
             {t.asignado && <span className="hidden text-[12px] text-muted sm:inline">{t.asignado}</span>}
             {t.vence && <Badge tone={t.vence < new Date().toISOString().slice(0, 10) && t.estado !== 'hecha' ? 'red' : 'gray'}>{fmtDate(t.vence)}</Badge>}
           </li>
