@@ -154,12 +154,12 @@ export default function OrdenDetalle() {
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {telefono && (
           <a href={telHref(telefono)} className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[16px] font-medium shadow-card active:bg-sunken">
-            <Phone className="h-5 w-5 text-primary" /> Llamar
+            <Phone className="h-5 w-5 text-muted" /> Llamar
           </a>
         )}
         {o.mapsUrl && (
           <a href={o.mapsUrl} target="_blank" rel="noreferrer" className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-surface text-[16px] font-medium shadow-card active:bg-sunken">
-            <Navigation className="h-5 w-5 text-primary" /> Cómo llegar
+            <Navigation className="h-5 w-5 text-muted" /> Cómo llegar
           </a>
         )}
         {o.puedeEditar && ['pendiente', 'planificada'].includes(estado) && (
@@ -184,7 +184,7 @@ export default function OrdenDetalle() {
         )}
       </div>
       {estado === 'en_curso' && (
-        <div className={cn('flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[14px] font-medium', corriendo ? 'bg-sun-soft text-warn' : 'bg-sunken text-muted')}>
+        <div className={cn('flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-medium', corriendo ? 'bg-sun-soft text-warn' : 'bg-sunken text-muted')}>
           <Clock className={cn('h-4 w-4', corriendo && 'animate-pulse')} />
           {corriendo ? `Cronómetro en marcha desde las ${hora(cronoInicio)}` : 'Cronómetro en pausa'} · total {minutosTexto(Math.round((o.minutosTotales ?? 0) + (parte?.tiempos ?? []).reduce((s, t) => s + (Date.parse(t.fin) - Date.parse(t.inicio)) / 60000, 0) + (parte?.cronoLocal ? (Date.now() - Date.parse(parte.cronoLocal)) / 60000 : 0)))}
         </div>
@@ -225,7 +225,7 @@ export default function OrdenDetalle() {
                     {
                       label: 'Garantía',
                       value: o.equipo.garantiaHasta ? (
-                        <span className="inline-flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-2">
                           {o.equipo.garantiaHasta >= new Date().toISOString().slice(0, 10) ? <ShieldCheck className="h-4 w-4 text-ok" /> : null}
                           {o.equipo.garantiaHasta >= new Date().toISOString().slice(0, 10) ? 'En garantía hasta ' : 'Vencida el '}
                           {fmtDate(o.equipo.garantiaHasta)}
@@ -286,7 +286,7 @@ function DocFila({ label, d, tipo }: { label: string; d: any; tipo: string }) {
     }
   };
   return (
-    <li className="space-y-1.5 px-4 py-3">
+    <li className="space-y-2 px-4 py-3">
       <div className="flex items-center justify-between gap-2">
         <span className="text-[13px] text-muted">{label}</span>
         <Badge tone={estadoOpt(tipo, d.estado)?.tone ?? 'gray'} dot>

@@ -37,12 +37,12 @@ export default function PublicoPortal() {
           {nuevo && <NuevoAviso endpoint={`/sat/public/portal/${token}/tickets`} equipos={d.equipos} onCreado={(t) => nav(`/publico/sat/ticket/${t.token}`)} />}
           <Card className="overflow-hidden">
             <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-medium">
-              <LifeBuoy className="h-4 w-4 text-primary" /> Mis avisos
+              <LifeBuoy className="h-4 w-4 text-muted" /> Mis avisos
             </p>
             <ul className="divide-y divide-line">
               {d.tickets.map((t: any) => (
                 <li key={t.codigo}>
-                  <Link to={`/publico/sat/ticket/${t.token}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                  <Link to={`/publico/sat/ticket/${t.token}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[14px] font-medium">{t.asunto}</span>
                       <span className="flex items-center gap-2 text-[12px] text-muted">
@@ -59,11 +59,11 @@ export default function PublicoPortal() {
           </Card>
           <Card className="overflow-hidden">
             <p className="flex items-center gap-2 px-5 pb-2 pt-4 text-[13px] font-medium">
-              <HardDrive className="h-4 w-4 text-primary" /> Mis equipos
+              <HardDrive className="h-4 w-4 text-muted" /> Mis equipos
             </p>
             <ul className="divide-y divide-line">
               {d.equipos.map((e: any) => (
-                <li key={e.id} className="px-4 py-2.5">
+                <li key={e.id} className="px-4 py-3">
                   <span className="block text-[14px] font-medium">{e.nombre}</span>
                   <span className="flex flex-wrap items-center gap-1 text-[12px] text-muted">
                     {[e.marca, e.modelo, e.ubicacion, e.numeroSerie && `S/N ${e.numeroSerie}`].filter(Boolean).join(' · ')}

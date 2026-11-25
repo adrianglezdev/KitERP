@@ -129,7 +129,7 @@ function Vencimientos({ activo, gestiona }: { activo: any; gestiona: boolean }) 
       <CardHeader title="ITV, seguros, revisiones…" icon={CalendarClock} actions={gestiona && <Button size="sm" icon={Plus} onClick={() => setNuevo(true)}>Añadir</Button>} />
       <ul className="divide-y divide-line">
         {(data ?? []).map((v) => (
-          <li key={v.id} className="flex flex-wrap items-center gap-3 px-4 py-2.5 text-[14px]">
+          <li key={v.id} className="flex flex-wrap items-center gap-3 px-4 py-3 text-[14px]">
             <span className="min-w-0 flex-1">
               <span className="block font-medium">{v.descripcion || optionLabel(VENCIMIENTO_TIPOS, v.tipo)?.label}</span>
               <span className="text-[12px] text-muted">
@@ -207,7 +207,7 @@ function Asignaciones({ activo }: { activo: any }) {
       <CardHeader title="Historial de entregas" icon={UserCheck} subtitle="Quién lo ha tenido, cuándo, con qué kilómetros y su firma." />
       <ul className="divide-y divide-line">
         {(data ?? []).map((x) => (
-          <li key={x.id} className="flex flex-wrap items-center gap-3 px-4 py-2.5 text-[14px]">
+          <li key={x.id} className="flex flex-wrap items-center gap-3 px-4 py-3 text-[14px]">
             <span className="min-w-0 flex-1">
               <span className="block font-medium">{x.persona}</span>
               <span className="text-[12px] text-muted">

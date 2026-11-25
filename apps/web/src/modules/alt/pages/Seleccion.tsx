@@ -49,7 +49,7 @@ export default function Seleccion() {
                 <li key={o.id}>
                   <button type="button" onClick={() => setSel(o.id)} className={cn('w-full px-4 py-3 text-left hover:bg-sunken', actual?.id === o.id && 'bg-primary-soft')}>
                     <span className="block truncate text-[14px] font-medium">{o.titulo}</span>
-                    <span className="flex items-center gap-1.5 text-[12px] text-muted">
+                    <span className="flex items-center gap-2 text-[12px] text-muted">
                       <EnumBadge options={OFERTA_ESTADOS} value={o.estado} /> {o.activos} en proceso · {o.candidatos} total
                     </span>
                   </button>
@@ -98,7 +98,7 @@ function Tablero({ oferta, gestiona, onEditar }: { oferta: any; gestiona: boolea
               </p>
               <div className="space-y-2">
                 {cs.map((c) => (
-                  <Card key={c.id} className="cursor-pointer p-3 hover:shadow-pop" onClick={() => setAbierto(c)}>
+                  <Card key={c.id} className="cursor-pointer p-3 transition-colors hover:bg-sunken/60" onClick={() => setAbierto(c)}>
                     <p className="truncate text-[14px] font-medium">
                       {c.nombre} {c.apellidos}
                     </p>

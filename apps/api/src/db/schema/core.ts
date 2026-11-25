@@ -166,7 +166,7 @@ export const usuarioEmpresas = pgTable(
     rolId: uuid().references(() => roles.id),
     activo: flag(true),
     accesoHasta: day(),
-    /** Preferencias de la persona en esta empresa (aplicaciones favoritas del lanzador…). */
+    /** Preferencias de la persona en esta empresa (ver `Preferencias` en el paquete compartido). */
     preferencias: jsonb().$type<Preferencias>().notNull().default({}),
     creadoEn: createdAt(),
   },

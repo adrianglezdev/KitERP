@@ -239,7 +239,7 @@ export default function DocumentoEditar() {
           }
         />
         {!!habituales.data?.length && !id && (
-          <div className="flex flex-wrap items-center gap-1.5 border-b border-line bg-sunken/40 px-4 py-2 text-[13px]">
+          <div className="flex flex-wrap items-center gap-2 border-b border-line bg-sunken/40 px-4 py-2 text-[13px]">
             <History className="h-3.5 w-3.5 text-muted" />
             <span className="text-muted">Suele comprar:</span>
             {habituales.data.slice(0, 6).map((h) => (
@@ -384,8 +384,8 @@ function LineaRow({
   );
   if (l.tipoLinea !== 'articulo')
     return (
-      <div className="flex items-center gap-2 px-4 py-2.5">
-        {l.tipoLinea === 'capitulo' ? <Heading className="h-4 w-4 text-primary" /> : <Type className="h-4 w-4 text-muted" />}
+      <div className="flex items-center gap-2 px-4 py-3">
+        {l.tipoLinea === 'capitulo' ? <Heading className="h-4 w-4 text-muted" /> : <Type className="h-4 w-4 text-muted" />}
         <Input value={l.descripcion} onChange={(e) => onChange({ descripcion: e.target.value })} placeholder={l.tipoLinea === 'capitulo' ? 'Título del capítulo' : 'Texto libre (sin importe)'} className={cn(l.tipoLinea === 'capitulo' && 'font-medium text-primary')} />
         {tools}
       </div>
@@ -396,9 +396,9 @@ function LineaRow({
         <RefSelect target="articulos" value={l.articuloId ?? null} onChange={onArticulo} placeholder="Artículo…" label={l.referencia ? `${l.referencia} · ${l.descripcion}` : undefined} />
       </div>
       <div className="col-span-2 md:col-span-1">
-        <Textarea rows={1} value={l.descripcion} onChange={(e) => onChange({ descripcion: e.target.value })} placeholder="Descripción" className="min-h-[38px]" />
+        <Textarea rows={1} value={l.descripcion} onChange={(e) => onChange({ descripcion: e.target.value })} placeholder="Descripción" className="min-h-10" />
         {(stock && (l.lote || compra)) && (
-          <div className="mt-1.5 grid grid-cols-2 gap-1.5">
+          <div className="mt-2 grid grid-cols-2 gap-2">
             <Input value={l.lote ?? ''} onChange={(e) => onChange({ lote: e.target.value })} placeholder="Lote" className="h-8 py-1 text-[13px]" />
             <Input type="date" value={l.caducidad ?? ''} onChange={(e) => onChange({ caducidad: e.target.value })} className="h-8 py-1 text-[13px]" aria-label="Caducidad" />
           </div>

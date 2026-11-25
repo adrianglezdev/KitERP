@@ -96,7 +96,7 @@ export default function Banco() {
               {gestiona && m.sugerencias?.length > 0 && (
                 <ul className="mt-2 space-y-1">
                   {m.sugerencias.slice(0, 3).map((s: any) => (
-                    <li key={`${s.tipo}-${s.id}`} className="flex items-center gap-2 rounded-lg bg-sunken px-2.5 py-1.5 text-[13px]">
+                    <li key={`${s.tipo}-${s.id}`} className="flex items-center gap-2 rounded-lg bg-sunken px-3 py-2 text-[13px]">
                       <Badge tone={s.puntuacion >= 75 ? 'green' : 'gray'}>{s.puntuacion}%</Badge>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate font-medium">{s.titulo}</span>

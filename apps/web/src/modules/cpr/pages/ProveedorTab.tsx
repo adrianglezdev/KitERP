@@ -44,7 +44,7 @@ export default function ProveedorTab({ id, record }: { id: string; record: any }
       {data.incidencias.length > 0 && (
         <div>
           <p className="mb-2 text-[13px] font-semibold text-muted">Últimas incidencias</p>
-          <ul className="space-y-1.5 text-[13px]">
+          <ul className="space-y-2 text-[13px]">
             {data.incidencias.slice(0, 6).map((i: any) => (
               <li key={i.id} className="flex items-center gap-2">
                 <Badge tone={i.estado === 'abierta' ? 'red' : 'gray'}>{i.estado}</Badge>

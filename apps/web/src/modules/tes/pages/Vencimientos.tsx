@@ -90,7 +90,7 @@ export default function Vencimientos({ circuito }: { circuito: 'cobro' | 'pago' 
             { key: 'tercero', header: esCobro ? 'Cliente' : 'Proveedor', cell: (v: any) => <span className="font-medium">{v.tercero ?? '—'}</span> },
             { key: 'concepto', header: 'Concepto', cell: (v: any) => <span className="line-clamp-1 text-muted">{v.documento ?? v.concepto}</span>, hideBelow: 'md' },
             { key: 'estado', header: 'Estado', cell: (v: any) => (
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-2">
                   <EnumBadge options={VENC_ESTADOS} value={v.estado} />
                   {v.diasVencido > 0 && <Badge tone="red">{v.diasVencido} d</Badge>}
                 </span>
@@ -100,7 +100,7 @@ export default function Vencimientos({ circuito }: { circuito: 'cobro' | 'pago' 
           ]}
           mobileTitle={(v: any) => v.tercero ?? v.concepto}
           mobileSubtitle={(v: any) => (
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-2">
               {fmtDate(v.fecha)} <EnumBadge options={VENC_ESTADOS} value={v.estado} />
             </span>
           )}

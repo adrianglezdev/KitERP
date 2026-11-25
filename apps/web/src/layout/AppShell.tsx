@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Command } from 'cmdk';
 import * as D from '@radix-ui/react-dialog';
-import { Bell, Building, CheckCheck, ChevronsLeft, ChevronsRight, Grip, Home, Inbox, KeyRound, LogOut, Menu as MenuIcon, Moon, Palette, Plus, Search, Sun, User } from 'lucide-react';
+import { Bell, Building, CheckCheck, ChevronDown, ChevronsLeft, ChevronsRight, Grip, Home, Inbox, KeyRound, LogOut, Menu as MenuIcon, Moon, Palette, Plus, Search, Sun, User } from 'lucide-react';
 import type { SearchResult } from '@kite/shared';
 import { api } from '@/lib/api';
 import { useApi, useDebounced, useLocalState, useMut } from '@/lib/hooks';
@@ -12,7 +12,7 @@ import { cn, iconByName, PILLAR_CLASSES, relTime } from '@/lib/utils';
 import { Avatar, Kbd, Menu, Sheet } from '@/components/ui';
 import { moduleWebs } from '@/modules/registry';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { buildApps, favoriteIds, locate, quickActions, type AppInfo, type AppItem } from './apps';
+import { buildApps, buildDepartamentos, locate, quickActions, type AppInfo, type AppItem, type Departamento } from './apps';
 import { AppContextProvider } from './app-context';
 import { AppIcon, AppLauncher } from './AppLauncher';
 import { BrandMark, BrandName } from './Logo';
@@ -23,8 +23,78 @@ function NavBadge({ url }: { url: string }) {
   return <span className="tabular ml-auto font-mono text-[12px] text-side-fg/60">{data.n > 99 ? '99+' : data.n}</span>;
 }
 
-/** Apartados de la aplicación abierta. */
-function AppNav({ app, collapsed, onNavigate }: { app: AppInfo; collapsed?: boolean; onNavigate?: () => void }) {
+/**
+ * Barra lateral de un departamento: sus aplicaciones, con los apartados de la abierta desplegados
+ * debajo. Plegada, muestra los iconos de las aplicaciones y, tras una raya, los de los apartados.
+ */
+function DepNav({ dep, app, collapsed, onNavigate }: { dep: Departamento; app: AppInfo | null; collapsed?: boolean; onNavigate?: () => void }) {
+  if (collapsed) {
+    return (
+      <>
+        <nav aria-label={`Aplicaciones de ${dep.label}`}>
+          <ul className="space-y-0.5">
+            {dep.apps.map((a) => (
+              <li key={a.id}>
+                <Link
+                  to={a.home}
+                  onClick={onNavigate}
+                  title={a.label}
+                  aria-current={a.id === app?.id ? 'true' : undefined}
+                  className={cn('flex h-9 items-center justify-center rounded-lg transition-colors', a.id === app?.id ? 'bg-side-fg/[0.12] text-side-fg' : 'text-side-fg/70 hover:bg-side-fg/[0.06] hover:text-side-fg')}
+                >
+                  <a.icon className="h-[18px] w-[18px]" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {app && app.items.length > 1 && (
+          <>
+            <div className="mx-3 my-3 h-px bg-side-fg/10" />
+            <AppNav app={app} collapsed onNavigate={onNavigate} />
+          </>
+        )}
+      </>
+    );
+  }
+  return (
+    <nav aria-label={`Aplicaciones de ${dep.label}`}>
+      <ul className="space-y-0.5">
+        {dep.apps.map((a) => {
+          const abierta = a.id === app?.id;
+          // Una aplicación con un solo apartado se abre directamente: no tiene nada que desplegar
+          const sola = a.items.length === 1;
+          return (
+            <li key={a.id}>
+              <Link
+                to={a.home}
+                onClick={onNavigate}
+                aria-current={abierta && sola ? 'page' : undefined}
+                className={cn(
+                  'flex h-9 items-center gap-3 rounded-lg px-3 text-[14px] font-medium transition-colors',
+                  abierta ? 'text-side-fg' : 'text-side-fg/70 hover:bg-side-fg/[0.06] hover:text-side-fg',
+                  abierta && sola && 'bg-side-fg/[0.12] ring-1 ring-inset ring-side-fg/[0.08]',
+                )}
+              >
+                <a.icon className="h-[18px] w-[18px] shrink-0" />
+                <span className="min-w-0 flex-1 truncate">{a.label}</span>
+                {!sola && <ChevronDown className={cn('h-4 w-4 shrink-0 text-side-fg/40 transition-transform', !abierta && '-rotate-90')} />}
+              </Link>
+              {abierta && !sola && (
+                <div className="mb-2 ml-[21px] border-l border-side-fg/10 pl-2 pt-0.5">
+                  <AppNav app={a} nested onNavigate={onNavigate} />
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
+/** Apartados de una aplicación. `nested`: dentro de la lista del departamento, sin iconos. */
+function AppNav({ app, collapsed, nested, onNavigate }: { app: AppInfo; collapsed?: boolean; nested?: boolean; onNavigate?: () => void }) {
   // Dos apartados pueden compartir prefijo (/ausencias y /ausencias/calendario): solo se marca el más específico
   const needsEnd = (i: AppItem) => i.end ?? app.items.some((o) => o !== i && o.to.split('?')[0]!.startsWith(i.to.split('?')[0]! + '/'));
   let lastGroup: string | undefined;
@@ -36,7 +106,7 @@ function AppNav({ app, collapsed, onNavigate }: { app: AppInfo; collapsed?: bool
           lastGroup = i.group;
           return (
             <li key={i.to}>
-              {head && !collapsed && <p className="px-3 pb-2 pt-6 text-[12px] font-medium text-side-fg/50 first:pt-2">{head}</p>}
+              {head && !collapsed && <p className={cn('px-3 text-[12px] font-medium text-side-fg/50', nested ? 'pb-1 pt-3' : 'pb-2 pt-6 first:pt-2')}>{head}</p>}
               {head && collapsed && <div className="mx-3 my-2 h-px bg-side-fg/10" />}
               <NavLink
                 to={i.to}
@@ -45,13 +115,14 @@ function AppNav({ app, collapsed, onNavigate }: { app: AppInfo; collapsed?: bool
                 title={collapsed ? i.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    'group flex h-9 items-center gap-3 rounded-lg px-3 text-[14px] font-medium transition-colors',
+                    'group flex items-center gap-3 rounded-lg px-3 font-medium transition-colors',
+                    nested ? 'h-8 text-[13px]' : 'h-9 text-[14px]',
                     isActive ? 'bg-side-fg/[0.12] text-side-fg ring-1 ring-inset ring-side-fg/[0.08]' : 'text-side-fg/70 hover:bg-side-fg/[0.06] hover:text-side-fg',
                     collapsed && 'justify-center px-0',
                   )
                 }
               >
-                <i.icon className="h-[18px] w-[18px] shrink-0" />
+                {!nested && <i.icon className="h-[18px] w-[18px] shrink-0" />}
                 {!collapsed && <span className="truncate">{i.label}</span>}
                 {!collapsed && i.badgeUrl && <NavBadge url={i.badgeUrl} />}
               </NavLink>
@@ -138,7 +209,7 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
   return (
     <Sheet open={open} onOpenChange={setOpen} title="Avisos">
       <div className="flex justify-end px-5 pb-1">
-        <button type="button" className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary disabled:opacity-40" disabled={!data?.sinLeer} onClick={() => leer.mutate(undefined)}>
+        <button type="button" className="inline-flex items-center gap-2 text-[13px] font-semibold text-primary disabled:opacity-40" disabled={!data?.sinLeer} onClick={() => leer.mutate(undefined)}>
           <CheckCheck className="h-4 w-4" /> Marcar todo como leído
         </button>
       </div>
@@ -159,7 +230,7 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
                   }
                 }}
               >
-                <span className={cn('mt-1.5 h-2 w-2 shrink-0 rounded-full', n.leidaEn ? 'bg-transparent' : 'bg-earth')} />
+                <span className={cn('mt-2 h-2 w-2 shrink-0 rounded-full', n.leidaEn ? 'bg-transparent' : 'bg-earth')} />
                 <span className="min-w-0 flex-1">
                   <span className="block text-[14px] font-semibold">{n.titulo}</span>
                   {n.cuerpo && <span className="block truncate text-[13px] text-muted">{n.cuerpo}</span>}
@@ -177,14 +248,14 @@ function Notifications({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
 const LAST_APP = 'kite-app';
 
 export function AppShell() {
-  const { session, has, can, logout, savePrefs } = useSession();
+  const { session, has, can, logout } = useSession();
   const loc = useLocation();
   const nav = useNavigate();
   const [collapsed, setCollapsed] = useLocalState('kite-sidebar', false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-  const [launcher, setLauncher] = useState<'top' | 'side' | 'mobile' | null>(null);
+  const [launcher, setLauncher] = useState<'top' | 'mobile' | null>(null);
   const [mode, setMode] = useMode();
   const apps = useMemo(() => buildApps(has, can), [has, can]);
   const quick = useMemo(() => quickActions(has, can), [has, can]);
@@ -217,8 +288,9 @@ export function AppShell() {
   const app = found?.app ?? claimedApp ?? apps.find((a) => a.id === lastId) ?? apps[0] ?? null;
   const ctx = useMemo(() => ({ apps, app, item: found?.item ?? null, claim }), [apps, app, found, claim]);
 
-  const favIds = useMemo(() => favoriteIds(apps, session?.preferencias?.favoritos), [apps, session?.preferencias?.favoritos]);
-  const saveFavs = (ids: string[]) => void savePrefs({ favoritos: ids });
+  // Departamento abierto: el de la aplicación abierta
+  const deps = useMemo(() => buildDepartamentos(apps), [apps]);
+  const dep = (app && deps.find((d) => d.id === app.pillar)) ?? deps[0] ?? null;
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
@@ -239,43 +311,24 @@ export function AppShell() {
   const hor = moduleWebs.find((m) => m.code === 'hor' && has('hor'));
   const fichar = hor?.portal?.find((p) => p.to.startsWith('/fichar') && (!p.perm || can(p.perm)));
 
-  const launcherProps = { apps, favorites: favIds, currentId: app?.id, onChange: saveFavs };
-
-  /**
-   * Cambiador de aplicaciones de la barra lateral: el nombre de la aplicación abierta con el botón
-   * que abre el lanzador (allí están Inicio, las favoritas y todas las demás).
-   */
-  const switcher = (mini: boolean) => (
-    <AppLauncher {...launcherProps} open={launcher === 'side'} onOpenChange={(o) => setLauncher(o ? 'side' : null)} side="right" align="start">
-      <button
-        type="button"
-        aria-label={app ? `${app.label}: cambiar de aplicación` : 'Aplicaciones'}
-        title="Aplicaciones"
-        className={cn(
-          'group flex h-10 w-full items-center gap-3 rounded-xl text-side-fg transition-colors hover:bg-side-fg/[0.08]',
-          launcher === 'side' && 'bg-side-fg/[0.08]',
-          mini ? 'justify-center' : 'pl-3 pr-2.5',
-        )}
-      >
-        {!mini && <span className="min-w-0 flex-1 truncate text-left font-display text-[18px] font-medium">{app?.label ?? 'Aplicaciones'}</span>}
-        <Grip className="h-[18px] w-[18px] shrink-0 text-side-fg/70 transition-colors group-hover:text-side-fg" />
-      </button>
-    </AppLauncher>
-  );
+  const launcherProps = { deps, currentId: dep?.id };
 
   const sidebar = (mobile = false) => {
     const mini = collapsed && !mobile;
     return (
       <div className={cn('flex h-full flex-col overflow-hidden bg-side text-side-fg', !mobile && 'rounded-3xl shadow-card')}>
         <div className={cn('shrink-0 px-4 pb-1 pt-5', mini && 'px-3')}>
-          <Link to="/" className={cn('flex min-w-0 items-center gap-2.5', mini && 'justify-center')}>
+          <Link to="/" className={cn('flex min-w-0 items-center gap-2', mini && 'justify-center')}>
             <BrandMark size="sm" stroke="rgb(var(--side))" className={mini ? 'h-8 w-8' : undefined} />
             {!mini && <BrandName className="text-[20px] text-side-fg" />}
           </Link>
-          <div className={cn('mt-6', !mini && '-mx-1')}>{switcher(mini)}</div>
-          {mini && <div className="mx-2 mt-3 h-px bg-side-fg/10" />}
+          {/* Departamento abierto. Para cambiar de departamento está el lanzador de la cabecera */}
+          {!mini && dep && (
+            <p className="mt-8 truncate px-2 font-display text-[18px] font-medium leading-6 text-side-fg">{dep.label}</p>
+          )}
+          {mini && <div className="mx-2 mt-5 h-px bg-side-fg/10" />}
         </div>
-        <div className="scroll-side min-h-0 flex-1 overflow-y-auto px-3 pb-4 pt-2">{app && <AppNav app={app} collapsed={mini} onNavigate={() => setMobileOpen(false)} />}</div>
+        <div className="scroll-side min-h-0 flex-1 overflow-y-auto px-3 pb-4 pt-2">{dep && <DepNav dep={dep} app={app} collapsed={mini} onNavigate={() => setMobileOpen(false)} />}</div>
         {!mobile && (
           <button
             type="button"
@@ -307,31 +360,21 @@ export function AppShell() {
         </Sheet>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="safe-top z-20 flex h-16 shrink-0 items-center gap-2 px-3 md:h-[72px] md:px-6 lg:px-8">
+          <header className="safe-top relative z-20 flex h-16 shrink-0 items-center gap-2 px-3 md:h-[72px] md:px-6 lg:px-8">
             <button type="button" className={cn(iconBtn, 'md:hidden')} onClick={() => setMobileOpen(true)} aria-label="Abrir menú">
               <MenuIcon className="h-5 w-5" />
             </button>
 
-            {/* Dónde estás: pilar, aplicación y apartado */}
-            {app && (
-              <nav className="hidden min-w-0 items-center gap-1.5 text-[13px] font-medium text-muted lg:flex" aria-label="Ubicación">
-                <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[app.pillar]!.dot)} />
-                <Link to={app.home} className="truncate hover:text-fg">
-                  {app.label}
-                </Link>
-                {ctx.item && ctx.item.label !== app.label && (
-                  <>
-                    <span className="text-muted/50">/</span>
-                    <b className="truncate font-semibold text-fg">{ctx.item.label}</b>
-                  </>
-                )}
-              </nav>
-            )}
-
+            {/*
+              Buscador. En pantallas anchas se centra en la ventana (no solo en la zona de contenido):
+              `left` es el centro de la ventana menos el ancho de la barra lateral. En las estrechas va
+              junto a las acciones, que es donde cabe.
+            */}
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-pill bg-surface px-4 text-left text-[14px] font-medium text-muted shadow-card transition-colors hover:text-fg md:max-w-[360px] md:flex-none md:basis-[32%]"
+              style={{ left: `calc(50vw - ${collapsed ? 80 : 280}px)` }}
+              className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-pill bg-surface px-4 text-left text-[14px] font-medium text-muted shadow-card transition-colors hover:text-fg md:max-w-[360px] md:flex-none md:basis-[32%] xl:absolute xl:top-1/2 xl:ml-0 xl:w-[400px] xl:max-w-none xl:-translate-x-1/2 xl:-translate-y-1/2 2xl:w-[480px]"
             >
               <Search className="h-4 w-4 shrink-0" />
               <span className="truncate">Buscar</span>
@@ -340,11 +383,11 @@ export function AppShell() {
               </span>
             </button>
 
-            <div className="flex shrink-0 items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2 xl:ml-auto">
               {quick.length > 0 && (
                 <Menu
                   trigger={
-                    <button type="button" className="hidden h-10 items-center gap-1.5 rounded-pill bg-primary px-4 text-[14px] font-semibold text-primary-fg transition-colors hover:bg-primary/90 sm:inline-flex">
+                    <button type="button" className="hidden h-10 items-center gap-2 rounded-pill bg-primary px-4 text-[14px] font-semibold text-primary-fg transition-colors hover:bg-primary/90 sm:inline-flex">
                       <Plus className="h-4 w-4" /> Crear
                     </button>
                   }
@@ -353,7 +396,7 @@ export function AppShell() {
               )}
               <span className="hidden md:block">
                 <AppLauncher {...launcherProps} open={launcher === 'top'} onOpenChange={(o) => setLauncher(o ? 'top' : null)}>
-                  <button type="button" className={cn(iconBtn, launcher === 'top' && 'text-fg')} aria-label="Aplicaciones" title="Aplicaciones">
+                  <button type="button" className={cn(iconBtn, launcher === 'top' && 'text-fg')} aria-label="Departamentos" title="Departamentos">
                     <Grip className="h-5 w-5" />
                   </button>
                 </AppLauncher>
@@ -412,7 +455,7 @@ export function AppShell() {
               ))}
               <AppLauncher {...launcherProps} open={launcher === 'mobile'} onOpenChange={(o) => setLauncher(o ? 'mobile' : null)}>
                 <button type="button" className={cn('flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium', launcher === 'mobile' ? 'text-side-fg' : 'text-side-fg/60')}>
-                  <Grip className="h-5 w-5" /> Apps
+                  <Grip className="h-5 w-5" /> Áreas
                 </button>
               </AppLauncher>
               <button type="button" onClick={() => setMobileOpen(true)} className="flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-side-fg/60">

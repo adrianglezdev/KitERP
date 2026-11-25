@@ -65,7 +65,7 @@ export default function MisOrdenes() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-4 pb-24 md:pb-6">
-      <PageHeader title={esHoy ? 'Mis órdenes de hoy' : 'Mis órdenes'} icon={Smartphone} subtitle={<span className="capitalize">{diaLargo(fecha)}</span>} />
+      <PageHeader title={esHoy ? 'Mis órdenes de hoy' : 'Mis órdenes'} icon={Smartphone} subtitle={<span className="inline-block first-letter:uppercase">{diaLargo(fecha)}</span>} />
 
       <div className="flex items-center gap-2">
         <IconButton icon={ChevronLeft} label="Día anterior" variant="secondary" className="h-11 w-11" onClick={() => setFecha((f) => sumarDias(f, -1))} />
@@ -134,9 +134,9 @@ function OrdenTarjeta({ o, n, onEstado }: { o: any; n: number; onEstado: (estado
   const borrador = partesGuardados().find((p) => p.ordenId === o.id);
   return (
     <li className={cn('overflow-hidden rounded-2xl border bg-surface shadow-card', o.estado === 'en_curso' ? 'border-warn/60' : 'border-line')}>
-      <Link to={`/sat/ordenes/${o.id}`} className="block space-y-1.5 px-4 pb-3 pt-3.5 active:bg-sunken">
+      <Link to={`/sat/ordenes/${o.id}`} className="block space-y-2 px-4 pb-3 pt-4 active:bg-sunken">
         <div className="flex items-center gap-2 text-[13px] text-muted">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-soft text-[12px] font-semibold text-primary">{n}</span>
+          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-sunken text-[12px] font-medium text-fg">{n}</span>
           <span className="font-medium text-fg">{o.planificadaInicio ? `${hora(o.planificadaInicio)}–${hora(o.planificadaFin)}` : 'Sin hora'}</span>
           {o.atrasada && <Badge tone="red">Atrasada</Badge>}
           <span className="ml-auto">
@@ -145,7 +145,7 @@ function OrdenTarjeta({ o, n, onEstado }: { o: any; n: number; onEstado: (estado
         </div>
         <p className="text-[18px] font-semibold leading-snug">{o.cliente}</p>
         <p className="text-[14px] text-fg/80">{[dir.direccion, dir.localidad].filter(Boolean).join(', ') || 'Sin dirección'}</p>
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge>{ORDEN_TIPOS.find((t) => t.value === o.tipo)?.label}</Badge>
           {o.prioridad !== 'normal' && <EnumBadge options={PRIORIDADES} value={o.prioridad} />}
           {o.equipo && <span className="text-[13px] text-muted">{o.equipo}</span>}
@@ -154,22 +154,22 @@ function OrdenTarjeta({ o, n, onEstado }: { o: any; n: number; onEstado: (estado
         {o.descripcion && <p className="line-clamp-2 text-[13px] text-muted">{o.descripcion}</p>}
       </Link>
       <div className="grid grid-cols-3 border-t border-line">
-        <a href={telHref(o.telefono)} aria-disabled={!o.telefono} className={cn('flex h-14 items-center justify-center gap-1.5 text-[14px] font-medium active:bg-sunken', !o.telefono && 'pointer-events-none opacity-40')}>
-          <Phone className="h-5 w-5 text-primary" /> Llamar
+        <a href={telHref(o.telefono)} aria-disabled={!o.telefono} className={cn('flex h-14 items-center justify-center gap-2 text-[14px] font-medium active:bg-sunken', !o.telefono && 'pointer-events-none opacity-40')}>
+          <Phone className="h-5 w-5 text-muted" /> Llamar
         </a>
-        <a href={o.mapsUrl ?? undefined} target="_blank" rel="noreferrer" aria-disabled={!o.mapsUrl} className={cn('flex h-14 items-center justify-center gap-1.5 border-x border-line text-[14px] font-medium active:bg-sunken', !o.mapsUrl && 'pointer-events-none opacity-40')}>
-          <Navigation className="h-5 w-5 text-primary" /> Ir
+        <a href={o.mapsUrl ?? undefined} target="_blank" rel="noreferrer" aria-disabled={!o.mapsUrl} className={cn('flex h-14 items-center justify-center gap-2 border-x border-line text-[14px] font-medium active:bg-sunken', !o.mapsUrl && 'pointer-events-none opacity-40')}>
+          <Navigation className="h-5 w-5 text-muted" /> Ir
         </a>
         {['pendiente', 'planificada'].includes(o.estado) ? (
-          <button type="button" onClick={() => onEstado('en_ruta')} className="flex h-14 items-center justify-center gap-1.5 text-[14px] font-medium text-primary active:bg-sunken">
+          <button type="button" onClick={() => onEstado('en_ruta')} className="flex h-14 items-center justify-center gap-2 text-[14px] font-medium text-primary active:bg-sunken">
             <Car className="h-5 w-5" /> En ruta
           </button>
         ) : o.estado === 'en_ruta' ? (
-          <button type="button" onClick={() => onEstado('en_curso')} className="flex h-14 items-center justify-center gap-1.5 bg-primary text-[14px] font-medium text-primary-fg active:bg-primary/90">
+          <button type="button" onClick={() => onEstado('en_curso')} className="flex h-14 items-center justify-center gap-2 bg-primary text-[14px] font-medium text-primary-fg active:bg-primary/90">
             <Play className="h-5 w-5" /> Empezar
           </button>
         ) : (
-          <Link to={`/sat/ordenes/${o.id}#parte`} className="flex h-14 items-center justify-center gap-1.5 bg-sun text-[14px] font-semibold text-sun-fg active:brightness-95">
+          <Link to={`/sat/ordenes/${o.id}#parte`} className="flex h-14 items-center justify-center gap-2 bg-sun text-[14px] font-semibold text-sun-fg active:brightness-95">
             <Wrench className="h-5 w-5" /> Parte
           </Link>
         )}

@@ -29,18 +29,18 @@ function Arte() {
       <div className="relative hidden flex-wrap items-start gap-3 lg:flex" aria-hidden>
         <div className={`${pv} w-[230px]`}>
           <p className="text-[12px] font-semibold text-[#7E889C]">Pendiente de tu aprobación</p>
-          <div className="mt-2.5 flex items-center gap-2.5">
+          <div className="mt-3 flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sun font-display text-[11px] font-medium text-sun-fg">ET</span>
             <div>
               <p className="text-[13px] font-semibold leading-tight">Vacaciones · 7 días</p>
               <p className="text-[12px] font-medium text-[#7E889C]">Elena Torres Calvo</p>
             </div>
           </div>
-          <div className="mt-3 flex gap-1.5">
-            <span className="inline-flex h-6 items-center gap-1 rounded-pill bg-sun px-2.5 text-[12px] font-semibold text-sun-fg">
+          <div className="mt-3 flex gap-2">
+            <span className="inline-flex h-6 items-center gap-1 rounded-pill bg-sun px-3 text-[12px] font-semibold text-sun-fg">
               <Check className="h-3 w-3" strokeWidth={3} /> Aprobar
             </span>
-            <span className="inline-flex h-6 items-center gap-1 rounded-pill bg-[#EDEFF5] px-2.5 text-[12px] font-semibold text-[#4B566B]">
+            <span className="inline-flex h-6 items-center gap-1 rounded-pill bg-[#EDEFF5] px-3 text-[12px] font-semibold text-[#4B566B]">
               <X className="h-3 w-3" strokeWidth={3} /> Rechazar
             </span>
           </div>
@@ -65,7 +65,7 @@ function Arte() {
 
       <div className="relative flex flex-wrap gap-2">
         {PILARES.map((p) => (
-          <span key={p.label} className="inline-flex items-center gap-2 rounded-pill bg-white/[0.14] px-3.5 py-2 text-[13px] font-semibold">
+          <span key={p.label} className="inline-flex items-center gap-2 rounded-pill bg-white/[0.14] px-4 py-2 text-[13px] font-semibold">
             <p.icon className="h-4 w-4" /> {p.label}
           </span>
         ))}
@@ -150,7 +150,7 @@ export default function Login() {
             <form onSubmit={submit} className="space-y-4" noValidate>
               <div className="pb-3">
                 <h2 className={titulo}>{pide2fa ? 'Verificación en dos pasos' : `Entrar en ${appName(brand)}`}</h2>
-                <p className="mt-1.5 text-[14px] text-muted">{pide2fa ? 'Escribe el código de 6 cifras de tu aplicación de autenticación.' : 'Con el email y la contraseña de tu empresa'}</p>
+                <p className="mt-2 text-[14px] text-muted">{pide2fa ? 'Escribe el código de 6 cifras de tu aplicación de autenticación.' : 'Con el email y la contraseña de tu empresa'}</p>
               </div>
               {error && <Alert tone="red">{error}</Alert>}
               {!pide2fa ? (
@@ -176,7 +176,7 @@ export default function Login() {
             <form onSubmit={cambiarPassword} className="space-y-4">
               <div className="pb-3">
                 <h2 className={titulo}>Elige tu contraseña</h2>
-                <p className="mt-1.5 text-[14px] text-muted">Es tu primer acceso o te la han restablecido. Usa al menos 10 caracteres con letras y números.</p>
+                <p className="mt-2 text-[14px] text-muted">Es tu primer acceso o te la han restablecido. Usa al menos 10 caracteres con letras y números.</p>
               </div>
               {error && <Alert tone="red">{error}</Alert>}
               <Field label="Nueva contraseña" htmlFor="nueva">

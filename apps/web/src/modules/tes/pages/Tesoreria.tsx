@@ -51,7 +51,7 @@ export default function Tesoreria() {
           <ul className="divide-y divide-line">
             {(saldos.data ?? []).filter((c) => c.activo).map((c) => (
               <li key={c.id}>
-                <Link to={`/tesoreria/banco?cuenta=${c.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                <Link to={`/tesoreria/banco?cuenta=${c.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[14px] font-medium">{c.nombre}</span>
                     <span className="text-[12px] text-muted">{c.sinConciliar ? `${c.sinConciliar} movimientos sin conciliar` : c.iban ? `···· ${String(c.iban).slice(-4)}` : 'Caja'}</span>

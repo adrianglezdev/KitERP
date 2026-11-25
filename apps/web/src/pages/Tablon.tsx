@@ -44,7 +44,7 @@ export default function Tablon() {
                 <Avatar name={a.autor ?? 'Empresa'} size={34} />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    {a.fijado && <Pin className="h-4 w-4 text-primary" />}
+                    {a.fijado && <Pin className="h-4 w-4 text-muted" />}
                     <h3 className="text-[16px] font-semibold">{a.titulo}</h3>
                     {!a.leido && <Badge tone="violet">Nuevo</Badge>}
                     {a.departamentos?.length > 0 && <Badge>Solo algunos departamentos</Badge>}

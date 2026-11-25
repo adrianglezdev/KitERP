@@ -72,7 +72,7 @@ export function Checkbox({ checked, onChange, label, disabled, id, description }
   const auto = useId();
   const cid = id ?? auto;
   return (
-    <label htmlFor={cid} className={cn('flex cursor-pointer items-start gap-2.5', disabled && 'cursor-not-allowed opacity-60')}>
+    <label htmlFor={cid} className={cn('flex cursor-pointer items-start gap-2', disabled && 'cursor-not-allowed opacity-60')}>
       <input id={cid} type="checkbox" checked={checked} disabled={disabled} onChange={(e) => onChange(e.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 rounded border-line accent-[rgb(var(--primary))]" />
       {label && (
         <span className="text-[14px]">
@@ -140,10 +140,10 @@ export function Segmented<T extends string>({ value, onChange, options, classNam
           role="tab"
           aria-selected={value === o.value}
           onClick={() => onChange(o.value)}
-          className={cn('flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[13px] font-medium transition-colors', value === o.value ? 'bg-fg text-bg' : 'text-fg/65 hover:text-fg')}
+          className={cn('flex h-8 shrink-0 items-center gap-2 whitespace-nowrap rounded-pill px-4 text-[13px] font-medium transition-colors', value === o.value ? 'bg-fg text-bg' : 'text-fg/65 hover:text-fg')}
         >
           {o.label}
-          {o.count !== undefined && <span className={cn('rounded-full px-1.5 text-[11px] font-semibold', value === o.value ? 'bg-bg/20' : 'bg-line-strong/60')}>{o.count}</span>}
+          {o.count !== undefined && <span className={cn('tabular font-mono text-[12px]', value === o.value ? 'opacity-70' : 'text-muted')}>{o.count}</span>}
         </button>
       ))}
     </div>

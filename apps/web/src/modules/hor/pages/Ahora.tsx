@@ -96,7 +96,7 @@ export default function Ahora() {
         <div className="flex flex-wrap items-end gap-3">
           <div className="min-w-0 flex-1">
             <p className="flex items-center gap-2 font-medium">
-              <FileText className="h-4 w-4 text-primary" /> Registro de jornada oficial
+              <FileText className="h-4 w-4 text-muted" /> Registro de jornada oficial
             </p>
             <p className="text-[13px] text-muted">{NOTA_LEGAL_REGISTRO}</p>
           </div>

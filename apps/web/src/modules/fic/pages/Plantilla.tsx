@@ -74,7 +74,7 @@ export default function Plantilla() {
             <ul className="divide-y divide-line">
               {alertas.data.slice(0, 25).map((a) => (
                 <li key={a.id}>
-                  <Link to={a.enlace} className="block px-4 py-2.5 hover:bg-sunken">
+                  <Link to={a.enlace} className="block px-4 py-3 hover:bg-sunken">
                     <span className="flex items-center justify-between gap-2">
                       <span className="truncate text-[14px] font-medium">{a.persona}</span>
                       <Badge tone={a.dias <= 7 ? 'red' : a.dias <= 15 ? 'orange' : 'gray'}>{a.dias < 0 ? 'Vencido' : a.dias === 0 ? 'Hoy' : `${a.dias} días`}</Badge>

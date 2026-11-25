@@ -112,7 +112,7 @@ export function Tabs({ tabs, value, onChange, urlKey = 'tab', className }: { tab
             aria-selected={current === t.id}
             onClick={() => select(t.id)}
             className={cn(
-              'flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-pill px-3.5 text-[14px] font-medium transition-colors',
+              'flex h-9 shrink-0 items-center gap-2 whitespace-nowrap rounded-pill px-4 text-[14px] font-medium transition-colors',
               current === t.id ? 'bg-surface text-fg shadow-card' : 'text-muted hover:text-fg',
             )}
           >

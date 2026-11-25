@@ -33,8 +33,8 @@ export default function Modulos() {
               const Icon = iconByName(m.icon);
               return (
                 <Card key={m.code} className={cn('flex items-start gap-3 p-4', !m.activo && 'opacity-75')}>
-                  <span className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', PILLAR_CLASSES[p]!.soft, PILLAR_CLASSES[p]!.text)}>
-                    <Icon className="h-5 w-5" />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sunken text-muted">
+                    <Icon className="h-[18px] w-[18px]" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">

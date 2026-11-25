@@ -33,7 +33,7 @@ export default function Usuarios() {
               key: 'nombre',
               header: 'Persona',
               cell: (r) => (
-                <span className="flex items-center gap-2.5">
+                <span className="flex items-center gap-2">
                   <Avatar name={r.nombre} size={28} />
                   <span>
                     <span className="block font-medium">{r.nombre}</span>

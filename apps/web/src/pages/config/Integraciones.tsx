@@ -32,7 +32,7 @@ export default function Integraciones() {
         <CardHeader title="Claves de API" icon={KeyRound} subtitle="Para conectar la tienda online, la gestoría u otros programas" actions={<Button size="sm" icon={Plus} onClick={() => setNuevaClave(true)}>Nueva clave</Button>} />
         <ul className="divide-y divide-line">
           {claves.data?.map((c) => (
-            <li key={c.id} className="flex items-center gap-3 px-4 py-2.5 text-[14px]">
+            <li key={c.id} className="flex items-center gap-3 px-4 py-3 text-[14px]">
               <span className="min-w-0 flex-1">
                 <span className="block font-medium">{c.nombre}</span>
                 <span className="text-[12px] text-muted">kite_{c.prefijo}_… · {c.ultimoUso ? `último uso ${fmtDateTime(c.ultimoUso)}` : 'sin usar'}</span>
@@ -42,7 +42,7 @@ export default function Integraciones() {
           ))}
           {!claves.data?.length && <li className="px-4 py-5 text-center text-[13px] text-muted">No hay claves creadas.</li>}
         </ul>
-        <p className="border-t border-line px-4 py-2.5 text-[13px] text-muted">
+        <p className="border-t border-line px-4 py-3 text-[13px] text-muted">
           Uso: cabecera <code>Authorization: Bearer kite_…</code> contra <code>/api/…</code> (las mismas rutas que usa la web).
         </p>
       </Card>
@@ -50,7 +50,7 @@ export default function Integraciones() {
         <CardHeader title="Webhooks" icon={Webhook} subtitle="Avisos automáticos a otra aplicación cuando ocurre algo, firmados con HMAC-SHA256" />
         <ul className="divide-y divide-line">
           {hooks.data?.map((h) => (
-            <li key={h.id} className="flex items-center gap-3 px-4 py-2.5 text-[13px]">
+            <li key={h.id} className="flex items-center gap-3 px-4 py-3 text-[13px]">
               <span className="min-w-0 flex-1">
                 <span className="block truncate font-medium">{h.url}</span>
                 <span className="text-[12px] text-muted">{h.eventos.join(', ')} · secreto {h.secreto.slice(0, 6)}… {h.ultimoEstado && `· último envío ${h.ultimoEstado}`}</span>

@@ -262,12 +262,11 @@ export function normalizarApariencia(raw: unknown): Apariencia {
   return p.success ? (p.data as Apariencia) : { ...APARIENCIA_DEFECTO };
 }
 
-/** Preferencias de cada persona dentro de una empresa (se guardan en usuario_empresas.preferencias). */
-export interface Preferencias {
-  /** Aplicaciones favoritas del lanzador, en el orden elegido. Sin definir: las propuestas por defecto. */
-  favoritos?: string[];
-}
+/**
+ * Preferencias de cada persona dentro de una empresa (se guardan en usuario_empresas.preferencias).
+ * Ahora mismo no hay ninguna: las favoritas del lanzador se quitaron al pasar a departamentos. El
+ * mecanismo se mantiene para la próxima preferencia; el esquema descarta cualquier clave desconocida.
+ */
+export interface Preferencias {}
 
-export const preferenciasSchema = z.object({
-  favoritos: z.array(z.string().trim().min(1).max(24)).max(40).optional(),
-});
+export const preferenciasSchema = z.object({});

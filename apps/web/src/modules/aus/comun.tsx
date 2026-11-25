@@ -22,7 +22,7 @@ export function SaldoCard({ s }: { s: SaldoResumen }) {
         {fmtNumber(s.disponibles, 1)} <span className="text-[14px] font-medium text-muted">días disponibles</span>
       </p>
       <ProgressBar value={s.disfrutados + s.pendientes} max={total || 1} tone="green" />
-      <p className="mt-1.5 text-[12px] text-muted">
+      <p className="mt-2 text-[12px] text-muted">
         {fmtNumber(total, 1)} en {s.anio} ({fmtNumber(s.asignados, 1)} + {fmtNumber(s.arrastre, 1)} del año anterior) · {fmtNumber(s.disfrutados, 1)} disfrutados · {fmtNumber(s.pendientes, 1)} pedidos · días {s.unidad}
       </p>
     </Card>
@@ -105,13 +105,13 @@ export function SolicitudDialog({ open, onOpenChange, personaId }: { open: boole
             )}
             {p.solapePropio && <p className="text-bad">Ya tienes una ausencia en esas fechas.</p>}
             {(Array.isArray(p.companeros) ? p.companeros.length : p.companeros) > 0 && (
-              <p className="mt-1 flex items-center gap-1.5 text-warn">
+              <p className="mt-1 flex items-center gap-2 text-warn">
                 <Users className="h-4 w-4" />
                 {Array.isArray(p.companeros) ? `También faltan: ${p.companeros.map((c: any) => c.nombre).join(', ')}` : `${p.companeros} compañeros de tu departamento también faltan esos días`}
               </p>
             )}
             {p.minimo && (
-              <p className="mt-1 flex items-center gap-1.5 text-bad">
+              <p className="mt-1 flex items-center gap-2 text-bad">
                 <AlertTriangle className="h-4 w-4" /> {typeof p.minimo === 'string' ? p.minimo : 'Se quedaría el departamento por debajo del mínimo de personas'}
               </p>
             )}

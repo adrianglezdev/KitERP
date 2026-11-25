@@ -97,12 +97,12 @@ export default function MiFurgoneta() {
         ) : (
           <ul className="divide-y divide-line">
             {a.movimientos.map((m: any) => (
-              <li key={m.id} className="flex items-center gap-3 px-4 py-2.5">
+              <li key={m.id} className="flex items-center gap-3 px-4 py-3">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[14px]">
                     <b className="font-medium">{m.referencia}</b> · {m.articulo}
                   </p>
-                  <p className="flex items-center gap-1.5 text-[12px] text-muted">
+                  <p className="flex items-center gap-2 text-[12px] text-muted">
                     {fmtDateTime(m.momento)} <EnumBadge options={stkShared.MOVIMIENTO_TIPOS} value={m.tipo} dot={false} />
                   </p>
                 </div>

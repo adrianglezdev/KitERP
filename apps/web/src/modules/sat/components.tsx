@@ -28,7 +28,7 @@ export function ManualesVinculados({ entidad, id, articuloId, titulo = 'Manuales
       ) : (
         <ul className="divide-y divide-line">
           {data.map((d) => (
-            <li key={d.id} className="flex items-center gap-3 px-4 py-2.5">
+            <li key={d.id} className="flex items-center gap-3 px-4 py-3">
               <div className="min-w-0 flex-1">
                 <Link to={`/dtc/documentos/${d.id}`} className="block truncate text-[14px] font-medium hover:text-primary">
                   {d.titulo}
@@ -39,7 +39,7 @@ export function ManualesVinculados({ entidad, id, articuloId, titulo = 'Manuales
                 </p>
               </div>
               {d.url && (
-                <a href={d.url} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-pill px-3.5 text-[13px] font-semibold text-primary hover:bg-primary-soft">
+                <a href={d.url} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-2 rounded-pill px-4 text-[13px] font-semibold text-primary hover:bg-primary-soft">
                   <ExternalLink className="h-4 w-4" /> Abrir
                 </a>
               )}
@@ -112,7 +112,7 @@ export function SlaBadge({ sla, estado }: { sla: any; estado?: string }) {
   if (estado && ['resuelto', 'cerrado'].includes(estado)) return sla.incumplido ? <Badge tone="red">SLA incumplido</Badge> : <Badge tone="green">En plazo</Badge>;
   const tone: Tone = sla.incumplido ? 'red' : sla.enRiesgo ? 'orange' : 'gray';
   return (
-    <span className={cn('inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-0.5 text-[12px] font-medium ring-1 ring-inset', TONES[tone])} title={`Objetivo de ${sla.objetivo === 'respuesta' ? 'primera respuesta' : 'resolución'}`}>
+    <span className={cn('inline-flex h-6 items-center gap-2 whitespace-nowrap rounded-md px-2 text-[12px] font-medium ring-1 ring-inset', TONES[tone])} title={`Objetivo de ${sla.objetivo === 'respuesta' ? 'primera respuesta' : 'resolución'}`}>
       <span className="h-1.5 w-1.5 rounded-full bg-current" />
       {sla.incumplido ? 'Fuera de plazo' : `${sla.objetivo === 'respuesta' ? 'Responder' : 'Resolver'}: ${restanteTexto(sla.restanteMin)}`}
     </span>

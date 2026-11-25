@@ -57,9 +57,9 @@ export default function MisHoras() {
             </div>
           </Card>
           {dias.length > 0 && (
-            <div className="flex gap-1.5 overflow-x-auto pb-1">
+            <div className="flex gap-2 overflow-x-auto pb-1">
               {dias.map(([d, h]) => (
-                <div key={d} className="min-w-[52px] rounded-xl bg-surface px-2 py-1.5 text-center ring-1 ring-line-strong/70">
+                <div key={d} className="min-w-[52px] rounded-xl bg-surface px-2 py-2 text-center ring-1 ring-line-strong/70">
                   <p className="text-[11px] text-muted">{fmtDate(d).slice(0, 5)}</p>
                   <p className="text-[13px] font-medium">{h}</p>
                 </div>
@@ -70,7 +70,7 @@ export default function MisHoras() {
             <CardHeader title="Imputaciones" />
             <ul className="divide-y divide-line">
               {data.items.map((i: any) => (
-                <li key={i.id} className="flex items-center gap-3 px-4 py-2.5 text-[14px]">
+                <li key={i.id} className="flex items-center gap-3 px-4 py-3 text-[14px]">
                   <span className="h-8 w-1 shrink-0 rounded-full" style={{ background: i.color ?? 'rgb(var(--leaf))' }} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-medium">
@@ -97,9 +97,9 @@ export default function MisHoras() {
               const pr = data.proyectos.find((p: any) => p.id === t.proyectoId);
               return (
                 <li key={t.id}>
-                  <Link to={`/proyectos/${t.proyectoId}`} className="block px-4 py-2.5 hover:bg-sunken">
+                  <Link to={`/proyectos/${t.proyectoId}`} className="block px-4 py-3 hover:bg-sunken">
                     <span className="block truncate text-[14px] font-medium">{t.titulo}</span>
-                    <span className="flex items-center gap-1.5 text-[12px] text-muted">
+                    <span className="flex items-center gap-2 text-[12px] text-muted">
                       <EnumBadge options={pryShared.TAREA_ESTADOS} value={t.estado} /> {pr?.codigo}
                       {t.fechaFin && ` · ${fmtDate(t.fechaFin)}`}
                     </span>

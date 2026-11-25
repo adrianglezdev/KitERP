@@ -57,7 +57,7 @@ export default function Bandeja() {
               {lista.map((a) => (
                 <li key={`${a.modulo}-${a.id}`} className="flex flex-col gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/60 sm:flex-row sm:items-center">
                   <div className="flex min-w-0 flex-1 items-start gap-3">
-                    <span className={cn('mt-[7px] h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pilarDe(a.modulo)]!.dot)} />
+                    <span className={cn('mt-2 h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pilarDe(a.modulo)]!.dot)} />
                     <div className="min-w-0 flex-1">
                       <p className="text-[12px] font-semibold text-primary">
                         {a.tipo} · {relTime(a.fecha)}
@@ -116,17 +116,17 @@ export default function Bandeja() {
                       {n.cuerpo && <span className="block text-[13px] text-muted">{n.cuerpo}</span>}
                       <span className="block text-[12px] text-muted">{relTime(n.creadoEn)}</span>
                     </span>
-                    {!n.leidaEn && <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-earth" aria-label="Sin leer" />}
+                    {!n.leidaEn && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-earth" aria-label="Sin leer" />}
                   </>
                 );
                 return (
                   <li key={n.id}>
                     {n.enlace ? (
-                      <Link to={n.enlace} className="flex items-start gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-sunken/60">
+                      <Link to={n.enlace} className="flex items-start gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/60">
                         {cuerpo}
                       </Link>
                     ) : (
-                      <div className="flex items-start gap-3 rounded-2xl px-3 py-2.5">{cuerpo}</div>
+                      <div className="flex items-start gap-3 rounded-2xl px-3 py-3">{cuerpo}</div>
                     )}
                   </li>
                 );

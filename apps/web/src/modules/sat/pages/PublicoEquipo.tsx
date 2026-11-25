@@ -26,7 +26,7 @@ export default function PublicoEquipo() {
           <div>
             {d.cliente && <p className="text-[13px] text-muted">{d.cliente}</p>}
             <h1 className="mt-0.5 flex items-center gap-2 text-[24px] font-medium">
-              <HardDrive className="h-6 w-6 shrink-0 text-primary" /> {d.equipo.nombre}
+              <HardDrive className="h-6 w-6 shrink-0 text-muted" /> {d.equipo.nombre}
             </h1>
             <p className="mt-1 text-[14px] text-muted">{[d.equipo.marca, d.equipo.modelo, d.equipo.ubicacion].filter(Boolean).join(' · ')}</p>
           </div>
@@ -44,7 +44,7 @@ export default function PublicoEquipo() {
               <p className="flex items-center gap-1 font-medium">
                 {d.equipo.garantiaHasta ? (
                   <>
-                    {d.equipo.enGarantia && <ShieldCheck className="h-4 w-4 text-primary" />}
+                    {d.equipo.enGarantia && <ShieldCheck className="h-4 w-4 text-muted" />}
                     {d.equipo.enGarantia ? `Hasta ${fmtDate(d.equipo.garantiaHasta)}` : `Terminó el ${fmtDate(d.equipo.garantiaHasta)}`}
                   </>
                 ) : (
@@ -58,7 +58,7 @@ export default function PublicoEquipo() {
               <p className="px-5 pb-2 pt-4 text-[13px] font-medium">Avisos abiertos de este equipo</p>
               <ul className="divide-y divide-line">
                 {d.abiertos.map((t: any) => (
-                  <li key={t.codigo} className="flex items-center gap-3 px-4 py-2.5">
+                  <li key={t.codigo} className="flex items-center gap-3 px-4 py-3">
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[14px] font-medium">{t.asunto}</span>
                       <span className="text-[12px] text-muted">
@@ -84,8 +84,8 @@ export default function PublicoEquipo() {
               <ul className="divide-y divide-line">
                 {d.manuales.map((m: any, i: number) => (
                   <li key={i}>
-                    <a href={m.url ?? undefined} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
-                      <FileText className="h-4 w-4 text-primary" />
+                    <a href={m.url ?? undefined} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
+                      <FileText className="h-4 w-4 text-muted" />
                       <span className="min-w-0 flex-1 truncate text-[14px]">{m.titulo}</span>
                       {m.version && <span className="text-[12px] text-muted">v{m.version}</span>}
                     </a>

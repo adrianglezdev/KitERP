@@ -123,7 +123,7 @@ export async function authRoutes(app: FastifyInstance) {
     };
   });
 
-  /* Preferencias de la persona en la empresa actual (favoritos del lanzador de aplicaciones…) */
+  /* Preferencias de la persona en la empresa actual (ver `Preferencias` en el paquete compartido) */
   app.patch('/auth/preferencias', async (req) => {
     const body = parse(preferenciasSchema, req.body);
     const [ue] = await db.select({ preferencias: usuarioEmpresas.preferencias }).from(usuarioEmpresas).where(eq(usuarioEmpresas.id, req.ctx.usuarioEmpresaId));

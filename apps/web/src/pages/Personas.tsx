@@ -32,7 +32,7 @@ export default function Personas() {
             header: 'Nombre',
             sortable: true,
             cell: (r: any) => (
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2">
                 <Avatar name={`${r.nombre} ${r.apellidos ?? ''}`} src={r.fotoUrl} size={28} />
                 <span className="font-medium">
                   {r.nombre} {r.apellidos}

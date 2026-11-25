@@ -42,7 +42,7 @@ export default function PublicFirma() {
         {f.estado === 'caducado' && <Alert tone="yellow">El plazo para firmar ha terminado. Pide un nuevo enlace.</Alert>}
         {f.url && (
           <a href={f.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl bg-surface p-4 shadow-card hover:bg-sunken/60">
-            <FileText className="h-6 w-6 text-primary" />
+            <FileText className="h-6 w-6 text-muted" />
             <span>
               <span className="block font-medium">Leer el documento completo</span>
               <span className="text-[13px] text-muted">Se abre en una pestaña nueva (PDF)</span>
@@ -53,7 +53,7 @@ export default function PublicFirma() {
         {f.estado === 'pendiente' && (
           <Card className="space-y-4 p-4">
             <h2 className="flex items-center gap-2 text-[18px] font-semibold">
-              <PenLine className="h-5 w-5 text-primary" /> Firma
+              <PenLine className="h-5 w-5 text-muted" /> Firma
             </h2>
             <SignaturePad onChange={setFirma} />
             <Checkbox checked={acepto} onChange={setAcepto} label="He leído el documento y acepto firmarlo electrónicamente." description="Se guardarán la fecha, la hora, tu dirección IP y una huella del documento como evidencia." />

@@ -71,7 +71,7 @@ export default function Proyectos() {
                 <Card className="h-full p-5 transition-colors group-hover:bg-sunken/60">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="flex items-center gap-1.5 text-[12px] font-medium text-muted">
+                      <p className="flex items-center gap-2 text-[12px] font-medium text-muted">
                         <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color ?? 'rgb(var(--leaf))' }} />
                         {p.codigo}
                       </p>

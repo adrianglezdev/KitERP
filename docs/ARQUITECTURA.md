@@ -64,8 +64,11 @@ En la web: `const { can, has } = useSession()`.
 
 En la web cada módulo activo se presenta como una **aplicación** (`apps/web/src/layout/apps.ts`): tiene icono, color de su pilar y sus apartados, que son los de `nav` del módulo. Algunas juntan pantallas del núcleo con las de un módulo (Equipo = directorio + ficha; Clientes = terceros + CRM; Almacén = catálogo + stock) y Configuración es una aplicación más.
 
-- La barra lateral enseña solo los apartados de la aplicación abierta. Cuál es se deduce de la dirección (`locate`, gana el prefijo más largo); las pantallas sin apartado propio la indican con `useClaimApp` (un documento dice si es de Facturas, Presupuestos o Compras) y, si no, se mantiene la última.
-- El lanzador (`AppLauncher.tsx`) es la cuadrícula de la cabecera: favoritas arriba, editables con el lápiz (añadir, quitar y ordenar arrastrando), y el resto debajo. En la barra lateral, el nombre de la aplicación abierta lleva el botón que abre ese mismo lanzador. Se guardan por persona y empresa en `usuario_empresas.preferencias` (`PATCH /api/auth/preferencias`).
+- Las aplicaciones se agrupan en **departamentos**, uno por pilar (`buildDepartamentos`): General (Inicio, Utilidades y Configuración), Personas, Comercial, Operaciones y Finanzas.
+- El lanzador (`AppLauncher.tsx`, la cuadrícula de la cabecera; en el móvil, «Áreas» en la barra inferior) sirve para elegir el departamento: abre su primera aplicación.
+- La barra lateral muestra el departamento abierto con sus aplicaciones; la abierta se despliega con sus apartados. Plegada, enseña los iconos de las aplicaciones y los de los apartados de la abierta.
+- La aplicación abierta se deduce de la dirección (`locate`, gana el prefijo más largo); las pantallas sin apartado propio la indican con `useClaimApp` (un documento dice si es de Facturas, Presupuestos o Compras) y, si no, se mantiene la última.
+- No hay aplicaciones favoritas: se quitaron al pasar el lanzador a departamentos. `usuario_empresas.preferencias` y `PATCH /api/auth/preferencias` se mantienen, vacíos, para futuras preferencias de cada persona.
 - Para añadir una aplicación basta una entrada en `APPS`; un módulo nuevo aparece al declarar su `nav`.
 
 ## Apariencia por empresa

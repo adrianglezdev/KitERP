@@ -81,9 +81,9 @@ export function TagsInput({ value, onChange, placeholder = 'Escribe y pulsa Intr
     } else if (e.key === 'Backspace' && !t && value.length) onChange(value.slice(0, -1));
   };
   return (
-    <div className="field-input flex min-h-[38px] flex-wrap items-center gap-1.5 py-1.5">
+    <div className="field-input flex min-h-10 flex-wrap items-center gap-2 py-2">
       {value.map((v) => (
-        <span key={v} className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-2 py-0.5 text-[13px] text-primary">
+        <span key={v} className="inline-flex items-center gap-1 rounded-md bg-sunken px-2 py-0.5 text-[13px] text-fg">
           {v}
           <button type="button" onClick={() => onChange(value.filter((x) => x !== v))} aria-label={`Quitar ${v}`}>
             <X className="h-3 w-3" />
@@ -168,7 +168,7 @@ export function FileDrop({ onUploaded, multiple = true, accept, capture, label =
 
 export function FileChip({ f, onRemove }: { f: { nombre: string; tamano?: number; url?: string | null }; onRemove?: () => void }) {
   return (
-    <span className="inline-flex max-w-full items-center gap-2 rounded-lg border border-line-strong/70 bg-sunken px-2.5 py-1.5 text-[13px]">
+    <span className="inline-flex max-w-full items-center gap-2 rounded-lg border border-line-strong/70 bg-sunken px-3 py-2 text-[13px]">
       {f.url ? (
         <a href={f.url} target="_blank" rel="noreferrer" className="truncate hover:text-primary">
           {f.nombre}
@@ -248,7 +248,7 @@ export function SignaturePad({ onChange, height = 180 }: { onChange: (dataUrl: s
         />
         <span className="pointer-events-none absolute bottom-2 left-3 text-[11px] text-gray-400">Firma aquí</span>
       </div>
-      <button type="button" onClick={clear} className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-fg">
+      <button type="button" onClick={clear} className="inline-flex items-center gap-2 text-[13px] text-muted hover:text-fg">
         <Eraser className="h-3.5 w-3.5" /> Borrar firma
       </button>
     </div>

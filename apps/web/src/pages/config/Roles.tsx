@@ -50,7 +50,7 @@ export default function Roles() {
           {roles.data?.map((r) => (
             <li key={r.id}>
               <button type="button" onClick={() => elegir(r)} className={cn('flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-sunken', sel === r.id && 'bg-primary-soft')}>
-                <ShieldCheck className="h-4 w-4 text-primary" />
+                <ShieldCheck className="h-4 w-4 text-muted" />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-[14px] font-medium">{r.nombre}</span>
                   <span className="text-[12px] text-muted">{r.usuarios} usuarios</span>
@@ -90,7 +90,7 @@ export default function Roles() {
                   const v = draft.permisos[p.key];
                   return (
                     <li key={p.key} className="flex flex-wrap items-center gap-3 px-4 py-2">
-                      <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 text-[14px]">
+                      <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 text-[14px]">
                         <input
                           type="checkbox"
                           className="h-4 w-4 accent-[rgb(var(--primary))]"
@@ -107,7 +107,7 @@ export default function Roles() {
                       {p.scoped && v && (
                         <div className="flex flex-wrap gap-1">
                           {SCOPES.map((s) => (
-                            <button key={s} type="button" onClick={() => setDraft({ ...draft, permisos: { ...draft.permisos, [p.key]: s } })} className={cn('rounded-pill px-2.5 py-0.5 text-[12px] font-semibold', v === s ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg')}>
+                            <button key={s} type="button" onClick={() => setDraft({ ...draft, permisos: { ...draft.permisos, [p.key]: s } })} className={cn('rounded-pill px-3 py-0.5 text-[12px] font-semibold', v === s ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg')}>
                               {SCOPE_LABELS[s]}
                             </button>
                           ))}

@@ -15,8 +15,8 @@ const VARIANTS: Record<Variant, string> = {
   soft: 'bg-primary-soft text-primary hover:bg-primary/15',
 };
 const SIZES: Record<Size, string> = {
-  sm: 'h-8 px-3.5 text-[13px] gap-1.5',
-  md: 'h-10 px-[18px] text-[14px] gap-2',
+  sm: 'h-8 px-4 text-[13px] gap-2',
+  md: 'h-10 px-4 text-[14px] gap-2',
   lg: 'h-12 px-6 text-[16px] gap-2',
 };
 

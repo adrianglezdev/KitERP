@@ -20,7 +20,7 @@ export default function ArticuloProveedoresTab({ id }: { id: string }) {
             <CardHeader title="Comparativa de precios" subtitle="Precio neto (con descuento) frente al más barato" />
             <ul className="divide-y divide-line">
               {data.ofertas.map((o: any) => (
-                <li key={o.id} className="flex items-center gap-3 px-4 py-2.5 text-[14px]">
+                <li key={o.id} className="flex items-center gap-3 px-4 py-3 text-[14px]">
                   <Link to={`/terceros/${o.proveedorId}`} className="min-w-0 flex-1 truncate hover:text-primary">
                     {o.proveedor}
                   </Link>

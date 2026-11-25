@@ -38,25 +38,25 @@ function TemaCard({ ap, nombre, descripcion, activo, onClick }: { ap: Apariencia
   const r = ap.esquinas === 'rectas' ? 3 : ap.esquinas === 'suaves' ? 6 : 10;
   const pill = ap.botones === 'pildora' ? 99 : ap.botones === 'redondeados' ? 5 : 2;
   return (
-    <button type="button" onClick={onClick} aria-pressed={activo} className={cn('group rounded-2xl bg-surface p-2 text-left shadow-card outline-none transition-shadow hover:shadow-pop', activo ? 'ring-2 ring-primary' : 'ring-1 ring-transparent hover:ring-line-strong')}>
-      <div className="flex h-[92px] gap-1.5 overflow-hidden p-1.5" style={{ background: s.bg, borderRadius: r + 4 }} aria-hidden>
-        <div className="flex w-[30%] flex-col gap-1 p-1.5" style={{ background: s.side, borderRadius: r }}>
+    <button type="button" onClick={onClick} aria-pressed={activo} className={cn('group rounded-2xl bg-surface p-2 text-left shadow-card outline-none transition-colors hover:bg-sunken/60', activo ? 'ring-2 ring-primary' : 'ring-1 ring-transparent hover:ring-line-strong')}>
+      <div className="flex h-[92px] gap-2 overflow-hidden p-2" style={{ background: s.bg, borderRadius: r + 4 }} aria-hidden>
+        <div className="flex w-[30%] flex-col gap-1 p-2" style={{ background: s.side, borderRadius: r }}>
           <span className="h-1.5 w-3/4 rounded-full" style={{ background: s.sideFg, opacity: 0.85 }} />
           <span className="mt-1 h-2.5 rounded-full" style={{ background: s.sideActive, borderRadius: Math.min(r, 5) }} />
           <span className="h-1.5 w-4/5 rounded-full" style={{ background: s.sideFg, opacity: 0.35 }} />
           <span className="h-1.5 w-3/5 rounded-full" style={{ background: s.sideFg, opacity: 0.35 }} />
         </div>
-        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
           <div className="flex items-center gap-1">
             <span className="h-2 w-2/5 rounded-full" style={{ background: s.fg }} />
             <span className="ml-auto h-3 w-8" style={{ background: s.primary, borderRadius: pill }} />
           </div>
-          <div className="flex flex-1 gap-1.5">
-            <div className="flex flex-1 flex-col justify-end gap-1 p-1.5" style={{ background: s.surface, borderRadius: r }}>
+          <div className="flex flex-1 gap-2">
+            <div className="flex flex-1 flex-col justify-end gap-1 p-2" style={{ background: s.surface, borderRadius: r }}>
               <span className="h-1.5 w-1/2 rounded-full" style={{ background: s.muted, opacity: 0.6 }} />
               <span className="h-2.5 w-4/5 rounded-full" style={{ background: s.fg }} />
             </div>
-            <div className="flex flex-1 flex-col justify-end gap-1 p-1.5" style={{ background: s.primary, borderRadius: r }}>
+            <div className="flex flex-1 flex-col justify-end gap-1 p-2" style={{ background: s.primary, borderRadius: r }}>
               <span className="h-1.5 w-1/2 rounded-full" style={{ background: s.primaryFg, opacity: 0.6 }} />
               <span className="h-2.5 w-4/5 rounded-full" style={{ background: s.primaryFg }} />
             </div>
@@ -68,7 +68,7 @@ function TemaCard({ ap, nombre, descripcion, activo, onClick }: { ap: Apariencia
           </div>
         </div>
       </div>
-      <div className="flex items-start gap-2 px-1.5 pb-1 pt-2.5">
+      <div className="flex items-start gap-2 px-2 pb-1 pt-3">
         <div className="min-w-0 flex-1">
           <p className="font-display text-[14px] font-medium" style={{ fontFamily: `${fuente(ap.fuenteTitulos).familia}, var(--font-display)` }}>
             {nombre}
@@ -88,13 +88,13 @@ function TemaCard({ ap, nombre, descripcion, activo, onClick }: { ap: Apariencia
 /** La aplicación en miniatura con el tema que se está editando, hecha con los componentes reales. */
 function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre: string }) {
   const style = useMemo(() => scopedVars(ap, mode), [ap, mode]);
-  const item = 'flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-[12px] font-medium';
+  const item = 'flex items-center gap-2 rounded-xl px-3 py-2 text-[12px] font-medium';
   return (
     <div data-theme={mode} style={style} className="overflow-hidden rounded-2xl ring-1 ring-line-strong/60">
-      <div className="flex gap-2.5 p-2.5">
-        <div className="hidden w-[132px] shrink-0 flex-col rounded-2xl bg-side p-2.5 text-side-fg shadow-card sm:flex">
+      <div className="flex gap-2 p-3">
+        <div className="hidden w-[132px] shrink-0 flex-col rounded-2xl bg-side p-3 text-side-fg shadow-card sm:flex">
           <p className="truncate px-1 font-display text-[13px] font-semibold">{nombre}</p>
-          <div className="mt-2.5 grid grid-cols-4 gap-1 rounded-xl bg-side-fg/[0.07] p-1">
+          <div className="mt-3 grid grid-cols-4 gap-1 rounded-xl bg-side-fg/[0.07] p-1">
             {[Home, Clock, Users, Grip].map((I, i) => (
               <span key={i} className={cn('flex h-7 items-center justify-center rounded-lg', i === 1 ? 'bg-side-active text-side-active-fg' : 'text-side-fg/70')}>
                 <I className="h-3.5 w-3.5" />
@@ -102,7 +102,7 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             ))}
           </div>
           <p className="mt-3 px-1 font-display text-[13px] font-medium">Fichaje</p>
-          <div className="mt-1.5 space-y-0.5">
+          <div className="mt-2 space-y-0.5">
             <span className={cn(item, 'bg-side-active text-side-active-fg')}>
               <Clock className="h-3.5 w-3.5" /> Fichar
             </span>
@@ -111,13 +111,13 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             </span>
             <span className={cn(item, 'text-side-fg/75')}>
               <Inbox className="h-3.5 w-3.5" /> Incidencias
-              <span className="ml-auto rounded-full bg-earth px-1.5 text-[11px] font-semibold text-earth-fg">3</span>
+              <span className="ml-auto rounded-full bg-earth px-2 text-[11px] font-semibold text-earth-fg">3</span>
             </span>
           </div>
         </div>
-        <div className="min-w-0 flex-1 space-y-2.5">
-          <div className="flex items-center gap-1.5">
-            <span className="flex h-8 min-w-0 flex-1 items-center gap-1.5 rounded-pill bg-surface px-3 text-[12px] text-muted shadow-card">
+        <div className="min-w-0 flex-1 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-pill bg-surface px-3 text-[12px] text-muted shadow-card">
               <Search className="h-3.5 w-3.5" /> Buscar
             </span>
             <span className="flex h-8 items-center gap-1 rounded-pill bg-primary px-3 text-[12px] font-semibold text-primary-fg">
@@ -128,16 +128,16 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             </span>
           </div>
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-pill bg-surface py-0.5 pl-2 pr-2.5 text-[11px] font-semibold text-fg/70 shadow-card">
+            <span className="inline-flex items-center gap-2 rounded-pill bg-surface py-0.5 pl-2 pr-3 text-[11px] font-semibold text-fg/70 shadow-card">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" /> Personas · Fichaje
             </span>
-            <p className="mt-1.5 font-display text-[20px] font-medium leading-tight">Buenas tardes, Laura</p>
+            <p className="mt-2 font-display text-[20px] font-medium leading-tight">Buenas tardes, Laura</p>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="min-w-0 rounded-2xl bg-surface p-3 shadow-card">
               <p className="truncate text-[11px] font-semibold text-fg/65">Horas esta semana</p>
               <p className="tabular whitespace-nowrap font-display text-[16px] font-medium">21:43 h</p>
-              <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-sunken">
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-sunken">
                 <div className="h-full w-[54%] rounded-full bg-primary" />
               </div>
             </div>
@@ -155,7 +155,7 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
             </div>
           </div>
           <div className="rounded-2xl bg-surface p-3 shadow-card">
-            <div className="flex flex-wrap items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-2">
               <Badge tone="green" dot>
                 Aprobado
               </Badge>
@@ -170,7 +170,7 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
               </Badge>
               <span className="tag">P26-00001</span>
             </div>
-            <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+            <div className="mt-3 flex flex-wrap items-center gap-2">
               <Button size="sm" variant="primary">
                 Guardar
               </Button>
@@ -178,7 +178,7 @@ function VistaPrevia({ ap, mode, nombre }: { ap: Apariencia; mode: Mode; nombre:
               <Button size="sm" variant="success" icon={Check}>
                 Aprobar
               </Button>
-              <span className="field-input !w-auto flex-1 !py-1.5 text-[12px] text-muted">Escribe aquí…</span>
+              <span className="field-input !w-auto flex-1 !py-2 text-[12px] text-muted">Escribe aquí…</span>
             </div>
           </div>
         </div>
@@ -191,7 +191,7 @@ function ColorField({ label, help, value, onChange, aviso }: { label: string; he
   const [text, setText] = useState(value);
   useEffect(() => setText(value), [value]);
   return (
-    <div className="flex items-center gap-3 rounded-2xl bg-sunken/70 p-2.5">
+    <div className="flex items-center gap-3 rounded-2xl bg-sunken/70 p-3">
       <label className="relative h-11 w-11 shrink-0 cursor-pointer overflow-hidden rounded-xl ring-1 ring-line-strong" style={{ background: value }}>
         <input type="color" value={value} onChange={(e) => onChange(e.target.value.toUpperCase())} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label={`Color ${label.toLowerCase()}`} />
       </label>
@@ -209,7 +209,7 @@ function ColorField({ label, help, value, onChange, aviso }: { label: string; he
         onBlur={() => setText(value)}
         maxLength={7}
         spellCheck={false}
-        className="field-input !w-[92px] shrink-0 !bg-surface !px-2.5 !py-2 font-mono text-[13px] uppercase"
+        className="field-input !w-[92px] shrink-0 !bg-surface !px-3 !py-2 font-mono text-[13px] uppercase"
         aria-label={`Código del color ${label.toLowerCase()}`}
       />
     </div>
@@ -218,7 +218,7 @@ function ColorField({ label, help, value, onChange, aviso }: { label: string; he
 
 function FuentePicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
   return (
-    <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {FUENTES.map((f) => (
         <button
           key={f.id}
@@ -334,7 +334,7 @@ export default function AparienciaConfig() {
               <p className="label">Logo</p>
               <div className="flex items-center gap-3">
                 {logo?.url ? (
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-1.5 ring-1 ring-line-strong">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-2 ring-1 ring-line-strong">
                     <img src={logo.url} alt="Logo actual" className="max-h-full max-w-full object-contain" />
                   </span>
                 ) : null}
@@ -402,11 +402,11 @@ export default function AparienciaConfig() {
             {cambios ? <Badge tone="yellow">Cambios sin guardar</Badge> : <Badge tone="green">Guardado</Badge>}
           </div>
           <div>
-            <p className="mb-1.5 text-[12px] font-semibold text-muted">Claro</p>
+            <p className="mb-2 text-[12px] font-semibold text-muted">Claro</p>
             <VistaPrevia ap={ap} mode="light" nombre={nombre} />
           </div>
           <div>
-            <p className="mb-1.5 text-[12px] font-semibold text-muted">Oscuro</p>
+            <p className="mb-2 text-[12px] font-semibold text-muted">Oscuro</p>
             <VistaPrevia ap={ap} mode="dark" nombre={nombre} />
           </div>
           <Switch checked={enVivo} onChange={setEnVivo} label="Probar en toda la aplicación" description="Mientras editas ves el resultado en todas las pantallas. Si sales sin guardar, vuelve el tema anterior." />

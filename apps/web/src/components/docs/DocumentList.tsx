@@ -98,7 +98,7 @@ export function DocumentList({
       cell: (r) => (
         <span className="font-medium">
           {r.codigo ?? <span className="text-muted">Borrador</span>}
-          {tipos.length > 1 && <span className="ml-1.5 text-[12px] font-normal text-muted">{tipoLabel(r.tipo)}</span>}
+          {tipos.length > 1 && <span className="ml-2 text-[12px] font-normal text-muted">{tipoLabel(r.tipo)}</span>}
         </span>
       ),
     },
@@ -122,7 +122,7 @@ export function DocumentList({
               <RefSelect target={compra ? 'proveedores' : 'terceros'} value={tercero} onChange={(v) => { setTercero(v); setPage(1); }} placeholder={compra ? 'Todos los proveedores' : 'Todos los clientes'} />
             </div>
           )}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <Input type="date" value={desde} onChange={(e) => { setDesde(e.target.value); setPage(1); }} aria-label="Desde" className="w-[150px]" />
             <span className="text-muted">–</span>
             <Input type="date" value={hasta} onChange={(e) => { setHasta(e.target.value); setPage(1); }} aria-label="Hasta" className="w-[150px]" />

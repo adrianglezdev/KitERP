@@ -13,9 +13,9 @@ Los **25 módulos** tienen servidor y pantallas, y todo está en la rama `main` 
 - **Personas**: ficha laboral, control horario (con quiosco), ausencias, nóminas, altas, bajas, selección y evaluación, y portal del empleado.
 - **Servicio técnico**: SAT (con portal del cliente y QR de equipos) y documentación técnica con versiones aprobadas.
 - **Finanzas**: tesorería (SEPA, Norma 43, conciliación, previsión), contabilidad (PGC, libros, modelos), gastos y BI (panel de dirección e informes con envío programado).
-- **Rediseño (12/11/2026)**: nueva interfaz a partir del prototipo de `Fotos/rediseno`. Cada módulo se usa como una aplicación con lanzador y favoritas, y cada empresa tiene su apariencia (Configuración → Apariencia). Está explicado en ARQUITECTURA.md, secciones «Aplicaciones y lanzador» y «Apariencia por empresa».
+- **Rediseño (12/11/2026)**: nueva interfaz a partir del prototipo de `Fotos/rediseno`. Cada módulo se usa como una aplicación, agrupadas por departamentos que se eligen en el lanzador de la cabecera, y cada empresa tiene su apariencia (Configuración → Apariencia). Está explicado en ARQUITECTURA.md, secciones «Aplicaciones y lanzador» y «Apariencia por empresa».
 - **Base de datos**: migraciones `0000_nucleo.sql`, `0001_modulos.sql` y `0002_preferencias.sql`, más los disparadores de `apps/api/src/db/sql/post`.
-- **Pruebas**: 39 en `apps/api/test` (núcleo, apariencia y aplicaciones, comercial, técnico y personas/finanzas). Todas pasan sobre una base creada con las migraciones.
+- **Pruebas**: 38 en `apps/api/test` (núcleo, apariencia y aplicaciones, comercial, técnico y personas/finanzas). Todas pasan sobre una base creada con las migraciones.
 - **Revisado en el navegador**: todas las listas y fichas cargan con el administrador. Flujo de gasto completo en móvil como empleado y aprobación por su responsable. Límites entre departamentos (comercial no ve SAT ni contabilidad).
 
 ## 2. Arrancar
@@ -39,7 +39,7 @@ Nada bloquea el uso, pero queda por hacer o por comprobar en real:
 - **Gastos**: la lectura automática del ticket funciona con PDF. Las fotos se rellenan a mano; habría que añadir OCR.
 - **Pruebas en navegador**: se han revisado a mano. Convendría automatizarlas (Playwright) para los flujos principales y los roles.
 - **Accesibilidad**: las etiquetas de los formularios ya se enlazan solas con su campo. Falta una revisión completa con lector de pantalla.
-- **Apariencia**: las tipografías se cargan desde Google Fonts; para una instalación sin salida a Internet habría que servirlas desde el propio servidor. En el móvil las favoritas del lanzador se añaden y quitan, pero ordenarlas arrastrando solo funciona con ratón.
+- **Apariencia**: las tipografías se cargan desde Google Fonts; para una instalación sin salida a Internet habría que servirlas desde el propio servidor.
 - **Empresas nuevas**: se crean con el seed o directamente en la base de datos; falta una pantalla para dar de alta una empresa (con sus roles y módulos) desde la aplicación.
 - El código del módulo de contabilidad es **`cnt`**, no `con`: Windows no admite carpetas llamadas `con`, `aux` o `nul`.
 

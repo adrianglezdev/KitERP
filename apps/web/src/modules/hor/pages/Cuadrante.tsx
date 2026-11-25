@@ -81,7 +81,7 @@ export default function Cuadrante() {
       </div>
       <div className="mb-3 flex flex-wrap gap-2 text-[12px]">
         {data?.turnos.map((t) => (
-          <span key={t.id} className="inline-flex items-center gap-1.5 rounded-md bg-surface px-2 py-1 ring-1 ring-line-strong/70">
+          <span key={t.id} className="inline-flex items-center gap-2 rounded-md bg-surface px-2 py-1 ring-1 ring-line-strong/70">
             <span className="h-2.5 w-2.5 rounded-sm" style={{ background: t.color }} />
             {t.nombre} {t.horaInicio.slice(0, 5)}–{t.horaFin.slice(0, 5)}
           </span>
@@ -111,7 +111,7 @@ export default function Cuadrante() {
             <tbody>
               {data.filas.map((f) => (
                 <tr key={f.persona.id} className="border-t border-line">
-                  <td className="sticky left-0 z-10 bg-surface px-3 py-1.5">
+                  <td className="sticky left-0 z-10 bg-surface px-3 py-2">
                     <span className="block max-w-[170px] truncate font-medium">{f.persona.nombre}</span>
                     {f.persona.departamento && <span className="block truncate text-[11px] text-muted">{f.persona.departamento}</span>}
                   </td>

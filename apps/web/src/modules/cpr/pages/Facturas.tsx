@@ -61,7 +61,7 @@ export default function Facturas() {
             {busy ? 'Leyendo la factura…' : a ? 'Subir otra factura' : 'Elige el PDF de la factura'}
             <input type="file" accept="application/pdf" hidden onChange={(e) => subir(e.target.files?.[0])} />
           </label>
-          <p className="flex items-center gap-1.5 text-[12px] text-muted">
+          <p className="flex items-center gap-2 text-[12px] text-muted">
             <Info className="h-3.5 w-3.5" /> Solo se leen PDF con texto. Si es una foto o un escaneo, rellena los datos a mano.
           </p>
           {a?.aviso && <Alert tone="yellow">{a.aviso}</Alert>}
@@ -90,7 +90,7 @@ export default function Facturas() {
               {!!a?.recepciones.length && (
                 <div>
                   <p className="label">Recepciones de este proveedor sin facturar</p>
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {a.recepciones.map((r) => (
                       <Checkbox
                         key={r.id}

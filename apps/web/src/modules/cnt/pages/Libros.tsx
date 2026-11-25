@@ -151,7 +151,7 @@ function Estado({ lineas }: { lineas: any[] }) {
   return (
     <ul className="divide-y divide-line">
       {lineas.map((l) => (
-        <li key={l.id} className={cn('flex items-center gap-3 py-1.5 pr-4 text-[14px]', l.nivel === 0 && 'bg-sunken/60 font-semibold')} style={{ paddingLeft: 16 + l.nivel * 16 }}>
+        <li key={l.id} className={cn('flex items-center gap-3 py-2 pr-4 text-[14px]', l.nivel === 0 && 'bg-sunken/60 font-semibold')} style={{ paddingLeft: 16 + l.nivel * 16 }}>
           <span className={cn('min-w-0 flex-1', l.nivel === 1 && 'font-medium')}>{l.titulo}</span>
           <Importe v={l.importe} bold={l.nivel <= 1} />
         </li>

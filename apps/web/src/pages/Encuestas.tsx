@@ -154,7 +154,7 @@ function Resultados({ id, onClose }: { id: string; onClose: () => void }) {
                 </ul>
               )}
               {p.tipo === 'texto' && (
-                <ul className="mt-2 space-y-1.5">
+                <ul className="mt-2 space-y-2">
                   {p.textos.map((t: string, k: number) => (
                     <li key={k} className="rounded-lg bg-sunken px-3 py-2 text-[13px]">
                       {t}

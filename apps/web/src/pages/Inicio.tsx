@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronRight, LogIn, LogOut, Megaphone, Pin } from 'lucide-react';
 import { PILLARS, fmtHours, moduleInfo, type ApprovalItem, type DashboardWidget, type Pillar } from '@kite/shared';
@@ -27,11 +27,11 @@ function Jornada() {
   const pct = previstas > 0 ? Math.min(100, (trabajadas / previstas) * 100) : 0;
   const turno = data?.hoy?.turno;
   return (
-    <div className="flex flex-col gap-3.5 rounded-2xl bg-deep p-5 text-deep-fg dark:bg-surface dark:text-fg dark:shadow-card">
+    <div className="flex flex-col gap-4 rounded-2xl bg-deep p-5 text-deep-fg dark:bg-surface dark:text-fg dark:shadow-card">
       <div className="flex items-center justify-between gap-2">
         <p className="text-[13px] font-medium opacity-70">{estado === 'trabajando' ? `Trabajando desde las ${hora(data?.desde ?? data?.ultimo?.momento)}` : estado === 'pausa' ? `En pausa desde las ${hora(data?.ultimo?.momento)}` : 'Fuera de la jornada'}</p>
         {turno?.horaInicio && (
-          <span className="tabular shrink-0 rounded-pill bg-white/[0.12] px-2.5 py-0.5 text-[12px] font-semibold dark:bg-sunken">
+          <span className="tabular shrink-0 rounded-pill bg-white/[0.12] px-3 py-0.5 text-[12px] font-semibold dark:bg-sunken">
             {String(turno.horaInicio).slice(0, 5)} – {String(turno.horaFin).slice(0, 5)}
           </span>
         )}
@@ -54,26 +54,85 @@ function Jornada() {
   );
 }
 
-/** Indicadores de un pilar: primero las cifras, en una fila, y debajo listas y gráficos. */
-function SeccionPilar({ p, ws }: { p: Pillar; ws: DashboardWidget[] }) {
+/**
+ * Indicadores de un pilar, colocados para que no queden huecos sea cual sea su número y su alto:
+ *  - las cifras van en filas iguales (cinco cifras son 3 + 2, seis son 3 + 3) y las de la última
+ *    fila se estiran hasta el borde;
+ *  - un gráfico grande ocupa todo el ancho;
+ *  - las listas y los gráficos pequeños se reparten en columnas de alto parecido, cada tarjeta
+ *    con el alto de su contenido.
+ */
+function SeccionPilar({ ws }: { ws: DashboardWidget[] }) {
   const cifras = ws.filter((w) => w.data.kind === 'stat');
-  const resto = ws.filter((w) => w.data.kind !== 'stat');
+  const anchos = ws.filter((w) => w.data.kind === 'chart' && w.size === 'lg');
+  const resto = ws.filter((w) => w.data.kind !== 'stat' && !anchos.includes(w));
+  const porFila = cifras.length <= 4 ? cifras.length : cifras.length <= 6 ? 3 : 4;
   return (
     <div className="space-y-4">
       {cifras.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="flex flex-wrap gap-4" style={{ '--basis': `calc((100% - ${porFila - 1}rem) / ${porFila})` } as CSSProperties}>
           {cifras.map((w) => (
-            <WidgetCard key={w.id} w={{ ...w, size: 'sm' }} />
+            <div key={w.id} className="min-w-0 grow basis-full sm:basis-[calc((100%-1rem)/2)] xl:basis-[var(--basis)] [&>*]:h-full">
+              <WidgetCard w={{ ...w, size: 'sm' }} />
+            </div>
           ))}
         </div>
       )}
+      {anchos.map((w) => (
+        <WidgetCard key={w.id} w={w} />
+      ))}
       {resto.length > 0 && (
-        <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {resto.map((w) => (
-            <WidgetCard key={w.id} w={w} />
+        <>
+          <Columnas ws={resto} max={1} className="md:hidden" />
+          <Columnas ws={resto} max={2} className="hidden md:flex xl:hidden" />
+          <Columnas ws={resto} max={3} className="hidden xl:flex" />
+        </>
+      )}
+    </div>
+  );
+}
+
+/** Alto aproximado de una tarjeta, en «filas», para repartirlas entre columnas. */
+function peso(w: DashboardWidget) {
+  if (w.data.kind === 'chart') return 6;
+  if (w.data.kind === 'list') return 2 + Math.max(1, w.data.items.length);
+  return 3;
+}
+
+/** Reparte las tarjetas en `n` columnas, cada una a la columna que va más corta. */
+function repartir(ws: DashboardWidget[], n: number) {
+  const cols: DashboardWidget[][] = Array.from({ length: n }, () => []);
+  const altos = new Array<number>(n).fill(0);
+  for (const w of ws) {
+    const i = altos.indexOf(Math.min(...altos));
+    cols[i]!.push(w);
+    altos[i]! += peso(w);
+  }
+  const alto = Math.max(...altos);
+  // Lo que cuenta: que la sección sea corta y que no queden huecos bajo las columnas más bajas
+  const hueco = altos.reduce((a, h) => a + alto - h, 0);
+  return { cols, coste: alto + hueco / 2 };
+}
+
+/**
+ * Columnas de tarjetas sin huecos. Prueba de 1 a `max` columnas y se queda con el reparto más
+ * compacto: tres listas muy desiguales quedan mejor en dos columnas que en tres.
+ */
+function Columnas({ ws, max, className }: { ws: DashboardWidget[]; max: number; className?: string }) {
+  let mejor = repartir(ws, 1);
+  for (let n = 2; n <= Math.min(max, ws.length); n++) {
+    const r = repartir(ws, n);
+    if (r.coste <= mejor.coste) mejor = r;
+  }
+  return (
+    <div className={cn('flex items-start gap-4', className)}>
+      {mejor.cols.map((col, i) => (
+        <div key={i} className="flex min-w-0 flex-1 flex-col gap-4">
+          {col.map((w) => (
+            <WidgetCard key={w.id} w={{ ...w, size: 'md' }} />
           ))}
         </div>
-      )}
+      ))}
     </div>
   );
 }
@@ -131,7 +190,7 @@ export default function Inicio() {
       {tiles.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
           {tiles.slice(0, 6).map((t) => (
-            <Link key={t.to} to={t.to} className="group flex flex-col items-start gap-3 rounded-2xl bg-surface p-3.5 shadow-card transition-colors hover:bg-sunken/60">
+            <Link key={t.to} to={t.to} className="group flex flex-col items-start gap-3 rounded-2xl bg-surface p-4 shadow-card transition-colors hover:bg-sunken/60">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sunken text-muted transition-colors group-hover:text-fg">
                 <t.icon className="h-[18px] w-[18px]" />
               </span>
@@ -160,10 +219,10 @@ export default function Inicio() {
                   </Link>
                 }
               />
-              <ul className="px-2 pb-2.5">
+              <ul className="px-2 pb-3">
                 {aprob.data!.slice(0, 5).map((a) => (
                   <li key={a.id}>
-                    <Link to="/bandeja" className="flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-sunken/70">
+                    <Link to="/bandeja" className="flex items-center gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/70">
                       <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pilarDe(a.modulo)]!.dot)} />
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-[14px] font-semibold">{a.titulo}</span>
@@ -187,11 +246,11 @@ export default function Inicio() {
                   </Link>
                 }
               />
-              <ul className="px-2 pb-2.5">
+              <ul className="px-2 pb-3">
                 {sinLeer.slice(0, 3).map((a) => (
                   <li key={a.id}>
-                    <Link to="/tablon" className="block rounded-2xl px-3 py-2.5 transition-colors hover:bg-sunken/70">
-                      <span className="flex items-center gap-1.5 text-[14px] font-semibold">
+                    <Link to="/tablon" className="block rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/70">
+                      <span className="flex items-center gap-2 text-[14px] font-semibold">
                         {a.fijado && <Pin className="h-3.5 w-3.5 shrink-0 text-muted" />}
                         <span className="truncate">{a.titulo}</span>
                       </span>
@@ -214,11 +273,11 @@ export default function Inicio() {
       ) : (
         porPilar.map(({ p, ws }) => (
           <section key={p}>
-            <div className="mb-3.5 mt-8 flex items-center gap-2.5">
+            <div className="mb-4 mt-8 flex items-center gap-2">
               <span className={cn('h-2 w-2 rounded-full', PILLAR_CLASSES[p]!.dot)} />
               <h2 className="text-[20px] font-medium">{PILLARS[p].label}</h2>
             </div>
-            <SeccionPilar p={p} ws={ws} />
+            <SeccionPilar ws={ws} />
           </section>
         ))
       )}

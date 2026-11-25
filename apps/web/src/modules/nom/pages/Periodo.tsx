@@ -84,7 +84,7 @@ export default function Periodo() {
                 header: 'Recibo',
                 cell: (x: any) =>
                   x.recibo ? (
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-2">
                       <button type="button" className="text-primary hover:underline" onClick={() => abrirRecibo(x.recibo.id)}>
                         Ver
                       </button>
@@ -136,7 +136,7 @@ function SinAsignar({ recibos }: { recibos: any[] }) {
       <CardHeader title="Recibos sin asignar" subtitle="No se ha encontrado el DNI de ninguna persona activa. Elige a quién corresponde." />
       <ul className="divide-y divide-line">
         {recibos.map((r) => (
-          <li key={r.id} className="flex flex-col gap-2 px-4 py-2.5 sm:flex-row sm:items-center">
+          <li key={r.id} className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center">
             <a href={r.url} target="_blank" rel="noreferrer" className="flex min-w-0 flex-1 items-center gap-2 text-[14px] text-primary">
               <Eye className="h-4 w-4" /> <span className="truncate">{r.titulo ?? 'Recibo'}</span>
               {r.dniDetectado && <span className="text-muted">· DNI {r.dniDetectado}</span>}

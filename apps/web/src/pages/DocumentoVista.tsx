@@ -253,7 +253,7 @@ export default function DocumentoVista() {
                       </tr>
                     ) : (
                       <tr key={l.id} className="border-b border-line/60 last:border-0">
-                        <td className="px-4 py-2.5">
+                        <td className="px-4 py-3">
                           {l.referencia && <span className="mr-2 font-mono text-[12px] text-muted">{l.referencia}</span>}
                           <span className="whitespace-pre-wrap">{l.descripcion}</span>
                           {l.lote && <span className="ml-2 text-[12px] text-muted">Lote {l.lote}</span>}
@@ -263,13 +263,13 @@ export default function DocumentoVista() {
                             </span>
                           )}
                         </td>
-                        <td className="tabular px-3 py-2.5 text-right">
+                        <td className="tabular px-3 py-3 text-right">
                           {fmtNumber(l.cantidad, 3)} <span className="text-[12px] text-muted">{l.unidad}</span>
                         </td>
-                        <td className="tabular hidden px-3 py-2.5 text-right sm:table-cell">{fmtMoney(l.precio)}</td>
-                        <td className="tabular hidden px-3 py-2.5 text-right md:table-cell">{l.descuento ? `${fmtNumber(l.descuento)} %` : ''}</td>
-                        <td className="tabular hidden px-3 py-2.5 text-right md:table-cell">{fmtNumber(l.ivaTipo)} %</td>
-                        <td className="tabular px-4 py-2.5 text-right font-medium">{fmtMoney(l.subtotal)}</td>
+                        <td className="tabular hidden px-3 py-3 text-right sm:table-cell">{fmtMoney(l.precio)}</td>
+                        <td className="tabular hidden px-3 py-3 text-right md:table-cell">{l.descuento ? `${fmtNumber(l.descuento)} %` : ''}</td>
+                        <td className="tabular hidden px-3 py-3 text-right md:table-cell">{fmtNumber(l.ivaTipo)} %</td>
+                        <td className="tabular px-4 py-3 text-right font-medium">{fmtMoney(l.subtotal)}</td>
                       </tr>
                     ),
                   )}
@@ -288,7 +288,7 @@ export default function DocumentoVista() {
 
         <div className="space-y-5">
           <Card>
-            <div className="space-y-1.5 p-4 text-[14px]">
+            <div className="space-y-2 p-4 text-[14px]">
               {d.descuentoGlobal > 0 && (
                 <div className="flex justify-between text-muted">
                   <span>Descuento {fmtNumber(d.descuentoGlobal)} %</span>
@@ -348,7 +348,7 @@ export default function DocumentoVista() {
               <ul className="divide-y divide-line">
                 {[...d.relacionados.anteriores.map((x: any) => ({ ...x, dir: 'Origen' })), ...d.relacionados.posteriores.map((x: any) => ({ ...x, dir: 'Generado' }))].map((x: any) => (
                   <li key={x.id}>
-                    <Link to={`/documentos/${x.id}`} className="flex items-center gap-2 px-4 py-2.5 hover:bg-sunken">
+                    <Link to={`/documentos/${x.id}`} className="flex items-center gap-2 px-4 py-3 hover:bg-sunken">
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-[14px] font-medium">
                           {tipoLabel(x.tipo)} {x.codigo ?? '(borrador)'}
@@ -503,7 +503,7 @@ function ConvertirDialog({ doc, destino, onClose }: { doc: any; destino: string;
         {articulos.map((l: any) => {
           const pend = doc.pendientes?.[l.id]?.pendiente ?? l.cantidad;
           return (
-            <li key={l.id} className="flex items-center gap-3 py-2.5">
+            <li key={l.id} className="flex items-center gap-3 py-3">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[14px]">{l.descripcion}</p>
                 <p className="text-[12px] text-muted">

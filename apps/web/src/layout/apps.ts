@@ -1,15 +1,16 @@
 /**
  * Aplicaciones de KiteERP.
  *
- * Cada módulo activo se presenta como una aplicación con su icono, al estilo del lanzador de Google:
- * se abre desde la cuadrícula de la cabecera, tiene sus propios apartados en la barra lateral y cada
- * persona elige cuáles quiere tener a mano como favoritas. Algunas aplicaciones juntan pantallas del
- * núcleo con las de un módulo (Equipo = directorio + ficha del trabajador).
+ * Cada módulo activo se presenta como una aplicación con su icono, y las aplicaciones se agrupan en
+ * departamentos (uno por pilar). En la cuadrícula de la cabecera se elige el departamento; la barra
+ * lateral muestra sus aplicaciones y los apartados de la abierta. Algunas aplicaciones juntan
+ * pantallas del núcleo con las de un módulo (Equipo = directorio + ficha del trabajador).
  */
 import {
   BarChart3,
   BookOpen,
   BookOpenCheck,
+  Briefcase,
   Boxes,
   Building,
   Building2,
@@ -232,17 +233,6 @@ export function locate(apps: AppInfo[], pathname: string): { app: AppInfo; item:
   return best && { app: best.app, item: best.item };
 }
 
-/** Orden en el que se proponen las favoritas a quien todavía no ha elegido las suyas. */
-const SUGERIDAS = ['hor', 'aus', 'clientes', 'pre', 'fac', 'sat', 'stk', 'pry', 'gas', 'equipo', 'nom', 'tes', 'cpr', 'bi', 'por'];
-export const MAX_SUGERIDAS = 6;
-
-/** Favoritas de la persona (las guardadas que siguen disponibles) o, si no ha elegido, las propuestas. */
-export function favoriteIds(apps: AppInfo[], saved: string[] | undefined): string[] {
-  const ids = new Set(apps.map((a) => a.id));
-  if (saved) return saved.filter((id) => ids.has(id) && id !== 'inicio');
-  return SUGERIDAS.filter((id) => ids.has(id)).slice(0, MAX_SUGERIDAS);
-}
-
 export function quickActions(has: (m: string) => boolean, can: (p: string | string[]) => boolean): QuickAction[] {
   const out: QuickAction[] = [];
   for (const w of moduleWebs) if (has(w.code)) for (const q of w.quickCreate ?? []) if (!q.perm || can(q.perm)) out.push(q);
@@ -251,3 +241,36 @@ export function quickActions(has: (m: string) => boolean, can: (p: string | stri
 }
 
 export const ALL_APPS_ICON: LucideIcon = LayoutGrid;
+
+/* ───────────────────────── Departamentos ───────────────────────── */
+
+/**
+ * Un departamento agrupa las aplicaciones de un pilar. Se elige en el lanzador de la cabecera y la
+ * barra lateral muestra sus aplicaciones con los apartados de la que está abierta.
+ */
+export interface Departamento {
+  id: Pillar;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  apps: AppInfo[];
+  /** Pantalla con la que se abre: la de su primera aplicación. */
+  home: string;
+}
+
+// «Plataforma» es el nombre técnico del núcleo; para la persona es lo general (Inicio, utilidades y configuración)
+const DEPARTAMENTOS: { id: Pillar; label: string; icon: LucideIcon; description: string }[] = [
+  { id: 'plataforma', label: 'General', icon: Home, description: 'Inicio, utilidades y configuración' },
+  { id: 'personas', label: PILLARS.personas.label, icon: Users, description: PILLARS.personas.description },
+  { id: 'comercial', label: PILLARS.comercial.label, icon: Briefcase, description: PILLARS.comercial.description },
+  { id: 'operaciones', label: PILLARS.operaciones.label, icon: Boxes, description: PILLARS.operaciones.description },
+  { id: 'finanzas', label: PILLARS.finanzas.label, icon: Landmark, description: PILLARS.finanzas.description },
+];
+
+/** Departamentos con alguna aplicación a la que pueda entrar la persona. */
+export function buildDepartamentos(apps: AppInfo[]): Departamento[] {
+  return DEPARTAMENTOS.map((d) => {
+    const suyas = apps.filter((a) => a.pillar === d.id);
+    return { ...d, apps: suyas, home: suyas[0]?.home ?? '/' };
+  }).filter((d) => d.apps.length > 0);
+}

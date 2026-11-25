@@ -94,7 +94,7 @@ export default function Kiosco() {
                 <button key={p.id} type="button" onClick={() => setPersona(p)} className="flex flex-col items-center gap-2 rounded-2xl border border-line-strong/70 bg-surface p-4 shadow-card active:scale-[0.98]">
                   <Avatar name={p.nombre} size={56} />
                   <span className="text-center text-[16px] font-medium leading-tight">{p.nombre}</span>
-                  <span className={cn('rounded-full px-2 py-0.5 text-[12px] font-medium', p.estado === 'trabajando' ? 'bg-ok-soft text-ok' : p.estado === 'pausa' ? 'bg-sun-soft text-warn' : 'bg-sunken text-muted')}>
+                  <span className={cn('rounded-md px-2 py-0.5 text-[12px] font-medium', p.estado === 'trabajando' ? 'bg-ok-soft text-ok' : p.estado === 'pausa' ? 'bg-sun-soft text-warn' : 'bg-sunken text-muted')}>
                     {p.estado === 'trabajando' ? 'Dentro' : p.estado === 'pausa' ? 'En pausa' : 'Fuera'}
                   </span>
                 </button>

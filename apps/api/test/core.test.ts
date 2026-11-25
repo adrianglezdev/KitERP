@@ -161,15 +161,6 @@ describe('Apariencia y aplicaciones por empresa', () => {
     expect((await marta.patch('/api/empresa', { ajustes: { apariencia: OCEANO } })).status).toBe(403);
   });
 
-  it('cada persona guarda sus aplicaciones favoritas', async () => {
-    const marta = await as('comercial@kite.test');
-    const javier = await as('comercial2@kite.test');
-    const r = await marta.patch('/api/auth/preferencias', { favoritos: ['fac', 'clientes', 'opo'] });
-    expect(r.status).toBe(200);
-    expect((await marta.get('/api/auth/me')).body.preferencias.favoritos).toEqual(['fac', 'clientes', 'opo']);
-    expect((await javier.get('/api/auth/me')).body.preferencias.favoritos).toBeUndefined();
-  });
-
   it('al cambiar de empresa cambian la apariencia y los módulos', async () => {
     const admin = await as('admin@kite.test');
     const me = (await admin.get('/api/auth/me')).body;
@@ -183,7 +174,6 @@ describe('Apariencia y aplicaciones por empresa', () => {
       expect(alli.empresa.apariencia.nombreApp).toBe('Costa AV');
       expect(alli.modulos).toContain('fac');
       expect(alli.modulos).not.toContain('sat');
-      expect(alli.preferencias.favoritos).toBeUndefined();
     } finally {
       await admin.post('/api/auth/empresa', { empresaId: me.empresa.id });
     }

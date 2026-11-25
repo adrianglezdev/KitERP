@@ -64,9 +64,9 @@ export default function Cambios() {
                 <tbody>
                   {c.cambios.map((x: any) => (
                     <tr key={x.campo} className="border-t border-line">
-                      <td className="py-1.5 pr-3 text-muted">{x.label}</td>
-                      <td className="py-1.5 pr-3 line-through decoration-bad/60">{x.antes ?? '—'}</td>
-                      <td className="py-1.5 font-medium">{x.despues ?? '—'}</td>
+                      <td className="py-2 pr-3 text-muted">{x.label}</td>
+                      <td className="py-2 pr-3 line-through decoration-bad/60">{x.antes ?? '—'}</td>
+                      <td className="py-2 font-medium">{x.despues ?? '—'}</td>
                     </tr>
                   ))}
                 </tbody>

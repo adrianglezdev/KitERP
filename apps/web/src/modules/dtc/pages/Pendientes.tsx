@@ -29,7 +29,7 @@ export default function Pendientes() {
                   <Link to={`/dtc/documentos/${d.id}`} className="block truncate text-[14px] font-medium hover:text-primary">
                     {d.titulo}
                   </Link>
-                  <p className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted">
+                  <p className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
                     {d.codigo} · <EnumBadge options={dtcShared.DTC_TIPOS} value={d.tipo} dot={false} /> · versión {d.version}
                     {d.aprobadoEn && ` · publicada el ${fmtDate(d.aprobadoEn)}`}
                   </p>

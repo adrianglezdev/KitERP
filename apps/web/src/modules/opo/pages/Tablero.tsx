@@ -76,9 +76,9 @@ export default function Tablero() {
         value={vista}
         onChange={setVista}
         options={[
-          { value: 'tablero', label: <span className="flex items-center gap-1.5"><KanbanSquare className="h-4 w-4" /> Tablero</span> },
-          { value: 'lista', label: <span className="flex items-center gap-1.5"><List className="h-4 w-4" /> Lista</span> },
-          { value: 'prevision', label: <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4" /> Previsión</span> },
+          { value: 'tablero', label: <span className="flex items-center gap-2"><KanbanSquare className="h-4 w-4" /> Tablero</span> },
+          { value: 'lista', label: <span className="flex items-center gap-2"><List className="h-4 w-4" /> Lista</span> },
+          { value: 'prevision', label: <span className="flex items-center gap-2"><BarChart3 className="h-4 w-4" /> Previsión</span> },
         ]}
       />
 
@@ -128,14 +128,14 @@ export default function Tablero() {
                           {o.comercial && <Avatar name={o.comercial} size={22} />}
                         </div>
                         {(o.cierrePrevisto || o.presupuesto) && (
-                          <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[12px]">
+                          <div className="mt-2 flex flex-wrap items-center gap-2 text-[12px]">
                             {o.cierrePrevisto && e.tipo === 'abierta' && (
-                              <span className={cn('inline-flex items-center gap-1 rounded px-1.5 py-0.5', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
+                              <span className={cn('inline-flex items-center gap-1 rounded px-2 py-0.5', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
                                 <CalendarClock className="h-3 w-3" />
                                 {fmtDate(o.cierrePrevisto)}
                               </span>
                             )}
-                            {o.presupuesto && <span className="rounded bg-primary-soft px-1.5 py-0.5 text-primary">{o.presupuesto}</span>}
+                            {o.presupuesto && <span className="rounded bg-sunken px-2 py-0.5 font-mono text-fg/70">{o.presupuesto}</span>}
                           </div>
                         )}
                         {/* En el móvil no hay arrastrar: se cambia la etapa con este selector */}
@@ -247,7 +247,7 @@ function Prevision() {
         <CardHeader title="Motivos de pérdida" />
         <ul className="divide-y divide-line">
           {(data?.perdidas ?? []).map((p) => (
-            <li key={p.motivo ?? 'x'} className="flex items-center justify-between px-4 py-2.5 text-[14px]">
+            <li key={p.motivo ?? 'x'} className="flex items-center justify-between px-4 py-3 text-[14px]">
               <span>{opoShared.MOTIVOS_PERDIDA.find((m) => m.value === p.motivo)?.label ?? 'Sin indicar'}</span>
               <span className="text-muted">
                 {p.n} · {fmtMoney(p.importe)}

@@ -88,7 +88,7 @@ export function WidgetCard({ w }: { w: DashboardWidget }) {
   const d = w.data;
   const link = 'enlace' in d ? d.enlace : undefined;
   return (
-    <Card className={cn('flex flex-col overflow-hidden', w.size === 'lg' && d.kind === 'chart' && 'md:col-span-2', d.kind === 'stat' ? '' : 'min-h-[180px]')}>
+    <Card className={cn('flex flex-col overflow-hidden', w.size === 'lg' && d.kind === 'chart' && 'md:col-span-2')}>
       <div className="flex items-center gap-2 px-5 pt-5">
         <span className={cn('h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pillar]!.dot)} />
         <h3 className="min-w-0 flex-1 truncate font-sans text-[13px] font-medium text-fg/70">{w.titulo}</h3>
@@ -126,11 +126,11 @@ export function WidgetCard({ w }: { w: DashboardWidget }) {
                 return (
                   <li key={i}>
                     {it.enlace ? (
-                      <Link to={it.enlace} className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition-colors hover:bg-sunken/70">
+                      <Link to={it.enlace} className="flex items-center gap-2 rounded-xl px-2 py-2 transition-colors hover:bg-sunken/70">
                         {inner}
                       </Link>
                     ) : (
-                      <div className="flex items-center gap-2 px-2 py-1.5">{inner}</div>
+                      <div className="flex items-center gap-2 px-2 py-2">{inner}</div>
                     )}
                   </li>
                 );

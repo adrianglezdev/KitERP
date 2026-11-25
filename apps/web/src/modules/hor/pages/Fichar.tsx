@@ -135,7 +135,7 @@ function Hoy() {
     <div className="space-y-4">
       <Card className="overflow-hidden">
         <div className="flex flex-col items-center px-4 pb-6 pt-5 text-center">
-          <p className="text-[13px] capitalize text-muted">{fechaLarga(hoyLocal())}</p>
+          <p className="text-[13px] text-muted first-letter:uppercase">{fechaLarga(hoyLocal())}</p>
           <p className="tabular mt-1 font-display text-[52px] font-medium leading-none tracking-[-0.04em] sm:text-[64px]" aria-live="off">
             {now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Madrid' })}
           </p>
@@ -173,7 +173,7 @@ function Hoy() {
             </Button>
           )}
 
-          <div className="mt-5 flex items-center gap-1.5 text-[13px]">
+          <div className="mt-5 flex items-center gap-2 text-[13px]">
             {geo === 'concedido' && (
               <span className="inline-flex items-center gap-1 text-ok">
                 <MapPin className="h-3.5 w-3.5" /> Ubicación activada
@@ -245,7 +245,7 @@ function Hoy() {
       </Card>
 
       <div className="flex flex-wrap items-center justify-between gap-2 px-1">
-        <button type="button" onClick={() => setPin(true)} className="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary">
+        <button type="button" onClick={() => setPin(true)} className="inline-flex items-center gap-2 text-[13px] font-medium text-primary">
           <KeyRound className="h-4 w-4" /> {data.tienePin ? 'Cambiar mi PIN del quiosco' : 'Crear mi PIN para el quiosco'}
         </button>
       </div>

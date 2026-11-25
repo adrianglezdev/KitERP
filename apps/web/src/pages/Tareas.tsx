@@ -55,7 +55,7 @@ export default function Tareas() {
               return (
                 <li key={t.id} className="flex items-start gap-3 px-4 py-3">
                   <button type="button" className="mt-0.5" onClick={() => toggle.mutate(t)} aria-label={t.estado === 'hecha' ? 'Marcar pendiente' : 'Marcar hecha'}>
-                    {t.estado === 'hecha' ? <CheckCircle2 className="h-5 w-5 text-ok" /> : <Circle className="h-5 w-5 text-muted hover:text-primary" />}
+                    {t.estado === 'hecha' ? <CheckCircle2 className="h-5 w-5 text-ok" /> : <Circle className="h-5 w-5 text-muted hover:text-muted" />}
                   </button>
                   <div className="min-w-0 flex-1">
                     <p className={cn('text-[14px] font-medium', t.estado === 'hecha' && 'text-muted line-through')}>{t.titulo}</p>

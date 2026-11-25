@@ -106,7 +106,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
         title="Parte de trabajo"
         icon={Save}
         subtitle={
-          <span className="inline-flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-2">
             {!online && <CloudOff className="h-3.5 w-3.5 text-warn" />}
             Guardado en este móvil a las {guardadoHora}
           </span>
@@ -147,7 +147,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
                     <button
                       type="button"
                       onClick={() => update((p) => ({ ...p, checklist: { ...p.checklist, [i.id]: { ...p.checklist[i.id], hecho: !hecho } } }))}
-                      className={cn('flex min-h-[52px] w-full items-center gap-3 px-3 py-2.5 text-left text-[14px] transition-colors active:bg-sunken', hecho && 'bg-ok-soft/40')}
+                      className={cn('flex min-h-[52px] w-full items-center gap-3 px-3 py-3 text-left text-[14px] transition-colors active:bg-sunken', hecho && 'bg-ok-soft/40')}
                       aria-pressed={hecho}
                     >
                       {hecho ? <CheckCircle2 className="h-6 w-6 shrink-0 text-ok" /> : <CircleDashed className="h-6 w-6 shrink-0 text-muted" />}
@@ -166,7 +166,7 @@ export function ParteForm({ orden, parte, update }: { orden: any; parte: ParteBo
           {parte.materiales.length > 0 && (
             <ul className="mb-2 divide-y divide-line rounded-xl border border-line-strong/70">
               {parte.materiales.map((m, i) => (
-                <li key={`${m.articuloId}-${i}`} className="space-y-2 px-3 py-2.5">
+                <li key={`${m.articuloId}-${i}`} className="space-y-2 px-3 py-3">
                   <div className="flex items-start gap-2">
                     <span className="min-w-0 flex-1 text-[14px] font-medium">{m.label}</span>
                     <button type="button" aria-label="Quitar" className="rounded-pill p-2 text-muted hover:text-bad" onClick={() => update((p) => ({ ...p, materiales: p.materiales.filter((_, j) => j !== i) }))}>

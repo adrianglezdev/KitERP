@@ -86,17 +86,17 @@ export default function Asientos() {
                 <tbody>
                   {a.lineas.map((l: any) => (
                     <tr key={l.id} className="border-b border-line/60 last:border-0">
-                      <td className="w-24 px-3 py-1.5 font-mono text-[13px]">
+                      <td className="w-24 px-3 py-2 font-mono text-[13px]">
                         <Link to={`/contabilidad/libros?libro=mayor&cuenta=${l.cuenta}&anio=${anio}`} className="hover:text-primary">
                           {l.cuenta}
                         </Link>
                       </td>
-                      <td className="px-2 py-1.5">
+                      <td className="px-2 py-2">
                         <span className="line-clamp-1">{l.nombre}</span>
                         {(l.concepto || l.centro) && <span className="line-clamp-1 text-[12px] text-muted">{[l.concepto, l.centro].filter(Boolean).join(' · ')}</span>}
                       </td>
-                      <td className="w-28 px-3 py-1.5 text-right tabular-nums">{Number(l.debe) ? fmtMoney(l.debe) : ''}</td>
-                      <td className="w-28 px-3 py-1.5 text-right tabular-nums">{Number(l.haber) ? fmtMoney(l.haber) : ''}</td>
+                      <td className="w-28 px-3 py-2 text-right tabular-nums">{Number(l.debe) ? fmtMoney(l.debe) : ''}</td>
+                      <td className="w-28 px-3 py-2 text-right tabular-nums">{Number(l.haber) ? fmtMoney(l.haber) : ''}</td>
                     </tr>
                   ))}
                 </tbody>

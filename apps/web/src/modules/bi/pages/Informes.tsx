@@ -66,7 +66,7 @@ export default function Informes() {
             <ul className="divide-y divide-line">
               {(guardados.data ?? []).map((g) => (
                 <li key={g.id}>
-                  <button type="button" onClick={() => abrir(g)} className={cn('w-full px-4 py-2.5 text-left hover:bg-sunken', actual?.id === g.id && 'bg-primary-soft')}>
+                  <button type="button" onClick={() => abrir(g)} className={cn('w-full px-4 py-3 text-left hover:bg-sunken', actual?.id === g.id && 'bg-primary-soft')}>
                     <span className="block truncate text-[14px] font-medium">{g.nombre}</span>
                     <span className="flex flex-wrap items-center gap-1 text-[12px] text-muted">
                       {g.datasetLabel}
@@ -207,7 +207,7 @@ function GuardarDialog({ def, actual, onClose, onGuardado }: { def: Def; actual:
         <Field label="Descripción">
           <Input value={f.descripcion} onChange={(e) => setF({ ...f, descripcion: e.target.value })} />
         </Field>
-        <Switch checked={f.compartido} onChange={(v) => setF({ ...f, compartido: v })} label={<span className="inline-flex items-center gap-1.5"><Share2 className="h-4 w-4" /> Compartir con mis compañeros</span>} description="Cada persona lo verá con sus propios permisos." />
+        <Switch checked={f.compartido} onChange={(v) => setF({ ...f, compartido: v })} label={<span className="inline-flex items-center gap-2"><Share2 className="h-4 w-4" /> Compartir con mis compañeros</span>} description="Cada persona lo verá con sus propios permisos." />
         <Field label="Envío automático por email">
           <Select value={f.programacion} onChange={(e) => setF({ ...f, programacion: e.target.value })} options={biShared.BI_PROGRAMACION} />
         </Field>

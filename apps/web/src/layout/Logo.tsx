@@ -45,14 +45,14 @@ export function BrandName({ className, badgeClassName }: { className?: string; b
   return (
     <span className={cn('font-display font-semibold', className)}>
       kite
-      <span className={cn('ml-1.5 rounded-pill bg-sun px-1.5 py-px align-middle font-sans text-[11px] font-semibold tracking-normal text-sun-fg', badgeClassName)}>ERP</span>
+      <span className={cn('ml-2 rounded-pill bg-sun px-2 py-px align-middle font-sans text-[11px] font-semibold tracking-normal text-sun-fg', badgeClassName)}>ERP</span>
     </span>
   );
 }
 
 export function LogoLockup({ className }: { className?: string }) {
   return (
-    <span className={cn('inline-flex min-w-0 items-center gap-2.5', className)}>
+    <span className={cn('inline-flex min-w-0 items-center gap-2', className)}>
       <BrandMark />
       <BrandName className="text-[24px]" />
     </span>

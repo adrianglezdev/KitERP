@@ -43,7 +43,7 @@ export default function ArticuloStockTab({ id, record }: { id: string; record: a
         ) : (
           <ul className="divide-y divide-line">
             {data.saldos.map((s: any) => (
-              <li key={`${s.almacenId}-${s.lote}`} className="flex items-center gap-3 px-4 py-2.5">
+              <li key={`${s.almacenId}-${s.lote}`} className="flex items-center gap-3 px-4 py-3">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[14px] font-medium">
                     {s.almacen} {s.tipo === 'furgoneta' && <Badge tone="blue">Furgoneta</Badge>}
@@ -68,7 +68,7 @@ export default function ArticuloStockTab({ id, record }: { id: string; record: a
           <CardHeader title="Reservado para pedidos" />
           <ul className="divide-y divide-line">
             {data.reservas.map((r: any) => (
-              <li key={r.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-[14px]">
+              <li key={r.id} className="flex items-center justify-between gap-3 px-4 py-3 text-[14px]">
                 <Link to={`/documentos/${r.documentoId}`} className="min-w-0 truncate hover:text-primary">
                   <b className="font-medium">{r.codigo ?? 'Pedido'}</b> · {r.tercero}
                   {r.fecha && <span className="text-muted"> · entrega {fmtDate(r.fecha)}</span>}

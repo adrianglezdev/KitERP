@@ -24,7 +24,7 @@ export function SignedQty({ value, unidad }: { value: number; unidad?: string | 
 export function Stepper({ value, onChange, step = 1, min = 0, decimals = 3 }: { value: number | null; onChange: (v: number) => void; step?: number; min?: number; decimals?: number }) {
   const v = value ?? 0;
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-2">
       <IconButton icon={Minus} label="Restar" variant="secondary" onClick={() => onChange(Math.max(min, Math.round((v - step) * 1000) / 1000))} />
       <div className="w-24">
         <NumberInput value={value} onChange={(n) => onChange(n ?? 0)} decimals={decimals} align="right" className="text-center text-[16px] font-medium" />

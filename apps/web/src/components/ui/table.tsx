@@ -114,9 +114,9 @@ export function DataTable<T extends { id?: string }>({
       <table className="w-full border-separate border-spacing-0 text-[14px]">
         <thead>
           <tr className="text-left text-[12px] text-muted">
-            {selectable && <th className="w-10 px-3 py-2.5" />}
+            {selectable && <th className="w-10 px-3 py-3" />}
             {columns.map((c) => (
-              <th key={c.key} className={cn('whitespace-nowrap px-3 py-2.5 font-semibold', c.align === 'right' && 'text-right', c.align === 'center' && 'text-center', hide(c))} style={{ width: c.width }}>
+              <th key={c.key} className={cn('whitespace-nowrap px-3 py-3 font-semibold', c.align === 'right' && 'text-right', c.align === 'center' && 'text-center', hide(c))} style={{ width: c.width }}>
                 {c.sortable && onSort ? (
                   <button type="button" onClick={() => onSort(c.key)} className={cn('inline-flex items-center gap-1 hover:text-fg', sort?.field === c.key && 'text-fg')}>
                     {c.header}
@@ -146,7 +146,7 @@ export function DataTable<T extends { id?: string }>({
                 </td>
               )}
               {columns.map((c) => (
-                <td key={c.key} className={cn(TD, (onRowClick || rowHref) && 'group-hover/row:bg-sunken/70', 'px-3', dense ? 'py-1.5' : 'py-3', c.align === 'right' && 'tabular text-right', c.align === 'center' && 'text-center', hide(c))}>
+                <td key={c.key} className={cn(TD, (onRowClick || rowHref) && 'group-hover/row:bg-sunken/70', 'px-3', dense ? 'py-2' : 'py-3', c.align === 'right' && 'tabular text-right', c.align === 'center' && 'text-center', hide(c))}>
                   {c.cell(r)}
                 </td>
               ))}
@@ -156,7 +156,7 @@ export function DataTable<T extends { id?: string }>({
         {footer && (
           <tfoot>
             <tr>
-              <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-3 py-2.5">
+              <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-3 py-3">
                 {footer}
               </td>
             </tr>

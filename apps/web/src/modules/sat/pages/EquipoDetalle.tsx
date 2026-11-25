@@ -48,7 +48,7 @@ export default function EquipoDetalle() {
               <ul className="divide-y divide-line">
                 {e.historial.map((o: any) => (
                   <li key={o.id}>
-                    <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                    <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                       <span className="w-24 font-medium">{o.codigo}</span>
                       <span className="min-w-0 flex-1 truncate text-[13px] text-muted">
                         {fmtDateTime(o.fecha)} · <EnumBadge options={ORDEN_TIPOS} value={o.tipo} dot={false} /> {o.tecnico ? `· ${o.tecnico}` : ''}
@@ -66,7 +66,7 @@ export default function EquipoDetalle() {
               <ul className="divide-y divide-line">
                 {e.tickets.map((t: any) => (
                   <li key={t.id}>
-                    <Link to={`/sat/tickets/${t.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                    <Link to={`/sat/tickets/${t.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                       <span className="w-24 font-medium">{t.codigo}</span>
                       <span className="min-w-0 flex-1 truncate text-[13px]">{t.asunto}</span>
                       <EnumBadge options={TICKET_ESTADOS} value={t.estado} />

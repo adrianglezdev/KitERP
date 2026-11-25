@@ -56,7 +56,7 @@ export default function Contabilidad() {
           <CardHeader title="Ejercicios" />
           <ul className="divide-y divide-line">
             {(ej.data ?? []).map((e) => (
-              <li key={e.id} className="flex items-center gap-2 px-4 py-2.5">
+              <li key={e.id} className="flex items-center gap-2 px-4 py-3">
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-2 font-medium">
                     {e.anio} <EnumBadge options={EJERCICIO_ESTADOS} value={e.estado} />

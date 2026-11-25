@@ -82,7 +82,7 @@ export default function Cuenta() {
         <CardHeader title="Sesiones abiertas" icon={MonitorSmartphone} />
         <ul className="divide-y divide-line">
           {sesiones.data?.map((s) => (
-            <li key={s.id} className="flex items-center gap-3 px-4 py-2.5 text-[13px]">
+            <li key={s.id} className="flex items-center gap-3 px-4 py-3 text-[13px]">
               <div className="min-w-0 flex-1">
                 <p className="truncate">{s.userAgent ?? 'Navegador'}</p>
                 <p className="text-[12px] text-muted">

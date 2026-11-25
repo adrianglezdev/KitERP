@@ -88,7 +88,7 @@ export default function Checklists() {
                 <Select value={sel.tipo ?? ''} disabled={!editable} onChange={(e) => setSel({ ...sel, tipo: e.target.value || null })} options={satShared.ORDEN_TIPOS} placeholder="Cualquiera" />
               </Field>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <p className="label">Puntos a revisar</p>
               {sel.items.map((it, i) => (
                 <div key={it.id} className="flex items-center gap-2">

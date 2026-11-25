@@ -6,7 +6,7 @@ import { cn, TONES, type Tone } from '@/lib/utils';
 
 export function Badge({ tone = 'gray', children, className, dot }: { tone?: Tone | string; children: ReactNode; className?: string; dot?: boolean }) {
   return (
-    <span className={cn('inline-flex h-6 items-center gap-1.5 whitespace-nowrap rounded-md px-2 text-[12px] font-medium', TONES[(tone as Tone) ?? 'gray'] ?? TONES.gray, className)}>
+    <span className={cn('inline-flex h-6 items-center gap-2 whitespace-nowrap rounded-md px-2 text-[12px] font-medium', TONES[(tone as Tone) ?? 'gray'] ?? TONES.gray, className)}>
       {dot && <span className="h-1.5 w-1.5 rounded-full bg-current" />}
       {children}
     </span>
@@ -94,7 +94,7 @@ export function Avatar({ name, src, size = 32, className }: { name: string; src?
 }
 
 export function Kbd({ children }: { children: ReactNode }) {
-  return <kbd className="rounded-md bg-sunken px-1.5 py-0.5 font-mono text-[11px] text-muted">{children}</kbd>;
+  return <kbd className="rounded-md bg-sunken px-2 py-0.5 font-mono text-[11px] text-muted">{children}</kbd>;
 }
 
 /**
@@ -138,7 +138,7 @@ export function Divider({ className }: { className?: string }) {
 
 export function Alert({ tone = 'yellow', icon: Icon, title, children, className }: { tone?: Tone; icon?: LucideIcon; title?: string; children?: ReactNode; className?: string }) {
   return (
-    <div className={cn('flex items-start gap-3 rounded-2xl px-4 py-3.5', TONES[tone], className)}>
+    <div className={cn('flex items-start gap-3 rounded-2xl px-4 py-4', TONES[tone], className)}>
       {Icon && <Icon className="mt-0.5 h-4 w-4 shrink-0" />}
       <div className="min-w-0 text-[14px]">
         {title && <p className="font-medium">{title}</p>}

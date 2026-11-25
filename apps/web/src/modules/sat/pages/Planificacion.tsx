@@ -41,7 +41,7 @@ export default function Planificacion() {
       />
       <div className="mb-4 flex items-center gap-2">
         <IconButton icon={ChevronLeft} label="Día anterior" variant="secondary" onClick={() => setDia(sumarDias(dia, -1))} />
-        <span className="w-56 text-center text-[16px] font-medium capitalize">{diaLargo(dia)}</span>
+        <span className="w-56 text-center text-[16px] font-medium first-letter:uppercase">{diaLargo(dia)}</span>
         <IconButton icon={ChevronRight} label="Día siguiente" variant="secondary" onClick={() => setDia(sumarDias(dia, 1))} />
         <Button size="sm" variant="ghost" onClick={() => setDia(hoyISO())}>
           Hoy
@@ -89,7 +89,7 @@ export default function Planificacion() {
 
 function OrdenCard({ o, onClick }: { o: Orden; onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} className={cn('block w-full rounded-2xl bg-surface p-2.5 text-left shadow-card hover:bg-sunken/60', o.prioridad === 'urgente' && 'ring-2 ring-inset ring-earth/70')}>
+    <button type="button" onClick={onClick} className={cn('block w-full rounded-2xl bg-surface p-3 text-left shadow-card hover:bg-sunken/60', o.prioridad === 'urgente' && 'ring-2 ring-inset ring-earth/70')}>
       <div className="flex items-center justify-between gap-2">
         <span className="text-[13px] font-medium">{o.planificadaInicio ? hora(o.planificadaInicio) : o.codigo}</span>
         <EnumBadge options={ORDEN_ESTADOS} value={o.estado} dot={false} />

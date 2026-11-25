@@ -47,7 +47,7 @@ export default function ContratoDetalle() {
             <ul className="divide-y divide-line">
               {c.equipos.map((e: any) => (
                 <li key={e.id}>
-                  <Link to={`/sat/equipos/${e.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                  <Link to={`/sat/equipos/${e.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                     <span className="min-w-0 flex-1 truncate font-medium">{e.nombre}</span>
                     <span className="text-[13px] text-muted">{[e.marca, e.modelo, e.ubicacion].filter(Boolean).join(' · ')}</span>
                   </Link>
@@ -61,7 +61,7 @@ export default function ContratoDetalle() {
             <ul className="divide-y divide-line">
               {c.visitas.map((v: any) => (
                 <li key={v.id}>
-                  <Link to={`/sat/ordenes/${v.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                  <Link to={`/sat/ordenes/${v.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                     <span className="w-24 font-medium">{v.codigo}</span>
                     <span className="min-w-0 flex-1 truncate text-[13px] text-muted">
                       {v.visitaFecha ? `Visita del ${fmtDate(v.visitaFecha)}` : v.planificadaInicio ? fmtDateTime(v.planificadaInicio) : 'Sin planificar'}

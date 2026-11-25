@@ -51,7 +51,7 @@ export default function PublicCanal() {
       <div className="space-y-5">
         <div>
           <h1 className="flex items-center gap-2 text-[24px] font-medium">
-            <ShieldCheck className="h-6 w-6 text-primary" /> Canal de denuncias
+            <ShieldCheck className="h-6 w-6 text-muted" /> Canal de denuncias
           </h1>
           <p className="mt-1 text-[14px] text-muted">Puedes comunicar de forma anónima cualquier irregularidad. Solo las personas responsables del canal pueden leerla y está prohibida cualquier represalia.</p>
         </div>
@@ -90,7 +90,7 @@ export default function PublicCanal() {
               <Field label="Qué ha pasado" help="Cuanto más detalle (fechas, lugares, personas implicadas), mejor se podrá investigar.">
                 <Textarea value={f.descripcion} onChange={(e) => setF({ ...f, descripcion: e.target.value })} rows={6} />
               </Field>
-              <Checkbox checked={f.anonima} onChange={(v) => setF({ ...f, anonima: v })} label={<span className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Quiero que sea anónima</span>} />
+              <Checkbox checked={f.anonima} onChange={(v) => setF({ ...f, anonima: v })} label={<span className="inline-flex items-center gap-2"><Lock className="h-3.5 w-3.5" /> Quiero que sea anónima</span>} />
               {!f.anonima && (
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Field label="Nombre">

@@ -136,11 +136,11 @@ function Top({ titulo, filas }: { titulo: string; filas: { k: string; a: string;
           return (
             <li key={f.k}>
               {f.to ? (
-                <Link to={f.to} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                <Link to={f.to} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                   {inner}
                 </Link>
               ) : (
-                <div className="flex items-center gap-3 px-4 py-2.5">{inner}</div>
+                <div className="flex items-center gap-3 px-4 py-3">{inner}</div>
               )}
             </li>
           );

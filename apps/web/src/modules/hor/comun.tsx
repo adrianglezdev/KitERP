@@ -47,7 +47,7 @@ export function MonthNav({ mes, onChange, max }: { mes: string; onChange: (m: st
   return (
     <div className="flex items-center gap-1">
       <IconButton icon={ChevronLeft} label="Mes anterior" onClick={() => onChange(moverMes(mes, -1))} />
-      <span className="min-w-[132px] text-center text-[14px] font-medium capitalize">{nombreMes(mes)}</span>
+      <span className="min-w-[132px] text-center text-[14px] font-medium first-letter:uppercase">{nombreMes(mes)}</span>
       <IconButton icon={ChevronRight} label="Mes siguiente" disabled={!!max && mes >= max} onClick={() => onChange(moverMes(mes, 1))} />
     </div>
   );
@@ -251,9 +251,9 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
               const dc = diaCorto(d.fecha);
               const libre = !d.previstas && !d.trabajadas;
               return (
-                <li key={d.fecha} className={cn('flex items-center gap-3 px-3 py-2.5 sm:px-4', libre && 'bg-sunken/40')}>
+                <li key={d.fecha} className={cn('flex items-center gap-3 px-3 py-3 sm:px-4', libre && 'bg-sunken/40')}>
                   <div className={cn('flex w-10 shrink-0 flex-col items-center rounded-lg py-1', d.fecha === hoy ? 'bg-primary text-primary-fg' : 'bg-sunken')}>
-                    <span className="text-[11px] font-medium uppercase">{dc.semana}</span>
+                    <span className="text-[11px] font-medium">{dc.semana}</span>
                     <span className="tabular text-[16px] font-semibold leading-none">{dc.num}</span>
                   </div>
                   <div className="min-w-0 flex-1">
@@ -317,7 +317,7 @@ export function MesJornada({ personaId, propio, mes: mesInicial }: { personaId?:
 
 export function MiniStat({ label, value, hint, tone }: { label: string; value: string; hint?: string; tone?: string }) {
   return (
-    <div className="rounded-xl border border-line-strong/70 bg-surface px-3 py-2.5">
+    <div className="rounded-xl border border-line-strong/70 bg-surface px-3 py-3">
       <p className="text-[12px] text-muted">{label}</p>
       <p className={cn('tabular font-display text-[18px] font-semibold leading-tight', tone)}>{value}</p>
       {hint && <p className="tabular truncate text-[12px] text-muted">{hint}</p>}

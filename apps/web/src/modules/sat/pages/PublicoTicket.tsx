@@ -40,7 +40,7 @@ export default function PublicoTicket() {
           <div>
             <p className="text-[13px] text-muted">Aviso {t.codigo}</p>
             <h1 className="mt-0.5 flex items-center gap-2 text-[24px] font-medium">
-              <LifeBuoy className="h-6 w-6 shrink-0 text-primary" /> {t.asunto}
+              <LifeBuoy className="h-6 w-6 shrink-0 text-muted" /> {t.asunto}
             </h1>
             <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-muted">
               <EstadoCliente estado={t.estado} />

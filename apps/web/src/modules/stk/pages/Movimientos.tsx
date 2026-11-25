@@ -99,7 +99,7 @@ export default function Movimientos() {
             <RefSelect target="articulos" value={articuloId} onChange={(v) => { setArticuloId(v); reset(); }} placeholder="Todos los artículos" />
           </div>
           <Select value={tipo} onChange={(e) => { setTipo(e.target.value); reset(); }} options={stkShared.MOVIMIENTO_TIPOS} placeholder="Todos los tipos" className="w-full sm:w-52" />
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <Input type="date" value={desde} onChange={(e) => { setDesde(e.target.value); reset(); }} aria-label="Desde" className="w-[150px]" />
             <span className="text-muted">–</span>
             <Input type="date" value={hasta} onChange={(e) => { setHasta(e.target.value); reset(); }} aria-label="Hasta" className="w-[150px]" />

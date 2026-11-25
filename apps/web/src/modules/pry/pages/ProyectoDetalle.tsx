@@ -123,7 +123,7 @@ function Hijos({ p, path, def, titulo, extra }: { p: any; path: string; def: Res
       <CardHeader title={titulo} actions={p._puedeEditar && <Button size="sm" icon={Plus} onClick={() => setEdit(null)}>Añadir</Button>} />
       <ul className="divide-y divide-line">
         {(data?.items ?? []).map((r) => (
-          <li key={r.id} className="flex items-center gap-2 px-4 py-2.5 text-[14px]">
+          <li key={r.id} className="flex items-center gap-2 px-4 py-3 text-[14px]">
             <span className="min-w-0 flex-1">
               <span className="block truncate font-medium">{r[def.titleField]}</span>
               <span className="text-[12px] text-muted">
@@ -179,9 +179,9 @@ function Tareas({ p }: { p: any }) {
               </p>
               <div className="space-y-2">
                 {ts.map((t) => (
-                  <Card key={t.id} className="cursor-pointer p-3 hover:shadow-pop" onClick={() => setEdit(t)}>
+                  <Card key={t.id} className="cursor-pointer p-3 transition-colors hover:bg-sunken/60" onClick={() => setEdit(t)}>
                     <p className="text-[14px] font-medium">{t.titulo}</p>
-                    <p className="mt-1 flex flex-wrap items-center gap-1.5 text-[12px] text-muted">
+                    <p className="mt-1 flex flex-wrap items-center gap-2 text-[12px] text-muted">
                       {t.prioridad === 'alta' && <Badge tone="red">Alta</Badge>}
                       {t.asignadoId && <span>{refs.personas?.[t.asignadoId]}</span>}
                       {t.fechaFin && <span className={cn(t.fechaFin < new Date().toISOString().slice(0, 10) && t.estado !== 'hecha' && 'font-medium text-bad')}>· {fmtDate(t.fechaFin)}</span>}

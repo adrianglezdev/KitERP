@@ -48,7 +48,7 @@ export function Dialog({
             </D.Close>
           </div>
           <div className="scroll-thin min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-2">{children}</div>
-          {footer && <div className="safe-bottom flex flex-wrap items-center justify-end gap-2 bg-sunken/60 px-5 py-3.5">{footer}</div>}
+          {footer && <div className="safe-bottom flex flex-wrap items-center justify-end gap-2 bg-sunken/60 px-5 py-4">{footer}</div>}
         </D.Content>
       </D.Portal>
     </D.Root>
@@ -103,7 +103,7 @@ export function Sheet({
           )}
           <D.Description className="sr-only">Panel</D.Description>
           <div className="scroll-thin min-h-0 flex-1 overflow-y-auto">{children}</div>
-          {footer && <div className="safe-bottom bg-sunken/60 px-5 py-3.5">{footer}</div>}
+          {footer && <div className="safe-bottom bg-sunken/60 px-5 py-4">{footer}</div>}
         </D.Content>
       </D.Portal>
     </D.Root>
@@ -206,7 +206,7 @@ export function Menu({ trigger, items, align = 'end' }: { trigger: ReactNode; it
                 disabled={it.disabled}
                 onSelect={it.onSelect}
                 className={cn(
-                  'flex cursor-pointer select-none items-center gap-2.5 rounded-lg px-2.5 py-2 text-[14px] font-medium outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-sunken data-[disabled]:opacity-40',
+                  'flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 text-[14px] font-medium outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-sunken data-[disabled]:opacity-40',
                   it.danger && 'text-bad',
                 )}
               >
@@ -226,7 +226,7 @@ export function Tooltip({ content, children, side }: { content: ReactNode; child
     <T.Root delayDuration={300}>
       <T.Trigger asChild>{children}</T.Trigger>
       <T.Portal>
-        <T.Content side={side} sideOffset={6} className="z-50 max-w-xs rounded-lg bg-fg px-2.5 py-1.5 text-[12px] font-medium text-bg shadow-pop">
+        <T.Content side={side} sideOffset={6} className="z-50 max-w-xs rounded-lg bg-fg px-3 py-2 text-[12px] font-medium text-bg shadow-pop">
           {content}
         </T.Content>
       </T.Portal>

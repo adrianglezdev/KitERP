@@ -53,7 +53,7 @@ export default function DocumentoDetalle() {
         title={d.titulo}
         icon={BookOpenCheck}
         subtitle={
-          <span className="flex flex-wrap items-center gap-1.5">
+          <span className="flex flex-wrap items-center gap-2">
             {d.codigo} · <EnumBadge options={DTC_TIPOS} value={d.tipo} dot={false} />
             {d.versionVigente && ` · versión vigente ${d.versionVigente}`}
           </span>
@@ -250,7 +250,7 @@ function Vinculos({ doc }: { doc: any }) {
       <CardHeader title="Vinculado a" icon={Link2} />
       <ul className="divide-y divide-line">
         {doc.vinculos.map((v: any) => (
-          <li key={v.id} className="flex items-center gap-3 px-4 py-2.5">
+          <li key={v.id} className="flex items-center gap-3 px-4 py-3">
             <span className="w-32 shrink-0 text-[12px] text-muted">{optionLabel(DTC_VINCULOS, v.entidad)?.label}</span>
             <Link to={RUTA_VINCULO[v.entidad]?.(v.entidadId) ?? '#'} className="min-w-0 flex-1 truncate text-[14px] font-medium hover:text-primary">
               {v.label ?? '(no disponible)'}
@@ -278,7 +278,7 @@ function Distribucion({ doc }: { doc: any }) {
     <Card className="p-4">
       <div className="mb-2 flex items-center justify-between">
         <p className="flex items-center gap-2 text-[14px] font-medium">
-          <Building2 className="h-4 w-4 text-primary" /> Deben leerlo
+          <Building2 className="h-4 w-4 text-muted" /> Deben leerlo
         </p>
         {doc.permisos.editar && !editando && (
           <Button size="sm" variant="ghost" onClick={() => setEditando(true)}>
@@ -294,7 +294,7 @@ function Distribucion({ doc }: { doc: any }) {
           </Button>
         </div>
       ) : doc.distribucion.length ? (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {doc.distribucion.map((x: any) => (
             <Badge key={x.id} tone="violet">
               {x.nombre}

@@ -29,7 +29,7 @@ export default function Plantillas() {
           rows={data ?? []}
           onRowClick={setEdit}
           columns={[
-            { key: 'nombre', header: 'Nombre', cell: (r) => <span className="flex items-center gap-2 font-medium"><FileText className="h-4 w-4 text-primary" />{r.nombre}</span> },
+            { key: 'nombre', header: 'Nombre', cell: (r) => <span className="flex items-center gap-2 font-medium"><FileText className="h-4 w-4 text-muted" />{r.nombre}</span> },
             { key: 'entidad', header: 'Para', cell: (r) => <Badge>{r.entidad === 'persona' ? 'Trabajadores' : r.entidad === 'tercero' ? 'Clientes y proveedores' : 'General'}</Badge> },
             { key: 'acc', header: '', cell: (r) => <IconButton icon={Trash2} label="Borrar" size="sm" onClick={async () => (await confirm({ title: 'Borrar plantilla', danger: true, confirm: 'Borrar' })) && borrar.mutate(r.id)} /> },
           ]}
@@ -60,7 +60,7 @@ function PlantillaDialog({ p, onClose }: { p: any; onClose: () => void }) {
         </Field>
         <div>
           <p className="label">Campos disponibles (pulsa para insertar)</p>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {campos.map((c) => (
               <button key={c} type="button" onClick={() => setF({ ...f, contenido: `${f.contenido}{{${c}}}` })} className="rounded-md bg-sunken px-2 py-0.5 font-mono text-[12px] hover:bg-primary-soft hover:text-primary">
                 {`{{${c}}}`}

@@ -34,7 +34,7 @@ export default function Periodos() {
             { key: 'estado', header: 'Estado', cell: (p: any) => <EnumBadge options={PERIODO_ESTADOS} value={p.estado} /> },
             { key: 'variables', header: 'Variables', align: 'right', cell: (p: any) => p.variables, hideBelow: 'md' },
             { key: 'recibos', header: 'Recibos', align: 'right', cell: (p: any) => (
-                <span className="inline-flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-2">
                   {p.recibos}
                   {p.sinAsignar > 0 && <Badge tone="orange">{p.sinAsignar} sin asignar</Badge>}
                 </span>

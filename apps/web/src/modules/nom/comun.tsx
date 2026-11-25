@@ -45,9 +45,9 @@ export function ListaRecibos({ url, onAbierto }: { url: string; onAbierto?: () =
                       refetch();
                       onAbierto?.();
                     }}
-                    className="flex w-full items-center gap-3 px-3 py-2.5 text-left hover:bg-sunken"
+                    className="flex w-full items-center gap-3 px-3 py-3 text-left hover:bg-sunken"
                   >
-                    <FileText className="h-4 w-4 shrink-0 text-primary" />
+                    <FileText className="h-4 w-4 shrink-0 text-muted" />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[14px] font-medium">{r.titulo ?? (r.mes ? nombrePeriodo(r.anio, r.mes) : 'Documento')}</span>
                       <span className="text-[12px] text-muted">
@@ -91,7 +91,7 @@ export function AnticipoDialog({ onClose }: { onClose: () => void }) {
 
 export function AnticipoFila({ a, onAprobar, onRechazar }: { a: any; onAprobar?: () => void; onRechazar?: () => void }) {
   return (
-    <li className="flex flex-wrap items-center gap-3 px-3 py-2.5 text-[14px]">
+    <li className="flex flex-wrap items-center gap-3 px-3 py-3 text-[14px]">
       <span className="min-w-0 flex-1">
         <span className="block font-medium">
           {a.persona ? `${a.persona} · ` : ''}

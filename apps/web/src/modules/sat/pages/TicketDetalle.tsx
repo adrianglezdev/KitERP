@@ -72,7 +72,7 @@ export default function TicketDetalle() {
                 {t.ordenes.map((o: any, i: number) => (
                   <li key={o.id ?? i}>
                     {o.id ? (
-                      <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                      <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                         <span className="w-24 font-medium">{o.codigo}</span>
                         <span className="min-w-0 flex-1 truncate text-[13px] text-muted">
                           {o.tecnico ?? 'Sin técnico'} {o.planificadaInicio ? `· ${fmtDateTime(o.planificadaInicio)}` : ''}
@@ -80,7 +80,7 @@ export default function TicketDetalle() {
                         <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
                       </Link>
                     ) : (
-                      <div className="flex items-center gap-3 px-4 py-2.5 text-muted">
+                      <div className="flex items-center gap-3 px-4 py-3 text-muted">
                         <span className="w-24">{o.codigo}</span>
                         <span className="flex-1 text-[13px]">Asignada a otro técnico</span>
                         <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
@@ -111,13 +111,13 @@ export default function TicketDetalle() {
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {t.cliente?.telefono && (
-                <a href={telHref(t.cliente.telefono)} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
-                  <Phone className="h-3.5 w-3.5 text-primary" /> {t.cliente.telefono}
+                <a href={telHref(t.cliente.telefono)} className="inline-flex items-center gap-2 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
+                  <Phone className="h-3.5 w-3.5 text-muted" /> {t.cliente.telefono}
                 </a>
               )}
               {t.cliente?.email && (
-                <a href={`mailto:${t.cliente.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
-                  <Mail className="h-3.5 w-3.5 text-primary" /> Email
+                <a href={`mailto:${t.cliente.email}`} className="inline-flex items-center gap-2 rounded-pill bg-sunken px-3 py-1 text-[13px] font-medium transition-colors hover:text-primary">
+                  <Mail className="h-3.5 w-3.5 text-muted" /> Email
                 </a>
               )}
             </div>

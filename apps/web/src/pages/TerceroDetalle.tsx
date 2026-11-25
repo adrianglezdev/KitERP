@@ -23,7 +23,7 @@ function Direcciones({ id, canEdit }: { id: string; canEdit: boolean }) {
       <ul className="grid gap-3 sm:grid-cols-2">
         {data?.map((d) => (
           <li key={d.id} className="flex items-start gap-3 rounded-xl border border-line-strong/70 p-3">
-            <MapPin className="mt-0.5 h-4 w-4 text-primary" />
+            <MapPin className="mt-0.5 h-4 w-4 text-muted" />
             <div className="min-w-0 flex-1 text-[14px]">
               <p className="font-medium">{d.nombre}</p>
               <p className="text-muted">{[d.direccion, d.codigoPostal, d.localidad, d.provincia].filter(Boolean).join(', ')}</p>
@@ -100,18 +100,18 @@ export default function TerceroDetalle() {
       />
       <div className="flex flex-wrap gap-2">
         {t.telefono && (
-          <a href={`tel:${t.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
-            <Phone className="h-4 w-4 text-primary" /> {t.telefono}
+          <a href={`tel:${t.telefono.replace(/\s/g, '')}`} className="inline-flex items-center gap-2 rounded-pill bg-surface px-4 py-2 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
+            <Phone className="h-4 w-4 text-muted" /> {t.telefono}
           </a>
         )}
         {t.email && (
-          <a href={`mailto:${t.email}`} className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
-            <Mail className="h-4 w-4 text-primary" /> {t.email}
+          <a href={`mailto:${t.email}`} className="inline-flex items-center gap-2 rounded-pill bg-surface px-4 py-2 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
+            <Mail className="h-4 w-4 text-muted" /> {t.email}
           </a>
         )}
         {t.direccion && (
-          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([t.direccion, t.codigoPostal, t.localidad].filter(Boolean).join(' '))}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
-            <MapPin className="h-4 w-4 text-primary" /> {[t.direccion, t.localidad].filter(Boolean).join(', ')}
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([t.direccion, t.codigoPostal, t.localidad].filter(Boolean).join(' '))}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-pill bg-surface px-4 py-2 text-[13px] font-medium shadow-card transition-colors hover:text-primary">
+            <MapPin className="h-4 w-4 text-muted" /> {[t.direccion, t.localidad].filter(Boolean).join(', ')}
           </a>
         )}
       </div>

@@ -149,7 +149,7 @@ function Editor({ e }: { e: any }) {
           ))}
         </ul>
         {ed && (
-          <div className="flex items-center justify-between border-t border-line px-4 py-2.5">
+          <div className="flex items-center justify-between border-t border-line px-4 py-3">
             <Button size="sm" icon={Plus} onClick={() => setObjs([...objs, { titulo: '', peso: objs.length ? 0 : 100, puntuacion: null }])}>
               Objetivo
             </Button>

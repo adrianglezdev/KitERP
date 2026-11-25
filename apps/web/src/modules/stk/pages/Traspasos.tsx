@@ -42,7 +42,7 @@ export default function Traspasos() {
       key: 'ruta',
       header: 'Origen → destino',
       cell: (t) => (
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center gap-2">
           {t.origen} <ArrowRight className="h-3.5 w-3.5 text-muted" /> {t.destino}
         </span>
       ),
@@ -96,7 +96,7 @@ function TraspasoDetalle({ id, onClose }: { id: string; onClose: () => void }) {
           {data.notas && <p className="text-[14px] text-muted">{data.notas}</p>}
           <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
             {data.lineas.map((l: any) => (
-              <li key={l.id} className="flex items-center justify-between gap-3 px-3 py-2.5 text-[14px]">
+              <li key={l.id} className="flex items-center justify-between gap-3 px-3 py-3 text-[14px]">
                 <span className="min-w-0 truncate">
                   <b className="font-medium">{l.referencia}</b> · {l.articulo}
                   {l.lote && <span className="text-muted"> · lote {l.lote}</span>}

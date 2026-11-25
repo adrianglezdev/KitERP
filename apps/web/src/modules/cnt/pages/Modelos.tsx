@@ -56,7 +56,7 @@ export default function Modelos() {
             <ul className="divide-y divide-line">
               {data.casillas.map((c: any) => (
                 <li key={c.casilla} className={cn('flex items-center gap-3 px-4 py-2 text-[14px]', c.destacado && 'bg-primary-soft/50 font-medium')}>
-                  <span className="w-10 shrink-0 rounded bg-sunken px-1.5 py-0.5 text-center font-mono text-[12px]">{c.casilla}</span>
+                  <span className="w-10 shrink-0 rounded bg-sunken px-2 py-0.5 text-center font-mono text-[12px]">{c.casilla}</span>
                   <span className="min-w-0 flex-1">{c.concepto}</span>
                   <span className="tabular-nums">{formatea(c)}</span>
                 </li>

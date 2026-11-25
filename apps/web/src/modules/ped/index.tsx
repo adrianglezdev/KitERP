@@ -42,7 +42,7 @@ function Preparacion() {
                   </div>
                   <EnumBadge options={DOC_ESTADOS.pedido} value={p.estado} />
                 </div>
-                <p className={cn('mt-3 inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[13px] font-semibold', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
+                <p className={cn('mt-3 inline-flex items-center gap-2 rounded-pill px-3 py-1 text-[13px] font-semibold', tarde ? 'bg-bad-soft text-bad' : 'bg-sunken text-muted')}>
                   <CalendarClock className="h-3.5 w-3.5" />
                   {p.fechaEntrega ? `${tarde ? 'Retrasado, debía entregarse el' : 'Entrega el'} ${fmtDate(p.fechaEntrega)}` : 'Sin fecha de entrega'}
                 </p>

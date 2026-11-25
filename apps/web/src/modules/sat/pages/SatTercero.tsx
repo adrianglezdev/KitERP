@@ -20,7 +20,7 @@ export default function SatTercero({ id }: { id: string }) {
       {data.puedeGestionar && (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-sunken px-4 py-3 text-[13px]">
           <span className="flex items-center gap-2">
-            <Link2 className="h-4 w-4 text-primary" />
+            <Link2 className="h-4 w-4 text-muted" />
             Portal de asistencia del cliente: ve sus equipos y abre avisos sin llamar.
           </span>
           <Button size="sm" icon={Copy} loading={portal.isPending} onClick={() => portal.mutate(undefined)}>
@@ -34,7 +34,7 @@ export default function SatTercero({ id }: { id: string }) {
           <ul className="divide-y divide-line">
             {data.equipos.map((e: any) => (
               <li key={e.id}>
-                <Link to={`/sat/equipos/${e.id}`} className="block px-4 py-2.5 hover:bg-sunken">
+                <Link to={`/sat/equipos/${e.id}`} className="block px-4 py-3 hover:bg-sunken">
                   <span className="block text-[14px] font-medium">{e.nombre}</span>
                   <span className="text-[12px] text-muted">
                     {[e.marca, e.modelo, e.ubicacion].filter(Boolean).join(' · ')}
@@ -51,7 +51,7 @@ export default function SatTercero({ id }: { id: string }) {
           <ul className="divide-y divide-line">
             {data.tickets.map((t: any) => (
               <li key={t.id}>
-                <Link to={`/sat/tickets/${t.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                <Link to={`/sat/tickets/${t.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[14px] font-medium">{t.asunto}</span>
                     <span className="text-[12px] text-muted">
@@ -71,7 +71,7 @@ export default function SatTercero({ id }: { id: string }) {
           <ul className="divide-y divide-line">
             {data.ordenes.map((o: any) => (
               <li key={o.id}>
-                <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                <Link to={`/sat/ordenes/${o.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                   <span className="w-24 font-medium">{o.codigo}</span>
                   <span className="min-w-0 flex-1 truncate text-[13px] text-muted">{o.tecnico ?? 'Sin técnico'}</span>
                   <EnumBadge options={ORDEN_ESTADOS} value={o.estado} />
@@ -87,7 +87,7 @@ export default function SatTercero({ id }: { id: string }) {
             <ul className="divide-y divide-line">
               {data.contratos.map((c: any) => (
                 <li key={c.id}>
-                  <Link to={`/sat/contratos/${c.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-sunken">
+                  <Link to={`/sat/contratos/${c.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-sunken">
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[14px] font-medium">{c.nombre}</span>
                       <span className="text-[12px] text-muted">{c.proximaVisita ? `Próxima visita ${fmtDate(c.proximaVisita)}` : c.codigo}</span>

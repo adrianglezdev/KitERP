@@ -81,7 +81,7 @@ export default function Oportunidad() {
                 key={e.id}
                 type="button"
                 onClick={() => e.id !== o.etapaId && mover.mutate({ etapaId: e.id })}
-                className={`shrink-0 rounded-pill px-3.5 py-1.5 text-[13px] font-semibold transition-colors ${e.orden <= (etapa?.orden ?? 0) ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg'}`}
+                className={`shrink-0 rounded-pill px-4 py-2 text-[13px] font-semibold transition-colors ${e.orden <= (etapa?.orden ?? 0) ? 'bg-primary text-primary-fg' : 'bg-sunken text-muted hover:text-fg'}`}
               >
                 {e.nombre}
               </button>

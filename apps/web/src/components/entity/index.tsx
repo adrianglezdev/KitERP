@@ -41,13 +41,13 @@ export function Attachments({ entidad, id, canEdit = true, carpetas }: { entidad
       ) : (
         [...groups.entries()].map(([g, items]) => (
           <div key={g}>
-            <p className="mb-1.5 text-[12px] font-semibold text-muted">{g}</p>
+            <p className="mb-2 text-[12px] font-semibold text-muted">{g}</p>
             <ul className="divide-y divide-line rounded-xl border border-line-strong/70">
               {items.map((a) => {
                 const vencido = a.caduca && a.caduca < new Date().toISOString().slice(0, 10);
                 return (
-                  <li key={a.id} className="flex items-center gap-3 px-3 py-2.5">
-                    <FileText className="h-5 w-5 shrink-0 text-primary" />
+                  <li key={a.id} className="flex items-center gap-3 px-3 py-3">
+                    <FileText className="h-5 w-5 shrink-0 text-muted" />
                     <div className="min-w-0 flex-1">
                       <a href={a.url} target="_blank" rel="noreferrer" className="block truncate text-[14px] font-medium hover:text-primary">
                         {a.nombre}
@@ -58,7 +58,7 @@ export function Attachments({ entidad, id, canEdit = true, carpetas }: { entidad
                         {a.caduca && <span className={cn('ml-1', vencido && 'font-medium text-bad')}>· caduca {fmtDate(a.caduca)}</span>}
                       </p>
                     </div>
-                    <a href={`${a.url}&descargar=1`} className="rounded-pill p-1.5 text-muted hover:bg-sunken hover:text-fg" aria-label="Descargar">
+                    <a href={`${a.url}&descargar=1`} className="rounded-pill p-2 text-muted hover:bg-sunken hover:text-fg" aria-label="Descargar">
                       <Download className="h-4 w-4" />
                     </a>
                     {canEdit && (
@@ -161,7 +161,7 @@ export function Timeline({ entidad, id }: { entidad: string; id: string }) {
         );
         return (
           <li key={e.id} className="relative">
-            <span className={cn('absolute -left-[35px] flex h-7 w-7 items-center justify-center rounded-full ring-4 ring-surface', TONES[(e.tone as Tone) ?? 'violet'] ?? TONES.violet)}>
+            <span className="absolute -left-[35px] flex h-7 w-7 items-center justify-center rounded-full bg-sunken text-muted ring-4 ring-surface">
               <Icon className="h-3.5 w-3.5" />
             </span>
             {e.enlace ? (
@@ -198,7 +198,7 @@ export function EntityTasks({ entidad, id }: { entidad: string; id: string }) {
     <div className="space-y-3">
       <ul className="space-y-1">
         {data?.map((t) => (
-          <li key={t.id} className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-sunken">
+          <li key={t.id} className="flex items-center gap-2 rounded-lg px-2 py-2 hover:bg-sunken">
             <button type="button" onClick={() => toggle.mutate(t)} aria-label={t.estado === 'hecha' ? 'Marcar pendiente' : 'Marcar hecha'}>
               {t.estado === 'hecha' ? <CheckCircle2 className="h-5 w-5 text-ok" /> : <Circle className="h-5 w-5 text-muted" />}
             </button>

@@ -23,7 +23,7 @@ export default function Calendario() {
       <PageHeader title="Calendario de equipo" icon={CalendarRange} subtitle="Ausencias aprobadas y pendientes de cada persona." />
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <IconButton icon={ChevronLeft} label="Mes anterior" variant="secondary" onClick={() => setMes(mover(mes, -1))} />
-        <span className="w-40 text-center text-[16px] font-medium capitalize">{titulo}</span>
+        <span className="w-40 text-center text-[16px] font-medium first-letter:uppercase">{titulo}</span>
         <IconButton icon={ChevronRight} label="Mes siguiente" variant="secondary" onClick={() => setMes(mover(mes, 1))} />
         <div className="w-full sm:ml-auto sm:w-60">
           <RefSelect target="departamentos" value={dep} onChange={setDep} placeholder="Todos los departamentos" />
@@ -41,7 +41,7 @@ export default function Calendario() {
                   const dow = (new Date(d + 'T12:00:00Z').getUTCDay() + 6) % 7;
                   const fest = data.festivos.find((f: any) => f.fecha === d && !f.centroId);
                   return (
-                    <th key={d} title={fest?.nombre} className={cn('px-0 py-1.5 text-center font-medium', dow >= 5 || fest ? 'bg-sunken text-muted/70' : 'text-muted', d === hoy && 'text-primary')}>
+                    <th key={d} title={fest?.nombre} className={cn('px-0 py-2 text-center font-medium', dow >= 5 || fest ? 'bg-sunken text-muted/70' : 'text-muted', d === hoy && 'text-primary')}>
                       {LETRA[dow]}
                       <br />
                       {Number(d.slice(8))}
@@ -53,7 +53,7 @@ export default function Calendario() {
             <tbody>
               {data.personas.map((p: any) => (
                 <tr key={p.id} className="border-t border-line">
-                  <td className="sticky left-0 z-10 max-w-[180px] truncate bg-surface px-3 py-1.5 text-[13px] font-medium">{p.nombre}</td>
+                  <td className="sticky left-0 z-10 max-w-[180px] truncate bg-surface px-3 py-2 text-[13px] font-medium">{p.nombre}</td>
                   {data.dias.map((d: string) => {
                     const dow = (new Date(d + 'T12:00:00Z').getUTCDay() + 6) % 7;
                     const a = p.ausencias.find((x: any) => x.desde <= d && x.hasta >= d);
