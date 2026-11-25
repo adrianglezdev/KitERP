@@ -113,7 +113,6 @@ export function SlaBadge({ sla, estado }: { sla: any; estado?: string }) {
   const tone: Tone = sla.incumplido ? 'red' : sla.enRiesgo ? 'orange' : 'gray';
   return (
     <span className={cn('inline-flex h-6 items-center gap-2 whitespace-nowrap rounded-md px-2 text-[12px] font-medium ring-1 ring-inset', TONES[tone])} title={`Objetivo de ${sla.objetivo === 'respuesta' ? 'primera respuesta' : 'resolución'}`}>
-      <span className="h-1.5 w-1.5 rounded-full bg-current" />
       {sla.incumplido ? 'Fuera de plazo' : `${sla.objetivo === 'respuesta' ? 'Responder' : 'Resolver'}: ${restanteTexto(sla.restanteMin)}`}
     </span>
   );

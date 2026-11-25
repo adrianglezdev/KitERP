@@ -267,6 +267,9 @@ const DEPARTAMENTOS: { id: Pillar; label: string; icon: LucideIcon; description:
   { id: 'finanzas', label: PILLARS.finanzas.label, icon: Landmark, description: PILLARS.finanzas.description },
 ];
 
+/** Nombre e icono de cada departamento (para marcarlo con su color fuera del lanzador). */
+export const DEPARTAMENTO: Record<Pillar, { label: string; icon: LucideIcon }> = Object.fromEntries(DEPARTAMENTOS.map((d) => [d.id, { label: d.label, icon: d.icon }])) as Record<Pillar, { label: string; icon: LucideIcon }>;
+
 /** Departamentos con alguna aplicación a la que pueda entrar la persona. */
 export function buildDepartamentos(apps: AppInfo[]): Departamento[] {
   return DEPARTAMENTOS.map((d) => {

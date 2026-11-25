@@ -128,8 +128,6 @@ export default function Portal() {
                   <p className="text-[12px] text-muted">{DIAS[d.getDay()]}</p>
                   <p className="tabular text-[16px] font-medium">{d.getDate()}</p>
                   <p className="flex items-center justify-center gap-1 truncate text-[11px] text-muted" title={t.festivo ?? t.ausencia ?? t.horario ?? ''}>
-                    {/* El color del turno, como un punto: identifica el turno sin pintar la casilla */}
-                    {t.color && !t.festivo && !t.ausencia && <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: t.color }} aria-hidden />}
                     <span className="truncate">{t.festivo ? 'Festivo' : t.ausencia ? t.ausencia : t.horario ?? 'Libre'}</span>
                   </p>
                 </div>

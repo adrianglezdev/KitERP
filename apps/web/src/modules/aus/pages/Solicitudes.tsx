@@ -45,7 +45,7 @@ export default function Solicitudes() {
           rows={data ?? []}
           columns={[
             { key: 'persona', header: 'Persona', cell: (r) => <Link to={`/personas/${r.personaId}?tab=aus-ausencias`} className="font-medium hover:text-primary">{r.persona}</Link> },
-            { key: 'tipo', header: 'Tipo', cell: (r) => <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full" style={{ background: r.color }} />{r.tipo}</span> },
+            { key: 'tipo', header: 'Tipo', cell: (r) => <span>{r.tipo}</span> },
             { key: 'fechas', header: 'Fechas', cell: (r) => rango(r.desde, r.hasta, r.medioDia) },
             { key: 'dias', header: 'Días', align: 'right', cell: (r) => fmtNumber(r.dias, 1) },
             { key: 'just', header: '', hideBelow: 'md', cell: (r) => (r.justificanteUrl ? <a href={r.justificanteUrl} target="_blank" rel="noreferrer" className="text-primary" aria-label="Ver justificante"><Paperclip className="h-4 w-4" /></a> : null) },

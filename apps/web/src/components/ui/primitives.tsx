@@ -1,13 +1,13 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Inbox, Loader2, type LucideIcon } from 'lucide-react';
-import { optionLabel, type EnumOption } from '@kite/shared';
-import { cn, TONES, type Tone } from '@/lib/utils';
+import { moduleInfo, optionLabel, type EnumOption, type Pillar } from '@kite/shared';
+import { cn, iconByName, PILLAR_CLASSES, TONES, type Tone } from '@/lib/utils';
 
-export function Badge({ tone = 'gray', children, className, dot }: { tone?: Tone | string; children: ReactNode; className?: string; dot?: boolean }) {
+/** Etiqueta de estado o tipo. `dot` se acepta por compatibilidad, pero ya no se pinta ningún punto. */
+export function Badge({ tone = 'gray', children, className }: { tone?: Tone | string; children: ReactNode; className?: string; dot?: boolean }) {
   return (
     <span className={cn('inline-flex h-6 items-center gap-2 whitespace-nowrap rounded-md px-2 text-[12px] font-medium', TONES[(tone as Tone) ?? 'gray'] ?? TONES.gray, className)}>
-      {dot && <span className="h-1.5 w-1.5 rounded-full bg-current" />}
       {children}
     </span>
   );
@@ -156,4 +156,21 @@ export function ProgressBar({ value, max = 100, tone = 'violet' }: { value: numb
       <div className={cn('h-full origin-left rounded-full transition-transform duration-500', color)} style={{ transform: `scaleX(${pct / 100})` }} />
     </div>
   );
+}
+
+/**
+ * Marca de un módulo o de un pilar: su icono sobre una baldosa del color que tiene asignado (el
+ * mismo que en el lanzador). Es la forma de señalar a qué módulo pertenece algo, en lugar de puntos.
+ */
+export function PillarTile({ pillar, icon: Icon, size = 'sm', className }: { pillar: Pillar; icon: LucideIcon; size?: 'xs' | 'sm'; className?: string }) {
+  return (
+    <span className={cn('flex shrink-0 items-center justify-center', size === 'xs' ? 'h-6 w-6 rounded-md' : 'h-8 w-8 rounded-lg', PILLAR_CLASSES[pillar]!.solid, className)} aria-hidden>
+      <Icon className={size === 'xs' ? 'h-3.5 w-3.5' : 'h-4 w-4'} />
+    </span>
+  );
+}
+
+export function ModuleIcon({ modulo, size = 'sm', className }: { modulo: string; size?: 'xs' | 'sm'; className?: string }) {
+  const info = moduleInfo(modulo);
+  return <PillarTile pillar={info?.pillar ?? 'plataforma'} icon={iconByName(info?.icon)} size={size} className={className} />;
 }

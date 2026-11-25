@@ -5,7 +5,7 @@ import { moduleInfo, PILLARS, type ApprovalItem, type Pillar } from '@kite/share
 import { api } from '@/lib/api';
 import { useApi, useMut } from '@/lib/hooks';
 import { cn, PILLAR_CLASSES, relTime } from '@/lib/utils';
-import { Button, Card, CardHeader, EmptyState, PageHeader, Segmented, Spinner, useConfirm } from '@/components/ui';
+import { Button, Card, CardHeader, EmptyState, ModuleIcon, PageHeader, Segmented, Spinner, useConfirm } from '@/components/ui';
 
 const pilarDe = (modulo: string): Pillar => moduleInfo(modulo)?.pillar ?? 'plataforma';
 
@@ -57,9 +57,9 @@ export default function Bandeja() {
               {lista.map((a) => (
                 <li key={`${a.modulo}-${a.id}`} className="flex flex-col gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-sunken/60 sm:flex-row sm:items-center">
                   <div className="flex min-w-0 flex-1 items-start gap-3">
-                    <span className={cn('mt-2 h-2 w-2 shrink-0 rounded-full', PILLAR_CLASSES[pilarDe(a.modulo)]!.dot)} />
+                    <ModuleIcon modulo={a.modulo} />
                     <div className="min-w-0 flex-1">
-                      <p className="text-[12px] font-semibold text-primary">
+                      <p className="text-[12px] text-muted">
                         {a.tipo} · {relTime(a.fecha)}
                       </p>
                       {a.enlace ? (
@@ -112,11 +112,13 @@ export default function Bandeja() {
                 const cuerpo = (
                   <>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[14px] font-semibold">{n.titulo}</span>
+                      <span className={cn('block text-[14px]', n.leidaEn ? 'font-medium text-fg/80' : 'font-semibold')}>
+                        {n.titulo}
+                        {!n.leidaEn && <span className="sr-only"> (sin leer)</span>}
+                      </span>
                       {n.cuerpo && <span className="block text-[13px] text-muted">{n.cuerpo}</span>}
                       <span className="block text-[12px] text-muted">{relTime(n.creadoEn)}</span>
                     </span>
-                    {!n.leidaEn && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-earth" aria-label="Sin leer" />}
                   </>
                 );
                 return (
